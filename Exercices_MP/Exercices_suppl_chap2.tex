@@ -1,0 +1,348 @@
+\documentclass[11pt]{book}
+\usepackage[latin1]{inputenc} % Pour pouvoir taper les accent directement et non pas passer par \'
+\usepackage[T1]{fontenc} %%% Pour que les accents soient correctement traités dans le PDF
+\usepackage{lmodern}     %%% Pour que les accents soient correctement traités dans le PDF
+\usepackage[francais]{babel}
+%\FrenchItemizeSpacingfalse
+\usepackage{amsfonts} % Permet l'utilisation de plus de polices de caractères en mode mathématique
+\usepackage{natbib} % Le style natbib pour les références bibliographiques
+\usepackage{epsfig} % Pour utiliser la commande \epsfig
+\usepackage{multirow} % Pour faire des tableaux contenant des lignes fusionnées
+\usepackage{verbatim} % Permet d'insérer un fichier ASCII brut
+\usepackage{rotating} % Perment l'utilisation de l'environnement sideways
+\usepackage{subfigure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Si on crée des commandes, les ajouter ici. Exemple :
+
+\usepackage{epstopdf} %permet d'insérer les eps avec le compilateur pdflatex
+\usepackage{ccaption}
+\usepackage{url}
+\usepackage[T1]{fontenc}
+
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{dsfont}
+\usepackage{graphicx,color}
+\usepackage{array}
+\usepackage[mathscr]{eucal}
+
+\newcommand{\betavec}{\boldsymbol{\beta}}
+\newcommand{\yvec}{\mathbf{Y}}
+\newcommand{\Xmat}{\mathbf{X}}
+\newcommand{\epsvec}{\boldsymbol{\varepsilon}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\newcommand{\esp}{\mathbb{E}}
+\newcommand{\var}{\mathbb{V}\text{ar}}
+\newcommand{\cov}{\mathbb{C}\text{ov}}
+\newcommand{\corr}{\mathbb{C}\text{orr}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\N}{\mathcal{N}}
+\def\I{\mathbb{I}}
+\def\R{\mathbb{R}}
+\def\P{{\mathbb P}}
+\newcommand{\bm}{\boldmath}
+\newcommand{\um}{\unboldmath}
+\newcommand{\botheta}{\mbox{\bm$\theta$\um}}
+\newcommand{\boTheta}{\mbox{\bm$\Theta$\um}}
+\newcommand{\boY}{\mbox{\bm$Y$\um}}
+\newcommand{\bobeta}{\mbox{\bm$\beta$}}
+\newcommand{\boeps}{\mbox{\bm$\varepsilon$\um}}
+\newcommand{\boldx}{\mbox{\bm$x$\um}}
+\newcommand{\boR}{\mbox{\bm$R$\um}}
+\newcommand{\boun}{\mbox{\bm$1$\um}}
+\newcommand{\boz}{\mbox{\bm$0$\um}}
+\newcommand{\bolambda}{\mbox{\bm$\lambda$\um}}
+\newcommand{\bov}{\mbox{\bm$v$\um}}
+\newcommand{\boalpha}{\mbox{\bm$\alpha$\um}}
+\newcommand{\bo}[1]{\mbox{\bm$#1$\um}}
+\newcommand{\boX}{\bo{X}}
+\newcommand{\boV}{\bo{V}}
+\newcommand{\hbobeta}{\hat{\bobeta}}
+\newcommand{\hboeps}{\hat{\boeps}}
+\newcommand{\hY}{\hat{\boY}}
+\newcommand{\boH}{\bo{H}}
+\newcommand{\boI}{\bo{\I}}
+\newcommand{\eproof}{\hfill$\sqcap\!\!\!\!\sqcup$}
+\newcommand{\bou}{\mbox{\bm$u$\um}}
+
+\title{ACT 2003}
+\author{Marie-Pier Côté}
+
+\setlength{\oddsidemargin}{-.2in}
+\setlength{\evensidemargin}{-.2in}
+\setlength{\textwidth}{7in}
+
+\makeindex
+
+\begin{document}
+
+\begin{center}
+
+\textsc{\Large École d'actuariat}\\
+\textsc{\Large Université Laval}\\[0.5cm]
+
+% Title
+\HRule \\
+{ \LARGE \bfseries Modèles linéaires en actuariat \\ }
+{ \LARGE \bfseries ACT-2003 \\ }
+{ \LARGE \bfseries Exercices Supplémentaires Chapitre 2\\ }
+\HRule \\[0.4cm]
+
+\Large Professeure: Marie-Pier \textsc{Côté}\\
+\textsc{Automne} 2018
+
+\end{center}
+
+\vfill
+
+\noindent \textbf{Question 1.} On s'intéresse à l'impact du sexe sur l'espérance de vie. On connaît les durées de vie de $n_{F}=300$ femmes et $n_H=200$ hommes. On choisit d'utiliser la variable indicatrice $$x_{i}=\left\{ \begin{array}{ll}
+0 & \mbox{, si \texttt{SEXE}}_i=\texttt{H}\\
+1 & \mbox{, si \texttt{SEXE}}_i=\texttt{F}\\
+\end{array}\right. .$$
+On note $\bar{Y}_F$ la moyenne des durées de vie des femmes et $\bar{Y}_H$ la moyenne des durées de vie des hommes.
+
+\bigskip
+\begin{itemize}
+\item[a)] Montrer que l'estimateur des moindres carrés $\hat{\beta}_1$ (lié à la variable explicative $x$) est égal à $\bar{Y}_F-\bar{Y}_H$. \emph{Indice: On peut exprimer $\bar{Y}$ en termes de $\bar{Y}_F$ et $\bar{Y}_H$.} 
+
+\bigskip
+\item[b)] Ce résultat permet-il d'interpréter le coefficient relié à une variable catégorique binaire? Expliquer. 
+
+\bigskip
+\item[c)] Que représente $\hat{\beta}_0$ dans ce cas? 
+
+\end{itemize}
+
+\bigskip \bigskip
+
+\noindent\textbf{Question 2.} On s'intéresse à la covariance entre deux résidus.
+\bigskip
+\begin{itemize}
+\item[(i)] D'abord, trouver $\cov(Y_i,\hat{Y}_j)$. 
+
+\item[(ii)] Puis, calculer $\cov(\hat{Y}_i,\hat{Y}_j)$. 
+
+
+\item[(iii)] Déduire de (i) et (ii) que $$\cov(\hat{\varepsilon}_i,\hat{\varepsilon}_j)=-\sigma^2\left(\frac{1}{n}+\frac{(x_i-\bar{x})(x_j-\bar{x})}{S_{xx}}\right).$$ 
+
+\end{itemize}
+
+\bigskip \bigskip
+
+\noindent\textbf{Question 3 (Transformations pour stabiliser la variance).} Dans un graphiques des résidus en fonction des valeurs prédites, on observe de l'hétéroscédasticité. Après une analyse plus poussée, on note que la variance de $\hat{\varepsilon}_i$ est approximativement proportionnelle à $E[Y_i]^4$ . Proposer une transformation $g$ de la variable réponse qui permettra de stabiliser la variance.
+
+\bigskip \bigskip
+
+\noindent\textbf{Question 4 (Méthode de Box-Cox).} Les données suivantes présentent le nombre moyen de bactéries vivantes dans une boîte de conserve de nourriture et le temps (en minutes) d'exposition à une chaleur de $300^{o}$F.\footnote{Source: D. Montgomery, E.A. Peck et G.G. Vining (2012). Introduction to Linear Regression Analysis. Fifth Edition. Wiley.}
+\begin{center}
+\begin{tabular}{cc}
+\hline
+Nombre de bactéries & Temps d'exposition (min) \\ \hline
+175&1\\
+108&2\\
+95&3\\
+82&4\\
+71&5\\
+50&6\\
+49&7\\
+31&8\\
+28&9\\
+17&10\\
+16&11\\
+11&12\\ \hline
+\end{tabular}
+\end{center}
+
+\bigskip
+
+\begin{itemize}
+\item[a)] Tracer un nuage de points des données. Est-ce qu'un modèle de régression linéaire semble adéquat?
+
+\bigskip
+\item[b)] Ajuster aux données un modèle de régression linéaire. Calculer les statistiques sommaires et produire les graphiques de résidus. Interpréter les résultats. Quelles sont vos conclusions par rapport à la validité du modèle de régression?
+
+\bigskip
+\item[c)] Identifier une transformation pour ces données afin d'utiliser adéquatement les méthodes de régression. Ajuster ce nouveau modèle et tester la validité de la régression.
+\end{itemize}
+
+
+\newpage
+
+\begin{center}
+\LARGE{\textbf{SOLUTIONS}}
+\end{center}
+
+\noindent \textbf{Question 1.} 
+\bigskip
+\begin{itemize}
+\item[a)] On a $$\bar{Y}=\frac{\sum_{i=1}^{500}Y_i}{500}=\frac{300\bar{Y}_F+200\bar{Y}_H}{500}.$$ Aussi,
+$$\hat{\beta}_1=\frac{S_{xy}}{S_{xx}}=\frac{\sum_{i=1}^{500}x_iY_i-500\bar{x}\bar{Y}}{\sum_{i=1}^{500}x_i^2-500\bar{x}^2}.$$  Or, 
+\begin{align*}
+\bar{x}&=\frac{\sum_{i=1}^{500}x_i}{500}=\frac{300}{500},\\
+\sum_{i=1}^{500}x_i^2&=300,\\
+\sum_{i=1}^{500}x_i Y_i&=300\bar{Y}_F
+\end{align*}
+Donc, 
+\begin{align*}
+\hat{\beta}_1&=\frac{300\bar{Y}_F-500\times\frac{300}{500}\times\frac{300\bar{Y}_F+200\bar{Y}_H}{500}}{300-500\left(\frac{300}{500}\right)^2}\\
+&=\frac{500\bar{Y}_F-300\bar{Y}_F-200\bar{Y}_H}{500-300}\\
+&=\bar{Y}_F-\bar{Y}_H.
+\end{align*}
+\bigskip
+\item[b)] Oui, le coefficient relié à la variable indicatrice qui vaut 1 si le sexe est F représente la différence etre la moyenne de l'espérance de vie pour les femmes et la moyenne de l'espérace de vie pour les hommes.
+\bigskip
+\item[c)] 
+\begin{align*}
+\hat{\beta}_0&=\bar{Y}-\hat{\beta}_1\bar{x}=\bar{Y}-(\bar{Y}_F-\bar{Y}_H)\frac{300}{500}=\bar{Y}_H.
+\end{align*}
+
+$\Rightarrow \hat{\beta}_0$ est la moyenne de l'espérance de vie pour les hommes.
+
+\end{itemize}
+
+\textbf{Question 2.} 
+\bigskip
+\begin{itemize}
+\item[(i)] 
+
+\begin{align*}
+\cov(Y_i,\hat{Y}_j)&=\cov(Y_i,\hat{\beta}_0+\hat{\beta}_1x_j)\\
+&=\cov(Y_i,\bar{Y}-\hat{\beta}_1\bar{x}+\hat{\beta}_1x_j)\\
+&=\cov(Y_i,\bar{Y})+(x_j-\bar{x})\cov(Y_i,\hat{\beta}_1) \mbox{ par indépendance des observations}\\
+&=\frac{\sigma^2}{n}+\frac{(x_j-\bar{x})}{S_{xx}}\sum_{l=1}^n(x_l-\bar{x})\cov(Y_i,Y_l)\\
+&=\frac{\sigma^2}{n}+\frac{(x_j-\bar{x})(x_i-\bar{x})}{S_{xx}}\sigma^2\mbox{ par indépendance des observations}.\\
+\end{align*}
+
+\item[(ii)] 
+
+\begin{align*}
+\cov(\hat{Y}_i,\hat{Y}_j)&=\cov(\hat{\beta}_0+\hat{\beta}_1x_i,\hat{\beta}_0+\hat{\beta}_1x_j)\\
+&=\var(\hat{\beta}_0)+(x_i+x_j)\cov(\hat{\beta}_0,\hat{\beta}_1)+x_ix_j\var(\hat{\beta}_1)\\
+&=\sigma^2\left(\frac{1}{n}+\frac{\bar{x}^2}{S_{xx}}\right)-(x_i+x_j)\frac{\bar{x}\sigma^2}{S_{xx}}+x_ix_j\frac{\sigma^2}{S_{xx}}\\
+&=...\\
+&=\sigma^2\left(\frac{1}{n}+\frac{(x_j-\bar{x})(x_i-\bar{x})}{S_{xx}}\right).
+\end{align*}
+
+\item[(iii)] 
+
+\begin{align*}
+\cov(\hat{\varepsilon}_i,\hat{\varepsilon}_j)&=\cov(Y_i-\hat{Y}_i,Y_j-\hat{Y}_j)\\
+&=\cov(Y_i,Y_j)-\cov(Y_i,\hat{Y}_j)-\cov(\hat{Y}_i,Y_j)+\cov(\hat{Y}_i,\hat{Y}_j)\\
+&=0-2\sigma^2\left(\frac{1}{n}+\frac{(x_j-\bar{x})(x_i-\bar{x})}{S_{xx}}\right)+\left(\frac{1}{n}+\frac{(x_j-\bar{x})(x_i-\bar{x})}{S_{xx}}\right)\\
+&=-\sigma^2\left(\frac{1}{n}+\frac{(x_i-\bar{x})(x_j-\bar{x})}{S_{xx}}\right).
+\end{align*}
+\end{itemize}
+
+\bigskip
+\bigskip
+
+\noindent\textbf{Question 3.}
+
+Utiliser l'approximation de Taylor de premier ordre pour montrer que la variance de $g(Y)=1/Y$ est approximativement constante.
+
+\bigskip
+\bigskip
+
+\noindent\textbf{Question 4.} Malheureusement, cette solution est en anglais, si vous avez de la difficulté à la comprendre, vous pouvez poser vos questions sur le forum.
+
+(a) Figure~\ref{scatter5-3} shows a scatter plot of the number of bacteria versus the minutes of exposure. The plot shows a straight line would be a reasonable model, but an even better model would capture the curvature. In fact, the plot shows that when the canned food is exposed to $300^{o}$ F for a long time, there is ultimately no bacteria left. This suggests a model that would capture the asymptotic behavior of the number of bacteria when the number of minutes of exposure increases. A linear model would continue to drive down the number of bacteria, eventually leading to negative values, which is nonsensical in this context.
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=8cm]{Figures/scatterplot5-3a.jpeg}
+\end{center}
+\caption{Scatter Plot of the Number of Bacteria versus the Minutes of Exposure to $300^{o}$ F}\label{scatter5-3}
+\end{figure}
+
+(b) A simple linear model is fitted to the data using \verb'R'. Here is a summary of the model:
+\begin{footnotesize}
+\verbatiminput{Figures/Output5-3b.txt}
+\end{footnotesize}
+
+The fitted model is $$\hat{y}=142.20-12.48x,$$ where the parameters of the model are estimated by the best linear unbiased estimators. The ANOVA table is obtained using \verb"R":
+\begin{footnotesize}
+\verbatiminput{Figures/Anova5-3b.txt}
+\end{footnotesize}
+In order to test for the significance of regression, we use the F-statistic. The F-statistic is 66.512, and it has 1 and 10 degrees of freedom, so the $p$-value is $$P[F_{(1,10)}>66.512]=9.944\times10^{-6} .$$ Since the $p$-value is much smaller than 1\%, there is enough evidence to reject the null hypothesis that $\beta_{1}=0$ at the 1\% level. The simple linear model is significant.
+
+The value of $R^{2}$ is $86.93\%$. This is a high coefficient of correlation, it means that about 87\% of the variation in the number of bacteria in the canned food is explained by the minutes of exposure to $300^{o}$F. The model seems to perform well.
+
+The Q-Q Plot of the studentized residuals is shown in Figure~\ref{qqplot3b}. The line represents when the empirical quantiles are exactly equal to the standard normal quantiles. The normality assumption is seriously violated as the dots are clearly not on a straight line. This means there are serious flaws in the model, including the fact that the hypothesis tests are not reliable.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=7cm]{Figures/qqplot5-3b.jpeg}
+\end{center}
+\caption{Q-Q Plot for Simple Linear Model in Problem 5 b)} \label{qqplot3b}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=7cm]{Figures/ResPred5-3b.jpeg}
+\end{center}
+\caption{Residuals versus the Fitted Values for Simple Linear Model in Problem 5 b)} \label{ResPred3b}
+\end{figure}
+
+Figure~\ref{ResPred3b} shows a plot of the studentized residuals versus the fitted values. The plot suggests a clear curve, which is usually an indicator of non-linearity. This is in line with the previous comments.
+
+Finally, this model is inadequate and transformations on the response variables are required.
+
+
+\newpage
+
+(c) The Box-Cox method is used to determine which transformation is optimal. Figure~\ref{boxcox3} shows the plot of the log-likelihood function in terms of $\lambda$, for two different ranges of $\lambda$. It was obtained with the \verb'R' commands:
+\begin{center}
+\begin{verbatim}
+boxcox(bact~minutes,lambda=seq(-2,2,len=20),plotit=TRUE)
+boxcox(bact~minutes,lambda=seq(-0.2,0.5,len=20),plotit=TRUE)
+\end{verbatim}
+\end{center}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=12cm]{Figures/BoxCox5-3.jpeg}
+\end{center}
+\caption{Log-likelihood versus $\lambda$ in the Box-Cox method for Problem 5 c)} \label{boxcox3}
+\end{figure}
+
+Note that the maximum is around 0.1 and 0 is included in the 95\% confidence interval for $\lambda$. Therefore, it is preferable to use 0 as this is a common transformation, it represents the logarithm transformation. Let $y^{*}=\ln(y)$. A simple linear model is fitted to the transformed data. The output is the following:
+\begin{footnotesize}
+\verbatiminput{Figures/Output5-3c.txt}
+\end{footnotesize}
+The fitted model is $$\hat{y}^{*}=5.33878-0.23617x,$$ where the parameters of the model are estimated by the best linear unbiased estimators. Figure~\ref{scatter5-3c} is a scatter plot of the transformed response variable versus the covariate, along with the fitted line. The scatter plot looks much more linear now than in (a).
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=7cm]{Figures/scatterplot5-3c.jpeg}
+\end{center}
+\caption{Scatter Plot of the Logarithm of the Number of Bacteria versus the Minutes of Exposure to $300^{o}$ F}\label{scatter5-3c}
+\end{figure}
+
+\vspace{0.3cm}
+The ANOVA table is obtained using \verb"R":
+\begin{footnotesize}
+\verbatiminput{Figures/Anova5-3c.txt}
+\end{footnotesize}
+The F-statistic for the test of significance of regression is 550.33, and it has 1 and 10 degrees of freedom, so the $p$-value is $$P[F_{(1,10)}>550.33]= 4.489\times10^{-10}.$$ Since the $p$-value is much smaller than 1\%, there is enough evidence to reject the null hypothesis that $\beta_{1}=0$ at the 1\% level. This model is significant.
+
+The value of $R^{2}$ is very high at $98.22\%$. This means that about 98\% of the variation in the log of the number of bacteria in the canned food is explained by the minutes of exposure to $300^{o}$F. The model seems to perform very well, better than the model proposed in (b).
+
+The Q-Q Plot of the studentized residuals is shown in Figure~\ref{qqplot3c}. The dots are beautifully aligned with the standard normal quantiles. The normality assumption is appropriate. Figure~\ref{ResPred3c} shows a plot of the studentized residuals versus the fitted values. The dots can be contained in horizontal bands and looks randomly scattered.
+
+\vspace{0.3cm}
+Finally, this model is adequate and the transformation used on the response variables fixed the problems in the model.
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=7cm]{Figures/qqplot5-3c.jpeg}
+\end{center}
+\caption{Q-Q Plot of Model for the Logarithm of the Number of Bacteria in Problem 5 c)} \label{qqplot3c}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=7cm]{Figures/ResPred5-3c.jpeg}
+\end{center}
+\caption{Residuals versus the Fitted Values for Model for the Logarithm of the Number of Bacteria in Problem 5 c)} \label{ResPred3c}
+\end{figure}
+
+\end{document}

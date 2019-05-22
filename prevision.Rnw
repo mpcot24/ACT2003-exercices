@@ -1,0 +1,317 @@
+\chapter{Prévision de séries chronologiques}
+\label{chap:prevision}
+
+\Opensolutionfile{reponses}[reponses-prevision]
+\Opensolutionfile{solutions}[solutions-prevision]
+
+\begin{Filesave}{reponses}
+\bigskip
+\section*{Réponses}
+
+\end{Filesave}
+
+\begin{Filesave}{solutions}
+\section*{Chapitre \ref{chap:prevision}}
+\addcontentsline{toc}{section}{Chapitre \protect\ref{chap:prevision}}
+
+\end{Filesave}
+
+
+\begin{exercice}
+  Soit $\hat{X}_t(1)$ la prévision pour la période $t + 1$
+  faite depuis le temps $t$ à l'aide du lissage exponentiel. Calculer
+  $\hat{X}_5(1)$ à partir des informations ci-dessous.
+<<echo=FALSE>>=
+x <- round(scan("strikes.dat", comment="#")/100)
+alpha <- 0.12
+x.prev <- numeric(length(x))
+x.prev[1] <- x[1]
+for (i in 2:length(x.prev))
+    x.prev[i] <- alpha * x[i - 1] + (1 - alpha) * x.prev[i - 1]
+x.prev <- round(x.prev, 2)
+alphah <- round(diff(x.prev[c(29, 30)])/(x[29] - x.prev[29]), 4)
+res <- round(x.prev[30] + alphah * (x[30] - x.prev[30]), 4)
+@
+  \begin{center}
+    \begin{tabular}{*{6}{r}}
+      \toprule
+      $t$ & 1 & 2 & 3 & 4 & 5 \\
+      \midrule
+      $X_t$ & \Sexpr{x[26]}
+            & \Sexpr{x[27]}
+            & \Sexpr{x[28]}
+            & \Sexpr{x[29]}
+            & \Sexpr{x[30]} \\
+      $\hat{X}_{t-1}(1)$ & $\Sexpr{format(x.prev[26], dec = ",")}$
+                        & $\Sexpr{format(x.prev[27], dec = ",")}$
+                        & $\Sexpr{format(x.prev[28], dec = ",")}$
+                        & $\Sexpr{format(x.prev[29], dec = ",")}$
+                        & $\Sexpr{format(x.prev[30], dec = ",")}$ \\
+      \bottomrule
+    \end{tabular}
+ \end{center}
+ \begin{sol}
+   La prévision pour la période $n + 1$ calculée avec le lissage
+   exponentiel est $\hat{X}_n(1) = \alpha X_n + (1 - \alpha)
+   \hat{X}_{(n-1)}(1)$, pour $\alpha$ fixé. Ici, on doit d'abord
+   trouver la valeur de $\alpha$ utilisée pour calculer les prévisions
+   aux temps $t = 1, \dots, 5$. On a
+   \begin{displaymath}
+     \Sexpr{format(x.prev[30], dec = ",")} =
+     \Sexpr{x[29]} \alpha +
+     \Sexpr{format(x.prev[29], dec = ",")} (1 - \alpha),
+   \end{displaymath}
+   d'où $\alpha = \Sexpr{format(alphah, dec = ",")}$. Par conséquent,
+   \begin{align*}
+     \hat{X}_5(1)
+     &= \Sexpr{format(alphah, dec = ",")} (\Sexpr{x[30]}) +
+     (1 - \Sexpr{format(alphah, dec = ",")})
+     (\Sexpr{format(x.prev[30], dec = ",")}) \\
+     &= \Sexpr{format(res, dec = ",")}.
+   \end{align*}
+ \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  Soit $\{X_t\}$ un processus ARIMA$(2, 1, 0)$ solution de
+  \begin{displaymath}
+    (1 - \phi_1 B - \phi_2 B^2) \nabla X_t = Z_t,
+    \quad \{Z_t\} \sim \text{WN}(0, \sigma^2).
+  \end{displaymath}
+  Trouver une expression pour $\hat{X}_n(h)$, $h < n$.
+  \begin{rep}
+    $\hat{X}_n(1) = (\phi_1 + 1) X_n + (\phi_2 - \phi_1) X_{n-1} -
+    \phi_2 X_{n-2}$,
+    $\hat{X}_n(2) = (\phi_1 + 1) \hat{X}_{n+1} + (\phi_2 - \phi_1) X_n
+    - \phi_2 X_{n-1}$, $\hat{X}_n(3) = (\phi_1 + 1) \hat{X}_{n+2} +
+    (\phi_2 - \phi_1) \hat{X}_{n+1} - \phi_2 X_n$,
+    $\hat{X}_n(h) = (\phi_1 + 1) \hat{X}_n(h-1) + (\phi_2 - \phi_1)
+    \hat{X}_n(h-2) - \phi_2 \hat{X}_n(h-3)$, $h > 3$
+  \end{rep}
+  \begin{sol}
+    On réécrit tout d'abord l'équation caractéristique sous la forme
+    \begin{displaymath}
+      X_t = (\phi_1 + 1) X_{t-1} + (\phi_2 - \phi_1) X_{t-2} - \phi_2
+      X_{t-3} + Z_t.
+    \end{displaymath}
+    Par les propriétés de l'opérateur de prévision, on a alors
+    \begin{align*}
+      \hat{X}_n(1)
+      &= (\phi_1 + 1) X_n + (\phi_2 - \phi_1) X_{n-1} - \phi_2 X_{n-2} \\
+      \hat{X}_n(2)
+      &= (\phi_1 + 1) \hat{X}_n(1) + (\phi_2 - \phi_1) X_n - \phi_2 X_{n-1} \\
+      \hat{X}_n(3)
+      &= (\phi_1 + 1) \hat{X}_n(2) + (\phi_2 - \phi_1) \hat{X}_n(1) -
+      \phi_2 X_n \\
+      \intertext{et}
+      \hat{X}_n(h)
+      &= (\phi_1 + 1) \hat{X}_n(h-1) + (\phi_2 - \phi_1) \hat{X}_n(h-2) -
+      \phi_2 \hat{X}_n(h-3)
+    \end{align*}
+    pour $h > 3$.
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  On vous donne les valeurs suivantes d'une série $\{X_t\}$:
+\begin{Soutput}
+Time Series:
+Start = 1
+End = 10
+Frequency = 1
+ [1] 0 0 3 4 5 7 6 3 8 9
+\end{Soutput}
+  Après analyse, le modèle suivant est jugé adéquat pour cette série:
+  \begin{displaymath}
+    (1 + 0,6B)(X_t - 2 X_{t-1} + X_{t-2}) = Z_t \quad
+    \{Z_t\} \sim \text{WN}(0, 9),
+  \end{displaymath}
+  où $B$ est l'opérateur de rétro-décalage, comme d'habitude.
+  \begin{enumerate}
+  \item Identifier le modèle ci-dessus.
+  \item Soit $W_t = \nabla^2 X_t$. Identifier le  processus $\{W_t\}$
+    et montrer qu'il est stationnaire.
+  \item Calculer la meilleure prévision de $X_{12}$ et l'erreur
+    quadratique moyenne de $\hat{X}_{10}(2)$.
+  \end{enumerate}
+  \begin{rep}
+    \begin{inparaenum}
+    \item ARIMA$(1, 2, 0)$
+    \item AR$(1)$
+    \item $14,36$ et $26,64$
+    \end{inparaenum}
+  \end{rep}
+  \begin{sol}
+    \begin{enumerate}
+    \item On peut réécrire l'équation caractéristique comme
+      \begin{displaymath}
+        (1 + 0,6 B)(1 - B)^2 X_t = Z_t,
+      \end{displaymath}
+      et donc le modèle est un ARIMA$(1, 2, 0)$ avec $\phi = -0,6$ et
+      $\sigma^2 = 9$.
+    \item Le processus $W_t = \nabla^2 X_t$ satisfait les équations
+      \begin{displaymath}
+        (1 + 0,6 B) W_t = Z_t,
+      \end{displaymath}
+      d'où $\{W_t\} \sim \text{AR}(1)$. En écrivant ce processus sous
+      la forme MA$(\infty)$, on trouve
+      \begin{displaymath}
+        W_t = \sum_{j=0}^\infty (-0,6)^j Z_{t - j}
+      \end{displaymath}
+      et $\sum_{j=0}^\infty |(-0,6)^j| = 2,5 < \infty$. Par
+      conséquent, $\{W_t\}$ est un processus linéaire, qui est
+      toujours stationnaire par la Proposition 5.1 des notes de cours.
+    \item En isolant $X_t$ dans l'équation caractéristique du
+      processus $\{X_t\}$, on obtient
+      \begin{displaymath}
+        X_t = 1,4 X_{t-1} + 0,2 X_{t-2} - 0,6 X_{t-3} + Z_t.
+      \end{displaymath}
+      Par conséquent,
+      \begin{align*}
+        \hat{X}_n(1) &= 1,4 X_n + 0,2 X_{n-1} - 0,6 X_{n-2} \\
+        \intertext{et} \hat{X}_n(2) &= 1,4 \hat{X}_n(1) + 0,2 X_n -
+        0,6 X_{n-1},
+      \end{align*}
+      d'où $\hat{X}_{10}(1) = 12,4$ et $\hat{X}_{10}(2) = 14,36$. De
+      plus, on a que $\var{X_{12} - \hat{X}_{10}(2)} = \sigma^2 (1 +
+      \psi_1^2)$. Or, en posant
+      \begin{displaymath}
+        (1 - 1,4 z -0,2 z^2 + 0,6 z^3)(1 + \psi_1 z + \psi_2 z^2 + \dots)
+        = 1,
+      \end{displaymath}
+      on trouve $\psi_1 = 1,4$, d'où $\var{X_{12} - \hat{X}_{10}(2)} =
+      9 (1 + 1,4^2) = 26,64$.
+    \end{enumerate}
+  \end{sol}
+\end{exercice}
+
+\newpage
+
+\begin{exercice}
+  Soit les vingt dernières valeurs d'une série chronologique:
+<<echo=FALSE>>=
+set.seed(12)
+X2 <- ts(arima.sim(list(ar=-0.6, order=c(1, 2, 0)), 130, sd=sqrt(5)), freq=12)
+X2 <- diffinv(X2, lag=12)
+X2 <- round(tail(X2, 20))
+poids <- c(1.4, 0.2, -0.6, 1, -1.4, -0.2, 0.6)
+positions <- c(0, 1, 2, 11, 12, 13, 14)
+x.prev1 <- crossprod(poids, X2[length(X2) - positions])
+x.prev2 <- crossprod(poids, c(X2[-1], x.prev1)[length(X2) - positions])
+bornes <- round(x.prev2 + 1.96 * c(-sqrt(14.8), sqrt(14.8)), 2)
+@
+  \begin{center}
+    \begin{tabular}{cr}
+      \toprule
+      $t$   & \multicolumn{1}{c}{$X_t$} \\
+      \midrule
+      $n-19$ & $\nombre{\Sexpr{X2[1]}}$ \\
+      $n-18$ & $\nombre{\Sexpr{X2[2]}}$ \\
+      $n-17$ & $\nombre{\Sexpr{X2[3]}}$ \\
+      $n-16$ & $\nombre{\Sexpr{X2[4]}}$ \\
+      $n-15$ & $\nombre{\Sexpr{X2[5]}}$ \\
+      $n-14$ & $\nombre{\Sexpr{X2[6]}}$ \\
+      $n-13$ & $\nombre{\Sexpr{X2[7]}}$ \\
+      $n-12$ & $\nombre{\Sexpr{X2[8]}}$ \\
+      $n-11$ & $\nombre{\Sexpr{X2[9]}}$ \\
+      $n-10$ & $\nombre{\Sexpr{X2[10]}}$ \\
+      \bottomrule
+    \end{tabular}
+    \hspace{10mm}
+    \begin{tabular}{cr}
+      \toprule
+      $t$   & \multicolumn{1}{c}{$X_t$} \\
+      \midrule
+      $n-9$ & $\nombre{\Sexpr{X2[11]}}$ \\
+      $n-8$ & $\nombre{\Sexpr{X2[12]}}$ \\
+      $n-7$ & $\nombre{\Sexpr{X2[13]}}$ \\
+      $n-6$ & $\nombre{\Sexpr{X2[14]}}$ \\
+      $n-5$ & $\nombre{\Sexpr{X2[15]}}$ \\
+      $n-4$ & $\nombre{\Sexpr{X2[16]}}$ \\
+      $n-3$ & $\nombre{\Sexpr{X2[17]}}$ \\
+      $n-2$ & $\nombre{\Sexpr{X2[18]}}$ \\
+      $n-1$ & $\nombre{\Sexpr{X2[19]}}$ \\
+      $n$   & $\nombre{\Sexpr{X2[20]}}$ \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+  On a ajusté aux $n$ données un modèle dont l'équation
+  caractéristique est
+  \begin{displaymath}
+    (1 + 0,6 B)(1 - B)^2 (1 - B^{12}) X_t = Z_t, \quad
+    \{Z_t\} \sim \text{WN}(0, 5).
+  \end{displaymath}
+  \begin{enumerate}
+  \item Expliquer si la série $\{X_t\}$ contient de la tendance et/ou
+    de la saisonnalité. Le cas échéant, décrire brièvement ces
+    composantes (type, périodicité).
+  \item Calculer un intervalle de confiance à 95~\% pour la prévision
+    de la période $n + 2$.
+  \end{enumerate}
+  \begin{rep}
+    \begin{inparaenum}
+      \stepcounter{enumi}
+    \item $\nombre{\Sexpr{format(x.prev2, dec = ",")}} \pm 1,96
+      \sqrt{14,8}$
+    \end{inparaenum}
+  \end{rep}
+  \begin{sol}
+    \begin{enumerate}
+    \item Le terme $(1 - B)^2 \equiv \nabla^2$ indique une tendance
+      quadratique, alors que le terme $(1 - B^{12}) \equiv
+      \nabla_{12}$ montre que la série contient de la saisonnalité de
+      période 12.
+    \item On a
+      \begin{align*}
+        \nu(z)
+        &= (1 + 0,6 z)(1 - z)^2 (1 - z^{12}) \\
+        &= 1 - 1,4 z - 0,2 z^2 + 0,6 z^3 - z^{12} + 1,4 z^{13} + 0,2
+        z^{14} - 0,6 z^{15}.
+      \end{align*}
+      Par conséquent,
+      \begin{align*}
+        X_t
+        &= 1,4 X_{t-1} + 0,2 X_{t-2} -0,6 X_{t-3} + X_{t-12} \\
+        &\phantom{=}
+        - 1,4 X_{t-13} - 0,2 X_{t-14} + 0,6 X_{t-15} + Z_t,
+        \intertext{d'où}
+        \hat{X}_n(1)
+        &= 1,4 X_n + 0,2 X_{n-1} - 0,6 X_{n-2} + X_{n-11} \\
+        &\phantom{=}
+        - 1,4 X_{n-12} - 0,2 X_{n-13} + 0,6 X_{n-14} \\
+        &= \nombre{\Sexpr{format(x.prev1, dec = ",")}} \\
+        \intertext{et}
+        \hat{X}_n(2)
+        &= 1,4 \hat{X}_n(1) + 0,2 X_{n} -0,6 X_{n-1} + X_{n-10} \\
+        &\phantom{=}
+        - 1,4 X_{n-11} - 0,2 X_{n-12} + 0,6 X_{n-13} \\
+        &= \nombre{\Sexpr{format(x.prev2, dec = ",")}}.
+      \end{align*}
+      D'autre part, on trouve à partir de $\nu(z)(1 + \psi_1 z +
+      \psi_2 z^2 + \dots) = 1$ que le premier coefficient dans la
+      représentation MA$(\infty)$ de $\{X_t\}$ est $\psi_1 = 1,4$,
+      d'où $\var{X_{n+2} - \hat{X}_n(2)} = \sigma^2 (1 + \psi_1^2) =
+      14,8$. Un intervalle de prévision à 95~\% pour la période $n + 2$
+      est donc
+      \begin{displaymath}
+        \Sexpr{x.prev2} \pm 1,96 \sqrt{14,8} \Leftrightarrow
+        (\nombre{\Sexpr{format(bornes[1], dec = ",")}},\
+        \nombre{\Sexpr{format(bornes[2], dec = ",")}}).
+      \end{displaymath}
+    \end{enumerate}
+  \end{sol}
+\end{exercice}
+
+\Closesolutionfile{solutions}
+\Closesolutionfile{reponses}
+
+%%%
+%%% Insérer les réponses
+%%%
+\input{reponses-prevision}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "exercices_methodes_statistiques"
+%%% End:

@@ -1,0 +1,235 @@
+\documentclass[letterpaper,10pt]{memoir}
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{natbib,url}
+  \usepackage[english,francais]{babel}
+  \usepackage[autolanguage]{numprint}
+  \usepackage{lucidabr,pslatex}
+  \usepackage[sc]{mathpazo}
+  \usepackage{vgmath,icomma,amsmath,amsthm,upgreek}
+  \usepackage[noae]{Sweave}
+  \usepackage{graphicx,color}
+  \usepackage[absolute]{textpos}
+  \usepackage{answers,listings}
+  \usepackage[alwaysadjust]{paralist}
+  \usepackage{threeparttable}
+
+  %%% Hyperliens
+  \usepackage{hyperref}
+  \definecolor{link}{rgb}{0,0,0.3}
+  \hypersetup{
+    pdftex,
+    colorlinks,%
+    citecolor=link,%
+    filecolor=link,%
+    linkcolor=link,%
+    urlcolor=link}
+
+  %%% Page titre
+  \title{\HUGE
+    \fontseries{ub}\selectfont Modèles \\
+    \fontseries{ub}\selectfont linéaires\\
+    \fontseries{ub}\selectfont en actuariat \\[0.5\baselineskip]
+    \huge\fontseries{m}\selectfont Exercices et solutions}
+  \author{\LARGE Marie-Pier Côté \\[3mm]
+          \LARGE Vincent Mercier \\[3mm]
+    \large École d'actuariat, Université Laval}
+  %\date{\large Seconde édition}
+  %\newcommand{\ISBN}{978-2-9811416-0-6}
+
+  %% Options de babel
+  \frenchbsetup{ThinSpaceInFrenchNumbers=true}
+
+  %%% Style des entêtes de chapitres
+  \chapterstyle{hangnum}
+
+  %%% Styles des entêtes et pieds de page
+  \setlength{\marginparsep}{7mm}
+  \setlength{\marginparwidth}{13mm}
+  \setlength{\headwidth}{\textwidth}
+  \addtolength{\headwidth}{\marginparsep}
+  \addtolength{\headwidth}{\marginparwidth}
+
+  %%% Numéroter les sous-sections
+  \maxsecnumdepth{subsection}
+
+  %%% Nouveaux environnements
+  \theoremstyle{plain}
+  \newtheorem{thm}{Théorème}[chapter]
+  \theoremstyle{definition}
+  \newtheorem{exemple}{Exemple}[chapter]
+  \theoremstyle{remark}
+  \newtheorem*{rem}{Remarque}
+
+  %%% Associations entre les environnements et les fichiers
+  \Newassociation{sol}{solution}{solutions}
+  \Newassociation{rep}{reponse}{reponses}
+
+  %%% Environnement pour les exercices
+  \newcounter{exercice}[chapter]
+  \newenvironment{exercice}{%
+     \begin{list}{\bfseries \arabic{chapter}.\arabic{exercice}}{%
+         \refstepcounter{exercice}
+         \settowidth{\labelwidth}{\bfseries \arabic{chapter}.\arabic{exercice}}
+         \setlength{\leftmargin}{\labelwidth}
+         \addtolength{\leftmargin}{\labelsep}
+         \setdefaultenum{a)}{i)}{}{}}\item}
+     {\end{list}}
+
+  %%% Environnement pour les réponses
+  \renewenvironment{reponse}[1]{%
+    \begin{list}{\bfseries #1}{%
+        \settowidth{\labelwidth}{#1}
+        \setlength{\leftmargin}{\labelwidth}
+        \addtolength{\leftmargin}{\labelsep}
+        \setdefaultenum{a)}{i)}{}{}}\item}
+    {\end{list}}
+  \renewcommand{\reponseparams}{{\thechapter.\theexercice}}
+
+  %%% Environnement pour les listes de commandes
+  \newenvironment{ttscript}[1]{%
+    \begin{list}{}{%
+        \setlength{\labelsep}{1.5ex}
+        \settowidth{\labelwidth}{\code{#1}}
+        \setlength{\leftmargin}{\labelwidth}
+        \addtolength{\leftmargin}{\labelsep}
+        \setlength{\parsep}{0.5ex plus0.2ex minus0.2ex}
+        \setlength{\itemsep}{0.3ex}
+        \renewcommand{\makelabel}[1]{##1\hfill}}}
+    {\end{list}}
+
+  %%% Numérotation des solutions
+  \renewenvironment{solution}[1]{%
+    \begin{list}{\bfseries #1}{%
+        \settowidth{\labelwidth}{#1}
+        \setlength{\leftmargin}{\labelwidth}
+        \addtolength{\leftmargin}{\labelsep}
+        \setdefaultenum{a)}{i)}{}{}}\item}
+    {\end{list}}
+  \renewcommand{\solutionparams}{{\thechapter.\theexercice}}
+
+  %%% Nouvelles commandes
+  \renewcommand{\mat}[1]{\mathbf{#1}}
+  \newcommand{\betab}{\boldsymbol{\upbeta}}
+  \newcommand{\betabh}{\boldsymbol{\hat{\upbeta}}}
+  \newcommand{\vepsb}{\boldsymbol{\upvarepsilon}}
+  \newcommand{\SST}{\mathrm{SST}}
+  \newcommand{\SSR}{\mathrm{SSR}}
+  \newcommand{\SSE}{\mathrm{SSE}}
+  \newcommand{\MSE}{\mathrm{MSE}}
+  \newcommand{\MSR}{\mathrm{MSR}}
+  \newcommand{\tr}{\mathrm{tr}}
+
+  %%% Sous-figures
+  \newsubfloat{figure}
+
+  %%% Paramètres pour les sections de code source
+  \lstloadlanguages{R}
+  \lstdefinelanguage{Renhanced}[]{R}{%
+    morekeywords={acf,ar,arima,arima.sim,colMeans,colSums,is.na,is.null,%
+      mapply,ms,na.rm,nlmin,replicate,row.names,rowMeans,rowSums,seasonal,%
+      sys.time,system.time,ts.plot,which.max,which.min},
+    deletekeywords={c},
+    alsoletter={.\%},%
+    alsoother={:_\$}}
+  \lstset{language=Renhanced,
+    extendedchars=true,
+    inputencoding=latin1,
+    basicstyle=\small\ttfamily,
+    commentstyle=\textsl,
+    keywordstyle=\mdseries,
+    showstringspaces=false,
+    index=[1][keywords],
+    indexstyle=\indexfonction}
+
+  %%% Environnements pour le code S: police plus petite
+  \RecustomVerbatimEnvironment{Sinput}{Verbatim}{fontsize=\small}
+  \RecustomVerbatimEnvironment{Soutput}{Verbatim}{fontsize=\small}
+  \RecustomVerbatimEnvironment{Scode}{Verbatim}{fontsize=\small}
+
+  %%% Styles pour les noms de fonctions, code, etc.
+  \newcommand{\code}[1]{\texttt{#1}}
+
+  %%% Index
+  \renewcommand{\preindexhook}{%
+    Cet index contient des entrées pour les annexes
+    \ref{chap:regression} seulement. Les numéros de
+    page en caractères gras indiquent les pages où les concepts sont
+    introduits, définis ou expliqués.\vskip\onelineskip}
+  \newcommand{\Index}[1]{\index{#1|textbf}}
+  \newcommand{\indexargument}[1]{\index{#1@\code{#1}}}
+  \newcommand{\indexclasse}[1]{\index{#1@\code{#1} (classe)}}
+  \newcommand{\indexfonction}[1]{\index{#1@\code{#1}}}
+  \newcommand{\Indexfonction}[1]{\Index{#1@\code{#1}}}
+
+  \newcommand{\argument}[1]{\code{#1}\indexargument{#1}}
+  \newcommand{\classe}[1]{\code{#1}\indexclasse{#1}}
+  \newcommand{\fonction}[1]{\code{#1}\indexfonction{#1}}
+  \newcommand{\Fonction}[1]{\code{#1}\Indexfonction{#1}}
+  \makeindex
+
+%\includeonly{pagetitre}
+
+\begin{document}
+
+\shortcites{R:intro}
+
+\frontmatter
+
+\pagestyle{empty}
+\include{pagetitre}
+
+\pagestyle{companion}
+
+\include{introduction}
+
+\cleardoublepage
+\tableofcontents*
+
+\mainmatter
+
+\part{Régression linéaire}
+
+\stepcounter{chapter}
+\include{simple}
+\include{multiple}
+
+\part{Séries chronologiques}
+
+\include{lissage}
+\include{stationnarite}
+\include{estimation}
+\include{prevision}
+
+\appendix
+\include{regression}
+\include{ts}
+\include{elements}
+\include{solutions}
+
+\nocite{Miller:stat:1977}
+
+\bibliographystyle{francais}
+\bibliography{stat,vg,r} %%% à arranger
+
+\cleardoublepage
+\printindex
+
+\cleardoublepage
+\cleartoverso
+
+\pagestyle{empty}
+\renewcommand{\ttdefault}{hlst}
+
+\bandeverso
+%\begin{textblock*}{71mm}(135mm, -50mm)
+%  \textblockcolor{}
+%  \includegraphics{codebarre}
+%\end{textblock*}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

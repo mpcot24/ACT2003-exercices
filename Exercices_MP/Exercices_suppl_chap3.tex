@@ -1,0 +1,201 @@
+\documentclass[11pt]{book}
+\usepackage[latin1]{inputenc} % Pour pouvoir taper les accent directement et non pas passer par \'
+\usepackage[T1]{fontenc} %%% Pour que les accents soient correctement traités dans le PDF
+\usepackage{lmodern}     %%% Pour que les accents soient correctement traités dans le PDF
+\usepackage[francais]{babel}
+%\FrenchItemizeSpacingfalse
+\usepackage{amsfonts} % Permet l'utilisation de plus de polices de caractères en mode mathématique
+\usepackage{natbib} % Le style natbib pour les références bibliographiques
+\usepackage{epsfig} % Pour utiliser la commande \epsfig
+\usepackage{multirow} % Pour faire des tableaux contenant des lignes fusionnées
+\usepackage{verbatim} % Permet d'insérer un fichier ASCII brut
+\usepackage{rotating} % Perment l'utilisation de l'environnement sideways
+\usepackage{subfigure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Si on crée des commandes, les ajouter ici. Exemple :
+
+\usepackage{epstopdf} %permet d'insérer les eps avec le compilateur pdflatex
+\usepackage{ccaption}
+\usepackage{url}
+\usepackage[T1]{fontenc}
+
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{dsfont}
+\usepackage{graphicx,color}
+\usepackage{array}
+\usepackage[mathscr]{eucal}
+
+\newcommand{\betavec}{\boldsymbol{\beta}}
+\newcommand{\yvec}{\mathbf{Y}}
+\newcommand{\Xmat}{\mathbf{X}}
+\newcommand{\epsvec}{\boldsymbol{\varepsilon}}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\newcommand{\esp}{\mathbb{E}}
+\newcommand{\var}{\mathbb{V}\text{ar}}
+\newcommand{\cov}{\mathbb{C}\text{ov}}
+\newcommand{\corr}{\mathbb{C}\text{orr}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\N}{\mathcal{N}}
+\def\I{\mathbb{I}}
+\def\R{\mathbb{R}}
+\def\P{{\mathbb P}}
+\newcommand{\bm}{\boldmath}
+\newcommand{\um}{\unboldmath}
+\newcommand{\botheta}{\mbox{\bm$\theta$\um}}
+\newcommand{\boTheta}{\mbox{\bm$\Theta$\um}}
+\newcommand{\boY}{\mbox{\bm$Y$\um}}
+\newcommand{\bobeta}{\mbox{\bm$\beta$}}
+\newcommand{\boeps}{\mbox{\bm$\varepsilon$\um}}
+\newcommand{\boldx}{\mbox{\bm$x$\um}}
+\newcommand{\boR}{\mbox{\bm$R$\um}}
+\newcommand{\boun}{\mbox{\bm$1$\um}}
+\newcommand{\boz}{\mbox{\bm$0$\um}}
+\newcommand{\bolambda}{\mbox{\bm$\lambda$\um}}
+\newcommand{\bov}{\mbox{\bm$v$\um}}
+\newcommand{\boalpha}{\mbox{\bm$\alpha$\um}}
+\newcommand{\bo}[1]{\mbox{\bm$#1$\um}}
+\newcommand{\boX}{\bo{X}}
+\newcommand{\boV}{\bo{V}}
+\newcommand{\hbobeta}{\hat{\bobeta}}
+\newcommand{\hboeps}{\hat{\boeps}}
+\newcommand{\hY}{\hat{\boY}}
+\newcommand{\boH}{\bo{H}}
+\newcommand{\boI}{\bo{\I}}
+\newcommand{\eproof}{\hfill$\sqcap\!\!\!\!\sqcup$}
+\newcommand{\bou}{\mbox{\bm$u$\um}}
+
+\title{ACT 2003}
+\author{Marie-Pier Côté}
+
+\setlength{\oddsidemargin}{-.2in}
+\setlength{\evensidemargin}{-.2in}
+\setlength{\textwidth}{7in}
+
+\makeindex
+
+\begin{document}
+
+\begin{center}
+
+\textsc{\Large École d'actuariat}\\
+\textsc{\Large Université Laval}\\[0.5cm]
+
+% Title
+\HRule \\
+{ \LARGE \bfseries ACT-2003 Modèles linéaires en actuariat \\ }
+{ \LARGE \bfseries Exercice Supplémentaire Chapitre 3\\ }
+\HRule \\[0.4cm]
+
+\Large Marie-Pier \textsc{Côté}\\
+\textsc{Automne} 2018
+
+\end{center}
+
+\vfill
+
+
+ \noindent \textbf{Question 1.} Le modèle de régression linéaire multiple $$Y_i=\beta_0+\beta_1 x_{i1}+\beta_2 x_{i2}+\beta_3 x_{i3}+\varepsilon_i, \mbox{ pour }i=1,...,n$$ a été ajusté à des données avec la méthode des moindres carrés.
+\bigskip
+\begin{itemize}
+\item[(i)] La figure~\ref{gr2} montre le QQ-plot des résidus studentisés. À la lumière de ce graphique, y a-t-il un postulat du modèle qui n'est pas vérifié? Si oui, lequel et pourquoi? S'il y a lieu, expliquer l'impact de la violation de ce postulat. 
+
+\bigskip
+\item[(ii)] La figure~\ref{gr3} montre les résidus studentisés en fonction de chacune des variables exogènes et en fonction des valeurs prédites. Utiliser ces graphiques pour commenter sur la validité des postulats du modèle. Y en a-t-il qui ne sont pas respectés? S'il y a lieu, expliquer l'impact de la violation de ce ou ces postulats. 
+
+\end{itemize}
+
+\begin{figure}
+\centering \caption{QQ-Plot des résidus studentisés}\label{gr2}
+\centerline{\includegraphics[width=0.6\textwidth]{Figures/QQPlotLifeExp-c.pdf}}
+\end{figure}
+
+\begin{figure}
+\centering \caption{Nuage de points des résidus studentisés en fonction de chacune des variables exogènes et en fonction de la variable prédite}\label{gr3}
+\centerline{\includegraphics[width=14cm]{Figures/ResPlots.pdf}}
+\end{figure}
+
+\clearpage
+\noindent \textbf{Question 2.} La base de données \texttt{OutlierExample.csv} disponible sur le site du cours contient 19 observations de base, et trois observations supplémentaires, notées par les \texttt{CODES} 1, 2 et 3, qui sont aberrantes ou influentes.
+
+\begin{itemize}
+\item Importez la base de données et tracez un nuage de points de \texttt{Y} en fonction de \texttt{X}.
+\item Roulez les lignes de code suivantes pour observer le graphique avec les 3 points ajoutés
+\begin{verbatim}
+library(ggplot2)
+ggplot(dat, aes(x= X, y= Y, label=CODES))+
+  geom_point() +
+  geom_text(aes(label=ifelse(CODES>0,CODES,'')),hjust=0,vjust=0)
+\end{verbatim}
+
+\item Ajustez un modèle linéaire en incluant seulement les 19 points dont le code est 0. Regardez l'ajustement et commentez.
+\item Ajustez un modèle linéaire en incluant les 19 points dont le code est 0 et le point de code 1. Quel est l'impact de l'inclusion de ce point sur le $R^2$ et sur les estimations des paramètres? Étudiez le résultat de la fonction \texttt{influence.measures()}.
+\item Ajustez un modèle linéaire en incluant les 19 points dont le code est 0 et le point de code 2. Quel est l'impact de l'inclusion de ce point sur le $R^2$ et sur les estimations des paramètres? Étudiez le résultat de la fonction \texttt{influence.measures()}.
+\item Ajustez un modèle linéaire en incluant les 19 points dont le code est 0 et le point de code 3. Quel est l'impact de l'inclusion de ce point sur le $R^2$ et sur les estimations des paramètres? Étudiez le résultat de la fonction \texttt{influence.measures()}.
+\end{itemize}
+\clearpage
+\begin{center}
+\LARGE{\textbf{SOLUTIONS}}
+\end{center}
+
+\noindent \textbf{Question 1.} 
+\begin{itemize}
+\item[(i)] Le postulat de normalité semble violé.
+
+La distribution des résidus a une queue inférieure plus épaisse que la loi normale, ce que l'on voit à gauche du Q-Q plot, puisque les poits ne sont pas alignés.
+
+Le postulat de normalité n'est pas critique, parce que les estimateurs des moindres carrés ont un sens quand même. Toutefois, les tests d'hypothèses et les intervalles de confiance ne sont pas valides.
+
+\bigskip
+\item[(ii)] Le graphique des résidus en fonction de $x_2$ montre que le postulat de linéarité semble violé. Cela implique que le modèle n'est pas valide.
+
+On observe de l'hétéroscédasticité (par exemple, dans les graphiques 1, 3 ou 4) puisque les résidus ne semblent pas avoir une variance constante. 
+
+Cela signifie que les variances des paramètres ne sont pas calculées de façon appropriée OU il faudrait effectuer une transformation sur les variables pour régler ces problèmes.
+
+
+\end{itemize}
+
+\bigskip\noindent
+\textbf{Question 2.} On pourrait croire qu'un point sur 20, ça ne change rien, mais ce n'est pas le cas! Le point 1 a un impact sur la pente et la qualité de l'ajustement. Le point 2 a un grand levier mais n'affecte pas beaucoup les estimations, le point 3 a un grand levier et un gros impact.
+
+\begin{verbatim}
+dat <- read.csv("OutlierExample.csv")
+
+dim(dat)
+
+summary(dat)
+
+library(ggplot2)
+
+ggplot(dat, aes(x= X, y= Y, label=CODES))+
+  geom_point() +
+  geom_text(aes(label=ifelse(CODES>0,CODES,'')),hjust=0,vjust=0)
+
+fit0 <- lm(Y~X,dat,subset=(CODES==0))
+summary(fit0)
+plot(dat[,1:2],pch=16)
+points(dat[match(1:3,dat$CODES),1:2],col=2:4,pch=16:18,cex=1.2)
+abline(fit0)
+
+fit1 <- lm(Y~X,dat,subset=(CODES<=1))
+summary(fit1)
+abline(fit1,col=2,lty=2)
+
+fit2 <- lm(Y~X,dat,subset=(CODES%in%c(0,2)))
+summary(fit2)
+abline(fit2,col=3,lty=3)
+
+fit3 <- lm(Y~X,dat,subset=(CODES%in%c(0,3)))
+summary(fit3)
+abline(fit3,col=4,lty=4)
+
+influence.measures(fit0)
+influence.measures(fit1)
+influence.measures(fit2)
+influence.measures(fit3)
+
+\end{verbatim}
+
+
+\end{document}

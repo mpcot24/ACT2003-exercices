@@ -1,0 +1,20 @@
+> fit2 <- lm(logbact~minutes)
+> summary(fit2)
+
+Call:
+lm(formula = logbact ~ minutes)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.184303 -0.083994  0.001453  0.072825  0.206246 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  5.33878    0.07409   72.05 6.47e-15 ***
+minutes     -0.23617    0.01007  -23.46 4.49e-10 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+Residual standard error: 0.1204 on 10 degrees of freedom
+Multiple R-squared: 0.9822,	Adjusted R-squared: 0.9804 
+F-statistic: 550.3 on 1 and 10 DF,  p-value: 4.489e-10 

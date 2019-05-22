@@ -1,0 +1,38 @@
+> modlog <- glm(AvCost~OwnerAge+Model+CarAge,family=Gamma(link=log),data=Bcar)
+> summary(modlog)
+
+Call:
+glm(formula = AvCost ~ OwnerAge + Model + CarAge, family = Gamma(link = log), 
+    data = Bcar)
+
+Deviance Residuals: 
+     Min        1Q    Median        3Q       Max  
+-1.84819  -0.12796  -0.00834   0.08552   1.20066  
+
+Coefficients:
+               Estimate Std. Error t value Pr(>|t|)    
+(Intercept)    5.711739   0.103835  55.008  < 2e-16 ***
+OwnerAge21-24 -0.108159   0.114547  -0.944   0.3471    
+OwnerAge25-29  0.005223   0.113170   0.046   0.9633    
+OwnerAge30-34 -0.288090   0.113170  -2.546   0.0123 *  
+OwnerAge35-39 -0.331420   0.114547  -2.893   0.0046 ** 
+OwnerAge40-49 -0.280775   0.113170  -2.481   0.0146 *  
+OwnerAge50-59 -0.238136   0.113170  -2.104   0.0377 *  
+OwnerAge60+   -0.283521   0.113170  -2.505   0.0137 *  
+ModelB         0.057951   0.075447   0.768   0.4441    
+ModelC         0.154588   0.076115   2.031   0.0447 *  
+ModelD         0.472290   0.078497   6.017 2.43e-08 ***
+CarAge10+     -0.735513   0.078497  -9.370 1.17e-15 ***
+CarAge4-7     -0.111412   0.075447  -1.477   0.1426    
+CarAge8-9     -0.422538   0.076115  -5.551 2.02e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+(Dispersion parameter for Gamma family taken to be 0.0910768)
+
+    Null deviance: 27.841  on 122  degrees of freedom
+Residual deviance: 11.263  on 109  degrees of freedom
+  (5 observations deleted due to missingness)
+AIC: 1398
+
+Number of Fisher Scoring iterations: 7

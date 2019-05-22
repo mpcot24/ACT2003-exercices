@@ -1,0 +1,9 @@
+> anova(fit1)
+Analysis of Variance Table
+
+Response: bact
+          Df  Sum Sq Mean Sq F value    Pr(>F)    
+min        1 22268.8 22268.8  66.512 9.944e-06 ***
+Residuals 10  3348.1   334.8                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 

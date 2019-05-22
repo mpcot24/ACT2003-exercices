@@ -1,0 +1,20 @@
+> fit1 <- lm(bact~min)
+> summary(fit1)
+
+Call:
+lm(formula = bact ~ min)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-17.323  -9.890  -7.323   2.463  45.282 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   142.20      11.26  12.627 1.81e-07 ***
+min           -12.48       1.53  -8.155 9.94e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+Residual standard error: 18.3 on 10 degrees of freedom
+Multiple R-squared: 0.8693,	Adjusted R-squared: 0.8562 
+F-statistic: 66.51 on 1 and 10 DF,  p-value: 9.944e-06 
