@@ -209,23 +209,18 @@
 \part{Régression linéaire}
 
 \stepcounter{chapter}
-%\include{simple}
-%\include{multiple}
 
-\part{Séries chronologiques}
+<<child='simple.Rnw'>>=
+@
 
-%\include{lissage}
-%\include{stationnarite}
-%\include{estimation}
-%\include{prevision}
 
 \appendix
 %\include{regression}
 %\include{ts}
 %\include{elements}
-%\include{solutions}
+\include{solutions}
 
-\nocite{Miller:stat:1977}
+%\nocite{Miller:stat:1977}
 
 %\bibliography{stat,vg,r} %%% à arranger
 

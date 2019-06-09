@@ -1,0 +1,48 @@
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+\markboth{Introduction}{Introduction}
+
+
+Ce document contient les exercices proposés par Marie-Pier Côté pour le cours ACT-2003 Modèles linéaires en actuariat, donné à l'École d'actuariat de l'Université Laval. Certains exercices sont le fruit de l'imagination des auteurs ou de ceux des versions précédentes, alors que plusieurs autres sont des adaptations d'exercices tirés des ouvrages cités dans la bibliographie.
+
+C'est d'ailleurs afin de ne pas usurper de droits d'auteur que ce document est publié selon les termes du contrat Paternité-Partage des conditions initiales à l’identique 2.5
+Canada de Creative Commons. Il s'agit donc d'un document «libre» que quiconque peut réutiliser et modifier à sa guise, à condition que le nouveau document soit publié avec le même contrat.
+
+Le document est séparé en deux parties correspondant aux deux sujets faisant l'objet d'exercices: d'abord la régression linéaire (simple, multiple et régularisée), puis les modèles linéaires généralisés.
+
+L'estimation des paramètres, le calcul de prévisions et l'analyse des résultats sont toutes des procédures à forte composante numérique. Il serait tout à fait artificiel de se restreindre, dans les exercices, à de petits ensembles de données se prêtant au calcul manuel. Dans cette optique, plusieurs des exercices de ce recueil requièrent l'utilisation du logiciel statistique \textsf{R}.
+D'ailleurs, l'annexe \ref{chap:regression} présente les principales fonctions de \textsf{R} pour la régression.
+
+Le format de cet annexe est inspiré de %
+{\shorthandoff{:} \citet{Goulet:introS:2007}}%
+: la présentation des fonctions compte peu d'exemples. Par contre, le
+lecteur est invité à lire et exécuter le code informatique des
+sections d'exemples \ref{chap:regression:exemples}. 
+
+L'annexe \ref{chap:elements} contient quelques résultats d'algèbre matricielle utiles pour résoudre certains exercices.
+
+Les réponses des exercices se trouvent à la fin de chacun des
+chapitres, alors que les solutions complètes sont regroupées à
+l'annexe~\ref{chap:solutions}.
+
+Tous les jeux de données mentionnés dans ce document sont disponibles en format électronique à l'adresse 
+\begin{quote}
+  ???? à régler
+\end{quote}
+Ces jeux de données sont importés dans \textsf{R} avec l'une ou l'autre des commandes \texttt{scan} ou \texttt{read.table}. Certains jeux de données sont également fournis avec \textsf{R}; la commande \\
+\texttt{> data()}\\
+en fournit une liste complète.
+
+Nous remercions d'avance les lecteurs qui voudront bien nous faire part de toute erreur ou omission dans les exercices ou leurs réponses.
+
+
+\begin{flushright}
+  Marie-Pier Côté \url{<marie-pier.cote@act.ulaval.ca>} \\
+  Vincent Mercier \url{<vincent.mercier.7@ulaval.ca>} \\
+  Québec, septembre 2019
+\end{flushright}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "exercices_methodes_statistiques"
+%%% End:
