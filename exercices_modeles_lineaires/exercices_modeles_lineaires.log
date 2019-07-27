@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.5.26)  9 JUN 2019 13:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7050 64-bit) (preloaded format=pdflatex 2019.7.27)  27 JUL 2019 12:54
 entering extended mode
 **./exercices_modeles_lineaires.tex
 (exercices_modeles_lineaires.tex
@@ -392,9 +392,9 @@ LaTeX Info: Redefining \cite on input line 694.
 \Urlmuskip=\muskip10
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 ) ("C:\Users\pc\AppData\Local\Programs\MiKTeX 2.9\tex/generic/babel\babel.sty"
-Package: babel 2019/05/04 3.31 The Babel package
+Package: babel 2019/07/19 3.33 The Babel package
 ("C:\Users\pc\AppData\Local\Programs\MiKTeX 2.9\tex/generic/babel\switch.def"
-File: switch.def 2019/05/04 3.31 Babel switching mechanism
+File: switch.def 2019/07/19 3.33 Babel switching mechanism
 )
 *************************************
 * Local config file bblopts.cfg used
@@ -407,7 +407,7 @@ File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
 .ldf"
 Language: english 2017/06/06 v3.3r English support from the babel system
 ("C:\Users\pc\AppData\Local\Programs\MiKTeX 2.9\tex/generic/babel\babel.def"
-File: babel.def 2019/05/04 3.31 Babel common definitions
+File: babel.def 2019/07/19 3.33 Babel common definitions
 \babel@savecnt=\count139
 \U@D=\dimen151
 ("C:\Users\pc\AppData\Local\Programs\MiKTeX 2.9\tex/generic/babel\txtbabel.def"
@@ -1222,7 +1222,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 66--67
 
  []
 
-<cc-by-sa.jpg, id=38, 622.325pt x 207.77625pt>
+<cc-by-sa.jpg, id=46, 622.325pt x 207.77625pt>
 File: cc-by-sa.jpg Graphic file (type jpg)
 <use cc-by-sa.jpg>
 Package pdftex.def Info: cc-by-sa.jpg  used on input line 70.
@@ -1376,45 +1376,85 @@ Underfull \hbox (badness 10000) in paragraph at lines 495--496
 ] [4] [5] [6]
 Package color Info: Redefining color shadecolor on input line 1673.
 (reponses-simple.tex [7]) [8]
+Output from handle reponses going to reponses-multiple.tex
+\openout5 = `reponses-multiple.tex'.
+
+Output from handle solutions going to solutions-multiple.tex
+\openout6 = `solutions-multiple.tex'.
+
+
+Overfull \hbox (2.52167pt too wide) in paragraph at lines 2018--2022
+\T1/pplx/m/n/10 par rap-port à $[]$, que les équa-tions nor-males à ré-soudre p
+our ob-te-nir l'es-ti-ma-teur des moindres
+ []
+
+
+LaTeX Warning: Reference `thm:elements:derivee_fonction' on page 9 undefined on
+ input line 2027.
+
+
+LaTeX Warning: Reference `chap:elements' on page 9 undefined on input line 2027
+.
+
+
+Overfull \hbox (6.36726pt too wide) in paragraph at lines 2386--2391
+\T1/pplx/m/n/10 sion de la va-riable dé-pen-dante cor-res-pon-dant aux va-leurs
+ du vec-teur ligne $\OT1/zplm/b/n/10 x[] \OT1/zplm/m/n/10 = (\OT1/pplx/m/n/10 1
+, \OML/zplm/m/it/10 X[]\OT1/pplx/m/n/10 , [] , \OML/zplm/m/it/10 X[]\OT1/zplm/m
+/n/10 )$
+ []
+
+[9
+
+] [10] [11]
+
+LaTeX Warning: Reference `thm:elements:derivee_fonction' on page 12 undefined o
+n input line 3314.
+
+
+LaTeX Warning: Reference `chap:elements' on page 12 undefined on input line 331
+4.
+
+[12] [13] (reponses-multiple.tex) [14]
 \openout2 = `solutions.aux'.
 
 (solutions.tex (solutions-simple.tex
 Package color Info: Redefining color shadecolor on input line 12.
-<figure/unnamed-chunk-3-1.pdf, id=197, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-3-1.pdf Graphic file (type pdf)
-<use figure/unnamed-chunk-3-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-3-1.pdf  used on input line 19.
+<figure/unnamed-chunk-4-1.pdf, id=316, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-4-1.pdf Graphic file (type pdf)
+<use figure/unnamed-chunk-4-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-4-1.pdf  used on input line 19.
 (pdftex.def)             Requested size: 429.0pt x 429.00502pt.
-[9
+[15
 
 
-] [10 <./figure/unnamed-chunk-3-1.pdf>]
+] [16 <./figure/unnamed-chunk-4-1.pdf>]
 Package color Info: Redefining color shadecolor on input line 89.
 Package color Info: Redefining color shadecolor on input line 110.
 Package color Info: Redefining color shadecolor on input line 117.
-<figure/unnamed-chunk-6-1.pdf, id=223, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-6-1.pdf Graphic file (type pdf)
-<use figure/unnamed-chunk-6-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-6-1.pdf  used on input line 118.
+<figure/unnamed-chunk-7-1.pdf, id=342, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-7-1.pdf Graphic file (type pdf)
+<use figure/unnamed-chunk-7-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-7-1.pdf  used on input line 118.
 (pdftex.def)             Requested size: 429.0pt x 429.00502pt.
 Package color Info: Redefining color shadecolor on input line 130.
 Package color Info: Redefining color shadecolor on input line 145.
-[11] [12 <./figure/unnamed-chunk-6-1.pdf>]
+[17] [18 <./figure/unnamed-chunk-7-1.pdf>]
 Package color Info: Redefining color shadecolor on input line 212.
-<figure/unnamed-chunk-10-1.pdf, id=247, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-10-1.pdf Graphic file (type pdf)
-<use figure/unnamed-chunk-10-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-10-1.pdf  used on input line 218.
+<figure/unnamed-chunk-11-1.pdf, id=366, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-11-1.pdf Graphic file (type pdf)
+<use figure/unnamed-chunk-11-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-11-1.pdf  used on input line 218.
 
 (pdftex.def)             Requested size: 429.0pt x 429.00502pt.
 Package color Info: Redefining color shadecolor on input line 227.
-[13] [14 <./figure/unnamed-chunk-10-1.pdf>]
+[19] [20 <./figure/unnamed-chunk-11-1.pdf>]
 Package color Info: Redefining color shadecolor on input line 246.
 Package color Info: Redefining color shadecolor on input line 253.
-<figure/unnamed-chunk-13-1.pdf, id=268, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-13-1.pdf Graphic file (type pdf)
-<use figure/unnamed-chunk-13-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-13-1.pdf  used on input line 254.
+<figure/unnamed-chunk-14-1.pdf, id=387, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-14-1.pdf Graphic file (type pdf)
+<use figure/unnamed-chunk-14-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-14-1.pdf  used on input line 254.
 
 (pdftex.def)             Requested size: 429.0pt x 429.00502pt.
 Package color Info: Redefining color shadecolor on input line 264.
@@ -1424,13 +1464,13 @@ LaTeX Font Info:    Try loading font information for TS1+pcr on input line 283.
 File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
 )
 Package color Info: Redefining color shadecolor on input line 297.
-[15] [16 <./figure/unnamed-chunk-13-1.pdf>] [17] [18] [19]
+[21] [22 <./figure/unnamed-chunk-14-1.pdf>] [23] [24] [25]
 Underfull \vbox (badness 7558) has occurred while \output is active []
 
-[20]
+[26]
 Underfull \vbox (badness 2538) has occurred while \output is active []
 
-[21]
+[27]
 Overfull \hbox (48.47054pt too wide) in paragraph at lines 615--620
 []\T1/pplx/m/n/10 Considérons un mo-dèle de ré-gres-sion usuel avec l'en-semble
  de don-nées $\OT1/zplm/m/n/10 (\OML/zplm/m/it/10 X[]\OT1/pplx/m/n/10 , \OML/zp
@@ -1440,26 +1480,26 @@ pplx/m/n/10 , \OT1/zplm/m/n/10 (\OML/zplm/m/it/10 m[]\OT1/pplx/m/n/10 , \OML/zp
 lm/m/it/10 m[]\OT1/zplm/m/n/10 )$\T1/pplx/m/n/10 ,
  []
 
-[22]
+[28]
 Package color Info: Redefining color shadecolor on input line 666.
-<figure/unnamed-chunk-17-1.pdf, id=321, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-17-1.pdf Graphic file (type pdf)
-<use figure/unnamed-chunk-17-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-17-1.pdf  used on input line 667.
+<figure/unnamed-chunk-18-1.pdf, id=440, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-18-1.pdf Graphic file (type pdf)
+<use figure/unnamed-chunk-18-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-18-1.pdf  used on input line 667.
 
 (pdftex.def)             Requested size: 429.0pt x 429.00502pt.
-[23] [24 <./figure/unnamed-chunk-17-1.pdf>] [25] [26] [27]
+[29] [30 <./figure/unnamed-chunk-18-1.pdf>] [31] [32] [33]
 Package color Info: Redefining color shadecolor on input line 996.
-[28]
+[34]
 Package color Info: Redefining color shadecolor on input line 1010.
-<figure/unnamed-chunk-20-1.pdf, id=363, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-20-1.pdf Graphic file (type pdf)
-<use figure/unnamed-chunk-20-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-20-1.pdf  used on input line 1016
+<figure/unnamed-chunk-21-1.pdf, id=482, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-21-1.pdf Graphic file (type pdf)
+<use figure/unnamed-chunk-21-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-21-1.pdf  used on input line 1016
 .
 (pdftex.def)             Requested size: 429.0pt x 429.00502pt.
 Package color Info: Redefining color shadecolor on input line 1026.
-[29 <./figure/unnamed-chunk-20-1.pdf>]
+[35 <./figure/unnamed-chunk-21-1.pdf>]
 Package color Info: Redefining color shadecolor on input line 1065.
 
 Overfull \hbox (3.92966pt too wide) in paragraph at lines 1062--1065
@@ -1468,25 +1508,111 @@ Overfull \hbox (3.92966pt too wide) in paragraph at lines 1062--1065
  []
 
 Package color Info: Redefining color shadecolor on input line 1077.
-<figure/unnamed-chunk-23-1.pdf, id=379, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-23-1.pdf Graphic file (type pdf)
-<use figure/unnamed-chunk-23-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-23-1.pdf  used on input line 1086
+<figure/unnamed-chunk-24-1.pdf, id=498, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-24-1.pdf Graphic file (type pdf)
+<use figure/unnamed-chunk-24-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-24-1.pdf  used on input line 1086
 .
 (pdftex.def)             Requested size: 429.0pt x 429.00502pt.
 Package color Info: Redefining color shadecolor on input line 1095.
-[30] [31 <./figure/unnamed-chunk-23-1.pdf>]
+[36] [37 <./figure/unnamed-chunk-24-1.pdf>]
 Package color Info: Redefining color shadecolor on input line 1138.
-<figure/unnamed-chunk-25-1.pdf, id=397, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-25-1.pdf Graphic file (type pdf)
-<use figure/unnamed-chunk-25-1.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-25-1.pdf  used on input line 1147
+<figure/unnamed-chunk-26-1.pdf, id=516, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-26-1.pdf Graphic file (type pdf)
+<use figure/unnamed-chunk-26-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-26-1.pdf  used on input line 1147
 .
 (pdftex.def)             Requested size: 429.0pt x 429.00502pt.
 Package color Info: Redefining color shadecolor on input line 1163.
 Package color Info: Redefining color shadecolor on input line 1175.
 Package color Info: Redefining color shadecolor on input line 1217.
-[32] [33 <./figure/unnamed-chunk-25-1.pdf>])) [34] [35
+[38] [39 <./figure/unnamed-chunk-26-1.pdf>]) (solutions-multiple.tex
+
+LaTeX Warning: Reference `thm:elements:derivee_fonction' on page 40 undefined o
+n input line 6.
+
+
+LaTeX Warning: Reference `chap:elements' on page 40 undefined on input line 7.
+
+[40]
+Underfull \vbox (badness 3557) has occurred while \output is active []
+
+[41] [42]
+
+Package natbib Warning: Citation `Draper:regression:1998' on page 43 undefined 
+on input line 283.
+
+
+LaTeX Warning: Reference `thm:elements:esp_var' on page 43 undefined on input l
+ine 336.
+
+[43] [44] [45]
+Package color Info: Redefining color shadecolor on input line 554.
+Package color Info: Redefining color shadecolor on input line 567.
+[46]
+Package color Info: Redefining color shadecolor on input line 620.
+Package color Info: Redefining color shadecolor on input line 650.
+[47]
+Package color Info: Redefining color shadecolor on input line 698.
+[48] [49] [50] [51]
+
+LaTeX Warning: Reference `thm:elements:esp_var' on page 52 undefined on input l
+ine 957.
+
+[52]
+Package color Info: Redefining color shadecolor on input line 1024.
+<figure/unnamed-chunk-39-1.pdf, id=628, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-39-1.pdf Graphic file (type pdf)
+<use figure/unnamed-chunk-39-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-39-1.pdf  used on input line 1029
+.
+(pdftex.def)             Requested size: 429.0pt x 429.00502pt.
+Package color Info: Redefining color shadecolor on input line 1039.
+[53] [54 <./figure/unnamed-chunk-39-1.pdf>]
+Package color Info: Redefining color shadecolor on input line 1096.
+<figure/unnamed-chunk-41-1.pdf, id=653, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-41-1.pdf Graphic file (type pdf)
+<use figure/unnamed-chunk-41-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-41-1.pdf  used on input line 1103
+.
+(pdftex.def)             Requested size: 429.0pt x 429.00502pt.
+Package color Info: Redefining color shadecolor on input line 1120.
+<figure/unnamed-chunk-43-1.pdf, id=659, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-43-1.pdf Graphic file (type pdf)
+<use figure/unnamed-chunk-43-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-43-1.pdf  used on input line 1126
+.
+(pdftex.def)             Requested size: 429.0pt x 429.00502pt.
+Package color Info: Redefining color shadecolor on input line 1137.
+Package color Info: Redefining color shadecolor on input line 1160.
+Package color Info: Redefining color shadecolor on input line 1180.
+
+Overfull \hbox (0.53084pt too wide) in paragraph at lines 1177--1180
+[]\T1/pplx/m/n/10 On ré-pète la pro-cé-dure en b) avec un poids de en-core plus
+ pe-tit pour la don-née $\OT1/zplm/m/n/10 (\OML/zplm/m/it/10 X[]\OT1/pplx/m/n/1
+0 , \OML/zplm/m/it/10 Y[]\OT1/zplm/m/n/10 )$ \T1/pplx/m/n/10 :
+ []
+
+[55] [56 <./figure/unnamed-chunk-41-1.pdf>] [57 <./figure/unnamed-chunk-43-1.pd
+f>]
+Package color Info: Redefining color shadecolor on input line 1202.
+<figure/unnamed-chunk-47-1.pdf, id=694, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-47-1.pdf Graphic file (type pdf)
+<use figure/unnamed-chunk-47-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-47-1.pdf  used on input line 1213
+.
+(pdftex.def)             Requested size: 429.0pt x 429.00502pt.
+Package color Info: Redefining color shadecolor on input line 1234.
+<figure/unnamed-chunk-49-1.pdf, id=700, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-49-1.pdf Graphic file (type pdf)
+<use figure/unnamed-chunk-49-1.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-49-1.pdf  used on input line 1244
+.
+(pdftex.def)             Requested size: 429.0pt x 429.00502pt.
+Package color Info: Redefining color shadecolor on input line 1254.
+Package color Info: Redefining color shadecolor on input line 1272.
+)) [58] [59 <./figure/unnamed-chunk-47-1.pdf>] [60 <./figure/unnamed-chunk-49-1
+.pdf>] [61
 
 
 
@@ -1495,55 +1621,57 @@ Package color Info: Redefining color shadecolor on input line 1217.
 
 Package natbib Warning: There were undefined citations.
 
-[36]
+[62]
 \tf@toc=\write7
 \openout7 = `exercices_modeles_lineaires.toc'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2013.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 2013.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 3889.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 3889.
 (exercices_modeles_lineaires.aux (pagetitre.aux) (introduction.aux) (solutions.
 aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2013.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2013.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 3889.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 3889.
 
 Package rerunfilecheck Info: File `exercices_modeles_lineaires.out' has not cha
 nged.
-(rerunfilecheck)             Checksum: BA152D68204140A226B7D2240C4B8AEC;291.
+(rerunfilecheck)             Checksum: 615C1184464B01354D538C927DCD029D;424.
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2013.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 3889.
  ) 
 Here is how much of TeX's memory you used:
- 14716 strings out of 492895
- 212951 string characters out of 3125136
- 355542 words of memory out of 3000000
- 18148 multiletter control sequences out of 15000+200000
- 104413 words of font info for 182 fonts, out of 3000000 for 9000
+ 14955 strings out of 492895
+ 216457 string characters out of 3125136
+ 360704 words of memory out of 3000000
+ 18218 multiletter control sequences out of 15000+200000
+ 112784 words of font info for 203 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 40i,12n,49p,1050b,648s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 40i,16n,49p,1050b,648s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/pc/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C
 :/Users/pc/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cme
 x10.pfb><C:/Users/pc/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfo
 nts/cm/cmmi10.pfb><C:/Users/pc/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
 blic/amsfonts/cm/cmr10.pfb><C:/Users/pc/AppData/Local/Programs/MiKTeX 2.9/fonts
 /type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/pc/AppData/Local/Programs/MiKTeX
- 2.9/fonts/type1/public/mathpazo/fplmr.pfb><C:/Users/pc/AppData/Local/Programs/
-MiKTeX 2.9/fonts/type1/public/mathpazo/fplmri.pfb><C:/Users/pc/AppData/Local/Pr
-ograms/MiKTeX 2.9/fonts/type1/public/fpl/fplrc8a.pfb><C:/Users/pc/AppData/Local
-/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrb8a.pfb><C:/Users/pc/AppData/Lo
-cal/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/pc/AppData
-/Local/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/pc/AppD
-ata/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/pc/
-AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users
-/pc/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/palatino/uplb8a.pfb><C:/U
-sers/pc/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/palatino/uplr8a.pfb><
-C:/Users/pc/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/palatino/uplri8a.
-pfb>
-Output written on exercices_modeles_lineaires.pdf (44 pages, 371136 bytes).
+ 2.9/fonts/type1/public/amsfonts/euler/eurb10.pfb><C:/Users/pc/AppData/Local/Pr
+ograms/MiKTeX 2.9/fonts/type1/public/amsfonts/euler/eurm10.pfb><C:/Users/pc/App
+Data/Local/Programs/MiKTeX 2.9/fonts/type1/public/mathpazo/fplmr.pfb><C:/Users/
+pc/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/mathpazo/fplmri.pfb><C:
+/Users/pc/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/fpl/fplrc8a.pfb>
+<C:/Users/pc/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrb8a.p
+fb><C:/Users/pc/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8
+a.pfb><C:/Users/pc/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/courier/uc
+rr8a.pfb><C:/Users/pc/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/helveti
+c/uhvb8a.pfb><C:/Users/pc/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw/hel
+vetic/uhvr8a.pfb><C:/Users/pc/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/urw
+/palatino/uplb8a.pfb><C:/Users/pc/AppData/Local/Programs/MiKTeX 2.9/fonts/type1
+/urw/palatino/uplr8a.pfb><C:/Users/pc/AppData/Local/Programs/MiKTeX 2.9/fonts/t
+ype1/urw/palatino/uplri8a.pfb>
+Output written on exercices_modeles_lineaires.pdf (70 pages, 506679 bytes).
 PDF statistics:
- 515 PDF objects out of 1000 (max. 8388607)
- 166 named destinations out of 1000 (max. 500000)
- 86 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 865 PDF objects out of 1000 (max. 8388607)
+ 312 named destinations out of 1000 (max. 500000)
+ 127 words of extra memory for PDF output out of 10000 (max. 10000000)
 

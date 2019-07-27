@@ -1,0 +1,1662 @@
+\chapter{Régression linéaire multiple}
+\label{chap:multiple}
+
+\Opensolutionfile{reponses}[reponses-multiple]
+\Opensolutionfile{solutions}[solutions-multiple]
+
+\begin{Filesave}{reponses}
+\bigskip
+\section*{Réponses}
+
+\end{Filesave}
+
+\begin{Filesave}{solutions}
+\section*{Chapitre \ref{chap:multiple}}
+\addcontentsline{toc}{section}{Chapitre \protect\ref{chap:multiple}}
+
+\end{Filesave}
+
+
+<<echo=FALSE>>=
+options(width = 55)
+@
+
+\begin{exercice}
+  \label{ex:multiple:preuve}
+  Considérer le modèle de régression linéaire $\mat{y} = \mat{X}
+  \betab + \vepsb$, où $\mat{X}$ est une matrice $n \times (p+1)$.
+  Démontrer, en dérivant
+  \begin{align*}
+    S(\betab)
+    &= \sum_{t=1}^n (Y_t - \mat{x}_t^\prime \betab)^2 \\
+    &= (\mat{y} - \mat{X} \betab)^\prime (\mat{y} - \mat{X} \betab)
+  \end{align*}
+  par rapport à $\betab$, que les équations normales à résoudre pour
+  obtenir l'estimateur des moindres carrés de $\betab$ sont, sous
+  forme matricielle,
+  \begin{displaymath}
+    (\mat{X}^\prime \mat{X}) \betabh = \mat{X}^\prime \mat{y},
+  \end{displaymath}
+  Déduire l'estimateur des moindres carrés de ces équations.
+  \emph{Astuce}: utiliser le théorème
+  \ref{thm:elements:derivee_fonction} de l'annexe \ref{chap:elements}.
+  \begin{sol}
+    Tout d'abord, selon le théorème
+    \ref{thm:elements:derivee_fonction} de l'annexe
+    \ref{chap:elements},
+    \begin{displaymath}
+      \frac{d}{d \mat{x}}\, f(\mat{x})^\prime \mat{A} f(\mat{x}) =
+      2 \left( \frac{d}{d \mat{x}} f(\mat{x}) \right)^\prime \mat{A} f(\mat{x}).
+    \end{displaymath}
+    Il suffit, pour faire la démonstration, d'appliquer directement ce
+    résultat à la forme quadratique
+    \begin{displaymath}
+      S(\betab) = (\mat{y} - \mat{X} \betab)^\prime (\mat{y} - \mat{X} \betab)
+    \end{displaymath}
+    avec $f(\betab) = \mat{y} - \mat{X} \betab$ et $\mat{A} =
+    \mat{I}$, la matrice identité. On a alors
+    \begin{align*}
+      \frac{d}{d\betab} S(\betab)
+      &= 2
+      \left(
+        \frac{d}{d\betab} (\mat{y} - \mat{X} \betab)
+      \right)^\prime
+      \mat{y} - \mat{X} \betab \\
+      &= 2 (-\mat{X})^\prime (\mat{y} - \mat{X} \betab)\\
+      &= -2 \mat{X}^\prime (\mat{y} - \mat{X} \betab).
+    \end{align*}
+    En posant ces dérivées exprimées sous forme matricielle
+    simultanément égales à zéro, on obtient les équations normales à
+    résoudre pour calculer l'estimateur des moindres carrés du vecteur
+    $\betab$, soit
+    \begin{displaymath}
+      \mat{X}^\prime \mat{X} \betabh = \mat{X}^\prime \mat{y}.
+    \end{displaymath}
+    En isolant $\betabh$ dans l'équation ci-dessus, on obtient,
+    finalement, l'estimateur des moindres carrés:
+    \begin{displaymath}
+      \betabh = (\mat{X}^\prime \mat{X})^{-1} \mat{X}^\prime \mat{y}.
+    \end{displaymath}
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  Pour chacun des modèles de régression ci-dessous, spécifier la
+  matrice de schéma $\mat{X}$ dans la représentation $\mat{y} =
+  \mat{X} \betab + \vepsb$ du modèle, puis obtenir, si possible, les
+  formules explicites des estimateurs des moindres carrés des
+  paramètres.
+  \begin{enumerate}
+  \item $Y_t = \beta_0 + \varepsilon_t$
+  \item $Y_t = \beta_1 X_t + \varepsilon_t$
+  \item $Y_t = \beta_0 + \beta_1 X_{t1} + \beta_2 X_{t2} +
+    \varepsilon_t$
+  \end{enumerate}
+  \begin{rep}
+    \begin{inparaenum}
+      \item $\hat{\beta}_0 = \bar{Y}$
+      \item $\hat{\beta}_1 = (\sum_{t=1}^n X_t Y_t)/(\sum_{t=1}^n X_t^2)$
+      \end{inparaenum}
+  \end{rep}
+  \begin{sol}
+    \begin{enumerate}
+    \item On a un modèle sans variable explicative. Intuitivement, la
+      meilleure prévision de $Y_t$ sera alors $\bar{Y}$. En effet,
+      pour ce modèle,
+      \begin{displaymath}
+        \mat{X} =
+        \begin{bmatrix}
+          1 \\ \vdots \\ 1
+        \end{bmatrix}_{n \times 1}
+      \end{displaymath}
+      et
+      \begin{align*}
+        \betabh
+        &=\left(\mat{X}^\prime \mat{X} \right)^{-1} \mat{X}^\prime
+        \mat{y} \\
+        &=
+        \left(
+          \begin{bmatrix}
+            1 & \cdots & 1
+          \end{bmatrix}
+          \begin{bmatrix}
+            1 \\ \vdots \\ 1
+          \end{bmatrix}
+        \right)^{-1}
+        \begin{bmatrix}
+          1 & \cdots & 1
+        \end{bmatrix}
+        \begin{bmatrix}
+          Y_1 \\ \vdots \\ Y_n
+        \end{bmatrix}\\
+        &= n^{-1} \sum_{t=1}^n Y_t \\
+        &= \bar{Y}.
+      \end{align*}
+    \item Il s'agit du modèle de régression linéaire simple passant
+      par l'origine, pour lequel la matrice de schéma est
+      \begin{displaymath}
+        \mat{X} =
+        \begin{bmatrix}
+          X_1 \\ \vdots \\ X_n
+        \end{bmatrix}_{n \times 1}.
+      \end{displaymath}
+      Par conséquent,
+      \begin{align*}
+        \betabh
+        &=
+        \left(
+          \begin{bmatrix}
+            X_1 & \cdots & X_n
+          \end{bmatrix}
+          \begin{bmatrix}
+            X_1 \\ \vdots \\ X_n
+          \end{bmatrix}
+        \right)^{-1}
+        \begin{bmatrix}
+          X_1 & \cdots & X_n
+        \end{bmatrix}
+        \begin{bmatrix}
+          Y_1 \\ \vdots \\ Y_n
+        \end{bmatrix} \\
+        &=
+        \left(
+          \sum_{t=1}^n X_t^2
+        \right)^{-1} \sum_{t=1}^n X_tY_t \\
+        &= \frac{\sum_{t=1}^n X_t Y_t}{\sum_{t=1}^n X_t^2},
+      \end{align*}
+      tel qu'obtenu à l'exercice
+      \ref{chap:simple}.\ref{ex:simple:origine}.
+    \item On est ici en présence d'un modèle de régression multiple ne
+      passant pas par l'origine et ayant deux variables explicatives.
+      La matrice de schéma est alors
+      \begin{displaymath}
+        \mat{X} =
+        \begin{bmatrix}
+          1      & X_{11}  & X_{12} \\
+          \vdots & \vdots & \vdots \\
+          1      & X_{n1}  & X_{n2}
+        \end{bmatrix}_{n \times 3}.
+      \end{displaymath}
+      Par conséquent,
+      \begin{align*}
+        \betabh
+        &=
+        \left(
+          \begin{bmatrix}
+            1     & \cdots & 1      \\
+            X_{11} & \cdots & X_{n1} \\
+            X_{12} & \cdots & X_{n2}
+          \end{bmatrix}
+          \begin{bmatrix}
+            1      & X_{11}  & X_{12} \\
+            \vdots & \vdots & \vdots \\
+            1      & X_{n1}  & X_{n2}
+          \end{bmatrix}
+        \right)^{-1}
+        \begin{bmatrix}
+          1     & \cdots & 1      \\
+          X_{11} & \cdots & X_{n1} \\
+          X_{12} & \cdots & X_{n2}
+        \end{bmatrix}
+        \begin{bmatrix}
+          Y_1 \\ \vdots \\ Y_n
+        \end{bmatrix} \\
+        & =
+        \begin{bmatrix}
+          n           & n \bar{X}_1             & n \bar{X}_2 \\
+          n \bar{X}_1 & \sum_{t=1}^n X_{t1}^2    & \sum_{t=1}^n X_{t1}X_{t2} \\
+          n \bar{X}_2 & \sum_{t=1}^n X_{t1}X_{t2} & \sum_{t=1}^n X_{t2}^2
+        \end{bmatrix}^{-1}
+        \begin{bmatrix}
+          \sum_{t=1}^n Y_t \\ \sum_{t=1}^n X_{t1}Y_t \\ \sum_{t=1}^n
+          X_{t2}Y_t
+        \end{bmatrix}.
+      \end{align*}
+      L'inversion de la première matrice et le produit par la seconde
+      sont laissés aux bons soins du lecteur plus patient que les
+      rédacteurs de ces solutions.
+    \end{enumerate}
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  Vérifier, pour le modèle de régression linéaire simple, que les
+  valeurs trouvées dans la matrice de variance-covariance
+  $\var{\betabh} = \sigma^2 (\mat{X}^\prime \mat{X})^{-1}$
+  correspondent à celles calculées au chapitre \ref{chap:simple}.
+  \begin{sol}
+    Dans le modèle de régression linéaire simple, la matrice schéma est
+    \begin{displaymath}
+      \mat{X} =
+      \begin{bmatrix}
+        1      & X_1    \\
+        \vdots & \vdots \\
+        1      & X_n
+      \end{bmatrix}.
+    \end{displaymath}
+    Par conséquent,
+    \begin{align*}
+      \var{\betabh}
+      &= \sigma^2 (\mat{X}^\prime \mat{X})^{-1} \\
+      &= \sigma^2
+      \left(
+        \begin{bmatrix}
+          1   & \cdots & 1  \\
+          X_1 & \cdots & X_n
+        \end{bmatrix}
+        \begin{bmatrix}
+          1      & X_1    \\
+          \vdots & \vdots \\
+          1      & X_n
+        \end{bmatrix}
+      \right)^{-1} \\
+      &= \sigma^2
+      \begin{bmatrix}
+        n         & n \bar{X}        \\
+        n \bar{X} & \sum_{t=1}^n X_t^2
+      \end{bmatrix}^{-1}\\
+      &= \frac{\sigma^2}{n \sum_{t=1}^n X_t^2 - n^2 \bar{X}^2}
+      \begin{bmatrix}
+        \sum_{t=1}^n X_t^2 & -n \bar{X} \\
+        -n \bar{X}        & n
+      \end{bmatrix} \\
+      &= \frac{\sigma^2}{\sum_{t=1}^n (X_t - \bar{X}^2)}
+      \begin{bmatrix}
+        n^{-1} \sum_{t=1}^n X_t^2 & -\bar{X} \\
+        -\bar{X}                 & 1
+      \end{bmatrix},
+    \end{align*}
+    d'où
+    \begin{align*}
+      \var{\hat{\beta}_0}
+      &= \sigma^2\, \frac{\sum_{t=1}^n X_t^2}{%
+        n \sum_{t=1}^n (X_t - \bar{X})^2} \\
+      &= \sigma^2\, \frac{\sum_{t=1}^n (X_t - \bar{X}^2) + n \bar{X}^2}{%
+        n \sum_{t=1}^n (X_t - \bar{X})^2} \\
+      \intertext{et}
+      \var{\hat{\beta}_1}
+      &= \frac{\sigma^2}{\sum_{t=1}^n (X_t - \bar{X})^2}.
+    \end{align*}
+    Ceci correspond aux résultats antérieurs.
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  Démontrer les relations ci-dessous dans le contexte de la régression
+  linéaire multiple et trouver leur équivalent en régression linéaire
+  simple. Utiliser $\mat{e} = \mat{y - \hat{y}}$.
+  \begin{enumerate}
+  \item $\mat{X}^\prime \mat{e} = \mat{0}$
+  \item $\mat{\hat{y}}^\prime \mat{e} = 0$
+  \item $\mat{\hat{y}}^\prime \mat{\hat{y}} = \betabh^\prime
+    \mat{X}^\prime \mat{y}$
+  \end{enumerate}
+  \begin{sol}
+    Dans les démonstrations qui suivent, trois relations de base
+    seront utilisées:
+    $\mat{e} = \mat{y - \hat{y}}$,
+    $\mat{\hat{y}} = \mat{X} \betabh$ et
+    $\betabh = (\mat{X}^\prime \mat{X})^{-1} \mat{X}^\prime \mat{y}$.
+    \begin{enumerate}
+    \item On a
+      \begin{align*}
+        \mat{X}^\prime \mat{e}
+        &= \mat{X}^\prime (\mat{y - \hat{y}}) \\
+        &= \mat{X}^\prime (\mat{y} - \mat{X} \betabh) \\
+        &= \mat{X}^\prime \mat{y} - (\mat{X}^\prime \mat{X}) \betabh \\
+        &= \mat{X}^\prime \mat{y} - (\mat{X}^\prime \mat{X})
+        (\mat{X}^\prime \mat{X})^{-1} \mat{X}^\prime \mat{y} \\
+        &= \mat{X}^\prime \mat{y} - \mat{X}^\prime \mat{y} \\
+        &= \mat{0}.
+      \end{align*}
+      En régression linéaire simple, cela donne
+      \begin{align*}
+        \mat{X}^\prime \mat{e} &=
+        \begin{bmatrix}
+          1   & \cdots & 1  \\
+          X_1 & \cdots & X_n
+        \end{bmatrix}
+        \begin{bmatrix}
+          e_1 \\ \vdots \\ e_n
+        \end{bmatrix} \\
+        &=
+        \begin{bmatrix}
+          \sum_{t=1}^n e_t \\
+          \sum_{t=1}^n X_t e_t
+        \end{bmatrix}.
+      \end{align*}
+      Par conséquent, $\mat{X}^\prime \mat{e} = \mat{0}$ se simplifie
+      en $\sum_{t=1}^n e_t = 0$ et $\sum_{t=1}^n X_t e_t = 0$ soit,
+      respectivement, la condition pour que l'estimateur des moindres
+      carrés soit sans biais et la seconde équation normale obtenue à
+      la partie \ref{ex:simple:base:eq_normales}) de l'exercice
+      \ref{chap:simple}.\ref{ex:simple:base}.
+     \item On a
+       \begin{align*}
+         \hat{\mat{y}}^\prime \mat{e}
+         &= (\mat{X}\betabh)^\prime (\mat{y - \hat{y}}) \\
+         &= \betabh^\prime \mat{X}^\prime (\mat{y} - \mat{X}\betabh) \\
+         &= \betabh^\prime \mat{X}^\prime \mat{y} - \betabh^\prime
+         (\mat{X}^\prime \mat{X}) \betabh \\
+         &= \betabh^\prime \mat{X}^\prime \mat{y} - \betabh^\prime
+         (\mat{X}^\prime \mat{X}) (\mat{X}^\prime \mat{X})^{-1}
+         \mat{X}^\prime \mat{y} \\
+         &= \betabh^\prime \mat{X}^\prime \mat{y} - \betabh^\prime
+         \mat{X}^\prime \mat{y} \\
+         &= 0.
+       \end{align*}
+       Pour tout modèle de régression cette équation peut aussi
+       s'écrire sous la forme plus conventionnelle $\sum_{t=1}^n
+       \hat{Y}_t e_t = 0$. Cela signifie que le produit scalaire entre
+       le vecteur des prévisions et celui des erreurs doit être nul
+       ou, autrement dit, que les vecteurs doivent être orthogonaux.
+       C'est là une condition essentielle pour que l'erreur
+       quadratique moyenne entre les vecteurs $\mat{y}$ et
+       $\mat{\hat{y}}$ soit minimale. (Pour de plus amples détails sur
+       l'interprétation géométrique du modèle de régression, consulter
+       {\shorthandoff{:} \citet[chapitres 20 et
+         21]{Draper:regression:1998}}.) 
+         D'ailleurs, on constate que
+       $\hat{\mat{y}}^\prime \mat{e} = \betabh^\prime \mat{X}^\prime
+       \mat{e}$ et donc, en supposant sans perte de généralité que
+       $\betabh \ne \mat{0}$, 
+       que $\hat{\mat{y}}^\prime \mat{e} = 0$
+       et $\mat{X}^\prime \mat{e} = \mat{0}$ sont des conditions en
+       tous points équivalentes.
+     \item On a
+       \begin{align*}
+         \mat{\hat{y}}^\prime \mat{\hat{y}}
+         &= (\mat{X} \betabh)^\prime \mat{X} \betabh \\
+         &= \betabh^\prime (\mat{X}^\prime \mat{X}) \betabh \\
+         &= \betabh^\prime (\mat{X}^\prime \mat{X}) (\mat{X}^\prime
+         \mat{X})^{-1} \mat{X}^\prime \mat{y} \\
+         &= \betabh^\prime \mat{X}^\prime \mat{y}.
+       \end{align*}
+       Cette équation est l'équivalent matriciel de l'identité
+       \begin{align*}
+         \SSR
+         &= \hat{\beta}_1^2 \sum_{t = 1}^n (X_t - \bar{X})^2 \\
+         &= \frac{S_{XY}^2}{S_{XX}}
+       \end{align*}
+       utilisée à plusieurs reprises dans les solutions du chapitre
+       \ref{chap:simple}.  En effet, en régression linéaire simple,
+       $\mat{\hat{y}}^\prime \mat{\hat{y}} = \sum_{t = 1}^n
+       \hat{Y}_t^2 = \sum_{t = 1}^n (\hat{Y} - \bar{Y})^2 + n
+       \bar{Y}^2 = \SSR + n \bar{Y}^2$ et
+       \begin{align*}
+         \betabh^\prime \mat{X}^\prime \mat{y}
+         &= \hat{\beta}_0 n \bar{Y} + \hat{\beta}_1 \sum_{t = 1}^n X_t Y_t \\
+         &= (\bar{Y} - \hat{\beta}_1 \bar{X}) n \bar{Y} +
+         \hat{\beta}_1 \sum_{t = 1}^n X_t Y_t \\
+         &= \hat{\beta}_1 \sum_{t = 1}^n (X_t - \bar{X})(Y_t -
+         \bar{Y}) + n \bar{Y}^2 \\
+         &= \frac{S_{XY}^2}{S_{XX}} + n \bar{Y}^2,
+       \end{align*}
+       d'où $\SSR = S_{XY}^2/S_{XX}$.
+     \end{enumerate}
+   \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  Considérer le modèle de régression linéaire multiple présenté à
+  l'exercice \ref{chap:multiple}.\ref{ex:multiple:preuve}. Soit
+  $\hat{Y}_0$ la prévision de la variable dépendante correspondant aux
+  valeurs du vecteur ligne $\mat{x}_0 = (1, X_{01}, \dots, X_{0p})$
+  des $p$ variables indépendantes. On a donc
+  \begin{displaymath}
+    \hat{Y}_0 = \mat{x}_0 \betabh.
+  \end{displaymath}
+  \begin{enumerate}
+  \item Démontrer que $\esp{\hat{Y}_0} = \esp{Y_0}$.
+  \item Démontrer que l'erreur dans la prévision de la valeur moyenne
+    de $Y_0$ est
+    \begin{displaymath}
+      \esp{(\hat{Y}_0 - \esp{Y_0})^2} =
+      \sigma^2\, \mat{x}_0 (\mat{X}^\prime \mat{X})^{-1} \mat{x}_0^\prime.
+    \end{displaymath}
+    Construire un intervalle de confiance de niveau $1 - \alpha$ pour
+    $\esp{Y_0}$.
+  \item Démontrer que l'erreur dans la prévision de $Y_0$ est
+    \begin{displaymath}
+      \esp{(Y_0 - \hat{Y}_0)^2} =
+      \sigma^2\, (1 + \mat{x}_0 (\mat{X}^\prime \mat{X})^{-1} \mat{x}_0^\prime).
+    \end{displaymath}
+    Construire un intervalle de confiance de niveau $1 - \alpha$ pour
+    $Y_0$.
+  \end{enumerate}
+  \begin{sol}
+    \begin{enumerate}
+    \item Premièrement, $Y_0 = \mat{x}_0 \betab + \varepsilon_0$ avec
+      $\esp{\varepsilon_0} = 0$. Par conséquent, $\esp{Y_0} = \esp{x_0
+        \betab + \varepsilon_0} = \mat{x}_0 \betab$. Deuxièmement,
+      $\esp{\hat{Y}_0} = \esp{\mat{x}_0 \betabh} = \mat{x}_0
+      \esp{\betabh} = x_0 \betab$ puisque l'estimateur des moindres
+      carrés de $\betab$ est sans biais. Ceci complète la preuve.
+    \item Tout d'abord, $\esp{(\hat{Y}_0 - \esp{Y_0})^2} =
+      \varmat{\hat{Y}_0} = \var{\hat{Y}_0}$ puisque la matrice de
+      variance-covariance du vecteur aléatoire $\hat{Y}_0$ ne
+      contient, ici, qu'une seule valeur. Or, par le théorème
+      \ref{thm:elements:esp_var},
+       \begin{align*}
+         \var{\hat{Y}_0}
+         &= \varmat{\mat{x}_0 \betabh} \\
+         &= \mat{x}_0 \varmat{\betabh} \mat{x}_0^\prime \\
+         &= \sigma^2 \mat{x}_0 (\mat{X}^\prime \mat{X})^{-1}
+         \mat{x}_0^\prime.
+       \end{align*}
+       Afin de construire un intervalle de confiance pour $\esp{Y_0}$,
+       on ajoute au modèle l'hypothèse $\vepsb \sim N(\mat{0}, \sigma^2
+       \mat{I})$. Par linéarité de l'estimateur des moindres carrés,
+       on a alors $\hat{Y}_0 \sim N(\esp{Y_0}, \var{\hat{Y}_0})$. Par
+       conséquent,
+       \begin{displaymath}
+         \Pr
+         \left[
+           -z_{\alpha/2}
+           \leq
+           \frac{\hat{Y} - \esp{\hat{Y}_0}}{\sqrt{\var{\hat{Y}_0}}}
+           \leq
+           z_{\alpha/2}
+         \right] = 1 - \alpha
+       \end{displaymath}
+       d'où un intervalle de confiance de niveau $1 - \alpha$ pour
+       $\esp{Y_0}$ est
+       \begin{displaymath}
+         \esp{Y_0}
+         \in \hat{Y}_0 \pm z_{\alpha/2}\, \sigma\,
+         \sqrt{\mat{x}_0 (\mat{X}^\prime \mat{X})^{-1} \mat{x}_0^\prime}.
+       \end{displaymath}
+       Si la variance $\sigma^2$ est inconnue et estimée par $s^2$,
+       alors la distribution normale est remplacée par une
+       distribution de Student avec $n - p - 1$ degrés de
+       liberté. L'intervalle de confiance devient alors
+       \begin{displaymath}
+         \esp{Y_0}
+         \in \hat{Y}_0 \pm t_{\alpha/2}(n - p - 1)\, s\,
+         \sqrt{\mat{x}_0 (\mat{X}^\prime \mat{X})^{-1} \mat{x}_0^\prime}.
+       \end{displaymath}
+     \item Par le résultat obtenu en a) et en supposant que
+       $\Cov(\varepsilon_0, \varepsilon_t) = 0$ pour tout $t = 1,
+       \dots, n$, on a
+       \begin{align*}
+         \esp{(Y_0 - \hat{Y}_0)^2}
+         &= \var{Y_0 - \hat{Y}_0} \\
+         &= \var{Y_0} + \var{\hat{Y}_0} \\
+         &= \sigma^2 (1 + \mat{x}_0 (\mat{X}^\prime \mat{X})^{-1}
+         \mat{x}_0^\prime).
+       \end{align*}
+       Ainsi, avec l'hypothèse sur le terme d'erreur énoncée en b),
+       $Y_0 - \hat{Y}_0 \sim N(0, \var{Y_0 - \hat{Y}_0})$. En suivant
+       le même cheminement qu'en b), on détermine qu'un intervalle de
+       confiance de niveau $1 - \alpha$ pour $Y_0$ est
+       \begin{displaymath}
+         Y_0
+         \in \hat{Y}_0 \pm z_{\alpha/2}\, \sigma\,
+         \sqrt{1 + \mat{x}_0 (\mat{X}^\prime \mat{X})^{-1} \mat{x}_0^\prime}.
+       \end{displaymath}
+       ou, si la variance $\sigma^2$ est inconnue et estimée par
+       $s^2$,
+       \begin{displaymath}
+         Y_0
+         \in \hat{Y}_0 \pm t_{\alpha/2}(n - p - 1)\, s\,
+         \sqrt{1 + \mat{x}_0 (\mat{X}^\prime \mat{X})^{-1} \mat{x}_0^\prime}.
+       \end{displaymath}
+     \end{enumerate}
+   \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  En ajustant le modèle
+  \begin{displaymath}
+    Y_t = \beta_0 + \beta_1 X_{t1} + \beta_2 X_{t2} + \beta_3 X_{t3} +
+    \varepsilon_t
+  \end{displaymath}
+  à un ensemble de données, on a obtenu les statistiques suivantes:
+  \begin{align*}
+    R^2 &= 0,521 \\
+    F   &= 5,438.
+  \end{align*}
+  Déterminer la valeur $p$ approximative du test global de validité du
+  modèle.
+  \begin{rep}
+    $p \approx 0,01$
+  \end{rep}
+  \begin{sol}
+    On a la relation suivante liant la statistique $F$ et le
+    coefficient de détermination $R^2$:
+    \begin{displaymath}
+      F = \frac{R^2}{1 - R^2}\, \frac{n - p - 1}{p}
+    \end{displaymath}
+    La principale inconnue dans le problème est $n$, le nombre de
+    données. Or,
+    \begin{align*}
+      n
+      &= p F \left( \frac{1 - R^2}{R^2} \right) + p + 1 \\
+      &= 3 (5,438) \left( \frac{1 - 0,521}{0,521} \right) + 3 + 1 \\
+      &= 19.
+    \end{align*}
+    Soit $F$ une variable aléatoire dont la distribution est une loi
+    de Fisher avec $3$ et $19 - 3 - 1 = 15$ degrés de liberté, soit la
+    même distribution que la statistique $F$ du modèle. On obtient la
+    valeur $p$ du test global de validité du modèle dans un tableau de
+    quantiles de la distribution $F$ ou avec la fonction \texttt{pf}
+    dans R:
+    \begin{align*}
+      \Pr[F > 5,438] = 0,0099
+    \end{align*}
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  On vous donne les observations suivantes:
+  \begin{center}
+    \begin{tabular}{rrr}
+      \toprule
+      $Y$ & $X_1$ & $X_2$ \\
+      \midrule
+      17 & 4 &  9 \\
+      12 & 3 & 10 \\
+      14 & 3 & 11 \\
+      13 & 3 & 11 \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+  De plus, si $\mat{X}$ est la matrice de schéma du modèle
+  \begin{displaymath}
+    Y_t = \beta_0 + \beta_1 X_{t1} + \beta_2 X_{t2} + \varepsilon_t,
+    \quad t = 1, 2, 3, 4,
+  \end{displaymath}
+  où $\varepsilon_t \sim N(0, \sigma^2)$, alors
+  \begin{align*}
+    (\mat{X}^\prime \mat{X})^{-1}
+    &= \frac{1}{2}
+    \left[
+      \begin{array}{rrr}
+        765 & -87 &  -47 \\
+        -87 &  11 &    5 \\
+        -47 &   5 &    3
+      \end{array}
+    \right]
+    \intertext{et}
+    (\mat{X}^\prime \mat{X})^{-1} \mat{X}^\prime
+    &= \frac{1}{2}
+    \left[
+      \begin{array}{rrrr}
+        -6 & 34 & -13 & -13 \\
+        2 & -4 &   1 &   1 \\
+        0 & -2 &   1 &   1
+      \end{array}
+    \right]
+  \end{align*}
+  \begin{enumerate}
+  \item Trouver, par la méthode des moindres carrés, les estimateurs
+    des paramètres du modèle mentionné ci-dessus.
+  \item Construire le tableau d'analyse de variance du modèle obtenu
+    en a) et calculer le coefficient de détermination.
+  \item Vérifier si les variables $X_1$ et $X_2$ sont significatives
+    dans le modèle.
+  \item Trouver un intervalle de confiance à 95~\% pour la valeur de
+    $Y$ lorsque $X_1 = 3,5$ et $X_2 = 9$.
+  \end{enumerate}
+  \begin{rep}
+    \begin{inparaenum}
+    \item $\betabh = (-22,5,\; 6,5,\; 1,5)$
+    \item $F = 13,5$, $R^2 = 0,9643$
+    \item $t_1 = 3,920$, $t_2 = 1,732$
+    \item $13,75 \pm 13,846$
+    \end{inparaenum}
+  \end{rep}
+  \begin{sol}
+    \begin{enumerate}
+    \item On a
+      \begin{align*}
+        \betabh
+        &= (\mat{X}^\prime \mat{X})^{-1} \mat{X}^\prime \mat{y} \\
+        &= \frac{1}{2}
+        \left[
+          \begin{array}{rrrr}
+            -6 & 34 & -13 & -13 \\
+            2 & -4 &   1 &   1 \\
+            0 & -2 & 1 & 1
+          \end{array}
+        \right]
+        \begin{bmatrix}
+          17 \\ 12 \\ 14 \\ 13
+        \end{bmatrix} \\
+        &= \frac{1}{2}
+        \left[
+          \begin{array}{r}
+            -45 \\ 13 \\ 3
+          \end{array}
+        \right] =
+        \left[
+          \begin{array}{r}
+            -22,5 \\ 6,5 \\ 1,5
+          \end{array}
+        \right]
+      \end{align*}
+    \item Avec les résultats de la partie a), on a
+      \begin{align*}
+        \mat{\hat{y}} &= \mat{X} \betabh =
+        \begin{bmatrix}
+          17 \\ 12 \\ 13,5 \\ 13,5
+        \end{bmatrix}, \\
+        \mat{e} &= \mat{y} - \mat{\hat{y}} =
+        \left[
+          \begin{array}{r}
+            0 \\ 0 \\ 0,5 \\ -0,5
+          \end{array}
+        \right]
+      \end{align*}
+      et $\bar{Y} = 14$. Par conséquent,
+      \begin{align*}
+        \SST
+        &= \mat{y}^\prime \mat{y} - n \bar{Y}^2 = 14 \\
+        \SSE
+        &= \mat{e}^\prime \mat{e} = 0,5 \\
+        \SSR &= \SST - \SSR = 13,5,
+      \end{align*}
+      d'où le tableau d'analyse de variance est le suivant:
+      \begin{center}
+        \begin{tabular}{lrrrr}
+          \toprule
+          Source & SS & d.l. & MS & $F$ \\
+          \midrule
+          Régression & $13,5$ & 2 & $6,75$ &  $13,5$ \\
+          Erreur     &  $0,5$ & 1 &  $0,5$ \\
+          \midrule
+          Total      &   $14$ & \\
+          \bottomrule
+        \end{tabular}
+      \end{center}
+      Le coefficient de détermination est
+      \begin{displaymath}
+        R^2 = 1 - \frac{\SSE}{\SST} = 0,9643.
+      \end{displaymath}
+    \item On sait que $\var{\hat{\beta}_i} = \sigma^2 c_{ii}$, où
+      $c_{ii}$ est l'élément en position $(i+1, i+1)$ de la matrice
+      $(\mat{X}^\prime \mat{X})^{-1}$. Or, $\hat{\sigma}^2 = s^2 =
+      \text{MSE} = 0,5$, tel que calculé en b). Par conséquent, la
+      statistique $t$ du test $H_0: \beta_1 = 0$ est
+      \begin{displaymath}
+        t
+        = \frac{\hat{\beta}_1}{s \sqrt{c_{11}}}
+        = \frac{6,5}{\sqrt{0,5 (\frac{11}{2})}}
+        = 3,920,
+      \end{displaymath}
+      alors que celle du test $H_0: \beta_2 = 0$ est
+      \begin{displaymath}
+        t
+        = \frac{\hat{\beta}_2}{s \sqrt{c_{22}}}
+        = \frac{1,5}{\sqrt{0,5 (\frac{3}{2})}}
+        = 1,732.
+      \end{displaymath}
+      À un niveau de signification de 5~\%, la valeur critique de ces
+      tests est $t_{0,025}(1) = 12,706$. Dans les deux cas, on ne
+      rejette donc pas $H_0$, les variables $X_1$ et $X_2$ ne sont pas
+      significatives dans le modèle.
+    \item Soit $\mat{x}_0 = \begin{bmatrix} 1 & 3,5 & 9 \end{bmatrix}$
+      et $Y_0$ la valeur de la variable dépendante correspondant à
+      $\mat{x}_0$. La prévision de $Y_0$ donnée par le modèle trouvé
+      en a) est
+      \begin{align*}
+        \hat{Y}_0
+        &= \mat{x}_0 \betabh \\
+        &= -22,5 + 6,5(3,5) + 1,5(9) \\
+        &= 13,75.
+      \end{align*}
+      D'autre part,
+      \begin{align*}
+        \widehat{\text{Var}}[Y_0 - \hat{Y}_0]
+        &= s^2 (1 + \mat{x}_0 (\mat{X}^\prime \mat{X})^{-1} \mat{x}_0^\prime) \\
+        &= 1,1875.
+      \end{align*}
+      Par conséquent, un intervalle de confiance à 95~\% pour $Y_0$
+      est
+      \begin{align*}
+        \esp{Y_0} &\in \hat{Y}_0 \pm t_{0,025}(1) s \sqrt{1 + \mat{x}_0
+          (\mat{X}^\prime \mat{X})^{-1} \mat{x}_0^\prime} \\
+        &\in 13,75 \pm 12,706 \sqrt{1,1875} \\
+        &\in (-0,096, 27,596).
+      \end{align*}
+    \end{enumerate}
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  Répéter l'exercice \ref{chap:simple}.\ref{ex:simple:carburant} en
+  ajoutant la cylindrée du véhicule en litres dans le modèle. La
+  cylindrée est exprimée en pouces cubes dans les données.  Or, 1
+  pouce correspond à 2,54~cm et un litre est définit comme étant
+  1~$\text{dm}^3$, soit \nombre{1000}~$\text{cm}^3$. Trouver un
+  intervalle de confiance pour la consommation en carburant d'une
+  voiture de \nombre{1350}~kg ayant un moteur de 1,8 litre.
+<<echo=FALSE>>=
+carburant <- read.table("data/carburant.dat", header = TRUE)
+consommation <- 235.1954/carburant$mpg
+poids <- carburant$poids * 0.45455 * 1000
+cylindree <- carburant$cylindree * 2.54^3/1000
+fit <- lm(consommation ~ poids + cylindree)
+b <- coef(fit)
+s <- summary(fit)$sigma
+R2 <- summary(fit)$r.squared
+f <- summary(fit)$fstatistic[1]
+pred.pi <- predict(fit, newdata = data.frame(poids = 1350, cylindree = 1.8),
+                   interval = "prediction")
+@
+  \begin{rep}
+    \begin{inparaenum}
+      \stepcounter{enumi}
+    \item $R^2 = \Sexpr{format(signif(R2, 4), dec = ",")}$ et
+      $F = \Sexpr{format(signif(f, 4), dec = ",")}$
+    \item $\Sexpr{format(signif(pred.pi[1], 4), dec = ",")} \pm
+      \Sexpr{format(signif(diff(pred.pi[c(1, 3)]), 3), dec = ",")}$
+    \end{inparaenum}
+  \end{rep}
+  \begin{sol}
+    \begin{enumerate}
+    \item On importe les données dans \textsf{R}, puis on effectue les
+      conversions nécessaires. Comme précédemment, la variable
+      \texttt{consommation} contient la consommation des voitures en
+      $\ell$/100~km et la variable \texttt{poids} le poids en
+      kilogrammes. On ajoute la variable \texttt{cylindree}, qui
+      contient la cylindrée des voitures en litres.
+<<echo=TRUE, eval=FALSE>>=
+carburant <- read.table("carburant.dat", header = TRUE)
+consommation <- 235.1954/carburant$mpg
+poids <- carburant$poids * 0.45455 * 1000
+cylindree <- carburant$cylindree * 2.54^3/1000
+@
+    \item La fonction \texttt{summary} fournit l'information
+      essentielle pour juger de la validité et de la qualité du
+      modèle:
+<<echo=TRUE>>=
+fit <- lm(consommation ~ poids + cylindree)
+summary(fit)
+@
+      Le modèle est donc le suivant:
+      \begin{displaymath}
+        Y_t =
+        \Sexpr{format(signif(b[1], 4), dec = ",")} +
+        \Sexpr{format(signif(b[2], 4), dec = ",")} X_{t1} +
+        \Sexpr{format(signif(b[3], 4), dec = ",")} X_{t2} +
+        \varepsilon_t,
+        \quad
+        \vepsb_t \sim N(0,
+        \Sexpr{format(signif(s, 4), dec = ",")}^2 \mat{I})
+      \end{displaymath}
+      où $Y_t$ est la consommation en litres aux 100 kilomètres,
+      $X_{t1}$ le poids en kilogrammes et $X_{t2}$ la cylindrée en
+      litres. La faible valeur $p$ du test $F$ indique une régression
+      globalement très significative. Les tests $t$ des paramètres
+      individuels indiquent également que les deux variables du modèle
+      sont significatives. Enfin, le $R^2$ de %
+      \Sexpr{format(signif(R2, 4), dec = ",")} %$
+      confirme que l'ajustement du modèle est toujours bon.
+    \item On veut calculer un intervalle de confiance pour la
+      consommation prévue d'une voiture de \nombre{1350}~kg ayant un
+      moteur d'une cylindrée de 1,8 litres. On obtient, avec la
+      fonction \texttt{predict}:
+<<echo=TRUE>>=
+predict(fit, newdata = data.frame(poids = 1350, cylindree = 1.8),
+        interval = "prediction")
+@
+    \end{enumerate}
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  Dans un exemple du chapitre \ref{chap:simple} des notes de cours,
+  nous avons tâché d'expliquer les sinistres annuels moyens par
+  véhicule pour différents types de véhicules uniquement par la
+  puissance du moteur (en chevaux-vapeur).  Notre conclusion était à
+  l'effet que la régression était significative --- rejet de $H_0$
+  dans les tests \emph{t} et \emph{F} --- mais l'ajustement mauvais
+  --- $R^2$ petit.
+
+  Examiner les autres variables fournies dans le fichier
+  \texttt{auto-price.dat} et choisir deux autres caractéristiques
+  susceptibles d'expliquer les niveaux de sinistres. Par exemple,
+  peut-on distinguer une voiture sport d'une minifourgonnette?
+
+  Une fois les variables additionnelles choisies, calculer les
+  différentes statistiques propres à une régression en ajoutant
+  d'abord une, puis deux variables au modèle de base.  Quelles sont
+  vos conclusions?
+  \begin{sol}
+    Il y a plusieurs réponses possibles pour cet exercice. Si l'on
+    cherche, tel que suggéré dans l'énoncé, à distinguer les voitures
+    sport des minifourgonnettes (en supposant que ces dernières ont
+    moins d'accidents que les premières), alors on pourrait
+    s'intéresser, en premier lieu, à la variable \texttt{peak.rpm}. Il
+    s'agit du régime moteur maximal, qui est en général beaucoup plus
+    élevé sur les voitures sport. Puisque l'on souhaite expliquer le
+    montant total des sinistres de différents types de voitures, il
+    devient assez naturel de sélectionner également la variable
+    \texttt{price}, soit le prix du véhicule. Un véhicule plus luxueux
+    coûte en général plus cher à faire réparer à dommages égaux.
+    Voyons l'effet de l'ajout, pas à pas, de ces deux variables au
+    modèle précédent ne comportant que la variable
+    \texttt{horsepower}:
+<<echo=TRUE>>=
+autoprice <- read.table("data/auto-price.dat", header = TRUE)
+fit1 <- lm(losses ~ horsepower + peak.rpm, data = autoprice)
+summary(fit1)
+anova(fit1)
+@
+    La variable \texttt{peak.rpm} est significative, mais le $R^2$
+    demeure faible. Ajoutons maintenant la variable \texttt{price} au modèle:
+<<echo=TRUE>>=
+fit2 <- lm(losses ~ horsepower + peak.rpm + price, data = autoprice)
+summary(fit2)
+anova(fit2)
+@
+    Du moins avec les variables \texttt{horsepower} et
+    \texttt{peak.rpm}, la variable \texttt{price} n'est pas
+    significative. D'ailleurs, l'augmentation du $R^2$ suite à l'ajout
+    de cette variable est minime. À ce stade de l'analyse, il vaudrait
+    sans doute mieux reprendre tout depuis le début avec d'autres
+    variables. Des méthodes de sélection des variables seront étudiées
+    plus avant dans le chapitre.
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  %%% Exercice 6.10 de Miller & Wichern. On n'a pas les données. Les
+  %%% statistiques des résidus sont exactes, cependant.
+  En bon étudiant(e), vous vous intéressez à la relation liant la
+  demande pour la bière, $Y$, aux variables indépendantes $X_1$ (le
+  prix de celle-ci), $X_2$ (le revenu disponible) et $X_3$ (la demande
+  de l'année précédente). Un total de 20 observations sont
+  disponibles.  Vous postulez le modèle
+  \begin{displaymath}
+    Y_t = \beta_0 + \beta_1 X_{t1} + \beta_2 X_{t2} + \beta_3 X_{t3} +
+    \varepsilon_t,
+  \end{displaymath}
+  où $\esp{\varepsilon_t} = 0$ et $\Cov(\varepsilon_t, \varepsilon_s)
+  = \delta_{ts} \sigma^2$. Les résultats de cette régression, tels que
+  calculés dans \textsf{R}, sont fournis ci-dessous.
+
+\begin{verbatim}
+> fit <- lm(Y ~ X1 + X2 + X3, data = biere)
+> summary(fit)
+\end{verbatim}
+\begin{verbatim}
+Call: lm(formula = Y ~ X1 + X2 + X3, data = biere)
+Residuals:
+      Min.    1st Qu.     Median    3rd Qu.       Max.
+-1.014e+04 -5.193e-03 -2.595e-03  4.367e-03  2.311e-02
+
+Coefficients:
+              Value Std. Error t value  Pr(>|t|)
+(Intercept)  1.5943  1.0138     1.5726    0.1354
+         X1 -0.0480  0.1479    -0.3243    0.7499
+         X2  0.0549  0.0306     1.7950    0.0916
+         X3  0.8130  0.1160     7.0121 2.933e-06
+
+Residual standard error: 0.0098 on 16 degrees of freedom
+Multiple R-Squared: 0.9810      Adjusted R-squared: 0.9774
+F-statistic: 275.49 on 3 and 16 degrees of freedom,
+the p-value is 7.160e-14
+\end{verbatim}
+
+  \begin{enumerate}
+  \item Indiquer les dimensions des matrices et vecteurs dans la
+    représentation matricielle $\mat{y} = \mat{X} \betab + \vepsb$ du
+    modèle.
+  \item La régression est-elle significative? Expliquer.
+  \item On porte une attention plus particulière au paramètre
+    $\beta_2$. Est-il significativement différent de zéro? Quelle est
+    l'interprétation du test $H_0: \beta_2 = 0$ versus $H_1: \beta_2
+    \ne 0$?
+  \item Quelle est la valeur et l'interprétation de $R^2$, le
+    coefficient de détermination? De manière générale, est-il
+    envisageable d'obtenir un $R^2$ élevé et, simultanément, toutes
+    les statistiques $t$ pour les tests $H_0: \beta_1 = 0$, $H_0:
+    \beta_2 = 0$ et $H_0: \beta_3 = 0$ non significatives?  Expliquer
+    brièvement.
+  \end{enumerate}
+  \begin{rep}
+    \begin{inparaenum}
+    \item $\mat{y}_{20 \times 1}$, $\mat{X}_{20 \times 4}$, $\betab_{4
+        \times 1}$ et $\vepsb_{20 \times 1}$
+    \end{inparaenum}
+  \end{rep}
+  \begin{sol}
+    \begin{enumerate}
+    \item On a $p = 3$ variables explicatives et, du nombre de degrés
+      de liberté de la statistique $F$, on apprend que $n - p - 1 =
+      16$. Par conséquent, $n = 16 + 3 + 1 = 20$. Les dimensions des
+      vecteurs et de la matrice de schéma dans la représentation
+      $\mat{y} = \mat{X} \betab + \vepsb$ sont donc: $n \times 1 = 20
+      \times 1$ pour les vecteurs $\mat{y}$ et $\vepsb$, $n \times (p
+      + 1) = 20 \times 4$ pour la matrice $\mat{X}$, $(p + 1) \times
+      1$ pour le vecteur $\betab$.
+    \item La valeur $p$ associée à la statistique $F$ est, à toute fin
+      pratique, nulle. Cela permet de rejeter facilement l'hypothèse
+      nulle selon laquelle la régression n'est pas significative.
+    \item On doit se fier ici au résultat du test $t$ associé à la
+      variable $X_2$. Dans les résultats obtenus avec \textsf{R}, on
+      voit que la valeur $p$ de la statistique $t$ du paramètre
+      $\beta_2$ est $0,0916$. Cela signifie que jusqu'à un seuil de
+      signification de 9,16~\% (ou un niveau de confiance supérieur à
+      90,84~\%), on ne peut rejeter l'hypothèse $H_0: \beta_2 = 0$ en
+      faveur de $H_1: \beta_2 \ne 0$. Il s'agit néanmoins d'un cas
+      limite et il est alors du ressort de l'analyste de décider
+      d'inclure ou non le revenu disponible dans le modèle.
+    \item Le coefficient de détermination est de $R^2 = 0,981$. Cela
+      signifie que le prix de la bière, le revenu disponible et la
+      demande de l'année précédente expliquent plus de 98~\% de la
+      variation de la demande en bière. L'ajustement du modèle aux
+      données est donc particulièrement bon. Il est tout à fait
+      possible d'obtenir un $R^2$ élevé et, simultanément, toutes les
+      statistiques $t$ non significatives: comme chaque test $t$
+      mesure l'impact d'une variable sur la régression étant donné la
+      présence des autres variables, il suffit d'avoir une bonne
+      variable dans un modèle pour obtenir un $R^2$ élevé et une ou
+      plusieurs autres variables redondantes avec la première pour
+      rendre les tests $t$ non significatifs.
+    \end{enumerate}
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  %%% Je ne me souviens plus comment j'ai obtenu ces résultats. Fort
+  %%% probablement simulés.
+  Au cours d'une analyse de régression, on a colligé les valeurs
+  de trois variables explicatives $X_1$, $X_2$ et $X_3$ ainsi que
+  celles d'une variable dépendante $Y$. Les résultats suivants ont par
+  la suite été obtenus avec \textsf{R}.
+  
+%  \begin{verbatim}
+%> anova(lm(Y ~ X2 + X3, data = foo))
+%  \end{verbatim}
+%  \begin{verbatim}
+%Analysis of Variance Table
+%
+%Response: Y
+%
+%          Df Sum of Sq  Mean Sq  F Value       Pr(>F)
+%       X2  1  45.59085 45.59085 106.0095 0.0000000007 ***
+%       X3  1   8.76355  8.76355  20.3773 0.0001718416 ***
+%Residuals 22   9.46140  0.43006
+%---
+%Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+%  \end{verbatim}
+%  \begin{verbatim}
+%> anova(lm(Y ~ X1 + X2 + X3, data = foo))
+%  \end{verbatim}
+%  \begin{verbatim}
+%Analysis of Variance Table
+%
+%Response: Y
+%
+%          Df Sum of Sq  Mean Sq  F Value    Pr(>F)
+%       X1  1  45.59240 45.59240 101.6681 0.0000000 ***
+%       X2  1   0.01842  0.01842   0.0411 0.8413279
+%       X3  1   8.78766  8.78766  19.5959 0.0002342 ***
+%Residuals 21   9.41731  0.44844
+%---
+%Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+%  \end{verbatim}
+  
+  \begin{enumerate}
+  \item On considère le modèle complet $Y = \beta_0 + \beta_1 X_1 +
+    \beta_2 X_2 + \beta_3 X_3 + \varepsilon$. À partir de
+    l'information ci-dessus, calculer la statistique appropriée pour
+    compléter chacun des tests suivants. Indiquer également le nombre
+    de degrés de liberté de cette statistique. Dans tous les cas,
+    l'hypothèse alternative $H_1$ est la négation de l'hypothèse
+    $H_0$.
+    \begin{enumerate}
+      %\renewcommand{\labelenumiii}{\roman{enumiii})}
+    \item $H_0: \beta_1 = \beta_2 = \beta_3 = 0$
+    \item $H_0: \beta_1 = 0$
+    \item $H_0: \beta_2 = \beta_3 = 0$
+    \end{enumerate}
+  \item À la lumière des résultats en a), quelle(s) variable(s)
+    devrait-on inclure dans la régression? Justifier votre réponse.
+  \end{enumerate}
+  \begin{rep}
+    \begin{inparaenum}
+    \item
+      \begin{inparaenum}[i)]
+      \item 40,44, 3 et 21 degrés de liberté
+      \item 0,098, 1 et 21 degrés de liberté
+      \item 9,82, 2 et 21 degrés de liberté
+      \end{inparaenum}
+    \item $X_1$ et $X_3$, ou $X_2$ et $X_3$
+    \end{inparaenum}
+  \end{rep}
+  \begin{sol}
+    \begin{enumerate}
+    \item L'information demandée doit évidemment être extraite des
+      deux tableaux d'analyse de variance fournis dans l'énoncé. Il
+      importe, ici, de savoir que le résultat de la fonction
+      \texttt{anova} de \textsf{R} est un tableau d'analyse de
+      variance séquentiel, où chaque ligne identifiée par le nom d'une
+      variable correspond au test $F$ partiel résultant de l'ajout de
+      cette variable au modèle. Ainsi, du premier tableau on obtient
+      les sommes de carrés
+      \begin{align*}
+        \SSR(X_2)          &= 45,59085 \\
+        \SSR(X_3|X_2)      &= 8,76355 \\
+        \intertext{alors que du second tableau on a}
+        \SSR(X_1)          &= 45,59240 \\
+        \SSR(X_2|X_1)      &= 0,01842 \\
+        \SSR(X_3|X_1, X_2) &= 8,78766,
+      \end{align*}
+      ainsi que
+      \begin{align*}
+        \MSE
+        &= \frac{SSE(X_1, X_2, X_3)}{n - p - 1} \\
+        &= 0,44844.
+      \end{align*}
+      \begin{enumerate}[i)]
+      \item Le test d'hypothèse $H_0: \beta_1 = \beta_2 = \beta_3 = 0$
+        est le test global de validité du modèle. La statistique $F$
+        pour ce test est
+        \begin{align*}
+          F
+          &= \frac{\SSR(X_1, X_2, X_3)/3}{\MSE} \\
+          &= \frac{(\SSR(X_1) + \SSR(X_2|X_1) + \SSR(X_3|X_1,X_2))/3}{\MSE} \\
+          &= \frac{(45,5924 + 0,01842 + 8,78766)/3}{0,44844} \\
+          &= 40,44.
+        \end{align*}
+        Puisque la statistique $\MSE$ a 21 degrés de liberté, la
+        statistique $F$ en a 3 et 21.
+      \item Pour tester cette hypothèse, il faut utiliser un test $F$
+        partiel. On teste si la variable $X_1$ est significative dans
+        la régression globale. La statistique du test est alors
+        \begin{align*}
+          F^*
+          &= \frac{\SSR(X_1|X_2,X_3)/1}{\MSE} \\
+          &= \frac{\SSR(X_1, X_2, X_3) - \SSR(X_2, X_3)}{\MSE} \\
+          &= \frac{\SSR(X_1, X_2, X_3) - \SSR(X_2) - \SSR(X_3|X_2)}{\MSE} \\
+          &= \frac{54,39848 - 45,59085 - 8,76355}{0,44844} \\
+          &= 0,098,
+        \end{align*}
+        avec 1 et 21 degrés de liberté.
+      \item Cette fois, on teste si les variables $X_2$ et $X_3$ (les
+        deux ensemble) sont significatives dans la régression globale.
+        On effectue donc encore un test $F$ partiel avec la
+        statistique
+        \begin{align*}
+          F^*
+          &= \frac{\SSR(X_2, X_3|X_1)/2}{\MSE} \\
+          &= \frac{(\SSR(X_1, X_2, X_3) - \SSR(X_1))/2}{\MSE} \\
+          &= \frac{(54,39848 - 45,5924)/2}{0,44844} \\
+          &= 9,819,
+        \end{align*}
+        avec 2 et 21 degrés de liberté.
+      \end{enumerate}
+    \item À la lecture du premier tableau d'analyse de variance que
+      tant les variables $X_2$ que $X_3$ sont significatives dans le
+      modèle. Par contre, comme on le voit dans le second tableau, la
+      variable $X_2$ devient non significative dès lors que la
+      variable $X_1$ est ajoutée au modèle. (L'impact de la variable
+      $X_3$ demeure, lui, inchangé.) Cela signifie que les variables
+      $X_1$ et $X_2$ sont redondantes et qu'il faut choisir l'une ou
+      l'autre, mais pas les deux. Par conséquent, les choix de modèle
+      possibles sont $X_1$ et $X_3$, ou $X_2$ et $X_3$.
+    \end{enumerate}
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  Dans une régression multiple avec quatre variables explicatives et
+  506 données, on a obtenu:
+  \begin{align*}
+    \mathrm{SSR}(X_1|X_4) &= \nombre{21348} \\
+    \mathrm{SSR}(X_4) &= \nombre{2668} \\
+    R^2 &= 0,6903 \\
+    s^2 &= 26,41.
+  \end{align*}
+  Calculer la statistique appropriée pour le test
+  \begin{align*}
+    H_0 &: \beta_2 = \beta_3 = 0 \\
+    H_1 &: \beta_2 \ne 0 \text{ ou } \beta_3 \ne 0.
+  \end{align*}
+  \begin{rep}
+    $103,67$
+  \end{rep}
+  \begin{sol}
+    La statistique à utiliser pour faire ce test $F$ partiel est
+    \begin{align*}
+      F^*
+      &= \frac{\SSR(X_2, X_3|X_1, X_4)/2}{\MSE} \\
+      &= \frac{\SSR(X_1, X_2, X_3, X_4) - \SSR(X_1, X_4)}{2\, \MSE} \\
+      &= \frac{\SSR - \SSR(X_4) - \SSR(X_1|X_4)}{2 s^2}
+    \end{align*}
+    où $\SSR = \SSR(X_1,X_2,X_3,X_4)$. Or,
+    \begin{align*}
+      R^2
+      &= \frac{\SSR}{\SST} \\
+      &= \frac{\SSR}{\SSR + \SSE}, \\
+      \intertext{d'où}
+      \SSR
+      &= \frac{R^2}{1 - R^2}\, \SSE \\
+      &= \frac{R^2}{1 - R^2}\, \MSE (n - p - 1) \\
+      &= \frac{0,6903}{1 - 0,6903}\, (26,41) (506 - 4 - 1) \\
+      &= \nombre{29492}.
+    \end{align*}
+    Par conséquent,
+    \begin{align*}
+      F^*
+      &= \frac{\nombre{29492} - \nombre{2668} - \nombre{21348}}{%
+        (2) (26,41)} \\
+      &= 103,67.
+    \end{align*}
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  En régression linéaire multiple, on a $\hat{\betab} \sim
+  N(\betab, \sigma^2 (\mat{X}^\prime \mat{X})^{-1})$ et
+  $\text{SSE}/\sigma^2 \sim \chi^2(n - p - 1)$.
+  \begin{enumerate}
+  \item Vérifier que
+    \begin{displaymath}
+      \frac{\hat{\beta_i} - \beta_i}{s \sqrt{c_{ii}}} \sim
+      t(n - p -  1), \quad i = 0, 1, \dots, p,
+    \end{displaymath}
+    où $c_{ii}$ est le $(i + 1)$\ieme{} élément de la diagonale de la
+    matrice $(\mat{X}^\prime \mat{X})^{-1}$ et $s^2 = \text{MSE}$.
+  \item Que vaut $c_{11}$ en régression linéaire simple? Adapter le
+    résultat ci-dessus à ce modèle.
+  \end{enumerate}
+  \begin{sol}
+    \begin{enumerate}
+    \item Tout d'abord, si $Z \sim N(0,1)$ et $V \sim \upchi^2(r)$
+      alors, par définition,
+      \begin{displaymath}
+        \frac{Z}{\sqrt{V/r}} \sim t(r).
+      \end{displaymath}
+      Tel que mentionné dans l'énoncé, $\hat{\beta}_i \sim N(\beta_i,
+      \sigma^2 c_{ii})$ ou, de manière équivalente,
+      \begin{displaymath}
+        \frac{\hat{\beta}_i - \beta_i}{\sigma \sqrt{c_{ii}}} \sim
+        N(0, 1).
+      \end{displaymath}
+      Par conséquent,
+      \begin{displaymath}
+        \frac{\frac{\hat{\beta}_i - \beta_i}{\sigma \sqrt{c_{ii}}}}{%
+          \sqrt{\frac{\SSE}{\sigma^2(n - p - 1)}}}
+        = \frac{\hat{\beta}_i - \beta_i}{s \sqrt{c_{ii}}}
+        \sim t(n - p - 1).
+      \end{displaymath}
+    \item En régression linéaire simple, $c_{11} = 1/\sum_{t = 1}^n
+      (X_t - \bar{X})^2 = 1/S_{XX}$ et $\sigma^2 c_{11} =
+      \var{\hat{\beta}_1}$. Le résultat général en a) se réduit donc,
+      en régression linéaire simple, au résultat bien connu du test $t$
+      sur le paramètre $\beta_1$
+      \begin{displaymath}
+        \frac{\hat{\beta}_1 - \beta_1}{s \sqrt{1/S_{XX}}}
+        \sim t(n - 1 - 1).
+      \end{displaymath}
+    \end{enumerate}
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  Considérer le modèle de régression linéaire $\mat{y} = \mat{X}
+  \betab + \vepsb$, où $\mat{X}$ est une matrice $n \times (p+1)$,
+  $\var{\vepsb} = \sigma^2\, \mat{W}^{-1}$ et $\mat{W} = \diag(w_1,
+  \dots, w_n)$.  Démontrer, en dérivant
+  \begin{align*}
+    S(\betab)
+    &= \sum_{t=1}^n w_t (\mat{y}_t - \mat{x}_t^\prime \betab)^2 \\
+    &= (\mat{y} - \mat{X} \betab)^\prime\, \mat{W}\, (\mat{y} -
+       \mat{X} \betab)
+  \end{align*}
+  par rapport à $\betab$, que les équations normales à résoudre pour
+  obtenir l'estimateur des moindres carrés pondérés de $\betab$ sont,
+  sous forme matricielle,
+  \begin{displaymath}
+    (\mat{X}^\prime\, \mat{W}\, \mat{X}) \betabh^* = \mat{X}^\prime\,
+    \mat{W}\,  \mat{y},
+  \end{displaymath}
+  puis en déduire cet estimateur.  \emph{Astuce}: cette preuve est
+  simple si l'on utilise le théorème
+  \ref{thm:elements:derivee_fonction} de l'annexe \ref{chap:elements}
+  avec $\mat{A} = \mat{W}$ et $f(\betab) = \mat{y} - \mat{X} \betab$.
+  \begin{sol}
+    En suivant les indications donnée dans l'énoncé, on obtient aisément
+    \begin{align*}
+      \frac{d}{d\betab} S(\betab)
+      &= 2 \left(\frac{d}{d\betab}(\mat{y} - \mat{X}
+        \betab)\right)^\prime \mat{W} (\mat{y} - \mat{X}
+        \betab) \\
+      &= - 2 \mat{X}^\prime \mat{W} (\mat{y} - \mat{X}
+        \betab) \\
+      &= -2 (\mat{X}^\prime \mat{W} \mat{y} - \mat{X}^\prime \mat{W}
+      \mat{X} \betab).
+    \end{align*}
+    Par conséquent, les équations normales à résoudre pour trouver
+    l'estimateur $\betabh^*$ minimisant la somme de carrés pondérés
+    $S(\betab)$ sont $(\mat{X}^\prime\, \mat{W}\, \mat{X}) \betabh^* =
+    \mat{X}^\prime\, \mat{W}\, \mat{y}$ et l'estimateur des moindres
+    carrés pondérés est
+    \begin{displaymath}
+      \betabh^* = (\mat{X}^\prime \mat{W} \mat{X})^{-1} \mat{X}^\prime
+      \mat{W} \mat{y}.
+    \end{displaymath}
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  Considérer le modèle de régression linéaire simple passant par
+  l'origine $Y_t = \beta X_t + \varepsilon_t$. Trouver l'estimateur
+  linéaire sans biais à variance minimale du paramètre $\beta$, ainsi
+  que sa variance, sous chacune des hypothèses suivantes.
+  \begin{enumerate}
+  \item $\var{\varepsilon_t} = \sigma^2$
+  \item $\var{\varepsilon_t} = \sigma^2/w_t$
+  \item $\var{\varepsilon_t} = \sigma^2 X_t$
+  \item $\var{\varepsilon_t} = \sigma^2 X_t^2$
+  \end{enumerate}
+  \begin{rep}
+    \begin{enumerate}
+    \item $\hat{\beta}^* = \sum_{t=1}^n X_t Y_t/\sum_{t=1}^n X_t^2$,
+      $\var{\hat{\beta}^*} = \sigma^2/\sum_{t=1}^n X_t^2$
+    \item $\hat{\beta}^* = \sum_{t=1}^n w_t X_t Y_t/\sum_{t=1}^n
+      w_t X_t^2$,
+      $\var{\hat{\beta}^*} = \sigma^2/\sum_{t=1}^n w_t X_t^2$
+    \item $\hat{\beta}^* = \bar{Y}/\bar{X}$,
+      $\var{\hat{\beta}^*} = \sigma^2/(n \bar{X})$
+    \item $\hat{\beta}^* = \sum_{t=1}^n Y_t/X_t$,
+      $\var{\hat{\beta}^*} = \sigma^2/n$
+    \end{enumerate}
+  \end{rep}
+  \begin{sol}
+    De manière tout à fait générale, l'estimateur linéaire sans biais
+    à variance minimale dans le modèle de régression linéaire $\mat{y}
+    = \mat{X} \betab + \vepsb$, $\var{\vepsb} = \sigma^2\,
+    \mat{W}^{-1}$ est
+    \begin{displaymath}
+      \betabh^* = (\mat{X}^\prime \mat{W} \mat{X})^{-1} \mat{X}^\prime
+      \mat{W} \mat{y}
+    \end{displaymath}
+    et sa variance est, par le théorème \ref{thm:elements:esp_var},
+    \begin{align*}
+      \varmat{\betabh^*}
+      &= (\mat{X}^\prime \mat{W} \mat{X})^{-1} \mat{X}^\prime \mat{W}
+      \varmat{\mat{y}}
+      \mat{W}^\prime \mat{X} (\mat{X}^\prime \mat{W} \mat{X})^{-1} \\
+      &= \sigma^2
+      (\mat{X}^\prime \mat{W} \mat{X})^{-1} \mat{X}^\prime \mat{W}
+      \mat{W}^{-1}
+      \mat{W} \mat{X} (\mat{X}^\prime \mat{W} \mat{X})^{-1} \\
+      &= \sigma^2 (\mat{X}^\prime \mat{W} \mat{X})^{-1}
+    \end{align*}
+    puisque les matrices $\mat{W}$ et $\mat{X}^\prime \mat{W} \mat{X}$
+    sont symétriques. Dans le cas de la régression linéaire simple
+    passant par l'origine et en supposant que $\mat{W} = \diag(w_1,
+    \dots, w_n)$, ces formules se réduisent en
+    \begin{align*}
+      \hat{\beta}^*
+      &= \frac{\sum_{t=1}^n w_t X_t Y_t}{\sum_{t=1}^n w_t X_t^2} \\
+      \intertext{et}
+      \var{\hat{\beta}^*}
+      &= \frac{\sigma^2}{\sum_{t=1}^n w_t X_t^2}.
+    \end{align*}
+    \begin{enumerate}
+    \item Cas déjà traité à l'exercice
+      \ref{chap:simple}.\ref{ex:simple:origine} où $\mat{W} = \mat{I}$
+      et, donc,
+      \begin{align*}
+        \hat{\beta}^*
+        &= \frac{\sum_{t=1}^n X_t Y_t}{\sum_{t=1}^n X_t^2} \\
+        \intertext{et}
+        \var{\hat{\beta}^*}
+        &= \frac{\sigma^2}{\sum_{t=1}^n w_t X_t^2}.
+      \end{align*}
+    \item Cas général traité ci-dessus.
+    \item Si $\var{\varepsilon_t} = \sigma^2 X_t$, alors $w_t =
+      X_t^{-1}$. Le cas général se simplifie donc en
+      \begin{align*}
+        \hat{\beta}^*
+        &= \frac{\sum_{t=1}^n Y_t}{\sum_{t=1}^n X_t} \\
+        &= \frac{\bar{Y}}{\bar{X}}, \\
+        \var{\hat{\beta}^*}
+        &= \frac{\sigma^2}{\sum_{t=1}^n X_t} \\
+        &= \frac{\sigma^2}{n \bar{X}}.
+      \end{align*}
+    \item Si $\var{\varepsilon_t} = \sigma^2 X_t^2$, alors $w_t =
+      X_t^{-2}$. On a donc
+      \begin{align*}
+        \hat{\beta}^*
+        &= \frac{1}{n} \sum_{t=1}^n \frac{Y_t}{X_t} \\
+        \var{\hat{\beta}^*}
+        &= \frac{\sigma^2}{n}.
+      \end{align*}
+    \end{enumerate}
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  \label{ex:multiple:quadratique}
+  Proposer, à partir des données ci-dessous, un modèle de
+  régression complet (incluant la distribution du terme d'erreur)
+  pouvant expliquer le comportement de la variable $Y$ en fonction de
+  celui de $X$.
+  \begin{center}
+    \begin{tabular}{rr}
+      \toprule
+      \multicolumn{1}{c}{$Y$} & $X$ \\
+      \midrule
+      32,83 & 25 \\
+       9,70 &  3 \\
+      29,25 & 24 \\
+      15,35 & 11 \\
+      13,25 & 10 \\
+      24,19 & 20 \\
+       8,59 &  6 \\
+      25,79 & 21 \\
+      24,78 & 19 \\
+      10,23 &  9 \\
+       8,34 &  4 \\
+      22,10 & 18 \\
+      10,00 &  7 \\
+      18,64 & 16 \\
+      18,82 & 15 \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+<<echo=FALSE>>=
+donnees <- read.table("data/exercice_3.16.dat", header = TRUE)
+fit <- lm(Y ~ poly(X, 2), data = donnees)
+b <- signif(coef(fit), 4)
+s2 <- signif(summary(fit)$sigma^2, 4)
+@
+  \begin{rep}
+    $Y_t = \Sexpr{format(b[1], dec = ",")} +
+    \Sexpr{format(b[2], dec = ",")} X_t +
+    \Sexpr{format(b[3], dec = ",")} X_t^2 + \varepsilon_t$,
+    $\varepsilon_t \sim N(0, \Sexpr{format(s2, dec = ",")})$
+  \end{rep}
+  \begin{sol}
+    Le graphique des valeurs de $Y$ en fonction de celles de $X$, à la
+    figure \ref{fig:multiple:quadratique}, montre clairement une
+    relation quadratique. On postule donc le modèle
+    \begin{displaymath}
+      Y_t = \beta_0 + \beta_1 X_t + \beta_2 X_t^2 + \varepsilon_t, \quad
+      \varepsilon_t \sim N(0, \sigma^2).
+    \end{displaymath}
+    \begin{figure}
+      \centering
+<<echo=TRUE, fig=TRUE>>=
+plot(Y ~ X, data = donnees)
+@
+      \caption{Graphique des données de l'exercice
+        \ref{chap:multiple}.\ref{ex:multiple:quadratique}}
+      \label{fig:multiple:quadratique}
+    \end{figure}
+    Par la suite, on peut estimer les paramètres de ce modèle avec la
+    fonction \texttt{lm} de \textsf{R}:
+<<echo=TRUE>>=
+fit <- lm(Y ~ poly(X, 2), data = donnees)
+summary(fit)
+anova(fit)
+@
+    Tant le test $F$ global que les tests $t$ individuels sont
+    concluants, le coefficient de détermination est élevé et l'on peut
+    constater à la figure \ref{fig:multiple:quadratique2} que
+    l'ajustement du modèle est bon. On conclut donc qu'un modèle
+    adéquat pour cet ensemble de données est
+    \begin{displaymath}
+      Y_t = \Sexpr{format(b[1], dec = ",")} +
+      \Sexpr{format(b[2], dec = ",")} X_t +
+      \Sexpr{format(b[3], dec = ",")} X_t^2 + \varepsilon_t, \quad
+      \varepsilon_t \sim N(0, \Sexpr{format(s2, dec = ",")}).
+    \end{displaymath}
+    \begin{figure}
+      \centering
+<<echo=TRUE, fig=TRUE>>=
+plot(Y ~ X, data = donnees)
+x <- seq(min(donnees$X), max(donnees$X), length = 200)
+lines(x, predict(fit, data.frame(X = x), lwd = 2))
+@
+      \caption{Graphique des données de l'exercice
+        \ref{chap:multiple}.\ref{ex:multiple:quadratique} et courbe
+        obtenue par régression}
+      \label{fig:multiple:quadratique2}
+    \end{figure}
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  \label{ex:multiple:pondere}
+  On vous donne les 23 données dans le tableau ci-dessous.
+  \begin{center}
+    \begin{tabular}{rcc@{\qquad}rcc@{\qquad}rcc}
+      \toprule
+      $t$ & $Y_t$ & $X_t$ & $t$ & $Y_t$ & $X_t$ & $t$ & $Y_t$ & $X_t$ \\
+      \midrule
+      12 & 2,3 & 1,3 & 19 & 1,7 & 3,7 &  6 & 2,8 & 5,3 \\
+      23 & 1,8 & 1,3 & 20 & 2,8 & 4,0 & 10 & 2,1 & 5,3 \\
+      7 & 2,8 & 2,0 &  5 & 2,8 & 4,0 &  4 & 3,4 & 5,7 \\
+      8 & 1,5 & 2,0 &  2 & 2,2 & 4,0 &  9 & 3,2 & 6,0 \\
+      17 & 2,2 & 2,7 & 21 & 3,2 & 4,7 & 13 & 3,0 & 6,0 \\
+      22 & 3,8 & 3,3 & 15 & 1,9 & 4,7 & 14 & 3,0 & 6,3 \\
+      1 & 1,8 & 3,3 & 18 & 1,8 & 5,0 & 16 & 5,9 & 6,7 \\
+      11 & 3,7 & 3,7 &  3 & 3,5 & 5,3 \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+  \begin{enumerate}
+  \item Calculer l'estimateur des moindres carrés ordinaires
+    $\betabh$.
+  \item Supposons que la variance de $Y_{16}$ est $4 \sigma^2$ plutôt
+    que $\sigma^2$. Recalculer la régression en a) en utilisant cette
+    fois les moindres carrés pondérés.
+  \item Refaire la partie b) en supposant maintenant que la variance
+    de l'observation $Y_{16}$ est $16 \sigma^2$. Quelles différences
+    note-t-on?
+  \end{enumerate}
+<<echo=FALSE>>=
+donnees <- read.table("data/exercice_3.17.dat", header = TRUE)
+fit1 <- lm(Y ~ X, data = donnees)
+b1 <- round(coef(fit1), 4)
+w <- rep(1, nrow(donnees))
+w[16] <- 0.25
+fit2 <- update(fit1, weights = w)
+b2 <- round(coef(fit2), 4)
+w[16] <- 0.0625
+fit3 <- update(fit1, weights = w)
+b3 <- round(coef(fit3), 4)
+@
+  \begin{rep}
+    \begin{inparaenum}
+    \item $\betabh = (%
+      \Sexpr{format(b1[1], dec = ",")},
+      \Sexpr{format(b1[2], dec = ",")})$
+    \item $\betabh^* = (%
+      \Sexpr{format(b2[1], dec = ",")},
+      \Sexpr{format(b2[2], dec = ",")})$
+    \item $\betabh^* = (%
+      \Sexpr{format(b3[1], dec = ",")},
+      \Sexpr{format(b3[2], dec = ",")})$
+    \end{inparaenum}
+  \end{rep}
+  \begin{sol}
+    Comme on peut le constater à la figure \ref{fig:multiple:pondere},
+    le point $(X_{16}, Y_{16})$ est plus éloigné des autres. En b) et
+    c), on diminue son poids dans la régression.
+    \begin{figure}
+      \centering
+<<echo=TRUE, fig=TRUE>>=
+plot(Y ~ X, data = donnees)
+points(donnees$X[16], donnees$Y[16], pch = 16)
+@
+      \caption{Graphique des données de l'exercice
+        \ref{chap:multiple}.\ref{ex:multiple:pondere}. Le cercle plein
+        représente la donnée $(X_{16}, Y_{16})$.}
+      \label{fig:multiple:pondere}
+    \end{figure}
+    \begin{enumerate}
+    \item On calcule d'abord l'estimateur des moindres carrés ordinaires:
+<<echo=TRUE>>=
+(fit1 <- lm(Y ~ X, data = donnees))
+@
+    \item Si l'on suppose que la variance de la données $(X_{16},
+      Y_{16})$ est quatre fois plus élevée que la variance des autres
+      données, alors il convient d'accorder un point quatre fois moins
+      grand à cette donnée dans la régression. Cela requiert les
+      moindres carrés pondérés. Pour calculer les estimateurs avec
+      \texttt{lm} dans \textsf{R}, on utilise l'argument
+      \texttt{weights}:
+<<echo=TRUE>>=
+w <- rep(1, nrow(donnees))
+w[16] <- 0.25
+(fit2 <- update(fit1, weights = w))
+@
+    \item On répète la procédure en b) avec un poids de encore plus
+      petit pour la donnée $(X_{16}, Y_{16})$:
+<<echo=TRUE>>=
+w[16] <- 0.0625
+(fit3 <- update(fit1, weights = w))
+@
+      Plus le poids accordé à la donnée $(X_{16}, Y_{16})$ est faible,
+      moins la droite de régression est attirée vers ce point (voir la
+      figure \ref{fig:multiple:pondere2}).
+      \begin{figure}[t]
+        \centering
+<<echo=TRUE, fig=TRUE>>=
+plot(Y ~ X, data = donnees)
+points(donnees$X[16], donnees$Y[16], pch = 16)
+abline(fit1, lwd = 2, lty = 1)
+abline(fit2, lwd = 2, lty = 2)
+abline(fit3, lwd = 2, lty = 3)
+legend(1.2, 6, legend = c("Modèle a)", "Modèle b)", "Modèle c)"),
+       lwd = 2, lty = 1:3)
+@
+        \caption{Graphique des données de l'exercice
+          \ref{chap:multiple}.\ref{ex:multiple:pondere} avec les
+          droites de régression obtenues à l'aide des moindres carrés
+          pondérés.}
+        \label{fig:multiple:pondere2}
+      \end{figure}
+    \end{enumerate}
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  \label{ex:multiple:taxi}
+  Une coopérative de taxi new-yorkaise s'intéresse à la consommation
+  de carburant des douze véhicules de sa flotte en fonction de leur
+  âge.  Hormis leur âge, les véhicules sont identiques et utilisent
+  tous le même type d'essence. La seule chose autre différence notable
+  d'un véhicule à l'autre est le sexe du conducteur: la coopérative
+  emploie en effet des hommes et des femmes. La coopérative a
+  recueilli les données suivantes afin d'établir un modèle de
+  régression pour la consommation de carburant:
+  \begin{center}
+    \begin{tabular}{ccc}
+      \toprule
+      Consommation (mpg) & Âge du véhicule & Sexe du conducteur \\
+      \midrule
+      12,3 & 3 & M \\
+      12,0 & 4 & F \\
+      13,7 & 3 & F \\
+      14,2 & 2 & M \\
+      15,5 & 1 & F \\
+      11,1 & 5 & M \\
+      10,6 & 4 & M \\
+      14,0 & 1 & M \\
+      16,0 & 1 & F \\
+      13,1 & 2 & M \\
+      14,8 & 2 & F \\
+      10,2 & 5 & M \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+  \begin{enumerate}
+  \item En plaçant les points sur un graphique de la consommation de
+    carburant en fonction de l'âge du véhicule, identifier s'il existe
+    ou non une différence entre la consommation de carburant des
+    femmes et celle des hommes. \emph{Astuce}: utiliser un symbole
+    (\texttt{pch}) différent pour chaque groupe.
+  \item Établir un modèle de régression pour la consommation de
+    carburant. Afin de pouvoir intégrer la variable qualitative «sexe
+    du conducteur» dans le modèle, utiliser une variable indicatrice
+    du type
+    \begin{displaymath}
+      X_{t2} =
+      \begin{cases}
+        1, & \text{si le conducteur est un homme} \\
+        0, & \text{si le conducteur est une femme}.
+      \end{cases}
+    \end{displaymath}
+  \item Quelle est, selon le modèle établi en b), la consommation
+    moyenne d'une voiture taxi de quatre ans conduite par une femme?
+    Fournir un intervalle de confiance à 90~\% pour cette prévision.
+  \end{enumerate}
+<<echo=FALSE>>=
+donnees <- read.table("data/exercice_3.18.dat", header = TRUE)
+fit <- lm(mpg ~ age + sexe, data = donnees)
+b <- round(coef(fit), 3)
+pred <- predict(fit, newdata = data.frame(age = 4, sexe = "F"),
+        interval = "confidence", level = 0.90)
+pred <- round(pred, 2)
+@
+  \begin{rep}
+    \begin{inparaenum}
+      \stepcounter{enumi}
+    \item $\text{mpg} = %
+      \Sexpr{format(b[1], dec = ",")}
+      \Sexpr{format(b[2], dec = ",")} \text{ age}
+      \Sexpr{format(b[3], dec = ",")} \text{ sexe}$
+    \item $\Sexpr{format(pred[1], dec = ",")} \pm
+      \Sexpr{format(diff(pred[c(1, 3)]), dec = ",")} \text{ mpg}$
+    \end{inparaenum}
+  \end{rep}
+  \begin{sol}
+    \begin{enumerate}
+    \item Voir la figure \ref{fig:multiple:taxi} pour le graphique. Il
+      y a effectivement une différence entre la consommation de
+      carburant des hommes et des femmes: ces dernières font plus de
+      milles avec un gallon d'essence.
+      \begin{figure}
+        \centering
+<<echo=TRUE, fig=TRUE>>=
+hommes <- subset(donnees, sexe == "M")
+femmes <- subset(donnees, sexe == "F")
+plot(mpg ~ age, data = hommes,
+     xlim = range(donnees$age), ylim = range(donnees$mpg))
+points(mpg ~ age, data = femmes, pch = 16)
+legend(4, 16, legend = c("Hommes", "Femmes"), pch = c(1, 16))
+@
+        \caption{Graphique des données de l'exercice
+          \ref{chap:multiple}.\ref{ex:multiple:taxi}}
+        \label{fig:multiple:taxi}
+      \end{figure}
+    \item Remarquer que la variable \texttt{sexe} est un facteur et peut
+      être utilisée telle quelle dans \texttt{lm}:
+<<echo=TRUE>>=
+(fit <- lm(mpg ~ age + sexe, data = donnees))
+@
+    \item Calcul d'une prévision pour la valeur moyenne de la variable
+      \texttt{mpg}:
+<<echo=TRUE>>=
+predict(fit, newdata = data.frame(age = 4, sexe = "F"),
+        interval = "confidence", level = 0.90)
+@
+    \end{enumerate}
+  \end{sol}
+\end{exercice}
+
+
+\Closesolutionfile{solutions}
+\Closesolutionfile{reponses}
+
+%%%
+%%% Insérer les réponses
+%%%
+\input{reponses-multiple}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "exercices_methodes_statistiques"
+%%% End:

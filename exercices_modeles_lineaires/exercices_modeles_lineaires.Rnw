@@ -13,10 +13,10 @@
   \usepackage[absolute]{textpos}
   \usepackage{answers,listings}
   \usepackage[alwaysadjust,defblank]{paralist}
+  %\usepackage{verbatim}
+  %\usepackage[noae]{Sweave}
+  %\usepackage{threeparttable}
   
-%  %%% À voir plus tard si utile%%%
-%  \usepackage{threeparttable}
-%  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   %%% Hyperliens
   \usepackage{hyperref}
@@ -164,10 +164,10 @@
 %    indexstyle=\indexfonction}
 %  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   
-  %%% Environnements pour le code S: police plus petite
-  %\RecustomVerbatimEnvironment{Sinput}{Verbatim}{fontsize=\small}
-  %\RecustomVerbatimEnvironment{Soutput}{Verbatim}{fontsize=\small}
-  %\RecustomVerbatimEnvironment{Scode}{Verbatim}{fontsize=\small}
+%  %%% Environnements pour le code S: police plus petite
+%  \RecustomVerbatimEnvironment{Sinput}{Verbatim}{fontsize=\small}
+%  \RecustomVerbatimEnvironment{Soutput}{Verbatim}{fontsize=\small}
+%  \RecustomVerbatimEnvironment{Scode}{Verbatim}{fontsize=\small}
 
 %  %%% Index
 %  \renewcommand{\preindexhook}{%
@@ -211,6 +211,9 @@
 \stepcounter{chapter}
 
 <<child='simple.Rnw'>>=
+@
+
+<<child='multiple.Rnw'>>=
 @
 
 
