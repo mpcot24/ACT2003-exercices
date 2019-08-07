@@ -1026,7 +1026,7 @@
 \hlkwd{plot}\hlstd{(Y} \hlopt{~} \hlstd{X,} \hlkwc{data} \hlstd{= donnees)}
 \end{alltt}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-39-1}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-52-1}
 
 \end{knitrout}
       \caption{Graphique des données de l'exercice
@@ -1100,7 +1100,7 @@
 \hlkwd{lines}\hlstd{(x,} \hlkwd{predict}\hlstd{(fit,} \hlkwd{data.frame}\hlstd{(}\hlkwc{X} \hlstd{= x),} \hlkwc{lwd} \hlstd{=} \hlnum{2}\hlstd{))}
 \end{alltt}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-41-1}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-54-1}
 
 \end{knitrout}
       \caption{Graphique des données de l'exercice
@@ -1123,7 +1123,7 @@
 \hlkwd{points}\hlstd{(donnees}\hlopt{$}\hlstd{X[}\hlnum{16}\hlstd{], donnees}\hlopt{$}\hlstd{Y[}\hlnum{16}\hlstd{],} \hlkwc{pch} \hlstd{=} \hlnum{16}\hlstd{)}
 \end{alltt}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-43-1}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-56-1}
 
 \end{knitrout}
       \caption{Graphique des données de l'exercice
@@ -1210,7 +1210,7 @@
        \hlkwc{lwd} \hlstd{=} \hlnum{2}\hlstd{,} \hlkwc{lty} \hlstd{=} \hlnum{1}\hlopt{:}\hlnum{3}\hlstd{)}
 \end{alltt}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-47-1}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-60-1}
 
 \end{knitrout}
         \caption{Graphique des données de l'exercice
@@ -1241,7 +1241,7 @@
 \hlkwd{legend}\hlstd{(}\hlnum{4}\hlstd{,} \hlnum{16}\hlstd{,} \hlkwc{legend} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"Hommes"}\hlstd{,} \hlstr{"Femmes"}\hlstd{),} \hlkwc{pch} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,} \hlnum{16}\hlstd{))}
 \end{alltt}
 \end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-49-1}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-62-1}
 
 \end{knitrout}
         \caption{Graphique des données de l'exercice
@@ -1282,4 +1282,62 @@
 \end{knitrout}
     \end{enumerate}
   
+\end{solution}
+\begin{solution}{3.19}
+\begin{enumerate}
+\item Le postulat de normalité semble violé.
+
+La distribution des résidus a une queue inférieure plus épaisse que la loi normale, ce que l'on voit à gauche du Q-Q plot, puisque les poits ne sont pas alignés.
+
+Le postulat de normalité n'est pas critique, parce que les estimateurs des moindres carrés ont un sens quand même. Toutefois, les tests d'hypothèses et les intervalles de confiance ne sont pas valides.
+
+\item Le graphique des résidus en fonction de $x_2$ montre que le postulat de linéarité semble violé. Cela implique que le modèle n'est pas valide.
+
+On observe de l'hétéroscédasticité (par exemple, dans les graphiques 1, 3 ou 4) puisque les résidus ne semblent pas avoir une variance constante.
+
+Cela signifie que les variances des paramètres ne sont pas calculées de façon appropriée OU il faudrait effectuer une transformation sur les variables pour régler ces problèmes.
+
+
+\end{enumerate}
+\end{solution}
+\begin{solution}{3.20}
+On pourrait croire qu'un point sur 20, ça ne change rien, mais ce n'est pas le cas! Le point 1 a un impact sur la pente et la qualité de l'ajustement. Le point 2 a un grand levier mais n'affecte pas beaucoup les estimations, le point 3 a un grand levier et un gros impact.
+
+\begin{verbatim}
+dat <- read.csv("OutlierExample.csv")
+
+dim(dat)
+
+summary(dat)
+
+library(ggplot2)
+
+ggplot(dat, aes(x= X, y= Y, label=CODES))+
+  geom_point() +
+  geom_text(aes(label=ifelse(CODES>0,CODES,'')),hjust=0,vjust=0)
+
+fit0 <- lm(Y~X,dat,subset=(CODES==0))
+summary(fit0)
+plot(dat[,1:2],pch=16)
+points(dat[match(1:3,dat$CODES),1:2],col=2:4,pch=16:18,cex=1.2)
+abline(fit0)
+
+fit1 <- lm(Y~X,dat,subset=(CODES<=1))
+summary(fit1)
+abline(fit1,col=2,lty=2)
+
+fit2 <- lm(Y~X,dat,subset=(CODES%in%c(0,2)))
+summary(fit2)
+abline(fit2,col=3,lty=3)
+
+fit3 <- lm(Y~X,dat,subset=(CODES%in%c(0,3)))
+summary(fit3)
+abline(fit3,col=4,lty=4)
+
+influence.measures(fit0)
+influence.measures(fit1)
+influence.measures(fit2)
+influence.measures(fit3)
+
+\end{verbatim}
 \end{solution}

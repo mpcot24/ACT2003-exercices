@@ -1,0 +1,43 @@
+\chapter{Régression linéaire simple}
+\label{chap:simple}
+
+\Opensolutionfile{reponses}[reponses-simple]
+\Opensolutionfile{solutions}[solutions-simple]
+
+\begin{Filesave}{reponses}
+\bigskip
+\section*{Réponses}
+
+\end{Filesave}
+
+\begin{Filesave}{solutions}
+\section*{Chapitre \ref{chap:simple}}
+\addcontentsline{toc}{section}{Chapitre \protect\ref{chap:simple}}
+
+\end{Filesave}
+
+
+<<echo=FALSE>>=
+options(width = 55)
+@
+
+
+\begin{exercice}
+
+\end{sol}
+
+\end{exercice}
+
+\Closesolutionfile{solutions}
+\Closesolutionfile{reponses}
+
+%%%
+%%% Insérer les réponses
+%%%
+\input{reponses-simple}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "exercices_methodes_statistiques"
+%%% End:

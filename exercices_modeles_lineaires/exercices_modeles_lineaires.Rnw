@@ -137,6 +137,7 @@
   \newcommand{\MSE}{\mathrm{MSE}}
   \newcommand{\MSR}{\mathrm{MSR}}
   \newcommand{\tr}{\mathrm{tr}}
+  \newcommand{\cov}{\mathbb{C}\text{ov}}
   
   %%% Styles pour les noms de fonctions, code, etc.
   \newcommand{\code}[1]{\texttt{#1}}
@@ -216,6 +217,14 @@
 <<child='multiple.Rnw'>>=
 @
 
+%<<child='selection.Rnw'>>=
+%@
+%
+%<<child='glm.Rnw'>>=
+%@
+%
+%<<child='comptage.Rnw'>>=
+%@
 
 \appendix
 %\include{regression}
