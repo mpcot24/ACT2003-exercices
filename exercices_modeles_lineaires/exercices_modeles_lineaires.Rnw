@@ -211,18 +211,18 @@
 
 \stepcounter{chapter}
 
-<<child='simple.Rnw'>>=
-@
+%<<child='simple.Rnw'>>=
+%@
 
-<<child='multiple.Rnw'>>=
-@
+%<<child='multiple.Rnw'>>=
+%@
 
 %<<child='selection.Rnw'>>=
 %@
-%
-%<<child='glm.Rnw'>>=
-%@
-%
+
+<<child='glm.Rnw'>>=
+@
+
 %<<child='comptage.Rnw'>>=
 %@
 
