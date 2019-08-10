@@ -1,7 +1,7 @@
 \section*{Chapitre \ref{chap:glm}}
 \addcontentsline{toc}{section}{Chapitre \protect\ref{chap:glm}}
 
-\begin{solution}{2.1}
+\begin{solution}{5.1}
 \begin{enumerate}
 \item Normale$(\mu,\sigma^2)$: oui,
 \begin{align*}
@@ -86,13 +86,13 @@ f_Y^*(y)&=\begin{pmatrix} r+ry-1\\ry\end{pmatrix}\pi^r(1-\pi)^{ry}, \mbox{ pour 
 \end{itemize}
 \end{enumerate}
 \end{solution}
-\begin{solution}{2.2}
+\begin{solution}{5.2}
 Le lien canonique est le lien log: $\eta=\ln(\mu)$. On pourrait aussi utiliser d'autres fonctions de lien, telle que le lien identité $\eta=\mu$, le lien inverse $\eta=\frac{1}{\mu}$, mais le lien log est le plus approprié parce que son utilisation garantit une moyenne $\mu$ positive, ce qui est nécessaire pour la loi de Poisson.
 \end{solution}
-\begin{solution}{2.3}
+\begin{solution}{5.3}
 Le lien canonique pour la loi Gamma est le lien inverse $\eta=1/\mu$. Comme la moyenne d'une loi Gamma est toujours positive, ce lien n'est pas toujours approprié parce qu'il ne restreint pas le domaine de $\mu$ aux réels positifs. Le lien log serait plus approprié dans certains cas.
 \end{solution}
-\begin{solution}{2.4}
+\begin{solution}{5.4}
 \begin{enumerate}
 \item $\eta=g(\mu)=\ln(\mu)$
 \item On a $$\ln(\mu_i)=\eta_i=\beta_0+\beta_1x_i.$$ La densité de la loi Poisson est
@@ -117,7 +117,7 @@ Donc, les équations à résoudre sont
 \end{align*}
 \end{enumerate}
 \end{solution}
-\begin{solution}{2.5}
+\begin{solution}{5.5}
 La déviance est $$D(y;\hat{\mu})=2(\ell_n(\tilde{\theta})-\ell_n(\hat{\theta})).$$ Pour le modèle Binomial, on a que
 \begin{align*}
 \ell_n(\theta)&=\sum_{i=1}^n\frac{y_i\ln\left(\frac{\mu_i}{1-\mu_i}\right)+\ln(1-\mu_i)}{1/m_i}.
@@ -135,7 +135,7 @@ D(y;\hat{\mu})&=\sum_{i=1}^n\frac{y_i\ln\left(\frac{y_i}{1-y_i}\right)+\ln(1-y_i
 &=\sum_{i=1}^n m_i\left[y_i\ln\left(\frac{y_i}{\hat{\mu}_i}\right)+(1-y_i)\ln\left(\frac{1-y_i}{1-\hat{\mu}_i}\right)\right].
 \end{align*}
 \end{solution}
-\begin{solution}{2.6}
+\begin{solution}{5.6}
 Pour la distribution Gamma, on a $V(t)=t^2$ et $b(t)=-\ln(-t)$.
 
 Résidus de Pearson: $$r_{P_i}=\frac{y_i-\hat{\mu}_i}{\sqrt{\hat{\mu}_i^2}}=\frac{y_i-\hat{\mu}_i}{\hat{\mu}_i}.$$
@@ -152,7 +152,7 @@ D_i&=2\left(-\frac{y_i}{y_i}-\ln(y_i)+\frac{y_i}{\hat{\mu}_i}+\ln(\hat{\mu}_i)\r
 r_{D_i}&=sign(y_i-\hat{\mu}_i)\sqrt{2\left(\ln\left(\frac{\hat{\mu}_i}{y_i}\right)+\frac{y_i-\hat{\mu}_i}{\hat{\mu}_i}\right)}.
 \end{align*}
 \end{solution}
-\begin{solution}{2.7}
+\begin{solution}{5.7}
 Cette solution est en anglais, vous pouvez poser vos questions sur le forum, s'il y a lieu.
 
 This is a two-factor model, «Device» takes three levels (M1, M2 and M3) and «Stress» takes 4 levels. The baseline group is M1 device at stress level I. An analysis of deviance is carried out to assess if the parameters for the devices are significant.
@@ -196,7 +196,7 @@ This is a two-factor model, «Device» takes three levels (M1, M2 and M3) and «
 
 The model $$\mbox{Stress+Device+Stress.Device}$$ is fitted first. The change in deviance from the simpler model $\mbox{Stress+Device}$ is 2.7719 on 6 degrees of freedom, which is not significant when compared to $\chi^{2}_{(6,0.95)}=12.59$. Hence, the model $\mbox{Stress+Device}$ is an adequate simplification of the more complex model. If we then test for the significance of the Device parameters, we find that the change in deviance from the simpler model Stress is 12.2154 on 2 degrees of freedom, which is significant because $\chi^{2}_{(2,0.95)}=5.99$. From this analysis, we can conclude that there is a significant difference between the failure rates of the different devices.
 \end{solution}
-\begin{solution}{2.8}
+\begin{solution}{5.8}
 \begin{enumerate}
 \item En \texttt{R}, on obtient
 \begin{knitrout}
@@ -282,11 +282,11 @@ The model $$\mbox{Stress+Device+Stress.Device}$$ is fitted first. The change in 
 \begin{center}
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=3cm,height=3cm]{figure/unnamed-chunk-7-1}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-75-1}
 
-\includegraphics[width=3cm,height=3cm]{figure/unnamed-chunk-7-2}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-75-2}
 
-\includegraphics[width=3cm,height=3cm]{figure/unnamed-chunk-7-3}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-75-3}
 
 \end{knitrout}
 \caption{Résidus pour GLM Gamma}\label{fig:glm:residuals}
@@ -369,7 +369,7 @@ g. Pour un détenteur de police entre 35 et 39 ans, avec un véhicule de type A 
 h. La déviance $D(y,\hat{\mu})=11.263$ est donnée dans la sortie \texttt{R} pour la sous-question a). On a que $$\frac{D(y,\hat{\mu})}{\hat{\phi}}=\frac{11.263}{0.0910768}=123.66,$$ ce qui est moins près de $n-p'=109$ que pour le modèle avec le lien inverse. Le modèle semble donc moins adéquat.
 \end{enumerate}
 \end{solution}
-\begin{solution}{2.9}
+\begin{solution}{5.9}
 \begin{enumerate}
 \item If $x_{i}$ is treated as a factor predictor with 11 levels, the linear predictor is written as $$\eta_{i}=\beta_{0}+\beta_{i} \mbox{,  } i=1,...,11$$ and $\beta_{1}=0$. The binomial density is the following: $$f_{Y}(y_{i})=\begin{pmatrix} m_{i} \\ y_{i} \end{pmatrix}\pi_{i}^{y_{i}}(1-\pi_{i})^{m_{i}-y_{i}},$$ which can be rewritten in a exponential family representation as: $$f_{Y}(y_{i})=\exp\left[y_{i}\ln\left(\frac{\pi_{i}}{1-\pi_{i}}\right)+m\ln(1-\pi_{i})+\ln\begin{pmatrix} m_{i} \\ y_{i} \end{pmatrix}\right].$$ Hence, the canonical parameter is $\theta_{i}=\ln\left(\frac{\pi_{i}}{1-\pi_{i}}\right)$ and the canonical link is the logit link. Thus,
 \begin{align*}
@@ -513,7 +513,7 @@ The estimates of the parameters are $\hat{\beta}_{0}=-3.360$ and $\hat{\beta}_{1
 \begin{center}
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-17-1}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-85-1}
 
 \end{knitrout}
 \end{center}

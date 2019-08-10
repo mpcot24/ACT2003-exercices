@@ -21,9 +21,6 @@
 options(width = 55)
 @
 
-\newcommand{\bm}{\boldmath}
-\newcommand{\bobeta}{\mbox{\bm$\beta$}}
-
 \begin{exercice}
 Est-ce que les distributions suivantes font partie de la famille exponentielle linéaire? Si oui, écrire la densité sous la forme exponentielle linéaire, donner le paramètre canonique, le paramètre de dispersion, l'espérance et la variance de $Y$ en termes de la fonction $b()$ et la relation $V()$ entre la moyenne et la variance.
 

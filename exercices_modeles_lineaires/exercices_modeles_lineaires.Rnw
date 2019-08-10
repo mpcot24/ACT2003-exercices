@@ -15,7 +15,7 @@
   \usepackage[alwaysadjust,defblank]{paralist}
   %\usepackage{verbatim}
   %\usepackage[noae]{Sweave}
-  %\usepackage{threeparttable}
+  \usepackage{threeparttable}
   
 
   %%% Hyperliens
@@ -103,19 +103,19 @@
     {\end{list}}
   \renewcommand{\reponseparams}{{\thechapter.\theexercice}}
 
-%  %%% Environnement pour les listes de commandes
-%  \newenvironment{ttscript}[1]{%
-%    \begin{list}{}{%
-%        \setlength{\labelsep}{1.5ex}
-%        \settowidth{\labelwidth}{\code{#1}}
-%        \setlength{\leftmargin}{\labelwidth}
-%        \addtolength{\leftmargin}{\labelsep}
-%        \setlength{\parsep}{0.5ex plus0.2ex minus0.2ex}
-%        \setlength{\itemsep}{0.3ex}
-%        \renewcommand{\makelabel}[1]{##1\hfill}}}
-%    {\end{list}}
-%  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  
+  %%% Environnement pour les listes de commandes
+  \newenvironment{ttscript}[1]{%
+    \begin{list}{}{%
+        \setlength{\labelsep}{1.5ex}
+        \settowidth{\labelwidth}{\code{#1}}
+        \setlength{\leftmargin}{\labelwidth}
+        \addtolength{\leftmargin}{\labelsep}
+        \setlength{\parsep}{0.5ex plus0.2ex minus0.2ex}
+        \setlength{\itemsep}{0.3ex}
+        \renewcommand{\makelabel}[1]{##1\hfill}}}
+    {\end{list}}
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
   %%% Environnement pour les solutions
   \renewenvironment{solution}[1]{%
     \begin{list}{\bfseries #1}{%
@@ -139,55 +139,58 @@
   \newcommand{\tr}{\mathrm{tr}}
   \newcommand{\cov}{\mathbb{C}\text{ov}}
   
+  \newcommand{\bm}{\boldmath}
+  \newcommand{\bobeta}{\mbox{\bm$\beta$}}
+  
   %%% Styles pour les noms de fonctions, code, etc.
   \newcommand{\code}[1]{\texttt{#1}}
 
   %%% Sous-figures
   \newsubfloat{figure}
 
-%  %%% Paramètres pour les sections de code source
-%  \lstloadlanguages{R}
-%  \lstdefinelanguage{Renhanced}[]{R}{%
-%    morekeywords={acf,ar,arima,arima.sim,colMeans,colSums,is.na,is.null,%
-%      mapply,ms,na.rm,nlmin,replicate,row.names,rowMeans,rowSums,seasonal,%
-%      sys.time,system.time,ts.plot,which.max,which.min},
-%    deletekeywords={c},
-%    alsoletter={.\%},%
-%    alsoother={:_\$}}
-%  \lstset{language=Renhanced,
-%    extendedchars=true,
-%    inputencoding=latin1,
-%    basicstyle=\small\ttfamily,
-%    commentstyle=\textsl,
-%    keywordstyle=\mdseries,
-%    showstringspaces=false,
-%    index=[1][keywords],
-%    indexstyle=\indexfonction}
-%  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%% Paramètres pour les sections de code source
+  \lstloadlanguages{R}
+  \lstdefinelanguage{Renhanced}[]{R}{%
+    morekeywords={acf,ar,arima,arima.sim,colMeans,colSums,is.na,is.null,%
+      mapply,ms,na.rm,nlmin,replicate,row.names,rowMeans,rowSums,seasonal,%
+      sys.time,system.time,ts.plot,which.max,which.min},
+    deletekeywords={c},
+    alsoletter={.\%},%
+    alsoother={:_\$}}
+  \lstset{language=Renhanced,
+    extendedchars=true,
+    inputencoding=latin1,
+    basicstyle=\small\ttfamily,
+    commentstyle=\textsl,
+    keywordstyle=\mdseries,
+    showstringspaces=false,
+    index=[1][keywords],
+    indexstyle=\indexfonction}
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   
 %  %%% Environnements pour le code S: police plus petite
 %  \RecustomVerbatimEnvironment{Sinput}{Verbatim}{fontsize=\small}
 %  \RecustomVerbatimEnvironment{Soutput}{Verbatim}{fontsize=\small}
 %  \RecustomVerbatimEnvironment{Scode}{Verbatim}{fontsize=\small}
 
-%  %%% Index
-%  \renewcommand{\preindexhook}{%
-%    Cet index contient des entrées pour les annexes
-%    \ref{chap:regression} seulement. Les numéros de
-%    page en caractères gras indiquent les pages où les concepts sont
-%    introduits, définis ou expliqués.\vskip\onelineskip}
-%  \newcommand{\Index}[1]{\index{#1|textbf}}
-%  \newcommand{\indexargument}[1]{\index{#1@\code{#1}}}
-%  \newcommand{\indexclasse}[1]{\index{#1@\code{#1} (classe)}}
-%  \newcommand{\indexfonction}[1]{\index{#1@\code{#1}}}
-%  \newcommand{\Indexfonction}[1]{\Index{#1@\code{#1}}}
-%
-%  \newcommand{\argument}[1]{\code{#1}\indexargument{#1}}
-%  \newcommand{\classe}[1]{\code{#1}\indexclasse{#1}}
-%  \newcommand{\fonction}[1]{\code{#1}\indexfonction{#1}}
-%  \newcommand{\Fonction}[1]{\code{#1}\Indexfonction{#1}}
-%  \makeindex
-%  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %%% Index
+  \renewcommand{\preindexhook}{%
+    Cet index contient des entrées pour les annexes
+    \ref{chap:regression} seulement. Les numéros de
+    page en caractères gras indiquent les pages où les concepts sont
+    introduits, définis ou expliqués.\vskip\onelineskip}
+  \newcommand{\Index}[1]{\index{#1|textbf}}
+  \newcommand{\indexargument}[1]{\index{#1@\code{#1}}}
+  \newcommand{\indexclasse}[1]{\index{#1@\code{#1} (classe)}}
+  \newcommand{\indexfonction}[1]{\index{#1@\code{#1}}}
+  \newcommand{\Indexfonction}[1]{\Index{#1@\code{#1}}}
+
+  \newcommand{\argument}[1]{\code{#1}\indexargument{#1}}
+  \newcommand{\classe}[1]{\code{#1}\indexclasse{#1}}
+  \newcommand{\fonction}[1]{\code{#1}\indexfonction{#1}}
+  \newcommand{\Fonction}[1]{\code{#1}\Indexfonction{#1}}
+  \makeindex
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
 
@@ -211,24 +214,24 @@
 
 \stepcounter{chapter}
 
-%<<child='simple.Rnw'>>=
-%@
+<<child='simple.Rnw'>>=
+@
 
-%<<child='multiple.Rnw'>>=
-%@
+<<child='multiple.Rnw'>>=
+@
 
-%<<child='selection.Rnw'>>=
-%@
+<<child='selection.Rnw'>>=
+@
 
 <<child='glm.Rnw'>>=
 @
 
-%<<child='comptage.Rnw'>>=
-%@
+<<child='comptage.Rnw'>>=
+@
 
 \appendix
-%\include{regression}
-%\include{ts}
+<<child='regression.Rnw'>>=
+@
 %\include{elements}
 \include{solutions}
 

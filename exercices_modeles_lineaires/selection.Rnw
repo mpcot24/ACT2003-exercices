@@ -21,9 +21,6 @@
 options(width = 55)
 @
 
-\newcommand{\bm}{\boldmath}
-\newcommand{\bobeta}{\mbox{\bm$\beta$}}
-
 \begin{exercice}
 Est-ce que les compagnies d'assurance utilisent la race comme un facteur déterminant dans leur décision de rendre de l'assurance disponible? Fienberg (1985) a rassemblé des données d'un rapport de la \emph{U.S. Commission on Civil Rights} sur le nombre de polices d'assurance habitation émises à Chicago entre Décembre 1977 et Février 1978. Les polices d'assurance étaient placées dans 2 catégories:
 \begin{itemize}

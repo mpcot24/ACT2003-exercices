@@ -1,0 +1,105 @@
+\section*{Annexe \ref{chap:regression}}
+\addcontentsline{toc}{section}{Annexe \protect\ref{chap:regression}}
+
+\begin{reponse}{A.1}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{steam} \hlkwb{<-} \hlkwd{read.table}\hlstd{(}\hlstr{"http://vgoulet.act.ulaval.ca/pub/data/steam.dat"}\hlstd{,}
+                    \hlkwc{header} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+  
+\end{reponse}
+\begin{reponse}{A.2}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{attach}\hlstd{(steam)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+  
+\end{reponse}
+\begin{reponse}{A.3}
+    \begin{enumerate}
+    \item
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{plot}\hlstd{(Y} \hlopt{~} \hlstd{X1)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+    \item
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{fit} \hlkwb{<-} \hlkwd{lm}\hlstd{(Y} \hlopt{~} \hlstd{X1)}
+\hlkwd{coef}\hlstd{(fit)}
+\hlkwd{abline}\hlstd{(fit)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+   \item
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{fit.orig} \hlkwb{<-} \hlkwd{lm}\hlstd{(Y} \hlopt{~} \hlstd{X1} \hlopt{-} \hlnum{1}\hlstd{)}
+\hlkwd{coef}\hlstd{(fit.orig)}
+\hlkwd{abline}\hlstd{(fit.orig)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+   \item
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{summary}\hlstd{(fit)}\hlopt{$}\hlstd{r.squared}
+\hlkwd{summary}\hlstd{(fit.orig)}\hlopt{$}\hlstd{r.squared}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+   \item
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{pred.ci} \hlkwb{<-} \hlkwd{predict}\hlstd{(fit,} \hlkwc{interval} \hlstd{=} \hlstr{"confidence"}\hlstd{)}
+\hlstd{pred.ci.orig} \hlkwb{<-} \hlkwd{predict}\hlstd{(fit.orig,} \hlkwc{interval} \hlstd{=} \hlstr{"confidence"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+   \item
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{pred.pi} \hlkwb{<-} \hlkwd{predict}\hlstd{(fit,} \hlkwc{newdata} \hlstd{=} \hlkwd{data.frame}\hlstd{(}\hlkwc{X1} \hlstd{= steam}\hlopt{$}\hlstd{X1),}
+                   \hlkwc{interval} \hlstd{=} \hlstr{"prediction"}\hlstd{)}
+\hlstd{pred.pi.orig} \hlkwb{<-} \hlkwd{predict}\hlstd{(fit.orig,} \hlkwc{newdata} \hlstd{=} \hlkwd{data.frame}\hlstd{(}\hlkwc{X1} \hlstd{= steam}\hlopt{$}\hlstd{X1),}
+                        \hlkwc{interval} \hlstd{=} \hlstr{"prediction"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+   \item
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{par}\hlstd{(}\hlkwc{mfrow} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,} \hlnum{2}\hlstd{))}
+\hlstd{ord} \hlkwb{<-} \hlkwd{order}\hlstd{(X1)}
+\hlkwd{plot}\hlstd{(Y} \hlopt{~} \hlstd{X1)}
+\hlkwd{matplot}\hlstd{(X1[ord],} \hlkwd{cbind}\hlstd{(pred.ci, pred.pi[,} \hlopt{-}\hlnum{1}\hlstd{])[ord,],}
+        \hlkwc{type} \hlstd{=} \hlstr{"l"}\hlstd{,} \hlkwc{lty} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,} \hlnum{2}\hlstd{,} \hlnum{2}\hlstd{,} \hlnum{3}\hlstd{,} \hlnum{3}\hlstd{),} \hlkwc{lwd} \hlstd{=} \hlnum{2}\hlstd{,}
+        \hlkwc{col} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"blue"}\hlstd{,} \hlstr{"red"}\hlstd{,} \hlstr{"red"}\hlstd{,} \hlstr{"orange"}\hlstd{,} \hlstr{"orange"}\hlstd{),}
+        \hlkwc{add} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+\hlkwd{plot}\hlstd{(Y} \hlopt{~} \hlstd{X1)}
+\hlkwd{matplot}\hlstd{(X1[ord],} \hlkwd{cbind}\hlstd{(pred.ci.orig, pred.pi.orig[,} \hlopt{-}\hlnum{1}\hlstd{])[ord,],}
+        \hlkwc{type} \hlstd{=} \hlstr{"l"}\hlstd{,} \hlkwc{lty} \hlstd{=} \hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,} \hlnum{2}\hlstd{,} \hlnum{2}\hlstd{,} \hlnum{3}\hlstd{,} \hlnum{3}\hlstd{),} \hlkwc{lwd} \hlstd{=} \hlnum{2}\hlstd{,}
+        \hlkwc{col} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"blue"}\hlstd{,} \hlstr{"red"}\hlstd{,} \hlstr{"red"}\hlstd{,} \hlstr{"orange"}\hlstd{,} \hlstr{"orange"}\hlstd{),}
+        \hlkwc{add} \hlstd{=} \hlnum{TRUE}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+    \end{enumerate}
+  
+\end{reponse}
