@@ -223,6 +223,8 @@
 <<child='selection.Rnw'>>=
 @
 
+\part{Modèles linéaires généralisés}
+
 <<child='glm.Rnw'>>=
 @
 

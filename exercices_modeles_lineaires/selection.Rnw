@@ -205,6 +205,99 @@ sous la contrainte que ce soit négatif, donc dans ce cas, $\hat\beta_i^{\mathrm
 \end{sol}
 \end{exercice}
 
+
+\begin{exercice}
+On considère un modèle de régression linéaire
+$$
+Y_i = \beta_0+\beta_1 x_i+\varepsilon_i,
+$$
+avec $\varepsilon_i\sim N(0,\sigma^2)$ pour $i=1,\ldots,8$ pour la base de données suivante~:
+
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+$i$ & $x_i$ & $y_i$ \\ \midrule
+1 & $-2$ & 35\\
+2 & $-1$ & 40\\
+3 & $-1$ & 36\\
+4 & $-1$ & 38\\
+5 & $0$ & 40\\
+6 & $1$ & 43\\
+7 & $2$ & 45\\
+8 & $2$ & 43\\ \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+\item En utilisant la régression Ridge avec $\lambda=0$, estimer les paramètres $\beta_0$ et $\beta_1$.
+\item En utilisant la régression Ridge avec $\lambda=4$, calculer l'erreur quadratique moyenne.
+\end{enumerate}
+
+\begin{reponse}
+a) $40$ et $2.1875$   b) $1.8125$
+\end{reponse}
+
+\begin{sol}
+\begin{enumerate}
+\item Avec un paramètre de régularisation de $\lambda=0$, il s'agit d'une régression linéaire simple. On a alors, puisque $\bar x=0$,
+\begin{align*}
+\hat\beta_1 &= \frac{\sum_{i=1}^8 x_i y_i}{\sum_{i=1}^8 x_i^2}= \frac{35}{16} = \Sexpr{round(35/16,4)}\\
+\hat\beta_0 &= \bar y = \Sexpr{mean(c(35,40,36,38,40,43,45,43))}.
+\end{align*}
+\item Pour la régression Ridge, on a vu que l'ordonnée à l'origine n'est pas affectée par la pénalité alors $\hat\beta_0=40$. La solution générale pour $p$ variables explicatives est
+$$
+\betabh_\lambda^{\mbox{ridge}} = (\mathbf{X}^\top\mathbf{X}+\lambda \mathbf{I}_p)^{-1}\mathbf{X}^{\top}\mathbf{Y}.
+$$
+En dimension $p=1$, cela se réduit à
+$$
+\hat\beta_1 = \frac{\sum_{i=1}^8 x_i y_i}{\sum_{i=1}^8 x_i^2 +\lambda} = \frac{35}{16+\lambda}.
+$$
+Pour $\lambda=4$, on obtient $\hat\beta_1=1.75$. Cette valeur est, comme prévu, plus près de 0 que celle obtenue en a). L'équation du modèle est alors
+$$
+\hat{Y} = 40+ 1.75x.
+$$
+Par la suite, on obtient les prévisions 
+\begin{align*}
+\hat Y_1 & = 40+1.75\times-2 = 36.5\\
+\hat Y_2 & =\hat Y_3=\hat Y_4 = 38.25\\
+\hat Y_5&=40\\
+\hat Y_6&=41.75\\
+\hat Y_7 & =\hat Y_8= 43.50.
+\end{align*}
+et on calcule l'erreur quadratique moyenne
+$$
+MSE = \frac{\sum_{i=1}^8 (\hat Y_i - y_i)^2}{8} = 1.8125.
+$$
+\end{enumerate}
+\end{sol}
+\end{exercice}
+
+\begin{exercice}
+Sachant que l'estimateur des moindres carrés $\betabh = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^{\top}\mathbf{Y}$ est sans biais pour $\betab$, vérifier que, si $\lambda\ne 0$, l'estimateur du modèle ridge
+$$
+\betabh_\lambda^{\mbox{ridge}} = (\mathbf{X}^\top\mathbf{X}+\lambda \mathbf{I}_p)^{-1}\mathbf{X}^{\top}\mathbf{Y}
+$$
+est biaisé.
+
+
+\begin{sol}
+On a
+\begin{align*}
+\betabh_\lambda^{\mbox{ridge}} &= (\mathbf{X}^\top\mathbf{X}+\lambda \mathbf{I}_p)^{-1}\mathbf{X}^{\top}\mathbf{Y}\\
+&=(\mathbf{X}^\top\mathbf{X}+\lambda \mathbf{I}_p)^{-1}(\mathbf{X}^\top\mathbf{X})(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^{\top}\mathbf{Y}\\
+&=(\mathbf{X}^\top\mathbf{X}+\lambda \mathbf{I}_p)^{-1}(\mathbf{X}^\top\mathbf{X})\betabh.
+\end{align*}
+Si $\lambda=0$, on a 
+$$
+\mbox{E}\left(\betabh_\lambda^{\mbox{ridge}}\right) = \mbox{E}\left(\betabh\right) = \betab.
+$$
+Sinon, on a
+$$
+\mbox{E}\left(\betabh_\lambda^{\mbox{ridge}}\right) = \mbox{E}\left\{(\mathbf{X}^\top\mathbf{X}+\lambda \mathbf{I}_p)^{-1}(\mathbf{X}^\top\mathbf{X})\betabh\right\} = (\mathbf{X}^\top\mathbf{X}+\lambda \mathbf{I}_p)^{-1}(\mathbf{X}^\top\mathbf{X})\betab \ne \betab.
+$$
+\end{sol}
+\end{exercice}
+
 \Closesolutionfile{solutions}
 \Closesolutionfile{reponses}
 
