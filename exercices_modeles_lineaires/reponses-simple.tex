@@ -38,15 +38,15 @@
 \end{reponse}
 \begin{reponse}{2.5}
     $\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 (n + 1)/2$,
-    $\hat{\beta}_1 = (12 \sum_{t = 0}^n t Y_t - 6 n (n + 1)
+    $\hat{\beta}_1 = (12 \sum_{t = 0}^n t Y_i - 6 n (n + 1)
     \bar{Y})/(n (n^2 - 1)$
   
 \end{reponse}
 \begin{reponse}{2.6}
     \begin{inparaenum}
-    \item $\hat{\beta}= \sum_{t = 1}^n X_t Y_t/\sum_{t = 1}^n X_t^2$
+    \item $\hat{\beta}= \sum_{i = 1}^n x_i Y_i/\sum_{i = 1}^n x_i^2$
       \stepcounter{enumi}
-    \item $\var{\hat{\beta}} = \sigma^2/\sum_{t = 1}^n X_t^2$
+    \item $\var{\hat{\beta}} = \sigma^2/\sum_{i = 1}^n x_i^2$
     \end{inparaenum}
   
 \end{reponse}
@@ -58,7 +58,7 @@
 \end{reponse}
 \begin{reponse}{2.11}
     $\beta_1 \in \hat{\beta}_1 \pm z_{\alpha/2} \sigma
-    \left( \sum_{t=1}^n (X_t - \bar{X})^2 \right)^{-1/2}$
+    \left( \sum_{i=1}^n (x_i - \bar{x})^2 \right)^{-1/2}$
   
 \end{reponse}
 \begin{reponse}{2.12}
@@ -79,7 +79,7 @@
 \end{reponse}
 \begin{reponse}{2.15}
     $\hat{Y}_0 \pm t_{\alpha/2}(n - 1)\, s\,
-    \sqrt{1 + X_0^2/\sum_{t=1}^n X_t^2}$
+    \sqrt{1 + x_0^2/\sum_{i=1}^n x_i^2}$
   
 \end{reponse}
 \begin{reponse}{2.16}

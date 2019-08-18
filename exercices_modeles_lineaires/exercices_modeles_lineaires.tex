@@ -244,6 +244,7 @@
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 
+% Options pour les graphiques directement appelés en R
 
 
 % \shortcites{R:intro} aucune idée c'est pour quoi
@@ -284,8 +285,6 @@
 \addcontentsline{toc}{section}{Chapitre \protect\ref{chap:simple}}
 
 \end{Filesave}
-
-
 
 
 \begin{exercice}
@@ -356,60 +355,60 @@
       somme des carrés
       \begin{align*}
         S(\beta_0, \beta_1)
-        &=\sum_{t = 1}^n \varepsilon^2_t \\
-        &=\sum_{t = 1}^n \left(Y_t-\beta_0-\beta_1X_t\right)^2.
+        &=\sum_{i = 1}^n \varepsilon^2_i \\
+        &=\sum_{i = 1}^n \left(Y_i-\beta_0-\beta_1x_i\right)^2.
       \end{align*}
       Or,
       \begin{align*}
         \frac{\partial S}{\partial \beta_0}
-        &= -2 \sum_{t=1}^n (Y_t - \beta_0 - \beta_1 X_t) \\
+        &= -2 \sum_{i=1}^n (Y_i - \beta_0 - \beta_1 x_i) \\
         \frac{\partial S}{\partial \beta_1}
-        &= -2 \sum_{t=1}^n (Y_t - \beta_0 - \beta_1 X_t) X_t,
+        &= -2 \sum_{i=1}^n (Y_i - \beta_0 - \beta_1 x_i) x_i,
       \end{align*}
       d'où les équations normales sont
       \begin{align*}
-        \sum_{t=1}^n (Y_t - \hat{\beta}_0 - \hat{\beta}_1 X_t) &= 0 \\
-        \sum_{t=1}^n (Y_t - \hat{\beta}_0 - \hat{\beta}_1 X_t) X_t &= 0.
+        \sum_{i=1}^n (Y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i) &= 0 \\
+        \sum_{i=1}^n (Y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i) x_i &= 0.
       \end{align*}
     \item Par la première des deux équations normales, on trouve
       \begin{displaymath}
-        \sum_{t=1}^nY_t-n\hat{\beta}_0-\hat{\beta}_1\sum_{t=1}^nX_t = 0,
+        \sum_{i=1}^nY_i-n\hat{\beta}_0-\hat{\beta}_1\sum_{i=1}^nx_i = 0,
       \end{displaymath}
       soit, en isolant $\hat{\beta}_0$,
       \begin{displaymath}
-        \hat{\beta}_0=\frac{\sum_{t=1}^nY_t-\hat{\beta}_1\sum_{t=1}^nX_t}{n}=\bar{Y}-\hat{\beta}_1\bar{X}.
+        \hat{\beta}_0=\frac{\sum_{i=1}^nY_i-\hat{\beta}_1\sum_{i=1}^nx_i}{n}=\bar{Y}-\hat{\beta}_1\bar{x}.
       \end{displaymath}
       De la seconde équation normale, on obtient
       \begin{displaymath}
-        \sum_{t=1}^n X_t Y_t -
-        \hat{\beta}_0 \sum_{t=1}^n X_t -
-        \hat{\beta}_1 \sum_{t=1}^n X_t^2 = 0
+        \sum_{i=1}^n x_i Y_i -
+        \hat{\beta}_0 \sum_{i=1}^n x_i -
+        \hat{\beta}_1 \sum_{i=1}^n x_i^2 = 0
       \end{displaymath}
       puis, en remplaçant $\hat{\beta}_0$ par la valeur obtenue ci-dessus,
       \begin{displaymath}
         \hat{\beta}_1
         \left(
-          \sum_{t=1}^n X_t^2 - n \bar{X}^2
+          \sum_{i=1}^n x_i^2 - n \bar{x}^2
         \right) =
-        \sum_{t=1}^n X_t Y_t - n \bar{X} \bar{Y}.
+        \sum_{i=1}^n x_i Y_i - n \bar{x} \bar{Y}.
       \end{displaymath}
       Par conséquent,
       \begin{align*}
         \hat{\beta}_1
-        &= \frac{\sum_{t=1}^n X_t Y_t - n \bar{X}\bar{Y}}{\sum_{t=1}^n
-          X_t^2 - n \bar{X}^2} \\
+        &= \frac{\sum_{i=1}^n x_i Y_i - n \bar{x}\bar{Y}}{\sum_{i=1}^n
+          x_i^2 - n \bar{x}^2} \\
         &= \frac{\nombre{11654} - (10)(49,3)(25)}{\nombre{25103} -
           (10)(49,3)^2} \\
         &= -0,8407 \\
         \intertext{et}
         \hat{\beta}_0
-        &=\bar{Y}-\hat{\beta}_1\bar{X}\\
+        &=\bar{Y}-\hat{\beta}_1\bar{x}\\
         &=25 - (-0,8407)(49,3)\\
         &=66,4488.
       \end{align*}
-    \item On peut calculer les prévisions correspondant à $X_1, \dots,
-      X_{10}$ --- ou valeurs ajustées --- à partir de la relation
-      $\hat{Y}_t = 66,4488 - 0,8407 X_t$, $t = 1, 2, \dots, 10$. Avec
+    \item On peut calculer les prévisions correspondant à $x_1, \dots,
+      x_{10}$ --- ou valeurs ajustées --- à partir de la relation
+      $\hat{Y}_t = 66,4488 - 0,8407 x_i$, $i = 1, 2, \dots, 10$. Avec
       \textsf{R}, on crée un objet de type modèle de régression avec
       \texttt{lm} et on en extrait les valeurs ajustées avec
       \texttt{fitted}:
@@ -444,7 +443,7 @@
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 
-{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-5-1} 
+{\centering \includegraphics[width=.45\linewidth]{figure/fig-simple-base2-1} 
 
 }
 
@@ -456,8 +455,8 @@
           régression}
         \label{fig:simple:base2}
       \end{figure}
-    \item Les résidus de la régression sont $e_t = Y_t - \hat{Y}_t$,
-      $t = 1, \dots, 10$. Dans \textsf{R}, la fonction
+    \item Les résidus de la régression sont $e_t = Y_i - \hat{Y}_t$,
+      $i = 1, \dots, 10$. Dans \textsf{R}, la fonction
       \texttt{residuals} extrait les résidus du modèle:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -495,7 +494,7 @@
       \mbox{} \\
       \begin{tabular}{ccc}
         \toprule
-        $t$ & $X_t$ & $Y_t$ \\
+        $t$ & $x_i$ & $Y_i$ \\
         \midrule
         1 & 2 & 6 \\
         2 & 3 & 4 \\
@@ -511,17 +510,17 @@
     \begin{minipage}[t]{0.4\textwidth}
       \mbox{} \\[-1cm]
       \begin{align*}
-        \sum_{t=1}^8 X_t &= 32 &
-        \sum_{t=1}^8 X_t^2 &= 156 \\
-        \sum_{t=1}^8 Y_t &= 40 &
-        \sum_{t=1}^8 Y_t^2 &= 214 \\
-        \sum_{t=1}^8 X_t\, Y_t &= 146 \\
+        \sum_{i=1}^8 x_i &= 32 &
+        \sum_{i=1}^8 x_i^2 &= 156 \\
+        \sum_{i=1}^8 Y_i &= 40 &
+        \sum_{i=1}^8 Y_i^2 &= 214 \\
+        \sum_{i=1}^8 x_i\, Y_i &= 146 \\
       \end{align*}
     \end{minipage}
   \end{center}
   \begin{enumerate}
-  \item Calculer les coefficients de la régression $Y_t = \beta_0 +
-    \beta_1 X_t + \varepsilon_t$, $\var{\varepsilon_t} = \sigma^2$.
+  \item Calculer les coefficients de la régression $Y_i = \beta_0 +
+    \beta_1 x_i + \varepsilon_t$, $\var{\varepsilon_t} = \sigma^2$.
   \item Construire le tableau d'analyse de variance de la régression
     en a) et calculer le coefficient de détermination $R^2$.
     Interpréter les résultats.
@@ -538,33 +537,33 @@
       de la régression sont
       \begin{align*}
         \hat{\beta}_1
-        &=\frac{\sum_{t=1}^8 X_tY_t-n\bar{X}\bar{Y}}{\sum_{t=1}^8
-          X_t^2-n\bar{X}^2} \\
+        &=\frac{\sum_{i=1}^8 x_tY_i-n\bar{x}\bar{Y}}{\sum_{i=1}^8
+          x_i^2-n\bar{x}^2} \\
         &=\frac{146-(8)(32/8)(40/8)}{156-(8)(32/8)^2}  \\
         &=-0,5 \\
         \intertext{et}
         \hat{\beta}_0
-        &=\bar{Y}-\hat{\beta}_1\bar{X} \\
+        &=\bar{Y}-\hat{\beta}_1\bar{x} \\
         &=(40/8)-(-0,5)(32/8) \\
         &=7.
       \end{align*}
     \item Les sommes de carrés sont
       \begin{align*}
         \SST
-        &=\sum_{t=1}^8(Y_t-\bar{Y})^2 \\
-        &=\sum_{t=1}^8Y_t^2-n\bar{Y}^2 \\
+        &=\sum_{i=1}^8(Y_i-\bar{Y})^2 \\
+        &=\sum_{i=1}^8Y_i^2-n\bar{Y}^2 \\
         &=214-(8)(40/8)^2 \\
         &=14, \\
         \SSR
-        &=\sum_{t=1}^8(\hat{Y}_t-\bar{Y})^2 \\
-        &=\sum_{t=1}^8\hat{\beta}_1^2(X_t-\bar{X})^2 \\
-        &=\hat{\beta}_1^2(\sum_{t=1}^8X_t^2-n\bar{X}^2) \\
+        &=\sum_{i=1}^8(\hat{Y}_t-\bar{Y})^2 \\
+        &=\sum_{i=1}^8\hat{\beta}_1^2(x_i-\bar{x})^2 \\
+        &=\hat{\beta}_1^2(\sum_{i=1}^8x_i^2-n\bar{x}^2) \\
         &=(-1/2)^2(156-(8)(32/8)^2) \\
         &=7.
       \end{align*}
       et $\SSE = \SST - \SSR = 14 - 7 = 7$. Par conséquent, $R^2 =
       SSR/SST = 7/14 = 0,5$, donc la régression explique 50~\% de la
-      variation des $Y_t$ par rapport à leur moyenne $\bar{Y}$. Le
+      variation des $Y_i$ par rapport à leur moyenne $\bar{Y}$. Le
       tableau ANOVA est le suivant:
       \begin{center}
         \begin{tabular}{lcccc}
@@ -633,7 +632,7 @@
 \end{alltt}
 \end{kframe}
 
-{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-9-1} 
+{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-7-1} 
 
 }
 
@@ -674,7 +673,7 @@
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 
-{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-12-1} 
+{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-10-1} 
 
 }
 
@@ -747,23 +746,23 @@
 \begin{exercice}
   Dans le contexte de la régression linéaire simple, démontrer que
   \begin{displaymath}
-    \sum_{t=1}^n (\hat{Y}_t - \bar{Y}) e_t = 0.
+    \sum_{i=1}^n (\hat{Y}_t - \bar{Y}) e_t = 0.
   \end{displaymath}
   \begin{sol}
-    Puisque $\hat{Y}_t = (\bar{Y} - \hat{\beta}_1 \bar{X}) +
-    \hat{\beta}_1 X_t = \bar{Y} + \hat{\beta}_1 (X_t - \bar{X})$ et
-    que $e_t = Y_t - \hat{Y}_t = (Y_t - \bar{Y}) - \hat{\beta}_1 (X_t
-    - \bar{X})$, alors
+    Puisque $\hat{Y}_t = (\bar{Y} - \hat{\beta}_1 \bar{x}) +
+    \hat{\beta}_1 x_i = \bar{Y} + \hat{\beta}_1 (x_i - \bar{x})$ et
+    que $e_t = Y_i - \hat{Y}_t = (Y_i - \bar{Y}) - \hat{\beta}_1 (x_i
+    - \bar{x})$, alors
     \begin{align*}
-      \sum_{t = 1}^n (\hat{Y}_t - \bar{Y}) e_t
+      \sum_{i = 1}^n (\hat{Y}_t - \bar{Y}) e_t
       &= \hat{\beta}_1
       \left(
-        \sum_{t=1}^n (X_t - \bar{X})(Y_t - \bar{Y}) -
-        \hat{\beta}_1 \sum_{t = 1}^n (X_t - \bar{X})^2
+        \sum_{i=1}^n (x_i - \bar{x})(Y_i - \bar{Y}) -
+        \hat{\beta}_1 \sum_{i = 1}^n (x_i - \bar{x})^2
       \right) \\
       & = \hat{\beta}_1
       \left(
-        S_{XY} - \frac{S_{XY}}{S_{XX}}\, S_{XX}
+        S_{xy} - \frac{S_{xy}}{S_{xx}}\, S_{xx}
       \right) \\
       & = 0.
     \end{align*}
@@ -772,37 +771,37 @@
 
 \begin{exercice}
   Considérer le modèle de régression linéaire par rapport au temps
-  $Y_t = \beta_0 + \beta_1 t + \varepsilon_t$, $t = 1, \dots, n$. Écrire
+  $Y_i = \beta_0 + \beta_1 t + \varepsilon_t$, $i = 1, \dots, n$. Écrire
   les équations normales et obtenir les estimateurs des moindres
   carrés des paramètres $\beta_0$ et $\beta_1$. \emph{Note}:
   $\sum_{i=1}^n i^2 = n(n + 1)(2n + 1)/6$.
   \begin{rep}
     $\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 (n + 1)/2$,
-    $\hat{\beta}_1 = (12 \sum_{t = 0}^n t Y_t - 6 n (n + 1)
+    $\hat{\beta}_1 = (12 \sum_{t = 0}^n t Y_i - 6 n (n + 1)
     \bar{Y})/(n (n^2 - 1)$
   \end{rep}
   \begin{sol}
-    On a un modèle de régression linéaire simple usuel avec $X_t =
+    On a un modèle de régression linéaire simple usuel avec $x_i =
     t$. Les estimateurs des moindres carrés des paramètres $\beta_0$ et
     $\beta_1$ sont donc
     \begin{align*}
       \hat{\beta}_0
-      &= \bar{Y} - \hat{\beta}_1\, \frac{\sum_{t = 1}^n t}{n} \\
+      &= \bar{Y} - \hat{\beta}_1\, \frac{\sum_{i = 1}^n t}{n} \\
       \intertext{et}
       \hat{\beta}_1
-      &= \frac{\sum_{t = 1}^n t Y_t - \bar{Y} \sum_{t = 1}^n t}{\sum_{t
-          = 1}^n t^2 - n^{-1} (\sum_{t = 1}^n t)^2}.
+      &= \frac{\sum_{i = 1}^n t Y_i - \bar{Y} \sum_{i = 1}^n t}{\sum_{t
+          = 1}^n t^2 - n^{-1} (\sum_{i = 1}^n t)^2}.
     \end{align*}
-    Or, puisque $\sum_{t = 1}^n t = n(n + 1)/2$ et $\sum_{t = 1}^n t^2
+    Or, puisque $\sum_{i = 1}^n t = n(n + 1)/2$ et $\sum_{i = 1}^n t^2
     = n(n + 1)(2n + 1)/6$, les expressions ci-dessus se simplifient en
     \begin{align*}
       \hat{\beta}_0
       & = \bar{Y} - \hat{\beta}_1\, \frac{n + 1}{2} \\
       \intertext{et}
       \hat{\beta}_1
-      & = \frac{\sum_{t=1}^n t Y_t - n(n + 1) \bar{Y}/2}{n(n + 1)(2n +
+      & = \frac{\sum_{i=1}^n t Y_i - n(n + 1) \bar{Y}/2}{n(n + 1)(2n +
         1)/6 - n(n + 1)^2/4} \\
-      & = \frac{12 \sum_{t=1}^n t Y_t - 6 n (n + 1) \bar{Y}}{n (n^2 - 1)}.
+      & = \frac{12 \sum_{i=1}^n t Y_i - 6 n (n + 1) \bar{Y}}{n (n^2 - 1)}.
     \end{align*}
   \end{sol}
 \end{exercice}
@@ -811,8 +810,8 @@
   \label{ex:simple:origine}
   \begin{enumerate}
   \item Trouver l'estimateur des moindres carrés du paramètre $\beta$
-    dans le modèle de régression linéaire passant par l'origine $Y_t =
-    \beta X_t + \varepsilon_t$, $t = 1, \dots, n$,
+    dans le modèle de régression linéaire passant par l'origine $Y_i =
+    \beta x_i + \varepsilon_t$, $i = 1, \dots, n$,
     $\esp{\varepsilon_t} = 0$, $\Cov(\varepsilon_t, \varepsilon_s) =
     \delta_{ts} \sigma^2$.
   \item Démontrer que l'estimateur en a) est sans biais.
@@ -820,9 +819,9 @@
   \end{enumerate}
   \begin{rep}
     \begin{inparaenum}
-    \item $\hat{\beta}= \sum_{t = 1}^n X_t Y_t/\sum_{t = 1}^n X_t^2$
+    \item $\hat{\beta}= \sum_{i = 1}^n x_i Y_i/\sum_{i = 1}^n x_i^2$
       \stepcounter{enumi}
-    \item $\var{\hat{\beta}} = \sigma^2/\sum_{t = 1}^n X_t^2$
+    \item $\var{\hat{\beta}} = \sigma^2/\sum_{i = 1}^n x_i^2$
     \end{inparaenum}
   \end{rep}
   \begin{sol}
@@ -831,38 +830,38 @@
       valeur $\hat{\beta}$ minimisant la somme de carrés
       \begin{align*}
         S(\beta)
-        &=\sum_{t = 1}^n \varepsilon_t^2 \\
-        &=\sum_{t = 1}^n (Y_t - \beta X_t)^2.
+        &=\sum_{i = 1}^n \varepsilon_t^2 \\
+        &=\sum_{i = 1}^n (Y_i - \beta x_i)^2.
       \end{align*}
       Or,
       \begin{displaymath}
-        \frac{d}{d \beta}\, S(\beta) = -2 \sum_{t = 1}^n (Y_t -
-        \hat{\beta} X_t) X_t,
+        \frac{d}{d \beta}\, S(\beta) = -2 \sum_{i = 1}^n (Y_i -
+        \hat{\beta} x_i) x_i,
       \end{displaymath}
       d'où l'unique équation normale de ce modèle est
       \begin{displaymath}
-        \sum_{t = 1}^n X_t Y_t - \hat{\beta} \sum_{t=1}^n X_t^2 = 0.
+        \sum_{i = 1}^n x_i Y_i - \hat{\beta} \sum_{i=1}^n x_i^2 = 0.
       \end{displaymath}
       L'estimateur des moindres carrés de $\beta$ est donc
       \begin{displaymath}
-        \hat{\beta} = \frac{\sum_{t=1}^n X_t Y_t}{\sum_{t=1}^n X_t^2}.
+        \hat{\beta} = \frac{\sum_{i=1}^n x_i Y_i}{\sum_{i=1}^n x_i^2}.
       \end{displaymath}
     \item On doit démontrer que $\esp{\hat{\beta}} = \beta$. On a
       \begin{align*}
         \esp{\hat{\beta}}
-        &= \Esp{\frac{\sum_{t=1}^n X_t Y_t}{\sum_{t=1}^n X_t^2}} \\
-        &= \frac{1}{\sum_{t=1}^n X_t^2} \sum_{t=1}^n X_t \esp{Y_t} \\
-        &= \frac{1}{\sum_{t=1}^nX_t^2} \sum_{t=1}^n X_t \beta X_t \\
-        &= \beta\, \frac{\sum_{t=1}^n X_t^2}{\sum_{t=1}^n X_t^2} \\
+        &= \Esp{\frac{\sum_{i=1}^n x_i Y_i}{\sum_{i=1}^n x_i^2}} \\
+        &= \frac{1}{\sum_{i=1}^n x_i^2} \sum_{i=1}^n x_i \esp{Y_i} \\
+        &= \frac{1}{\sum_{i=1}^nx_i^2} \sum_{i=1}^n x_i \beta x_i \\
+        &= \beta\, \frac{\sum_{i=1}^n x_i^2}{\sum_{i=1}^n x_i^2} \\
         &= \beta.
       \end{align*}
     \item Des hypothèses du modèle, on a
       \begin{align*}
         \var{\hat{\beta}}
-        &= \Var{\frac{\sum_{t=1}^n X_t Y_t}{\sum_{t=1}^n X_t^2}} \\
-        &= \frac{1}{(\sum_{t=1}^n X_t^2)^2} \sum_{t=1}^n X_t^2 \var{Y_t} \\
-        &= \frac{\sigma^2}{(\sum_{t=1}^n X_t^2)^2} \sum_{t=1}^n X_t^2 \\
-        &= \frac{\sigma^2}{\sum_{t=1}^n X_t^2}.
+        &= \Var{\frac{\sum_{i=1}^n x_i Y_i}{\sum_{i=1}^n x_i^2}} \\
+        &= \frac{1}{(\sum_{i=1}^n x_i^2)^2} \sum_{i=1}^n x_i^2 \var{Y_i} \\
+        &= \frac{\sigma^2}{(\sum_{i=1}^n x_i^2)^2} \sum_{i=1}^n x_i^2 \\
+        &= \frac{\sigma^2}{\sum_{i=1}^n x_i^2}.
       \end{align*}
     \end{enumerate}
   \end{sol}
@@ -874,16 +873,16 @@
   l'estimateur sans biais à variance (uniformément) minimale du
   paramètre $\beta$.  En termes mathématiques: soit
   \begin{displaymath}
-    \beta^* = \sum_{t=1}^n c_t Y_t
+    \beta^* = \sum_{i=1}^n c_t Y_i
   \end{displaymath}
   un estimateur linéaire du paramètre $\beta$. Démontrer qu'en
   déterminant les coefficients $c_1, \dots, c_n$ de façon à minimiser
   \begin{displaymath}
-    \var{\beta^*} = \Var{\sum_{t=1}^n c_t Y_t}
+    \var{\beta^*} = \Var{\sum_{i=1}^n c_t Y_i}
   \end{displaymath}
   sous la contrainte que
   \begin{displaymath}
-    \esp{\beta^*} = \Esp{\sum_{t=1}^n c_t Y_t} = \beta,
+    \esp{\beta^*} = \Esp{\sum_{i=1}^n c_t Y_i} = \beta,
   \end{displaymath}
   on obtient $\beta^* = \hat{\beta}$.
   \begin{sol}
@@ -893,54 +892,54 @@
     \begin{align*}
       f(c_1, \dots, c_n)
       &= \var{\beta^*} \\
-      &= \sum_{t=1}^n c_t^2 \var{Y_t} \\
-      &= \sigma^2 \sum_{t=1}^n c_t^2
+      &= \sum_{i=1}^n c_t^2 \var{Y_i} \\
+      &= \sigma^2 \sum_{i=1}^n c_t^2
     \end{align*}
-    sous la contrainte $\esp{\beta^*} = \sum_{t=1}^nc_t\esp{Y_t} =
-    \sum_{t=1}^nc_t\beta X_t = \beta\sum_{t=1}^nc_tX_t = \beta$, soit
-    $\sum_{t=1}^n c_t X_t = 1$ ou $g(c_1, \dots, c_n) = 0$ avec
+    sous la contrainte $\esp{\beta^*} = \sum_{i=1}^nc_t\esp{Y_i} =
+    \sum_{i=1}^nc_t\beta x_i = \beta\sum_{i=1}^nc_tx_i = \beta$, soit
+    $\sum_{i=1}^n c_t x_i = 1$ ou $g(c_1, \dots, c_n) = 0$ avec
     \begin{displaymath}
-      g(c_1, \dots, c_n) = \sum_{t=1}^n c_t X_t - 1.
+      g(c_1, \dots, c_n) = \sum_{i=1}^n c_t x_i - 1.
     \end{displaymath}
     Pour utiliser la méthode des multiplicateurs de Lagrange, on pose
     \begin{align*}
       \mathcal{L}(c_1, \dots, c_n,\lambda)
       &= f(c_1, \dots, c_n) - \lambda g(c_1, \dots, c_n), \\
-      &= \sigma^2 \sum_{t=1}^n c_t^2 - \lambda
+      &= \sigma^2 \sum_{i=1}^n c_t^2 - \lambda
       \left(
-        \sum_{t=1}^n c_t X_t - 1
+        \sum_{i=1}^n c_t x_i - 1
       \right),
     \end{align*}
     puis on dérive la fonction $\mathcal{L}$ par rapport à chacune des
     variables $c_1, \dots, c_n$ et $\lambda$. On trouve alors
     \begin{align*}
       \frac{\partial \mathcal{L}}{\partial c_u}
-      & = 2 \sigma^2 c_u - \lambda X_u, \quad u = 1, \dots, n \\
+      & = 2 \sigma^2 c_u - \lambda x_u, \quad u = 1, \dots, n \\
       \frac{\partial \mathcal{L}}{\partial \lambda}
-      & = - \sum_{t=1}^n c_t X_t + 1.
+      & = - \sum_{i=1}^n c_t x_i + 1.
     \end{align*}
     En posant les $n$ premières dérivées égales à zéro, on obtient
     \begin{displaymath}
-      c_t = \frac{\lambda X_t}{2 \sigma^2}.
+      c_t = \frac{\lambda x_i}{2 \sigma^2}.
     \end{displaymath}
     Or, de la contrainte,
     \begin{displaymath}
-      \sum_{t=1}^n c_t X_t =
-      \frac{\lambda}{2\sigma^2} \sum_{t=1}^n X_t^2 = 1,
+      \sum_{i=1}^n c_t x_i =
+      \frac{\lambda}{2\sigma^2} \sum_{i=1}^n x_i^2 = 1,
     \end{displaymath}
     d'où
     \begin{displaymath}
-      \frac{\lambda}{2 \sigma^2} = \frac{1}{\sum_{t=1}^n X_t^2}
+      \frac{\lambda}{2 \sigma^2} = \frac{1}{\sum_{i=1}^n x_i^2}
     \end{displaymath}
     et, donc,
     \begin{displaymath}
-      c_t = \frac{X_t}{\sum_{t=1}^n X_t^2}.
+      c_t = \frac{x_i}{\sum_{i=1}^n x_i^2}.
     \end{displaymath}
     Finalement,
     \begin{align*}
       \beta^*
-      & = \sum_{t=1}^n c_t Y_t \\
-      & = \frac{\sum_{t=1}^n X_t Y_t}{\sum_{t=1}^n X_t^2} \\
+      & = \sum_{i=1}^n c_t Y_i \\
+      & = \frac{\sum_{i=1}^n x_i Y_i}{\sum_{i=1}^n x_i^2} \\
       & = \hat{\beta}.
     \end{align*}
   \end{sol}
@@ -950,76 +949,76 @@
   Dans le contexte de la régression linéaire simple, démontrer que
   \begin{enumerate}
   \item $\esp{\MSE} = \sigma^2$
-  \item $\esp{\MSR} = \sigma^2 + \beta_1^2 \sum_{t=1}^n (X_t -
-    \bar{X})^2$
+  \item $\esp{\MSR} = \sigma^2 + \beta_1^2 \sum_{i=1}^n (x_i -
+    \bar{x})^2$
   \end{enumerate}
   \begin{sol}
     \begin{enumerate}
-    \item Tout d'abord, puisque $\MSE = \SSE/(n - 2) = \sum_{t=1}^n
-      (Y_t - \hat{Y}_t)^2/(n - 2)$ et que $\esp{Y_t} =
+    \item Tout d'abord, puisque $\MSE = \SSE/(n - 2) = \sum_{i=1}^n
+      (Y_i - \hat{Y}_t)^2/(n - 2)$ et que $\esp{Y_i} =
       \esp{\hat{Y}_t}$, alors
       \begin{align*}
         \esp{MSE}
-        &= \frac{1}{n - 2} \Esp{\sum_{t=1}^n (Y_t - \hat{Y}_t)^2} \\
-        &= \frac{1}{n - 2} \sum_{t=1}^n \esp{(Y_t - \hat{Y}_t)^2} \\
-        &= \frac{1}{n - 2} \sum_{t=1}^n \esp{((Y_t - \esp{Y_t}) -
+        &= \frac{1}{n - 2} \Esp{\sum_{i=1}^n (Y_i - \hat{Y}_t)^2} \\
+        &= \frac{1}{n - 2} \sum_{i=1}^n \esp{(Y_i - \hat{Y}_t)^2} \\
+        &= \frac{1}{n - 2} \sum_{i=1}^n \esp{((Y_i - \esp{Y_i}) -
           (\hat{Y}_t - \esp{\hat{Y}_t}))^2} \\
-        &= \frac{1}{n - 2} \sum_{t=1}^n
+        &= \frac{1}{n - 2} \sum_{i=1}^n
         \left(
-          \var{Y_t} + \var{\hat{Y}_t} - 2\, \Cov(Y_t, \hat{Y}_t)
+          \var{Y_i} + \var{\hat{Y}_t} - 2\, \Cov(Y_i, \hat{Y}_t)
         \right).
       \end{align*}
-      Or, on a par hypothèse du modèle que $\Cov(Y_t, Y_s) =
+      Or, on a par hypothèse du modèle que $\Cov(Y_i, Y_s) =
       \Cov(\varepsilon_t, \varepsilon_s) = \delta_{ts} \sigma^2$, d'où
-      $\var{Y_t} = \sigma^2$ et $\var{\bar{Y}} = \sigma^2/n$. D'autre
+      $\var{Y_i} = \sigma^2$ et $\var{\bar{Y}} = \sigma^2/n$. D'autre
       part,
       \begin{align*}
         \var{\hat{Y}_t}
-        &= \var{\bar{Y} + \hat{\beta}_1 (X_t - \bar{X})} \\
-        &= \var{\bar{Y}} + (X_t - \bar{X})^2 \var{\hat{\beta}_1} +
-        2 (X_t - \bar{X}) \Cov(\bar{Y}, \hat{\beta}_1)
+        &= \var{\bar{Y} + \hat{\beta}_1 (x_i - \bar{x})} \\
+        &= \var{\bar{Y}} + (x_i - \bar{x})^2 \var{\hat{\beta}_1} +
+        2 (x_i - \bar{x}) \Cov(\bar{Y}, \hat{\beta}_1)
       \end{align*}
       et l'on sait que
       \begin{align*}
         \var{\hat{\beta}_1}
-        &= \frac{\sigma^2}{\sum_{t=1}^n(X_t-\bar{X})^2} \\
+        &= \frac{\sigma^2}{\sum_{i=1}^n(x_i-\bar{x})^2} \\
         \intertext{et que}
         \Cov(\bar{Y}, \hat{\beta}_1)
         & = \Cov
         \left(
-          \frac{\sum_{t = 1}^n Y_t}{n},
-          \frac{\sum_{s = 1}^n (X_s - \bar{X}) Y_s}{\sum_{t = 1}^n
-            (X_t - \bar{X})^2}
+          \frac{\sum_{i = 1}^n Y_i}{n},
+          \frac{\sum_{s = 1}^n (x_s - \bar{x}) Y_s}{\sum_{i = 1}^n
+            (x_i - \bar{x})^2}
         \right) \\
-        &= \frac{1}{n \sum_{t = 1}^n (X_t - \bar{X})^2}
-        \sum_{t = 1}^n \sum_{s = 1}^n \Cov(Y_t, (X_s - \bar{X}) Y_s) \\
-        &= \frac{1}{n \sum_{t = 1}^n (X_t - \bar{X})^2}
-        \sum_{t = 1}^n (X_s - \bar{X}) \var{Y_t} \\
-        & = \frac{\sigma^2}{n \sum_{t = 1}^n (X_t - \bar{X})^2}
-        \sum_{t = 1}^n (X_t - \bar{X}) \\
+        &= \frac{1}{n \sum_{i = 1}^n (x_i - \bar{x})^2}
+        \sum_{i = 1}^n \sum_{s = 1}^n \Cov(Y_i, (x_s - \bar{x}) Y_s) \\
+        &= \frac{1}{n \sum_{i = 1}^n (x_i - \bar{x})^2}
+        \sum_{i = 1}^n (x_s - \bar{x}) \var{Y_i} \\
+        & = \frac{\sigma^2}{n \sum_{i = 1}^n (x_i - \bar{x})^2}
+        \sum_{i = 1}^n (x_i - \bar{x}) \\
         & = 0,
       \end{align*}
-      puisque $\sum_{i=1}^n(X_i - \bar{X}) = 0$. Ainsi,
+      puisque $\sum_{i=1}^n(x_i - \bar{x}) = 0$. Ainsi,
       \begin{displaymath}
         \var{\hat{Y}_t} = \frac{\sigma^2}{n} +
-        \frac{(X_t - \bar{X})^2 \sigma^2}{\sum_{t=1}^n (X_t - \bar{X})^2}.
+        \frac{(x_i - \bar{x})^2 \sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2}.
       \end{displaymath}
       De manière similaire, on détermine que
       \begin{align*}
-        \Cov(Y_t, \hat{Y}_t)
-        &= \Cov(Y_t, \bar{Y} + \hat{\beta}_1 (X_t - \bar{X})) \\
-        &= \Cov(Y_t, \bar{Y}) +
-        (X_t - \bar{X}) \Cov(Y_t, \hat{\beta}_1) \\
-        &= \frac{\sigma^2}{n} + \frac{(X_t -
-          \bar{X})^2 \sigma^2}{\sum_{t=1}^n (X_t - \bar{X})^2}.
+        \Cov(Y_i, \hat{Y}_t)
+        &= \Cov(Y_i, \bar{Y} + \hat{\beta}_1 (x_i - \bar{x})) \\
+        &= \Cov(Y_i, \bar{Y}) +
+        (x_i - \bar{x}) \Cov(Y_i, \hat{\beta}_1) \\
+        &= \frac{\sigma^2}{n} + \frac{(x_i -
+          \bar{x})^2 \sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2}.
       \end{align*}
       Par conséquent,
       \begin{align*}
-        \esp{(Y_t - \hat{Y}_t)^2}
+        \esp{(Y_i - \hat{Y}_t)^2}
         &= \frac{n - 1}{n}\, \sigma^2 -
-        \frac{(X_t - \bar{X})^2 \sigma^2}{\sum_{t = 1}^n (X_t - \bar{X})^2} \\
+        \frac{(x_i - \bar{x})^2 \sigma^2}{\sum_{i = 1}^n (x_i - \bar{x})^2} \\
         \intertext{et}
-        \sum_{t=1}^n \esp{(Y_t - \hat{Y}_t)^2}
+        \sum_{i=1}^n \esp{(Y_i - \hat{Y}_t)^2}
         & = (n - 2) \sigma^2,
       \end{align*}
       d'où $\esp{\MSE} = \sigma^2$.
@@ -1027,30 +1026,30 @@
       \begin{align*}
         \esp{\MSR}
         &= \esp{\SSR} \\
-        &= \Esp{\sum_{t=1}^n (\hat{Y}_t - \bar{Y})^2} \\
-        &= \sum_{t=1}^n \esp{\hat{\beta}_1^2 (X_t - \bar{X})^2} \\
-        &= \sum_{t=1}^n (X_t - \bar{X})^2 \esp{\hat{\beta}_1^2} \\
-        &= \sum_{t=1}^n (X_t - \bar{X})^2 (\var{\hat{\beta}_1} +
+        &= \Esp{\sum_{i=1}^n (\hat{Y}_t - \bar{Y})^2} \\
+        &= \sum_{i=1}^n \esp{\hat{\beta}_1^2 (x_i - \bar{x})^2} \\
+        &= \sum_{i=1}^n (x_i - \bar{x})^2 \esp{\hat{\beta}_1^2} \\
+        &= \sum_{i=1}^n (x_i - \bar{x})^2 (\var{\hat{\beta}_1} +
         \esp{\hat{\beta}_1}^2) \\
-        &= \sum_{t=1}^n (X_t - \bar{X})^2
+        &= \sum_{i=1}^n (x_i - \bar{x})^2
         \left(
-          \frac{\sigma^2}{\sum_{t=1}^n (X_t - \bar{X})^2} + \beta_1^2
+          \frac{\sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2} + \beta_1^2
         \right) \\
-        &= \sigma^2 + \beta_1^2 \sum_{t=1}^n (X_t - \bar{X})^2.
+        &= \sigma^2 + \beta_1^2 \sum_{i=1}^n (x_i - \bar{x})^2.
       \end{align*}
     \end{enumerate}
   \end{sol}
 \end{exercice}
 
 \begin{exercice}
-  Supposons que les observations $(X_1, Y_1), \dots, (X_n, Y_n)$
-  sont soumises à une transformation linéaire, c'est-à-dire que $Y_t$
-  devient $Y_t^\prime = a + b Y_t$ et que $X_t$ devient $X_t^\prime =
-  c + d X_t$, $t = 1, \dots, n$.
+  Supposons que les observations $(x_1, Y_1), \dots, (x_n, Y_n)$
+  sont soumises à une transformation linéaire, c'est-à-dire que $Y_i$
+  devient $Y_i^\prime = a + b Y_i$ et que $x_i$ devient $x_i^\prime =
+  c + d x_i$, $i = 1, \dots, n$.
   \begin{enumerate}
   \item Trouver quel sera l'impact sur les estimateurs des moindres
     carrés des paramètres $\beta_0$ et $\beta_1$ dans le modèle de
-    régression linéaire $Y_t = \beta_0 + \beta_1 X_t + \varepsilon_t$.
+    régression linéaire $Y_i = \beta_0 + \beta_1 x_i + \varepsilon_t$.
   \item Démontrer que le coefficient de détermination $R^2$ n'est pas
     affecté par la transformation linéaire.
   \end{enumerate}
@@ -1067,54 +1066,54 @@
       pour chacun des éléments qui entrent dans la définition de
       $\hat{\beta}_1^\prime$. Tout d'abord,
       \begin{align*}
-        \bar{X}^\prime
-        &= \frac{1}{n} \sum_{t=1}^n X_t^\prime \\
-        &= \frac{1}{n} \sum_{t=1}^n (c + d X_t) \\
-        &= c + d \bar{X},
+        \bar{x}^\prime
+        &= \frac{1}{n} \sum_{i=1}^n x_i^\prime \\
+        &= \frac{1}{n} \sum_{i=1}^n (c + d x_i) \\
+        &= c + d \bar{x},
       \end{align*}
       et, de manière similaire, $\bar{Y}^\prime = a + b \bar{Y}$. Ensuite,
       \begin{align*}
-        S_{XX}^\prime
-        &= \sum_{t=1}^n (X_t^\prime - \bar{X}^\prime)^2 \\
-        &= \sum_{t=1}^n (c + d X_t - c - d \bar{X})^2 \\
-        &= d^2 S_{XX}
+        S_{xx}^\prime
+        &= \sum_{i=1}^n (x_i^\prime - \bar{x}^\prime)^2 \\
+        &= \sum_{i=1}^n (c + d x_i - c - d \bar{x})^2 \\
+        &= d^2 S_{xx}
       \end{align*}
-      et $S_{YY}^\prime = b^2 S_{YY}$, $S_{XY}^\prime = bd S_{XY}$.
+      et $S_{yy}^\prime = b^2 S_{yy}$, $S_{xy}^\prime = bd S_{xy}$.
       Par conséquent,
       \begin{align*}
         \hat{\beta}_1^\prime
-        &= \frac{S_{XY}^\prime}{S_{XX}^\prime} \\
-        &= \frac{bd S_{XY}}{d^2 S_{XX}} \\
+        &= \frac{S_{xy}^\prime}{S_{xx}^\prime} \\
+        &= \frac{bd S_{xy}}{d^2 S_{xx}} \\
         &= \frac{b}{d}\, \hat{\beta}_1 \\
         \intertext{et}
         \hat{\beta}_0^\prime
-        &= \bar{Y}^\prime - \hat{\beta}_1^\prime \bar{X}^\prime \\
-        &= a + b \bar{Y} - \frac{b}{d}\, \hat{\beta}_1 (c + d \bar{X}) \\
+        &= \bar{Y}^\prime - \hat{\beta}_1^\prime \bar{x}^\prime \\
+        &= a + b \bar{Y} - \frac{b}{d}\, \hat{\beta}_1 (c + d \bar{x}) \\
         &= a - \frac{bc}{d}\, \hat{\beta}_1 + b (\bar{Y} -
-        \hat{\beta}_1 \bar{X}) \\
+        \hat{\beta}_1 \bar{x}) \\
         &= a - \frac{bc}{d}\, \hat{\beta}_1 + b \hat{\beta}_0.
       \end{align*}
     \item Tout d'abord, on établit que
       \begin{align*}
         R^2
         &= \frac{\SSR}{\SST} \\
-        &= \frac{\sum_{t=1}^n (\hat{Y_t} - \bar{Y})^2}{\sum_{t=1}^n
-          (Y_t - \bar{Y})^2} \\
-        &= \hat{\beta}_1^2\, \frac{\sum_{t=1}^n (X_t -
-          \bar{X})^2}{\sum_{t=1}^n (Y_t - \bar{Y})^2} \\
-        &= \hat{\beta}_1^2\, \frac{S_{XX}}{S_{YY}}.
+        &= \frac{\sum_{i=1}^n (\hat{Y_i} - \bar{Y})^2}{\sum_{i=1}^n
+          (Y_i - \bar{Y})^2} \\
+        &= \hat{\beta}_1^2\, \frac{\sum_{i=1}^n (x_i -
+          \bar{x})^2}{\sum_{i=1}^n (Y_i - \bar{Y})^2} \\
+        &= \hat{\beta}_1^2\, \frac{S_{xx}}{S_{yy}}.
       \end{align*}
       Maintenant, avec les résultats obtenus en a), on démontre
       directement que
       \begin{align*}
         (R^2)^\prime
-        &= (\hat{\beta}_1^\prime)^2 \frac{S_{XX}^\prime}{S_{YY}^\prime} \\
+        &= (\hat{\beta}_1^\prime)^2 \frac{S_{xx}^\prime}{S_{yy}^\prime} \\
         &=
         \left(
           \frac{b}{d}
         \right)^2\,
-        \hat{\beta}_1^2\, \frac{d^2 S_{XX}}{b^2 S_{YY}} \\
-        &= \hat{\beta}_1^2\, \frac{S_{XX}}{S_{YY}} \\
+        \hat{\beta}_1^2\, \frac{d^2 S_{xx}}{b^2 S_{yy}} \\
+        &= \hat{\beta}_1^2\, \frac{S_{xx}}{S_{yy}} \\
         &= R^2.
       \end{align*}
     \end{enumerate}
@@ -1124,30 +1123,30 @@
 \begin{exercice}
   On sait depuis l'exercice \ref{chap:simple}.\ref{ex:simple:origine}
   que pour le modèle de régression linéaire simple passant par
-  l'origine $Y_t = \beta X_t + \varepsilon_t$, l'estimateur des
+  l'origine $Y_i = \beta x_i + \varepsilon_t$, l'estimateur des
   moindres carrés de $\beta$ est
   \begin{displaymath}
-    \hat{\beta} = \frac{\sum_{t = 1}^n X_t Y_t}{\sum_{t = 1}^n X_t^2}.
+    \hat{\beta} = \frac{\sum_{i = 1}^n x_i Y_i}{\sum_{i = 1}^n x_i^2}.
   \end{displaymath}
   Démontrer que l'on peut obtenir ce résultat en utilisant la formule
   pour $\hat{\beta}_1$ dans la régression linéaire simple usuelle
-  ($Y_t = \beta_0 + \beta_1 X_t + \varepsilon_t$) en ayant d'abord
-  soin d'ajouter aux données un $(n + 1)${\ieme} point $(m\bar{X},
+  ($Y_i = \beta_0 + \beta_1 x_i + \varepsilon_t$) en ayant d'abord
+  soin d'ajouter aux données un $(n + 1)${\ieme} point $(m\bar{x},
   m\bar{Y})$, où
   \begin{displaymath}
     m = \frac{n}{\sqrt{n + 1} - 1} = \frac{n}{a}.
   \end{displaymath}
   \begin{sol}
     Considérons un modèle de régression usuel avec l'ensemble de
-    données $(X_1, Y_1), \dots, (X_n, Y_n), (m \bar{X}, m \bar{Y})$,
-    où $\bar{X} = n^{-1} \sum_{t = 1}^n X_t$, $\bar{Y} = n^{-1}
-    \sum_{t = 1}^n Y_t$, $m = n/a$ et $a = \sqrt{n + 1} - 1$. On
+    données $(x_1, Y_1), \dots, (x_n, Y_n), (m \bar{x}, m \bar{Y})$,
+    où $\bar{x} = n^{-1} \sum_{i = 1}^n x_i$, $\bar{Y} = n^{-1}
+    \sum_{i = 1}^n Y_i$, $m = n/a$ et $a = \sqrt{n + 1} - 1$. On
     définit
     \begin{align*}
-      \bar{X}^\prime
-      &= \frac{1}{n + 1} \sum_{t = 1}^{n + 1} X_t \\
-      &= \frac{1}{n + 1} \sum_{t = 1}^n X_t + \frac{m}{n + 1} \bar{X} \\
-      &= k \bar{X} \\
+      \bar{x}^\prime
+      &= \frac{1}{n + 1} \sum_{i = 1}^{n + 1} x_i \\
+      &= \frac{1}{n + 1} \sum_{i = 1}^n x_i + \frac{m}{n + 1} \bar{x} \\
+      &= k \bar{x} \\
       \intertext{et, de manière similaire,}
       \bar{Y}^\prime
       &= k \bar{Y},
@@ -1160,12 +1159,12 @@
     la droite de régression pour cet ensemble de données est
     \begin{align*}
       \hat{\beta}_1
-      &= \frac{\sum_{t = 1}^{n + 1} X_t Y_t - (n + 1)
-        \bar{X}^\prime \bar{Y}^\prime}{%
-        \sum_{t = 1}^{n + 1} X_t^2 - (n + 1) (\bar{X}^\prime)^2} \\
-      &= \frac{\sum_{t = 1}^n X_t Y_t + m^2 \bar{X} \bar{Y} - (n + 1)
-        k^2 \bar{X} \bar{Y}}{%
-        \sum_{t = 1}^n X_t^2 + m^2 \bar{X}^2 - (n + 1) k^2 \bar{X}^2}.
+      &= \frac{\sum_{i = 1}^{n + 1} x_i Y_i - (n + 1)
+        \bar{x}^\prime \bar{Y}^\prime}{%
+        \sum_{i = 1}^{n + 1} x_i^2 - (n + 1) (\bar{x}^\prime)^2} \\
+      &= \frac{\sum_{i = 1}^n x_i Y_i + m^2 \bar{x} \bar{Y} - (n + 1)
+        k^2 \bar{x} \bar{Y}}{%
+        \sum_{i = 1}^n x_i^2 + m^2 \bar{x}^2 - (n + 1) k^2 \bar{x}^2}.
     \end{align*}
     Or,
     \begin{align*}
@@ -1177,7 +1176,7 @@
     Par conséquent,
     \begin{align*}
       \hat{\beta}_1
-      &= \frac{\sum_{t = 1}^n X_t Y_t}{\sum_{t = 1}^n X_t^2} \\
+      &= \frac{\sum_{i = 1}^n x_i Y_i}{\sum_{i = 1}^n x_i^2} \\
       &= \hat{\beta}.
     \end{align*}
     Interprétation: en ajoutant un point bien spécifique à n'importe
@@ -1191,7 +1190,7 @@
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 
-{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-16-1} 
+{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-14-1} 
 
 }
 
@@ -1213,36 +1212,36 @@
 \begin{exercice}
   Soit le modèle de régression linéaire simple
   \begin{displaymath}
-    Y_t = \beta_0 + \beta_1 X_t + \varepsilon_t, \quad
+    Y_i = \beta_0 + \beta_1 x_i + \varepsilon_t, \quad
     \varepsilon_t \sim N(0, \sigma^2).
   \end{displaymath}
   Construire un intervalle de confiance de niveau $1 - \alpha$ pour le
   paramètre $\beta_1$ si la variance $\sigma^2$ est connue.
   \begin{rep}
     $\beta_1 \in \hat{\beta}_1 \pm z_{\alpha/2} \sigma
-    \left( \sum_{t=1}^n (X_t - \bar{X})^2 \right)^{-1/2}$
+    \left( \sum_{i=1}^n (x_i - \bar{x})^2 \right)^{-1/2}$
   \end{rep}
   \begin{sol}
     Puisque, selon le modèle, $\varepsilon_t \sim N(0, \sigma^2)$ et
-    que $Y_t = \beta_0 + \beta_1 X_t + \varepsilon_t$, alors $Y_t \sim
-    N(\beta_0 + \beta_1 X_t, \sigma^2)$. De plus, on sait que
+    que $Y_i = \beta_0 + \beta_1 x_i + \varepsilon_t$, alors $Y_i \sim
+    N(\beta_0 + \beta_1 x_i, \sigma^2)$. De plus, on sait que
     \begin{align*}
       \hat{\beta}_1
-      &= \frac{\sum_{t=1}^n (X_t - \bar{X})(Y_t - \bar{Y})}{%
-        \sum_{t=1}^n (X_t - \bar{X})^2} \\
-      &= \frac{\sum_{t=1}^n (X_t - \bar{X}) Y_t}{%
-        \sum_{t=1}^n (X_t - \bar{X})^2},
+      &= \frac{\sum_{i=1}^n (x_i - \bar{x})(Y_i - \bar{Y})}{%
+        \sum_{i=1}^n (x_i - \bar{x})^2} \\
+      &= \frac{\sum_{i=1}^n (x_i - \bar{x}) Y_i}{%
+        \sum_{i=1}^n (x_i - \bar{x})^2},
     \end{align*}
     donc l'estimateur $\hat{\beta}_1$ est une combinaison linéaire des
     variables aléatoires $Y_1, \dots, Y_n$. Par conséquent,
     $\hat{\beta}_1 \sim N(\esp{\hat{\beta}_1}, \var{\hat{\beta}_1})$,
     où $\esp{\hat{\beta}_1} = \beta_1$ et $\var{\hat{\beta}_1} =
-    \sigma^2/S_{XX}$ et, donc,
+    \sigma^2/S_{xx}$ et, donc,
     \begin{displaymath}
       \Pr
       \left[
         -z_{\alpha/2} <
-        \frac{\hat{\beta}_1 - \beta_1}{\sigma/\sqrt{S_{XX}}} <
+        \frac{\hat{\beta}_1 - \beta_1}{\sigma/\sqrt{S_{xx}}} <
         z_{\alpha/2}
       \right] = 1 - \alpha.
     \end{displaymath}
@@ -1250,7 +1249,7 @@
     paramètre $\beta_1$ lorsque la variance $\sigma^2$ est connue est donc
     \begin{displaymath}
       \beta_1 \in \hat{\beta}_1 \pm z_{\alpha/2}
-      \frac{\sigma}{\sqrt{\sum_{t=1}^n (X_t - \bar{X})^2}}.
+      \frac{\sigma}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}.
     \end{displaymath}
   \end{sol}
 \end{exercice}
@@ -1260,19 +1259,19 @@
   \emph{per capita} et le prix du gaz naturel. Vous avez colligé les
   données de 20 grandes villes et proposé le modèle
   \begin{displaymath}
-    Y = \beta_0 + \beta_1 X + \varepsilon,
+    Y = \beta_0 + \beta_1 x + \varepsilon,
   \end{displaymath}
-  où $Y$ représente la consommation de gaz \emph{per capita}, $X$ le
+  où $Y$ représente la consommation de gaz \emph{per capita}, $x$ le
   prix et $\varepsilon$ est le terme d'erreur aléatoire distribué
   selon une loi normale. Vous avez obtenu les résultats suivants:
   \begin{align*}
     \hat{\beta}_0 &= 138,581 &
-      \sum_{t=1}^{20} (X_t - \bar{X})^2 &= \nombre{10668} \\
+      \sum_{i=1}^{20} (x_i - \bar{x})^2 &= \nombre{10668} \\
     \hat{\beta}_1 &= -1,104 &
-      \sum_{t=1}^{20} (Y_t - \bar{Y})^2 &= \nombre{20838} \\
-    \sum_{t=1}^{20} X_t^2 &= \nombre{90048} &
-      \sum_{t=1}^{20} e_t^2 &= \nombre{7832}. \\
-    \sum_{t=1}^{20} Y_t^2 &= \nombre{116058}
+      \sum_{i=1}^{20} (Y_i - \bar{Y})^2 &= \nombre{20838} \\
+    \sum_{i=1}^{20} x_i^2 &= \nombre{90048} &
+      \sum_{i=1}^{20} e_t^2 &= \nombre{7832}. \\
+    \sum_{i=1}^{20} Y_i^2 &= \nombre{116058}
   \end{align*}
   Trouver le plus petit intervalle de confiance à 95~\% pour le
   paramètre $\beta_1$.
@@ -1284,14 +1283,14 @@
     \begin{align*}
       \beta_1
       &\in \hat{\beta}_1 \pm t_{\alpha/2}(n - 2)
-      \sqrt{\frac{\hat{\sigma}^2}{S_{XX}}} \\
-      &\in \hat{\beta}_1 \pm t_{0,025}(20 - 2) \sqrt{\frac{MSE}{S_{XX}}}.
+      \sqrt{\frac{\hat{\sigma}^2}{S_{xx}}} \\
+      &\in \hat{\beta}_1 \pm t_{0,025}(20 - 2) \sqrt{\frac{MSE}{S_{xx}}}.
      \end{align*}
-     On nous donne $\SST = S_{YY} = \nombre{20838}$ et $S_{XX} =
+     On nous donne $\SST = S_{yy} = \nombre{20838}$ et $S_{xx} =
      \nombre{10668}$. Par conséquent,
      \begin{align*}
        \SSR
-       &= \hat{\beta}_1^2 \sum_{t=1}^{20} (X_t - \bar{X})^2 \\
+       &= \hat{\beta}_1^2 \sum_{i=1}^{20} (x_i - \bar{x})^2 \\
        &= (-1,104)^2(\nombre{10668}) \\
        &= \nombre{13002,33} \\
        \SSE
@@ -1320,7 +1319,7 @@
   \begin{center}
     \begin{tabular}{rr}
       \toprule
-      $X$ & $Y$ \\
+      $x$ & $Y$ \\
       \midrule
       $-5$ &  1 \\
       $-4$ &  5 \\
@@ -1361,23 +1360,23 @@
       l'ordonnée à l'origine de la droite de régression:
       \begin{align*}
         \hat{\beta}_1
-        &= \frac{\sum_{t=1}^n X_t Y_t - n \bar{X}\bar{Y}}{%
-          \sum_{t=1}^n X_t^2 - n \bar{X}^2} \\
+        &= \frac{\sum_{i=1}^n x_i Y_i - n \bar{x}\bar{Y}}{%
+          \sum_{i=1}^n x_i^2 - n \bar{x}^2} \\
         &= 1,436 \\
         \hat{\beta}_0
-        &= \bar{Y} - \hat{\beta}_1 \bar{X} \\
+        &= \bar{Y} - \hat{\beta}_1 \bar{x} \\
         &= 9,273.
       \end{align*}
     \item Les sommes de carrés sont
       \begin{align*}
         \SST
-        &= \sum_{t=1}^n Y_t^2 - n \bar{Y}^2 \\
+        &= \sum_{i=1}^n Y_i^2 - n \bar{Y}^2 \\
         &= 1194 - 11 (9,273)^2 \\
         &= 248,18 \\
         \SSR
         &= \hat{\beta}_1^2
         \left(
-          \sum_{t=1}^n X_t^2 - n \bar{X}^2
+          \sum_{i=1}^n x_i^2 - n \bar{x}^2
         \right) \\
         &= (1,436)^2 (110 - 11 (0)) \\
         &= 226,95
@@ -1434,11 +1433,11 @@
   vous, une relation entre la «ligne de vie» et l'espérance de vie?
   Vous pouvez utiliser l'information partielle suivante:
   \begin{align*}
-    \sum_{t=1}^{50} X_t &= \nombre{3333} &
-    \sum_{t=1}^{50} X_t^2 &= \nombre{231933} &
-    \sum_{t=1}^{50} X_t Y_t &= \nombre{30549,75} \\
-    \sum_{t=1}^{50} Y_t &= \nombre{459,9} &
-    \sum_{t=1}^{50} Y_t^2 &= \nombre{4308,57}.
+    \sum_{i=1}^{50} x_i &= \nombre{3333} &
+    \sum_{i=1}^{50} x_i^2 &= \nombre{231933} &
+    \sum_{i=1}^{50} x_i Y_i &= \nombre{30549,75} \\
+    \sum_{i=1}^{50} Y_i &= \nombre{459,9} &
+    \sum_{i=1}^{50} Y_i^2 &= \nombre{4308,57}.
   \end{align*}
   \begin{rep}
     $F = 0,73$, valeur $p$: $0,397$
@@ -1449,14 +1448,14 @@
     l'information donnée dans l'énoncé, on peut calculer
     \begin{align*}
       \hat{\beta}_1
-      &= \frac{\sum_{t=1}^{50} X_t Y_t - 50 \bar{X} \bar{Y}}{%
-        \sum_{t=1}^{50} X_t^2 - 50 \bar{X})^2} \\
+      &= \frac{\sum_{i=1}^{50} x_i Y_i - 50 \bar{x} \bar{Y}}{%
+        \sum_{i=1}^{50} x_i^2 - 50 \bar{x})^2} \\
       &= -0,0110 \\
       \SST
-      &= \sum_{t=1}^{50} Y_t^2 - 50 \bar{Y}^2 \\
+      &= \sum_{i=1}^{50} Y_i^2 - 50 \bar{Y}^2 \\
       &= 78,4098 \\
       \SSR
-      &= \hat{\beta}_1^2 \sum_{t=1}^{50} (X_t - \bar{X})^2 \\
+      &= \hat{\beta}_1^2 \sum_{i=1}^{50} (x_i - \bar{x})^2 \\
       &= 1,1804 \\
       \SSE
       &= \SST - \SSR \\
@@ -1487,12 +1486,12 @@
 \begin{exercice}
   Considérer le modèle de régression linéaire passant par l'origine
   présenté à l'exercice \ref{chap:simple}.\ref{ex:simple:origine}.
-  Soit $X_0$ une valeur de la variable indépendante, $Y_0$ la vraie
-  valeur de la variable indépendante correspondant à $X_0$ et
+  Soit $x_0$ une valeur de la variable indépendante, $Y_0$ la vraie
+  valeur de la variable indépendante correspondant à $x_0$ et
   $\hat{Y}_0$ la prévision (ou estimation) de $Y_0$. En supposant que
   \begin{enumerate}[i)]
   \item $\varepsilon_t \sim N(0, \sigma^2)$;
-  \item $\Cov(\varepsilon_0, \varepsilon_t) = 0$ pour tout $t = 1,
+  \item $\Cov(\varepsilon_0, \varepsilon_t) = 0$ pour tout $i = 1,
     \dots, n$;
   \item $\var{\varepsilon_t} = \sigma^2$ est estimé par $s^2$,
   \end{enumerate}
@@ -1500,49 +1499,49 @@
   $Y_0$. Faire tous les calculs intermédiaires.
   \begin{rep}
     $\hat{Y}_0 \pm t_{\alpha/2}(n - 1)\, s\,
-    \sqrt{1 + X_0^2/\sum_{t=1}^n X_t^2}$
+    \sqrt{1 + x_0^2/\sum_{i=1}^n x_i^2}$
   \end{rep}
   \begin{sol}
     Premièrement, selon le modèle de régression passant par l'origine,
-    $Y_0 = \beta X_0 + \varepsilon_0$ et $\hat{Y}_0 = \hat{\beta}
-    X_0$. Considérons, pour la suite, la variable aléatoire $Y_0 -
+    $Y_0 = \beta x_0 + \varepsilon_0$ et $\hat{Y}_0 = \hat{\beta}
+    x_0$. Considérons, pour la suite, la variable aléatoire $Y_0 -
     \hat{Y}_0$. On voit facilement que $\esp{\hat{\beta}} = \beta$,
-    d'où $\esp{Y_0 - \hat{Y}_0} = \esp{\beta X_0 + \varepsilon_0 -
-      \hat{\beta} X_0} = \beta X_0 - \beta X_0 = 0$ et
+    d'où $\esp{Y_0 - \hat{Y}_0} = \esp{\beta x_0 + \varepsilon_0 -
+      \hat{\beta} x_0} = \beta x_0 - \beta x_0 = 0$ et
     \begin{displaymath}
       \var{Y_0 - \hat{Y}_0} = \var{Y_0} + \var{\hat{Y}_0} - 2\,
       \Cov(Y_0, \hat{Y}_0).
     \end{displaymath}
     Or, $\Cov(Y_0, \hat{Y}_0) = 0$ par l'hypothèse ii) de l'énoncé,
-    $\var{Y_0} = \sigma^2$ et $\var{\hat{Y}_0} = X_0^2\,
+    $\var{Y_0} = \sigma^2$ et $\var{\hat{Y}_0} = x_0^2\,
     \var{\hat{\beta}}$. De plus,
     \begin{align*}
       \var{\hat{\beta}}
-      &= \frac{1}{(\sum_{t=1}^n X_t^2)^2} \sum_{t=1}^n X_t^2\,
-      \var{Y_t} \\
-      &= \frac{\sigma^2}{\sum_{t=1}^n X_t^2}
+      &= \frac{1}{(\sum_{i=1}^n x_i^2)^2} \sum_{i=1}^n x_i^2\,
+      \var{Y_i} \\
+      &= \frac{\sigma^2}{\sum_{i=1}^n x_i^2}
     \end{align*}
     d'où, finalement,
     \begin{displaymath}
       \var{Y_0 - \hat{Y}_0} =
-      \sigma^2 \left( 1 + \frac{X_0^2}{\sum_{t=1}^n X_t^2} \right).
+      \sigma^2 \left( 1 + \frac{x_0^2}{\sum_{i=1}^n x_i^2} \right).
     \end{displaymath}
     Par l'hypothèse de normalité et puisque $\hat{\beta}$ est une
     combinaison linéaire de variables aléatoires normales,
     \begin{displaymath}
       Y_0 - \hat{Y}_0 \sim N
       \left(
-        0, \sigma^2 \left( 1 + \frac{X_0^2}{\sum_{t=1}^n X_t^2} \right)
+        0, \sigma^2 \left( 1 + \frac{x_0^2}{\sum_{i=1}^n x_i^2} \right)
       \right)
     \end{displaymath}
     ou, de manière équivalente,
     \begin{displaymath}
-      \frac{Y_0 - \hat{Y}_0}{\sigma \sqrt{1 + X_0^2/\sum_{t=1}^n X_t^2}}
+      \frac{Y_0 - \hat{Y}_0}{\sigma \sqrt{1 + x_0^2/\sum_{i=1}^n x_i^2}}
       \sim N(0, 1).
     \end{displaymath}
     Lorsque la variance $\sigma^2$ est estimée par $s^2$, alors
     \begin{displaymath}
-      \frac{Y_0 - \hat{Y}_0}{s \sqrt{1 + X_0^2/\sum_{t=1}^n X_t^2}}
+      \frac{Y_0 - \hat{Y}_0}{s \sqrt{1 + x_0^2/\sum_{i=1}^n x_i^2}}
       \sim t(n - 1).
     \end{displaymath}
     La loi de Student a $n - 1$ degrés de liberté puisque le modèle
@@ -1551,7 +1550,7 @@
     donc
     \begin{displaymath}
       \hat{Y}_0 \pm t_{\alpha/2}(n - 1)\, s\, \sqrt{1 +
-        \frac{X_0^2}{\sum_{t=1}^n X_t^2}}.
+        \frac{x_0^2}{\sum_{i=1}^n x_i^2}}.
     \end{displaymath}
   \end{sol}
 \end{exercice}
@@ -1602,19 +1601,19 @@
   \end{rep}
   \begin{sol}
     \begin{enumerate}
-    \item Soit $X_1, \dots, X_{10}$ les valeurs de la masse monétaire
-      et $Y_1, \dots, Y_{10}$ celles du PNB. On a $\bar{X} = 3,72$,
-      $\bar{Y} = 7,55$, $\sum_{t = 1}^{10} X_t^2 = 147,18$, $\sum_{t =
-        1}^{10} Y_t^2 = 597,03$ et $\sum_{t = 1}^{10} X_t Y_t =
+    \item Soit $x_1, \dots, x_{10}$ les valeurs de la masse monétaire
+      et $Y_1, \dots, Y_{10}$ celles du PNB. On a $\bar{x} = 3,72$,
+      $\bar{Y} = 7,55$, $\sum_{i = 1}^{10} x_i^2 = 147,18$, $\sum_{t =
+        1}^{10} Y_i^2 = 597,03$ et $\sum_{i = 1}^{10} x_i Y_i =
       295,95$. Par conséquent,
       \begin{align*}
         \hat{\beta}_1
-        &= \frac{\sum_{t=1}^{10} X_t Y_t - 10 \bar{X} \bar{Y}}{%
-          \sum_{t=1}^{10} X_t^2 - 10 \bar{X}^2} \\
+        &= \frac{\sum_{i=1}^{10} x_i Y_i - 10 \bar{x} \bar{Y}}{%
+          \sum_{i=1}^{10} x_i^2 - 10 \bar{x}^2} \\
         &= 1,716 \\
         \intertext{et}
         \hat{\beta}_0
-        &= \bar{Y} - \hat{\beta}_1 \bar{X} \\
+        &= \bar{Y} - \hat{\beta}_1 \bar{x} \\
         &= 1,168.
       \end{align*}
       On a donc la relation linéaire $\text{PNB} = 1,168 + 1,716
@@ -1626,12 +1625,12 @@
       \hat{Y}_{10}$ en procédant ainsi:
       \begin{align*}
         \SST
-        &= \sum_{t=1}^{10} Y_t^2 - 10 \bar{Y}^2 \\
+        &= \sum_{i=1}^{10} Y_i^2 - 10 \bar{Y}^2 \\
         &= 27,005 \\
         \SSR
         &= \hat{\beta}_1^2
         \left(
-          \sum_{t=1}^{10} X_t^2 - 10 \bar{X}^2
+          \sum_{i=1}^{10} x_i^2 - 10 \bar{x}^2
         \right) \\
         &= 25,901,
       \end{align*}
@@ -1641,13 +1640,13 @@
       \begin{align*}
         \beta_0
         &\in \hat{\beta}_0 \pm t_{\alpha/2}(n - 2)\, s\,
-        \sqrt{\frac{1}{n} + \frac{\bar{X}^2}{S_{XX}}} \\
+        \sqrt{\frac{1}{n} + \frac{\bar{x}^2}{S_{xx}}} \\
         &\in 1,168 \pm (2,306) (0,3715)
         \sqrt{\frac{1}{10} + \frac{3,72^2}{8,796}} \\
         &\in (0,060, 2,276) \\
         \beta_1
         &\in \hat{\beta}_1 \pm t_{\alpha/2}(n - 2)\, s\,
-        \sqrt{\frac{1}{S_{XX}}} \\
+        \sqrt{\frac{1}{S_{xx}}} \\
         &\in 1,716 \pm (2,306) (0,3715) \sqrt{\frac{1}{8,796}} \\
         &\in (1,427, 2,005).
       \end{align*}
@@ -1670,13 +1669,13 @@
       de $\alpha = 95~\%$, le PNB moyen se trouve dans l'intervalle
       \begin{displaymath}
         12,0 \pm t_{\alpha/2}(n - 2)\, s\,
-        \sqrt{\frac{1}{n} + \frac{(6,31 - \bar{X})^2}{S_{XX}}} =
+        \sqrt{\frac{1}{n} + \frac{(6,31 - \bar{x})^2}{S_{xx}}} =
         (11,20, 12,80),
       \end{displaymath}
       alors que la vraie valeur du PNB se trouve dans l'intervalle
       \begin{displaymath}
         12,0 \pm t_{\alpha/2}(n - 2)\, s\,
-        \sqrt{1 + \frac{1}{n} + \frac{(6,31 - \bar{X})^2}{S_{XX}}} =
+        \sqrt{1 + \frac{1}{n} + \frac{(6,31 - \bar{x})^2}{S_{xx}}} =
         (10,83, 13,17).
       \end{displaymath}
     \end{enumerate}
@@ -1747,7 +1746,7 @@
 \end{alltt}
 \end{kframe}
 
-{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-19-1} 
+{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-17-1} 
 
 }
 
@@ -1822,7 +1821,7 @@
 \end{alltt}
 \end{kframe}
 
-{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-22-1} 
+{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-20-1} 
 
 }
 
@@ -1888,7 +1887,7 @@
 \end{alltt}
 \end{kframe}
 
-{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-24-1} 
+{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-22-1} 
 
 }
 
@@ -1989,12 +1988,12 @@
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
-      Le modèle est donc le suivant: $Y_t =
+      Le modèle est donc le suivant: $Y_i =
       -0,01465 +
-      0,007838 X_t +
+      0,007838 x_i +
       \varepsilon_t$, $\varepsilon_t \sim N(0,
-      1,039^2)$, où $Y_t$ est la
-      consommation en litres aux 100 kilomètres et $X_t$ le poids en
+      1,039^2)$, où $Y_i$ est la
+      consommation en litres aux 100 kilomètres et $x_i$ le poids en
       kilogrammes. La faible valeur $p$ du test $F$ indique une
       régression très significative. De plus, le $R^2$ de
       0,858 %$
@@ -2152,7 +2151,7 @@ Nombre de bactéries & Temps d'exposition (min) \\ \hline
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 
-{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-30-1} 
+{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-28-1} 
 
 }
 
@@ -2224,7 +2223,7 @@ The Q-Q Plot of the studentized residuals is shown in Figure~\ref{qqplot3b}. The
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 
-{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-33-1} 
+{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-31-1} 
 
 }
 
@@ -2241,7 +2240,7 @@ The Q-Q Plot of the studentized residuals is shown in Figure~\ref{qqplot3b}. The
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 
-{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-34-1} 
+{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-32-1} 
 
 }
 
@@ -2271,7 +2270,7 @@ Finally, this model is inadequate and transformations on the response variables 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 
-{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-36-1} 
+{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-34-1} 
 
 }
 
@@ -2321,7 +2320,7 @@ The fitted model is $$\hat{y}^{*}=5.33878-0.23617x,$$ where the parameters of th
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 
-{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-38-1} 
+{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-36-1} 
 
 }
 
@@ -2366,7 +2365,7 @@ Finally, this model is adequate and the transformation used on the response vari
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 
-{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-40-1} 
+{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-38-1} 
 
 }
 
@@ -2382,7 +2381,7 @@ Finally, this model is adequate and the transformation used on the response vari
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 
-{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-41-1} 
+{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-39-1} 
 
 }
 
