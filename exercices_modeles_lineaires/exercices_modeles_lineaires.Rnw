@@ -194,6 +194,16 @@
 
 \begin{document}
 
+% Options pour les graphiques directement appelés en R
+<<setup, include=FALSE, cache=FALSE>>=
+library(knitr)
+# set global chunk options
+opts_chunk$set(fig.path='figure/fig-', fig.align='center', fig.show='hold', fig.height=5,
+fig.width=5,out.width='.45\\linewidth')
+par(mar=c(4,4,.1,.1))
+options(width=55)
+@
+
 % \shortcites{R:intro} aucune idée c'est pour quoi
 
 \frontmatter
@@ -216,24 +226,24 @@
 
 <<child='simple.Rnw'>>=
 @
-
-<<child='multiple.Rnw'>>=
-@
-
-<<child='selection.Rnw'>>=
-@
-
-\part{Modèles linéaires généralisés}
-
-<<child='glm.Rnw'>>=
-@
-
-<<child='comptage.Rnw'>>=
-@
-
-\appendix
-<<child='regression.Rnw'>>=
-@
+%
+%<<child='multiple.Rnw'>>=
+%@
+%
+%<<child='selection.Rnw'>>=
+%@
+%
+%\part{Modèles linéaires généralisés}
+%
+%<<child='glm.Rnw'>>=
+%@
+%
+%<<child='comptage.Rnw'>>=
+%@
+%
+%\appendix
+%<<child='regression.Rnw'>>=
+%@
 %\include{elements}
 \include{solutions}
 
