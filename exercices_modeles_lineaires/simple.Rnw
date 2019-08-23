@@ -309,8 +309,7 @@ ss <- anova(fit)[[2]]
     \begin{enumerate}
     \item Voir la figure \ref{fig:simple:women}.
       \begin{figure}
-        \centering
-<<>>=
+<<simple-women>>=
 data(women)
 plot(weight ~ height, data = women, pch = 16)
 @
@@ -324,11 +323,10 @@ plot(weight ~ height, data = women, pch = 16)
 @
     \item Voir la figure \ref{fig:simple:women2}.
       \begin{figure}
-        \centering
 <<fig.keep='none', eval = FALSE>>=
 abline(fit)
 @
-<<echo=FALSE>>=
+<<simple-women2,echo=FALSE>>=
 plot(weight ~ height, data = women, pch = 16)
 abline(fit)
 @
@@ -427,7 +425,7 @@ all.equal(summary(fit)$r.squared, SSR/SST)
   \item Trouver l'estimateur des moindres carrés du paramètre $\beta$
     dans le modèle de régression linéaire passant par l'origine $Y_i =
     \beta x_i + \varepsilon_i$, $i = 1, \dots, n$,
-    $\esp{\varepsilon_i} = 0$, $\Cov(\varepsilon_i, \varepsilon_j) =
+    $\esp{\varepsilon_i} = 0$, $\cov{\varepsilon_i, \varepsilon_j} =
     \delta_{ij} \sigma^2$.
   \item Démontrer que l'estimateur en a) est sans biais.
   \item Calculer la variance de l'estimateur en a).
@@ -580,33 +578,31 @@ all.equal(summary(fit)$r.squared, SSR/SST)
           (\hat{Y}_i - \esp{\hat{Y}_i}))^2} \\
         &= \frac{1}{n - 2} \sum_{i=1}^n
         \left(
-          \var{Y_i} + \var{\hat{Y}_i} - 2\, \Cov(Y_i, \hat{Y}_i)
+          \var{Y_i} + \var{\hat{Y}_i} - 2\, \cov{Y_i, \hat{Y}_i}
         \right).
       \end{align*}
-      Or, on a par hypothèse du modèle que $\Cov(Y_i, Y_j) =
-      \Cov(\varepsilon_i, \varepsilon_j) = \delta_{ij} \sigma^2$, d'où
+      Or, on a par hypothèse du modèle que $\cov{Y_i, Y_j} =
+      \cov{\varepsilon_i, \varepsilon_j} = \delta_{ij} \sigma^2$, d'où
       $\var{Y_i} = \sigma^2$ et $\var{\bar{Y}} = \sigma^2/n$. D'autre
       part,
       \begin{align*}
         \var{\hat{Y}_i}
         &= \var{\bar{Y} + \hat{\beta}_1 (x_i - \bar{x})} \\
         &= \var{\bar{Y}} + (x_i - \bar{x})^2 \var{\hat{\beta}_1} +
-        2 (x_i - \bar{x}) \Cov(\bar{Y}, \hat{\beta}_1)
+        2 (x_i - \bar{x}) \cov{\bar{Y}, \hat{\beta}_1}
       \end{align*}
       et l'on sait que
       \begin{align*}
         \var{\hat{\beta}_1}
         &= \frac{\sigma^2}{\sum_{i=1}^n(x_i-\bar{x})^2} \\
         \intertext{et que}
-        \Cov(\bar{Y}, \hat{\beta}_1)
-        & = \Cov
-        \left(
+        \cov{\bar{Y}, \hat{\beta}_1}
+        & = \Cov{
           \frac{\sum_{i = 1}^n Y_i}{n},
           \frac{\sum_{j = 1}^n (x_j - \bar{x}) Y_j}{\sum_{j = 1}^n
-            (x_j - \bar{x})^2}
-        \right) \\
+            (x_j - \bar{x})^2}} \\
         &= \frac{1}{n \sum_{j = 1}^n (x_j - \bar{x})^2}
-        \sum_{i = 1}^n \sum_{j = 1}^n \Cov(Y_i, (x_j - \bar{x}) Y_j) \\
+        \sum_{i = 1}^n \sum_{j = 1}^n \cov{Y_i, (x_j - \bar{x}) Y_j} \\
         &= \frac{1}{n \sum_{j = 1}^n (x_j - \bar{x})^2}
         \sum_{i = 1}^n (x_j - \bar{x}) \var{Y_i} \\
         & = \frac{\sigma^2}{n \sum_{j = 1}^n (x_j - \bar{x})^2}
@@ -620,10 +616,10 @@ all.equal(summary(fit)$r.squared, SSR/SST)
       \end{displaymath}
       De manière similaire, on détermine que
       \begin{align*}
-        \Cov(Y_i, \hat{Y}_i)
-        &= \Cov(Y_i, \bar{Y} + \hat{\beta}_1 (x_i - \bar{x})) \\
-        &= \Cov(Y_i, \bar{Y}) +
-        (x_i - \bar{x}) \Cov(Y_i, \hat{\beta}_1) \\
+        \cov{Y_i, \hat{Y}_i}
+        &= \cov{Y_i, \bar{Y} + \hat{\beta}_1 (x_i - \bar{x})} \\
+        &= \cov{Y_i, \bar{Y}} +
+        (x_i - \bar{x}) \cov{Y_i, \hat{\beta}_1} \\
         &= \frac{\sigma^2}{n} + \frac{(x_i -
           \bar{x})^2 \sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2}.
       \end{align*}
@@ -1111,7 +1107,7 @@ abline(lm(y ~ -1 + x), lty = 2, lwd = 2)
   $\hat{Y}_0$ la prévision (ou estimation) de $Y_0$. En supposant que
   \begin{enumerate}[i)]
   \item $\varepsilon_i \sim N(0, \sigma^2)$;
-  \item $\Cov(\varepsilon_0, \varepsilon_i) = 0$ pour tout $i = 1,
+  \item $\cov{\varepsilon_0, \varepsilon_i} = 0$ pour tout $i = 1,
     \dots, n$;
   \item $\var{\varepsilon_i} = \sigma^2$ est estimé par $s^2$,
   \end{enumerate}
@@ -1130,9 +1126,9 @@ abline(lm(y ~ -1 + x), lty = 2, lwd = 2)
       \hat{\beta} x_0} = \beta x_0 - \beta x_0 = 0$ et
     \begin{displaymath}
       \var{Y_0 - \hat{Y}_0} = \var{Y_0} + \var{\hat{Y}_0} - 2\,
-      \Cov(Y_0, \hat{Y}_0).
+      \cov{Y_0, \hat{Y}_0}.
     \end{displaymath}
-    Or, $\Cov(Y_0, \hat{Y}_0) = 0$ par l'hypothèse ii) de l'énoncé,
+    Or, $\cov{Y_0, \hat{Y}_0} = 0$ par l'hypothèse ii) de l'énoncé,
     $\var{Y_0} = \sigma^2$ et $\var{\hat{Y}_0} = x_0^2\,
     \var{\hat{\beta}}$. De plus,
     \begin{align*}
@@ -1561,28 +1557,28 @@ $\Rightarrow \hat{\beta}_0$ est la moyenne de l'espérance de vie pour les homme
 On s'intéresse à la covariance entre deux résidus.
 
 \begin{enumerate}
-\item D'abord, trouver $\cov(Y_i,\hat{Y}_j)$. 
+\item D'abord, trouver $\cov{Y_i,\hat{Y}_j}$. 
 
-\item Puis, calculer $\cov(\hat{Y}_i,\hat{Y}_j)$. 
+\item Puis, calculer $\cov{\hat{Y}_i,\hat{Y}_j}$. 
 
-\item Déduire de a) et b) que $$\cov(\hat{\varepsilon}_i,\hat{\varepsilon}_j)=-\sigma^2\left(\frac{1}{n}+\frac{(x_i-\bar{x})(x_j-\bar{x})}{S_{xx}}\right).$$ 
+\item Déduire de a) et b) que $$\cov{\hat{\varepsilon}_i,\hat{\varepsilon}_j}=-\sigma^2\left(\frac{1}{n}+\frac{(x_i-\bar{x})(x_j-\bar{x})}{S_{xx}}\right).$$ 
 \end{enumerate}
 
 \begin{sol}
 \begin{enumerate}
 \item
 \begin{align*}
-\cov(Y_i,\hat{Y}_j)&=\cov(Y_i,\hat{\beta}_0+\hat{\beta}_1x_j)\\
-&=\cov(Y_i,\bar{Y}-\hat{\beta}_1\bar{x}+\hat{\beta}_1x_j)\\
-&=\cov(Y_i,\bar{Y})+(x_j-\bar{x})\cov(Y_i,\hat{\beta}_1) \mbox{ par indépendance des observations}\\
-&=\frac{\sigma^2}{n}+\frac{(x_j-\bar{x})}{S_{xx}}\sum_{l=1}^n(x_l-\bar{x})\cov(Y_i,Y_l)\\
+\cov{Y_i,\hat{Y}_j}&=\cov{Y_i,\hat{\beta}_0+\hat{\beta}_1x_j}\\
+&=\cov{Y_i,\bar{Y}-\hat{\beta}_1\bar{x}+\hat{\beta}_1x_j}\\
+&=\cov{Y_i,\bar{Y}}+(x_j-\bar{x})\cov{Y_i,\hat{\beta}_1} \mbox{ par indépendance des observations}\\
+&=\frac{\sigma^2}{n}+\frac{(x_j-\bar{x})}{S_{xx}}\sum_{l=1}^n(x_l-\bar{x})\cov{Y_i,Y_l}\\
 &=\frac{\sigma^2}{n}+\frac{(x_j-\bar{x})(x_i-\bar{x})}{S_{xx}}\sigma^2\mbox{ par indépendance des observations}.\\
 \end{align*}
 
 \item
 \begin{align*}
-\cov(\hat{Y}_i,\hat{Y}_j)&=\cov(\hat{\beta}_0+\hat{\beta}_1x_i,\hat{\beta}_0+\hat{\beta}_1x_j)\\
-&=\var(\hat{\beta}_0)+(x_i+x_j)\cov(\hat{\beta}_0,\hat{\beta}_1)+x_ix_j\var(\hat{\beta}_1)\\
+\cov{\hat{Y}_i,\hat{Y}_j}&=\cov{\hat{\beta}_0+\hat{\beta}_1x_i,\hat{\beta}_0+\hat{\beta}_1x_j}\\
+&=\var{\hat{\beta}_0}+(x_i+x_j)\cov{\hat{\beta}_0,\hat{\beta}_1}+x_ix_j\var{\hat{\beta}_1}\\
 &=\sigma^2\left(\frac{1}{n}+\frac{\bar{x}^2}{S_{xx}}\right)-(x_i+x_j)\frac{\bar{x}\sigma^2}{S_{xx}}+x_ix_j\frac{\sigma^2}{S_{xx}}\\
 &=...\\
 &=\sigma^2\left(\frac{1}{n}+\frac{(x_j-\bar{x})(x_i-\bar{x})}{S_{xx}}\right).
@@ -1590,8 +1586,8 @@ On s'intéresse à la covariance entre deux résidus.
 
 \item
 \begin{align*}
-\cov(\hat{\varepsilon}_i,\hat{\varepsilon}_j)&=\cov(Y_i-\hat{Y}_i,Y_j-\hat{Y}_j)\\
-&=\cov(Y_i,Y_j)-\cov(Y_i,\hat{Y}_j)-\cov(\hat{Y}_i,Y_j)+\cov(\hat{Y}_i,\hat{Y}_j)\\
+\cov{\hat{\varepsilon}_i,\hat{\varepsilon}_j}&=\cov{Y_i-\hat{Y}_i,Y_j-\hat{Y}_j}\\
+&=\cov{Y_i,Y_j}-\cov{Y_i,\hat{Y}_j}-\cov{\hat{Y}_i,Y_j}+\cov{\hat{Y}_i,\hat{Y}_j}\\
 &=0-2\sigma^2\left(\frac{1}{n}+\frac{(x_j-\bar{x})(x_i-\bar{x})}{S_{xx}}\right)+\left(\frac{1}{n}+\frac{(x_j-\bar{x})(x_i-\bar{x})}{S_{xx}}\right)\\
 &=-\sigma^2\left(\frac{1}{n}+\frac{(x_i-\bar{x})(x_j-\bar{x})}{S_{xx}}\right).
 \end{align*}

@@ -8,7 +8,8 @@
   
   \usepackage{lucidabr,pslatex}
   \usepackage[sc]{mathpazo}
-  \usepackage{vgmath,vgsets,icomma,amsmath,amsthm,upgreek} 
+  %\usepackage{vgmath,vgsets}
+  \usepackage{vmcommands,icomma,amsmath,amsthm,upgreek} 
   \usepackage{graphicx,color}
   \usepackage[absolute]{textpos}
   \usepackage{answers,listings}
@@ -127,23 +128,7 @@
   \renewcommand{\solutionparams}{{\thechapter.\theexercice}}
 
   %%% Nouvelles commandes
-  \renewcommand{\mat}[1]{\mathbf{#1}}
-  \newcommand{\betab}{\boldsymbol{\upbeta}}
-  \newcommand{\betabh}{\boldsymbol{\hat{\upbeta}}}
-  \newcommand{\vepsb}{\boldsymbol{\upvarepsilon}}
-  \newcommand{\SST}{\mathrm{SST}}
-  \newcommand{\SSR}{\mathrm{SSR}}
-  \newcommand{\SSE}{\mathrm{SSE}}
-  \newcommand{\MSE}{\mathrm{MSE}}
-  \newcommand{\MSR}{\mathrm{MSR}}
-  \newcommand{\tr}{\mathrm{tr}}
-  \newcommand{\cov}{\mathbb{C}\text{ov}}
-  
-  \newcommand{\bm}{\boldmath}
   \newcommand{\bobeta}{\mbox{\bm$\beta$}}
-  
-  %%% Styles pour les noms de fonctions, code, etc.
-  \newcommand{\code}[1]{\texttt{#1}}
 
   %%% Sous-figures
   \newsubfloat{figure}
@@ -231,9 +216,9 @@ options(width=55)
 
 %<<child='selection.Rnw'>>=
 %@
-%
-%\part{Modèles linéaires généralisés}
-%
+
+\part{Modèles linéaires généralisés}
+
 %<<child='glm.Rnw'>>=
 %@
 %

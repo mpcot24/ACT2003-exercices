@@ -12,31 +12,31 @@
     Il suffit, pour faire la démonstration, d'appliquer directement ce
     résultat à la forme quadratique
     \begin{displaymath}
-      S(\betab) = (\mat{y} - \mat{X} \betab)^\prime (\mat{y} - \mat{X} \betab)
+      S(\betavec) = (\mat{y} - \mat{X} \betavec)^\prime (\mat{y} - \mat{X} \betavec)
     \end{displaymath}
-    avec $f(\betab) = \mat{y} - \mat{X} \betab$ et $\mat{A} =
+    avec $f(\betavec) = \mat{y} - \mat{X} \betavec$ et $\mat{A} =
     \mat{I}$, la matrice identité. On a alors
     \begin{align*}
-      \frac{d}{d\betab} S(\betab)
+      \frac{d}{d\betavec} S(\betavec)
       &= 2
       \left(
-        \frac{d}{d\betab} (\mat{y} - \mat{X} \betab)
+        \frac{d}{d\betavec} (\mat{y} - \mat{X} \betavec)
       \right)^\prime
-      \mat{y} - \mat{X} \betab \\
-      &= 2 (-\mat{X})^\prime (\mat{y} - \mat{X} \betab)\\
-      &= -2 \mat{X}^\prime (\mat{y} - \mat{X} \betab).
+      \mat{y} - \mat{X} \betavec \\
+      &= 2 (-\mat{X})^\prime (\mat{y} - \mat{X} \betavec)\\
+      &= -2 \mat{X}^\prime (\mat{y} - \mat{X} \betavec).
     \end{align*}
     En posant ces dérivées exprimées sous forme matricielle
     simultanément égales à zéro, on obtient les équations normales à
     résoudre pour calculer l'estimateur des moindres carrés du vecteur
-    $\betab$, soit
+    $\betavec$, soit
     \begin{displaymath}
-      \mat{X}^\prime \mat{X} \betabh = \mat{X}^\prime \mat{y}.
+      \mat{X}^\prime \mat{X} \hat\betavec = \mat{X}^\prime \mat{y}.
     \end{displaymath}
-    En isolant $\betabh$ dans l'équation ci-dessus, on obtient,
+    En isolant $\hat\betavec$ dans l'équation ci-dessus, on obtient,
     finalement, l'estimateur des moindres carrés:
     \begin{displaymath}
-      \betabh = (\mat{X}^\prime \mat{X})^{-1} \mat{X}^\prime \mat{y}.
+      \hat\betavec = (\mat{X}^\prime \mat{X})^{-1} \mat{X}^\prime \mat{y}.
     \end{displaymath}
   
 \end{solution}
@@ -53,7 +53,7 @@
       \end{displaymath}
       et
       \begin{align*}
-        \betabh
+        \hat\betavec
         &=\left(\mat{X}^\prime \mat{X} \right)^{-1} \mat{X}^\prime
         \mat{y} \\
         &=
@@ -84,7 +84,7 @@
       \end{displaymath}
       Par conséquent,
       \begin{align*}
-        \betabh
+        \hat\betavec
         &=
         \left(
           \begin{bmatrix}
@@ -121,7 +121,7 @@
       \end{displaymath}
       Par conséquent,
       \begin{align*}
-        \betabh
+        \hat\betavec
         &=
         \left(
           \begin{bmatrix}
@@ -172,7 +172,7 @@
     \end{displaymath}
     Par conséquent,
     \begin{align*}
-      \var{\betabh}
+      \var{\hat\betavec}
       &= \sigma^2 (\mat{X}^\prime \mat{X})^{-1} \\
       &= \sigma^2
       \left(
@@ -220,15 +220,15 @@
     Dans les démonstrations qui suivent, trois relations de base
     seront utilisées:
     $\mat{e} = \mat{y - \hat{y}}$,
-    $\mat{\hat{y}} = \mat{X} \betabh$ et
-    $\betabh = (\mat{X}^\prime \mat{X})^{-1} \mat{X}^\prime \mat{y}$.
+    $\mat{\hat{y}} = \mat{X} \hat\betavec$ et
+    $\hat\betavec = (\mat{X}^\prime \mat{X})^{-1} \mat{X}^\prime \mat{y}$.
     \begin{enumerate}
     \item On a
       \begin{align*}
         \mat{X}^\prime \mat{e}
         &= \mat{X}^\prime (\mat{y - \hat{y}}) \\
-        &= \mat{X}^\prime (\mat{y} - \mat{X} \betabh) \\
-        &= \mat{X}^\prime \mat{y} - (\mat{X}^\prime \mat{X}) \betabh \\
+        &= \mat{X}^\prime (\mat{y} - \mat{X} \hat\betavec) \\
+        &= \mat{X}^\prime \mat{y} - (\mat{X}^\prime \mat{X}) \hat\betavec \\
         &= \mat{X}^\prime \mat{y} - (\mat{X}^\prime \mat{X})
         (\mat{X}^\prime \mat{X})^{-1} \mat{X}^\prime \mat{y} \\
         &= \mat{X}^\prime \mat{y} - \mat{X}^\prime \mat{y} \\
@@ -259,14 +259,14 @@
      \item On a
        \begin{align*}
          \hat{\mat{y}}^\prime \mat{e}
-         &= (\mat{X}\betabh)^\prime (\mat{y - \hat{y}}) \\
-         &= \betabh^\prime \mat{X}^\prime (\mat{y} - \mat{X}\betabh) \\
-         &= \betabh^\prime \mat{X}^\prime \mat{y} - \betabh^\prime
-         (\mat{X}^\prime \mat{X}) \betabh \\
-         &= \betabh^\prime \mat{X}^\prime \mat{y} - \betabh^\prime
+         &= (\mat{X}\hat\betavec)^\prime (\mat{y - \hat{y}}) \\
+         &= \hat\betavec^\prime \mat{X}^\prime (\mat{y} - \mat{X}\hat\betavec) \\
+         &= \hat\betavec^\prime \mat{X}^\prime \mat{y} - \hat\betavec^\prime
+         (\mat{X}^\prime \mat{X}) \hat\betavec \\
+         &= \hat\betavec^\prime \mat{X}^\prime \mat{y} - \hat\betavec^\prime
          (\mat{X}^\prime \mat{X}) (\mat{X}^\prime \mat{X})^{-1}
          \mat{X}^\prime \mat{y} \\
-         &= \betabh^\prime \mat{X}^\prime \mat{y} - \betabh^\prime
+         &= \hat\betavec^\prime \mat{X}^\prime \mat{y} - \hat\betavec^\prime
          \mat{X}^\prime \mat{y} \\
          &= 0.
        \end{align*}
@@ -282,20 +282,20 @@
        {\shorthandoff{:} \citet[chapitres 20 et
          21]{Draper:regression:1998}}.)
          D'ailleurs, on constate que
-       $\hat{\mat{y}}^\prime \mat{e} = \betabh^\prime \mat{X}^\prime
+       $\hat{\mat{y}}^\prime \mat{e} = \hat\betavec^\prime \mat{X}^\prime
        \mat{e}$ et donc, en supposant sans perte de généralité que
-       $\betabh \ne \mat{0}$,
+       $\hat\betavec \ne \mat{0}$,
        que $\hat{\mat{y}}^\prime \mat{e} = 0$
        et $\mat{X}^\prime \mat{e} = \mat{0}$ sont des conditions en
        tous points équivalentes.
      \item On a
        \begin{align*}
          \mat{\hat{y}}^\prime \mat{\hat{y}}
-         &= (\mat{X} \betabh)^\prime \mat{X} \betabh \\
-         &= \betabh^\prime (\mat{X}^\prime \mat{X}) \betabh \\
-         &= \betabh^\prime (\mat{X}^\prime \mat{X}) (\mat{X}^\prime
+         &= (\mat{X} \hat\betavec)^\prime \mat{X} \hat\betavec \\
+         &= \hat\betavec^\prime (\mat{X}^\prime \mat{X}) \hat\betavec \\
+         &= \hat\betavec^\prime (\mat{X}^\prime \mat{X}) (\mat{X}^\prime
          \mat{X})^{-1} \mat{X}^\prime \mat{y} \\
-         &= \betabh^\prime \mat{X}^\prime \mat{y}.
+         &= \hat\betavec^\prime \mat{X}^\prime \mat{y}.
        \end{align*}
        Cette équation est l'équivalent matriciel de l'identité
        \begin{align*}
@@ -309,7 +309,7 @@
        \hat{Y}_t^2 = \sum_{t = 1}^n (\hat{Y} - \bar{Y})^2 + n
        \bar{Y}^2 = \SSR + n \bar{Y}^2$ et
        \begin{align*}
-         \betabh^\prime \mat{X}^\prime \mat{y}
+         \hat\betavec^\prime \mat{X}^\prime \mat{y}
          &= \hat{\beta}_0 n \bar{Y} + \hat{\beta}_1 \sum_{t = 1}^n X_t Y_t \\
          &= (\bar{Y} - \hat{\beta}_1 \bar{X}) n \bar{Y} +
          \hat{\beta}_1 \sum_{t = 1}^n X_t Y_t \\
@@ -323,12 +323,12 @@
 \end{solution}
 \begin{solution}{3.5}
     \begin{enumerate}
-    \item Premièrement, $Y_0 = \mat{x}_0 \betab + \varepsilon_0$ avec
+    \item Premièrement, $Y_0 = \mat{x}_0 \betavec + \varepsilon_0$ avec
       $\esp{\varepsilon_0} = 0$. Par conséquent, $\esp{Y_0} = \esp{x_0
-        \betab + \varepsilon_0} = \mat{x}_0 \betab$. Deuxièmement,
-      $\esp{\hat{Y}_0} = \esp{\mat{x}_0 \betabh} = \mat{x}_0
-      \esp{\betabh} = x_0 \betab$ puisque l'estimateur des moindres
-      carrés de $\betab$ est sans biais. Ceci complète la preuve.
+        \betavec + \varepsilon_0} = \mat{x}_0 \betavec$. Deuxièmement,
+      $\esp{\hat{Y}_0} = \esp{\mat{x}_0 \hat\betavec} = \mat{x}_0
+      \esp{\hat\betavec} = x_0 \betavec$ puisque l'estimateur des moindres
+      carrés de $\betavec$ est sans biais. Ceci complète la preuve.
     \item Tout d'abord, $\esp{(\hat{Y}_0 - \esp{Y_0})^2} =
       \varmat{\hat{Y}_0} = \var{\hat{Y}_0}$ puisque la matrice de
       variance-covariance du vecteur aléatoire $\hat{Y}_0$ ne
@@ -336,13 +336,13 @@
       \ref{thm:elements:esp_var},
        \begin{align*}
          \var{\hat{Y}_0}
-         &= \varmat{\mat{x}_0 \betabh} \\
-         &= \mat{x}_0 \varmat{\betabh} \mat{x}_0^\prime \\
+         &= \varmat{\mat{x}_0 \hat\betavec} \\
+         &= \mat{x}_0 \varmat{\hat\betavec} \mat{x}_0^\prime \\
          &= \sigma^2 \mat{x}_0 (\mat{X}^\prime \mat{X})^{-1}
          \mat{x}_0^\prime.
        \end{align*}
        Afin de construire un intervalle de confiance pour $\esp{Y_0}$,
-       on ajoute au modèle l'hypothèse $\vepsb \sim N(\mat{0}, \sigma^2
+       on ajoute au modèle l'hypothèse $\epsvec \sim N(\mat{0}, \sigma^2
        \mat{I})$. Par linéarité de l'estimateur des moindres carrés,
        on a alors $\hat{Y}_0 \sim N(\esp{Y_0}, \var{\hat{Y}_0})$. Par
        conséquent,
@@ -430,7 +430,7 @@
     \begin{enumerate}
     \item On a
       \begin{align*}
-        \betabh
+        \hat\betavec
         &= (\mat{X}^\prime \mat{X})^{-1} \mat{X}^\prime \mat{y} \\
         &= \frac{1}{2}
         \left[
@@ -457,7 +457,7 @@
       \end{align*}
     \item Avec les résultats de la partie a), on a
       \begin{align*}
-        \mat{\hat{y}} &= \mat{X} \betabh =
+        \mat{\hat{y}} &= \mat{X} \hat\betavec =
         \begin{bmatrix}
           17 \\ 12 \\ 13,5 \\ 13,5
         \end{bmatrix}, \\
@@ -521,7 +521,7 @@
       en a) est
       \begin{align*}
         \hat{Y}_0
-        &= \mat{x}_0 \betabh \\
+        &= \mat{x}_0 \hat\betavec \\
         &= -22,5 + 6,5(3,5) + 1,5(9) \\
         &= 13,75.
       \end{align*}
@@ -601,7 +601,7 @@
         -1,123 X_{t2} +
         \varepsilon_t,
         \quad
-        \vepsb_t \sim N(0,
+        \epsvec_t \sim N(0,
         0,9156^2 \mat{I})
       \end{displaymath}
       où $Y_t$ est la consommation en litres aux 100 kilomètres,
@@ -756,10 +756,10 @@
       de liberté de la statistique $F$, on apprend que $n - p - 1 =
       16$. Par conséquent, $n = 16 + 3 + 1 = 20$. Les dimensions des
       vecteurs et de la matrice de schéma dans la représentation
-      $\mat{y} = \mat{X} \betab + \vepsb$ sont donc: $n \times 1 = 20
-      \times 1$ pour les vecteurs $\mat{y}$ et $\vepsb$, $n \times (p
+      $\mat{y} = \mat{X} \betavec + \epsvec$ sont donc: $n \times 1 = 20
+      \times 1$ pour les vecteurs $\mat{y}$ et $\epsvec$, $n \times (p
       + 1) = 20 \times 4$ pour la matrice $\mat{X}$, $(p + 1) \times
-      1$ pour le vecteur $\betab$.
+      1$ pour le vecteur $\betavec$.
     \item La valeur $p$ associée à la statistique $F$ est, à toute fin
       pratique, nulle. Cela permet de rejeter facilement l'hypothèse
       nulle selon laquelle la régression n'est pas significative.
@@ -925,22 +925,22 @@
 \begin{solution}{3.14}
     En suivant les indications donnée dans l'énoncé, on obtient aisément
     \begin{align*}
-      \frac{d}{d\betab} S(\betab)
-      &= 2 \left(\frac{d}{d\betab}(\mat{y} - \mat{X}
-        \betab)\right)^\prime \mat{W} (\mat{y} - \mat{X}
-        \betab) \\
+      \frac{d}{d\betavec} S(\betavec)
+      &= 2 \left(\frac{d}{d\betavec}(\mat{y} - \mat{X}
+        \betavec)\right)^\prime \mat{W} (\mat{y} - \mat{X}
+        \betavec) \\
       &= - 2 \mat{X}^\prime \mat{W} (\mat{y} - \mat{X}
-        \betab) \\
+        \betavec) \\
       &= -2 (\mat{X}^\prime \mat{W} \mat{y} - \mat{X}^\prime \mat{W}
-      \mat{X} \betab).
+      \mat{X} \betavec).
     \end{align*}
     Par conséquent, les équations normales à résoudre pour trouver
-    l'estimateur $\betabh^*$ minimisant la somme de carrés pondérés
-    $S(\betab)$ sont $(\mat{X}^\prime\, \mat{W}\, \mat{X}) \betabh^* =
+    l'estimateur $\hat\betavec^*$ minimisant la somme de carrés pondérés
+    $S(\betavec)$ sont $(\mat{X}^\prime\, \mat{W}\, \mat{X}) \hat\betavec^* =
     \mat{X}^\prime\, \mat{W}\, \mat{y}$ et l'estimateur des moindres
     carrés pondérés est
     \begin{displaymath}
-      \betabh^* = (\mat{X}^\prime \mat{W} \mat{X})^{-1} \mat{X}^\prime
+      \hat\betavec^* = (\mat{X}^\prime \mat{W} \mat{X})^{-1} \mat{X}^\prime
       \mat{W} \mat{y}.
     \end{displaymath}
   
@@ -948,15 +948,15 @@
 \begin{solution}{3.15}
     De manière tout à fait générale, l'estimateur linéaire sans biais
     à variance minimale dans le modèle de régression linéaire $\mat{y}
-    = \mat{X} \betab + \vepsb$, $\var{\vepsb} = \sigma^2\,
+    = \mat{X} \betavec + \epsvec$, $\var{\epsvec} = \sigma^2\,
     \mat{W}^{-1}$ est
     \begin{displaymath}
-      \betabh^* = (\mat{X}^\prime \mat{W} \mat{X})^{-1} \mat{X}^\prime
+      \hat\betavec^* = (\mat{X}^\prime \mat{W} \mat{X})^{-1} \mat{X}^\prime
       \mat{W} \mat{y}
     \end{displaymath}
     et sa variance est, par le théorème \ref{thm:elements:esp_var},
     \begin{align*}
-      \varmat{\betabh^*}
+      \varmat{\hat\betavec^*}
       &= (\mat{X}^\prime \mat{W} \mat{X})^{-1} \mat{X}^\prime \mat{W}
       \varmat{\mat{y}}
       \mat{W}^\prime \mat{X} (\mat{X}^\prime \mat{W} \mat{X})^{-1} \\
@@ -1027,7 +1027,7 @@
 \end{alltt}
 \end{kframe}
 
-{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-39-1}
+{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-36-1}
 
 }
 
@@ -1106,7 +1106,7 @@
 \end{alltt}
 \end{kframe}
 
-{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-41-1}
+{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-38-1}
 
 }
 
@@ -1134,7 +1134,7 @@
 \end{alltt}
 \end{kframe}
 
-{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-43-1}
+{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-40-1}
 
 }
 
@@ -1226,7 +1226,7 @@
 \end{alltt}
 \end{kframe}
 
-{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-47-1}
+{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-44-1}
 
 }
 
@@ -1262,7 +1262,7 @@
 \end{alltt}
 \end{kframe}
 
-{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-49-1}
+{\centering \includegraphics[width=.45\linewidth]{figure/fig-unnamed-chunk-46-1}
 
 }
 
