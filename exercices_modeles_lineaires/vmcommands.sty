@@ -1,0 +1,61 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{vmcommands}[2019/07/27 (Vincent Mercier)]
+\RequirePackage{amsfonts}
+
+% Gras
+\newcommand{\bm}{\boldmath}
+\newcommand{\um}{\unboldmath}
+\newcommand{\bo}[1]{\mbox{\bm$#1$\um}}
+
+% Fonctions de probabilité
+\newcommand{\esp}[1]{\mathrm{E}\! [ #1 ]}
+\newcommand{\Esp}[1]{\mathrm{E}\! \left[ #1 \right]}
+\newcommand{\var}[1]{\mathrm{var}\! ( #1 )}
+\newcommand{\Var}[1]{\mathrm{var}\! \left( #1 \right)}
+\newcommand{\varmat}[1]{\mathbf{V}\! ( #1 )}
+\newcommand{\Varmat}[1]{\mathbf{V}\! \left( #1 \right)}
+\newcommand{\cov}[1]{\mathrm{cov}\! ( #1 )}
+\newcommand{\Cov}[1]{\mathrm{cov}\! \left( #1 \right)}
+\newcommand{\corr}[1]{\mathrm{corr}\! ( #1 )}
+\newcommand{\Corr}[1]{\mathrm{corr}\! \left( #1 \right)}
+\newcommand{\prob}[1]{\mathrm{P}\! ( #1 )}
+\newcommand{\Prob}[1]{\mathrm{P}\! \left( #1 \right)}
+
+\newcommand{\Norm}{\mathcal{N}}
+\newcommand{\Znorm}{\mathcl{Z}}
+
+% Fonctions statistiques
+\newcommand{\SST}{\mathrm{SST}}
+\newcommand{\SSR}{\mathrm{SSR}}
+\newcommand{\SSE}{\mathrm{SSE}}
+\newcommand{\MSE}{\mathrm{MSE}}
+\newcommand{\MSR}{\mathrm{MSR}}
+
+% Lettres grecques vectorielles
+\newcommand{\betavec}{\boldsymbol{\beta}}
+\newcommand{\epsvec}{\boldsymbol{\varepsilon}}
+
+% Algèbres linéaires
+\newcommand{\yvec}{\mathbf{Y}}
+\newcommand{\Xmat}{\mathbf{X}}
+
+% Fonctions diverses
+\renewcommand{\L}[1]{\mathcal{L}\{ #1 \}}
+\newcommand{\abs}[1]{\lvert #1 \rvert}
+\newcommand{\norme}[1]{\lVert #1 \rVert}
+\newcommand{\mat}[1]{\mathbf{#1}}
+\newcommand{\diag}{\mathrm{diag}}
+\newcommand{\tr}{\mathrm{tr}}
+
+% Ensembles
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\I}{\mathbb{I}}
+
+%%% Styles pour les noms de fonctions, code, etc.
+\newcommand{\code}[1]{\texttt{#1}}
+
+\endinput
