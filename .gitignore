@@ -1,0 +1,9 @@
+# Ignore all tex and log files
+*.log
+*.Rhistory
+*.aux
+
+# knitr and R markdown default cache directories
+figure/
+Code/
+exercices_modeles_lineaires/figure/
