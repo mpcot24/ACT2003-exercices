@@ -17,7 +17,7 @@
   %\usepackage{verbatim}
   %\usepackage[noae]{Sweave}
   \usepackage{threeparttable}
-  
+  \usepackage{float}
 
   %%% Hyperliens
   \usepackage{hyperref}
@@ -183,7 +183,7 @@
 <<setup, include=FALSE, cache=FALSE>>=
 library(knitr)
 # set global chunk options
-opts_chunk$set(fig.path='figure/fig-', fig.align='center', fig.show='hold', fig.height=5,fig.width=5,out.width='.45\\linewidth')
+opts_chunk$set(fig.path='figure/fig-',fig.align='center',fig.show='hold',fig.pos='Hh!', fig.height=5,fig.width=5,out.width='.45\\linewidth')
 par(mar=c(4,4,.1,.1))
 options(width=55)
 @

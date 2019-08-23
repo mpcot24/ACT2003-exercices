@@ -19,88 +19,91 @@
 
 \begin{exercice}
   \label{ex:multiple:preuve}
-  Considérer le modèle de régression linéaire $\mat{y} = \mat{X}
-  \betavec + \epsvec$, où $\mat{X}$ est une matrice $n \times (p+1)$.
+  Considérer le modèle de régression linéaire $\yvec = \Xmat
+  \betavec + \epsvec$, où $\Xmat$ est une matrice $n \times (p+1)$.
   Démontrer, en dérivant
   \begin{align*}
     S(\betavec)
-    &= \sum_{t=1}^n (Y_t - \mat{x}_t^\prime \betavec)^2 \\
-    &= (\mat{y} - \mat{X} \betavec)^\prime (\mat{y} - \mat{X} \betavec)
+    &= \sum_{i=1}^n (Y_i - \xvec_i \betavec)^2 \\
+    &= (\yvec - \Xmat \betavec)^\top (\yvec - \Xmat \betavec)
   \end{align*}
   par rapport à $\betavec$, que les équations normales à résoudre pour
   obtenir l'estimateur des moindres carrés de $\betavec$ sont, sous
   forme matricielle,
   \begin{displaymath}
-    (\mat{X}^\prime \mat{X}) \hat\betavec = \mat{X}^\prime \mat{y},
+    (\Xmat^\top \Xmat) \hat\betavec = \Xmat^\top \yvec,
   \end{displaymath}
   Déduire l'estimateur des moindres carrés de ces équations.
   \emph{Astuce}: utiliser le théorème
   \ref{thm:elements:derivee_fonction} de l'annexe \ref{chap:elements}.
+  
   \begin{sol}
     Tout d'abord, selon le théorème
     \ref{thm:elements:derivee_fonction} de l'annexe
     \ref{chap:elements},
     \begin{displaymath}
-      \frac{d}{d \mat{x}}\, f(\mat{x})^\prime \mat{A} f(\mat{x}) =
-      2 \left( \frac{d}{d \mat{x}} f(\mat{x}) \right)^\prime \mat{A} f(\mat{x}).
+      \frac{d}{d \Xmat}\, f(\Xmat)^\prime \mat{A} f(\Xmat) =
+      2 \left( \frac{d}{d \Xmat} f(\Xmat) \right)^\prime \mat{A} f(\Xmat).
     \end{displaymath}
     Il suffit, pour faire la démonstration, d'appliquer directement ce
     résultat à la forme quadratique
     \begin{displaymath}
-      S(\betavec) = (\mat{y} - \mat{X} \betavec)^\prime (\mat{y} - \mat{X} \betavec)
+      S(\betavec) = (\yvec - \Xmat \betavec)^\prime (\yvec - \Xmat \betavec)
     \end{displaymath}
-    avec $f(\betavec) = \mat{y} - \mat{X} \betavec$ et $\mat{A} =
+    avec $f(\betavec) = \yvec - \Xmat \betavec$ et $\mat{A} =
     \mat{I}$, la matrice identité. On a alors
     \begin{align*}
       \frac{d}{d\betavec} S(\betavec)
       &= 2
       \left(
-        \frac{d}{d\betavec} (\mat{y} - \mat{X} \betavec)
+        \frac{d}{d\betavec} (\yvec - \Xmat \betavec)
       \right)^\prime
-      \mat{y} - \mat{X} \betavec \\
-      &= 2 (-\mat{X})^\prime (\mat{y} - \mat{X} \betavec)\\
-      &= -2 \mat{X}^\prime (\mat{y} - \mat{X} \betavec).
+      \yvec - \Xmat \betavec \\
+      &= 2 (-\Xmat)^\prime (\yvec - \Xmat \betavec)\\
+      &= -2 \Xmat^\prime (\yvec - \Xmat \betavec).
     \end{align*}
     En posant ces dérivées exprimées sous forme matricielle
     simultanément égales à zéro, on obtient les équations normales à
     résoudre pour calculer l'estimateur des moindres carrés du vecteur
     $\betavec$, soit
     \begin{displaymath}
-      \mat{X}^\prime \mat{X} \hat\betavec = \mat{X}^\prime \mat{y}.
+      \Xmat^\prime \Xmat \hat\betavec = \Xmat^\prime \yvec.
     \end{displaymath}
     En isolant $\hat\betavec$ dans l'équation ci-dessus, on obtient,
     finalement, l'estimateur des moindres carrés:
     \begin{displaymath}
-      \hat\betavec = (\mat{X}^\prime \mat{X})^{-1} \mat{X}^\prime \mat{y}.
+      \hat\betavec = (\Xmat^\prime \Xmat)^{-1} \Xmat^\prime \yvec.
     \end{displaymath}
   \end{sol}
 \end{exercice}
 
 \begin{exercice}
   Pour chacun des modèles de régression ci-dessous, spécifier la
-  matrice de schéma $\mat{X}$ dans la représentation $\mat{y} =
-  \mat{X} \betavec + \epsvec$ du modèle, puis obtenir, si possible, les
+  matrice de schéma $\Xmat$ dans la représentation $\yvec =
+  \Xmat \betavec + \epsvec$ du modèle, puis obtenir, si possible, les
   formules explicites des estimateurs des moindres carrés des
   paramètres.
   \begin{enumerate}
-  \item $Y_t = \beta_0 + \varepsilon_t$
-  \item $Y_t = \beta_1 X_t + \varepsilon_t$
-  \item $Y_t = \beta_0 + \beta_1 X_{t1} + \beta_2 X_{t2} +
-    \varepsilon_t$
+  \item $Y_i = \beta_0 + \varepsilon_i$
+  \item $Y_i = \beta_1 \x_i + \varepsilon_i$
+  \item $Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} +
+    \varepsilon_i$
   \end{enumerate}
+  
   \begin{rep}
     \begin{inparaenum}
       \item $\hat{\beta}_0 = \bar{Y}$
-      \item $\hat{\beta}_1 = (\sum_{t=1}^n X_t Y_t)/(\sum_{t=1}^n X_t^2)$
+      \item $\hat{\beta}_1 = (\sum_{i=1}^n x_i Y_i)/(\sum_{i=1}^n x_i^2)$
       \end{inparaenum}
   \end{rep}
+  
   \begin{sol}
     \begin{enumerate}
     \item On a un modèle sans variable explicative. Intuitivement, la
       meilleure prévision de $Y_t$ sera alors $\bar{Y}$. En effet,
       pour ce modèle,
       \begin{displaymath}
-        \mat{X} =
+        \Xmat =
         \begin{bmatrix}
           1 \\ \vdots \\ 1
         \end{bmatrix}_{n \times 1}
@@ -108,8 +111,8 @@
       et
       \begin{align*}
         \hat\betavec
-        &=\left(\mat{X}^\prime \mat{X} \right)^{-1} \mat{X}^\prime
-        \mat{y} \\
+        &=\left(\Xmat^\prime \Xmat \right)^{-1} \Xmat^\prime
+        \yvec \\
         &=
         \left(
           \begin{bmatrix}
@@ -131,7 +134,7 @@
     \item Il s'agit du modèle de régression linéaire simple passant
       par l'origine, pour lequel la matrice de schéma est
       \begin{displaymath}
-        \mat{X} =
+        \Xmat =
         \begin{bmatrix}
           X_1 \\ \vdots \\ X_n
         \end{bmatrix}_{n \times 1}.
@@ -166,7 +169,7 @@
       passant pas par l'origine et ayant deux variables explicatives.
       La matrice de schéma est alors
       \begin{displaymath}
-        \mat{X} =
+        \Xmat =
         \begin{bmatrix}
           1      & X_{11}  & X_{12} \\
           \vdots & \vdots & \vdots \\
@@ -218,12 +221,13 @@
 \begin{exercice}
   Vérifier, pour le modèle de régression linéaire simple, que les
   valeurs trouvées dans la matrice de variance-covariance
-  $\var{\hat\betavec} = \sigma^2 (\mat{X}^\prime \mat{X})^{-1}$
+  $\var{\hat\betavec} = \sigma^2 (\Xmat^\top \Xmat)^{-1}$
   correspondent à celles calculées au chapitre \ref{chap:simple}.
+  
   \begin{sol}
     Dans le modèle de régression linéaire simple, la matrice schéma est
     \begin{displaymath}
-      \mat{X} =
+      \Xmat =
       \begin{bmatrix}
         1      & X_1    \\
         \vdots & \vdots \\
@@ -233,7 +237,7 @@
     Par conséquent,
     \begin{align*}
       \var{\hat\betavec}
-      &= \sigma^2 (\mat{X}^\prime \mat{X})^{-1} \\
+      &= \sigma^2 (\Xmat^\prime \Xmat)^{-1} \\
       &= \sigma^2
       \left(
         \begin{bmatrix}
@@ -280,34 +284,35 @@
 \begin{exercice}
   Démontrer les relations ci-dessous dans le contexte de la régression
   linéaire multiple et trouver leur équivalent en régression linéaire
-  simple. Utiliser $\mat{e} = \mat{y - \hat{y}}$.
+  simple. Utiliser $\hat\epsvec = \yvec - \hat\yvec$.
   \begin{enumerate}
-  \item $\mat{X}^\prime \mat{e} = \mat{0}$
-  \item $\mat{\hat{y}}^\prime \mat{e} = 0$
-  \item $\mat{\hat{y}}^\prime \mat{\hat{y}} = \hat\betavec^\prime
-    \mat{X}^\prime \mat{y}$
+  \item $\Xmat^\top \epsvec = 0$
+  \item $\hat\yvec^\top \epsvec = 0$
+  \item $\hat\yvec^\top \hat\yvec = \hat\betavec^\top
+    \Xmat^\top \yvec$
   \end{enumerate}
+  
   \begin{sol}
     Dans les démonstrations qui suivent, trois relations de base
     seront utilisées:
     $\mat{e} = \mat{y - \hat{y}}$,
-    $\mat{\hat{y}} = \mat{X} \hat\betavec$ et
-    $\hat\betavec = (\mat{X}^\prime \mat{X})^{-1} \mat{X}^\prime \mat{y}$.
+    $\mat{\hat{y}} = \Xmat \hat\betavec$ et
+    $\hat\betavec = (\Xmat^\prime \Xmat)^{-1} \Xmat^\prime \yvec$.
     \begin{enumerate}
     \item On a
       \begin{align*}
-        \mat{X}^\prime \mat{e}
-        &= \mat{X}^\prime (\mat{y - \hat{y}}) \\
-        &= \mat{X}^\prime (\mat{y} - \mat{X} \hat\betavec) \\
-        &= \mat{X}^\prime \mat{y} - (\mat{X}^\prime \mat{X}) \hat\betavec \\
-        &= \mat{X}^\prime \mat{y} - (\mat{X}^\prime \mat{X})
-        (\mat{X}^\prime \mat{X})^{-1} \mat{X}^\prime \mat{y} \\
-        &= \mat{X}^\prime \mat{y} - \mat{X}^\prime \mat{y} \\
+        \Xmat^\prime \mat{e}
+        &= \Xmat^\prime (\mat{y - \hat{y}}) \\
+        &= \Xmat^\prime (\yvec - \Xmat \hat\betavec) \\
+        &= \Xmat^\prime \yvec - (\Xmat^\prime \Xmat) \hat\betavec \\
+        &= \Xmat^\prime \yvec - (\Xmat^\prime \Xmat)
+        (\Xmat^\prime \Xmat)^{-1} \Xmat^\prime \yvec \\
+        &= \Xmat^\prime \yvec - \Xmat^\prime \yvec \\
         &= \mat{0}.
       \end{align*}
       En régression linéaire simple, cela donne
       \begin{align*}
-        \mat{X}^\prime \mat{e} &=
+        \Xmat^\prime \mat{e} &=
         \begin{bmatrix}
           1   & \cdots & 1  \\
           X_1 & \cdots & X_n
@@ -321,7 +326,7 @@
           \sum_{t=1}^n X_t e_t
         \end{bmatrix}.
       \end{align*}
-      Par conséquent, $\mat{X}^\prime \mat{e} = \mat{0}$ se simplifie
+      Par conséquent, $\Xmat^\prime \mat{e} = \mat{0}$ se simplifie
       en $\sum_{t=1}^n e_t = 0$ et $\sum_{t=1}^n X_t e_t = 0$ soit,
       respectivement, la condition pour que l'estimateur des moindres
       carrés soit sans biais et la seconde équation normale obtenue à
@@ -329,16 +334,16 @@
       \ref{chap:simple}.\ref{ex:simple:base}.
      \item On a
        \begin{align*}
-         \hat{\mat{y}}^\prime \mat{e}
-         &= (\mat{X}\hat\betavec)^\prime (\mat{y - \hat{y}}) \\
-         &= \hat\betavec^\prime \mat{X}^\prime (\mat{y} - \mat{X}\hat\betavec) \\
-         &= \hat\betavec^\prime \mat{X}^\prime \mat{y} - \hat\betavec^\prime
-         (\mat{X}^\prime \mat{X}) \hat\betavec \\
-         &= \hat\betavec^\prime \mat{X}^\prime \mat{y} - \hat\betavec^\prime
-         (\mat{X}^\prime \mat{X}) (\mat{X}^\prime \mat{X})^{-1}
-         \mat{X}^\prime \mat{y} \\
-         &= \hat\betavec^\prime \mat{X}^\prime \mat{y} - \hat\betavec^\prime
-         \mat{X}^\prime \mat{y} \\
+         \hat{\yvec}^\prime \mat{e}
+         &= (\Xmat\hat\betavec)^\prime (\mat{y - \hat{y}}) \\
+         &= \hat\betavec^\prime \Xmat^\prime (\yvec - \Xmat\hat\betavec) \\
+         &= \hat\betavec^\prime \Xmat^\prime \yvec - \hat\betavec^\prime
+         (\Xmat^\prime \Xmat) \hat\betavec \\
+         &= \hat\betavec^\prime \Xmat^\prime \yvec - \hat\betavec^\prime
+         (\Xmat^\prime \Xmat) (\Xmat^\prime \Xmat)^{-1}
+         \Xmat^\prime \yvec \\
+         &= \hat\betavec^\prime \Xmat^\prime \yvec - \hat\betavec^\prime
+         \Xmat^\prime \yvec \\
          &= 0.
        \end{align*}
        Pour tout modèle de régression cette équation peut aussi
@@ -347,26 +352,26 @@
        le vecteur des prévisions et celui des erreurs doit être nul
        ou, autrement dit, que les vecteurs doivent être orthogonaux.
        C'est là une condition essentielle pour que l'erreur
-       quadratique moyenne entre les vecteurs $\mat{y}$ et
+       quadratique moyenne entre les vecteurs $\yvec$ et
        $\mat{\hat{y}}$ soit minimale. (Pour de plus amples détails sur
        l'interprétation géométrique du modèle de régression, consulter
        {\shorthandoff{:} \citet[chapitres 20 et
          21]{Draper:regression:1998}}.) 
          D'ailleurs, on constate que
-       $\hat{\mat{y}}^\prime \mat{e} = \hat\betavec^\prime \mat{X}^\prime
+       $\hat{\yvec}^\prime \mat{e} = \hat\betavec^\prime \Xmat^\prime
        \mat{e}$ et donc, en supposant sans perte de généralité que
        $\hat\betavec \ne \mat{0}$, 
-       que $\hat{\mat{y}}^\prime \mat{e} = 0$
-       et $\mat{X}^\prime \mat{e} = \mat{0}$ sont des conditions en
+       que $\hat{\yvec}^\prime \mat{e} = 0$
+       et $\Xmat^\prime \mat{e} = \mat{0}$ sont des conditions en
        tous points équivalentes.
      \item On a
        \begin{align*}
          \mat{\hat{y}}^\prime \mat{\hat{y}}
-         &= (\mat{X} \hat\betavec)^\prime \mat{X} \hat\betavec \\
-         &= \hat\betavec^\prime (\mat{X}^\prime \mat{X}) \hat\betavec \\
-         &= \hat\betavec^\prime (\mat{X}^\prime \mat{X}) (\mat{X}^\prime
-         \mat{X})^{-1} \mat{X}^\prime \mat{y} \\
-         &= \hat\betavec^\prime \mat{X}^\prime \mat{y}.
+         &= (\Xmat \hat\betavec)^\prime \Xmat \hat\betavec \\
+         &= \hat\betavec^\prime (\Xmat^\prime \Xmat) \hat\betavec \\
+         &= \hat\betavec^\prime (\Xmat^\prime \Xmat) (\Xmat^\prime
+         \Xmat)^{-1} \Xmat^\prime \yvec \\
+         &= \hat\betavec^\prime \Xmat^\prime \yvec.
        \end{align*}
        Cette équation est l'équivalent matriciel de l'identité
        \begin{align*}
@@ -380,7 +385,7 @@
        \hat{Y}_t^2 = \sum_{t = 1}^n (\hat{Y} - \bar{Y})^2 + n
        \bar{Y}^2 = \SSR + n \bar{Y}^2$ et
        \begin{align*}
-         \hat\betavec^\prime \mat{X}^\prime \mat{y}
+         \hat\betavec^\prime \Xmat^\prime \yvec
          &= \hat{\beta}_0 n \bar{Y} + \hat{\beta}_1 \sum_{t = 1}^n X_t Y_t \\
          &= (\bar{Y} - \hat{\beta}_1 \bar{X}) n \bar{Y} +
          \hat{\beta}_1 \sum_{t = 1}^n X_t Y_t \\
@@ -397,10 +402,10 @@
   Considérer le modèle de régression linéaire multiple présenté à
   l'exercice \ref{chap:multiple}.\ref{ex:multiple:preuve}. Soit
   $\hat{Y}_0$ la prévision de la variable dépendante correspondant aux
-  valeurs du vecteur ligne $\mat{x}_0 = (1, X_{01}, \dots, X_{0p})$
+  valeurs du vecteur colonne $\xvec_0^\top = (1, x_{01}, \dots, x_{0p})$
   des $p$ variables indépendantes. On a donc
   \begin{displaymath}
-    \hat{Y}_0 = \mat{x}_0 \hat\betavec.
+    \hat{Y}_0 = \xvec_0 \hat\betavec.
   \end{displaymath}
   \begin{enumerate}
   \item Démontrer que $\esp{\hat{Y}_0} = \esp{Y_0}$.
@@ -408,24 +413,24 @@
     de $Y_0$ est
     \begin{displaymath}
       \esp{(\hat{Y}_0 - \esp{Y_0})^2} =
-      \sigma^2\, \mat{x}_0 (\mat{X}^\prime \mat{X})^{-1} \mat{x}_0^\prime.
+      \sigma^2\, \Xmat_0 (\Xmat^\prime \Xmat)^{-1} \Xmat_0^\prime.
     \end{displaymath}
     Construire un intervalle de confiance de niveau $1 - \alpha$ pour
     $\esp{Y_0}$.
   \item Démontrer que l'erreur dans la prévision de $Y_0$ est
     \begin{displaymath}
       \esp{(Y_0 - \hat{Y}_0)^2} =
-      \sigma^2\, (1 + \mat{x}_0 (\mat{X}^\prime \mat{X})^{-1} \mat{x}_0^\prime).
+      \sigma^2\, (1 + \Xmat_0 (\Xmat^\prime \Xmat)^{-1} \Xmat_0^\prime).
     \end{displaymath}
     Construire un intervalle de confiance de niveau $1 - \alpha$ pour
     $Y_0$.
   \end{enumerate}
   \begin{sol}
     \begin{enumerate}
-    \item Premièrement, $Y_0 = \mat{x}_0 \betavec + \varepsilon_0$ avec
+    \item Premièrement, $Y_0 = \Xmat_0 \betavec + \varepsilon_0$ avec
       $\esp{\varepsilon_0} = 0$. Par conséquent, $\esp{Y_0} = \esp{x_0
-        \betavec + \varepsilon_0} = \mat{x}_0 \betavec$. Deuxièmement,
-      $\esp{\hat{Y}_0} = \esp{\mat{x}_0 \hat\betavec} = \mat{x}_0
+        \betavec + \varepsilon_0} = \Xmat_0 \betavec$. Deuxièmement,
+      $\esp{\hat{Y}_0} = \esp{\Xmat_0 \hat\betavec} = \Xmat_0
       \esp{\hat\betavec} = x_0 \betavec$ puisque l'estimateur des moindres
       carrés de $\betavec$ est sans biais. Ceci complète la preuve.
     \item Tout d'abord, $\esp{(\hat{Y}_0 - \esp{Y_0})^2} =
@@ -435,10 +440,10 @@
       \ref{thm:elements:esp_var},
        \begin{align*}
          \var{\hat{Y}_0}
-         &= \varmat{\mat{x}_0 \hat\betavec} \\
-         &= \mat{x}_0 \varmat{\hat\betavec} \mat{x}_0^\prime \\
-         &= \sigma^2 \mat{x}_0 (\mat{X}^\prime \mat{X})^{-1}
-         \mat{x}_0^\prime.
+         &= \varmat{\Xmat_0 \hat\betavec} \\
+         &= \Xmat_0 \varmat{\hat\betavec} \Xmat_0^\prime \\
+         &= \sigma^2 \Xmat_0 (\Xmat^\prime \Xmat)^{-1}
+         \Xmat_0^\prime.
        \end{align*}
        Afin de construire un intervalle de confiance pour $\esp{Y_0}$,
        on ajoute au modèle l'hypothèse $\epsvec \sim N(\mat{0}, \sigma^2
@@ -460,7 +465,7 @@
        \begin{displaymath}
          \esp{Y_0}
          \in \hat{Y}_0 \pm z_{\alpha/2}\, \sigma\,
-         \sqrt{\mat{x}_0 (\mat{X}^\prime \mat{X})^{-1} \mat{x}_0^\prime}.
+         \sqrt{\Xmat_0 (\Xmat^\prime \Xmat)^{-1} \Xmat_0^\prime}.
        \end{displaymath}
        Si la variance $\sigma^2$ est inconnue et estimée par $s^2$,
        alors la distribution normale est remplacée par une
@@ -469,7 +474,7 @@
        \begin{displaymath}
          \esp{Y_0}
          \in \hat{Y}_0 \pm t_{\alpha/2}(n - p - 1)\, s\,
-         \sqrt{\mat{x}_0 (\mat{X}^\prime \mat{X})^{-1} \mat{x}_0^\prime}.
+         \sqrt{\Xmat_0 (\Xmat^\prime \Xmat)^{-1} \Xmat_0^\prime}.
        \end{displaymath}
      \item Par le résultat obtenu en a) et en supposant que
        $\Cov(\varepsilon_0, \varepsilon_t) = 0$ pour tout $t = 1,
@@ -478,8 +483,8 @@
          \esp{(Y_0 - \hat{Y}_0)^2}
          &= \var{Y_0 - \hat{Y}_0} \\
          &= \var{Y_0} + \var{\hat{Y}_0} \\
-         &= \sigma^2 (1 + \mat{x}_0 (\mat{X}^\prime \mat{X})^{-1}
-         \mat{x}_0^\prime).
+         &= \sigma^2 (1 + \Xmat_0 (\Xmat^\prime \Xmat)^{-1}
+         \Xmat_0^\prime).
        \end{align*}
        Ainsi, avec l'hypothèse sur le terme d'erreur énoncée en b),
        $Y_0 - \hat{Y}_0 \sim N(0, \var{Y_0 - \hat{Y}_0})$. En suivant
@@ -488,14 +493,14 @@
        \begin{displaymath}
          Y_0
          \in \hat{Y}_0 \pm z_{\alpha/2}\, \sigma\,
-         \sqrt{1 + \mat{x}_0 (\mat{X}^\prime \mat{X})^{-1} \mat{x}_0^\prime}.
+         \sqrt{1 + \Xmat_0 (\Xmat^\prime \Xmat)^{-1} \Xmat_0^\prime}.
        \end{displaymath}
        ou, si la variance $\sigma^2$ est inconnue et estimée par
        $s^2$,
        \begin{displaymath}
          Y_0
          \in \hat{Y}_0 \pm t_{\alpha/2}(n - p - 1)\, s\,
-         \sqrt{1 + \mat{x}_0 (\mat{X}^\prime \mat{X})^{-1} \mat{x}_0^\prime}.
+         \sqrt{1 + \Xmat_0 (\Xmat^\prime \Xmat)^{-1} \Xmat_0^\prime}.
        \end{displaymath}
      \end{enumerate}
    \end{sol}
@@ -557,14 +562,14 @@
       \bottomrule
     \end{tabular}
   \end{center}
-  De plus, si $\mat{X}$ est la matrice de schéma du modèle
+  De plus, si $\Xmat$ est la matrice de schéma du modèle
   \begin{displaymath}
     Y_t = \beta_0 + \beta_1 X_{t1} + \beta_2 X_{t2} + \varepsilon_t,
     \quad t = 1, 2, 3, 4,
   \end{displaymath}
   où $\varepsilon_t \sim N(0, \sigma^2)$, alors
   \begin{align*}
-    (\mat{X}^\prime \mat{X})^{-1}
+    (\Xmat^\prime \Xmat)^{-1}
     &= \frac{1}{2}
     \left[
       \begin{array}{rrr}
@@ -574,7 +579,7 @@
       \end{array}
     \right]
     \intertext{et}
-    (\mat{X}^\prime \mat{X})^{-1} \mat{X}^\prime
+    (\Xmat^\prime \Xmat)^{-1} \Xmat^\prime
     &= \frac{1}{2}
     \left[
       \begin{array}{rrrr}
@@ -607,7 +612,7 @@
     \item On a
       \begin{align*}
         \hat\betavec
-        &= (\mat{X}^\prime \mat{X})^{-1} \mat{X}^\prime \mat{y} \\
+        &= (\Xmat^\prime \Xmat)^{-1} \Xmat^\prime \yvec \\
         &= \frac{1}{2}
         \left[
           \begin{array}{rrrr}
@@ -633,11 +638,11 @@
       \end{align*}
     \item Avec les résultats de la partie a), on a
       \begin{align*}
-        \mat{\hat{y}} &= \mat{X} \hat\betavec =
+        \mat{\hat{y}} &= \Xmat \hat\betavec =
         \begin{bmatrix}
           17 \\ 12 \\ 13,5 \\ 13,5
         \end{bmatrix}, \\
-        \mat{e} &= \mat{y} - \mat{\hat{y}} =
+        \mat{e} &= \yvec - \mat{\hat{y}} =
         \left[
           \begin{array}{r}
             0 \\ 0 \\ 0,5 \\ -0,5
@@ -647,7 +652,7 @@
       et $\bar{Y} = 14$. Par conséquent,
       \begin{align*}
         \SST
-        &= \mat{y}^\prime \mat{y} - n \bar{Y}^2 = 14 \\
+        &= \yvec^\prime \yvec - n \bar{Y}^2 = 14 \\
         \SSE
         &= \mat{e}^\prime \mat{e} = 0,5 \\
         \SSR &= \SST - \SSR = 13,5,
@@ -671,7 +676,7 @@
       \end{displaymath}
     \item On sait que $\var{\hat{\beta}_i} = \sigma^2 c_{ii}$, où
       $c_{ii}$ est l'élément en position $(i+1, i+1)$ de la matrice
-      $(\mat{X}^\prime \mat{X})^{-1}$. Or, $\hat{\sigma}^2 = s^2 =
+      $(\Xmat^\prime \Xmat)^{-1}$. Or, $\hat{\sigma}^2 = s^2 =
       \text{MSE} = 0,5$, tel que calculé en b). Par conséquent, la
       statistique $t$ du test $H_0: \beta_1 = 0$ est
       \begin{displaymath}
@@ -691,27 +696,27 @@
       tests est $t_{0,025}(1) = 12,706$. Dans les deux cas, on ne
       rejette donc pas $H_0$, les variables $X_1$ et $X_2$ ne sont pas
       significatives dans le modèle.
-    \item Soit $\mat{x}_0 = \begin{bmatrix} 1 & 3,5 & 9 \end{bmatrix}$
+    \item Soit $\Xmat_0 = \begin{bmatrix} 1 & 3,5 & 9 \end{bmatrix}$
       et $Y_0$ la valeur de la variable dépendante correspondant à
-      $\mat{x}_0$. La prévision de $Y_0$ donnée par le modèle trouvé
+      $\Xmat_0$. La prévision de $Y_0$ donnée par le modèle trouvé
       en a) est
       \begin{align*}
         \hat{Y}_0
-        &= \mat{x}_0 \hat\betavec \\
+        &= \Xmat_0 \hat\betavec \\
         &= -22,5 + 6,5(3,5) + 1,5(9) \\
         &= 13,75.
       \end{align*}
       D'autre part,
       \begin{align*}
         \widehat{\text{Var}}[Y_0 - \hat{Y}_0]
-        &= s^2 (1 + \mat{x}_0 (\mat{X}^\prime \mat{X})^{-1} \mat{x}_0^\prime) \\
+        &= s^2 (1 + \Xmat_0 (\Xmat^\prime \Xmat)^{-1} \Xmat_0^\prime) \\
         &= 1,1875.
       \end{align*}
       Par conséquent, un intervalle de confiance à 95~\% pour $Y_0$
       est
       \begin{align*}
-        \esp{Y_0} &\in \hat{Y}_0 \pm t_{0,025}(1) s \sqrt{1 + \mat{x}_0
-          (\mat{X}^\prime \mat{X})^{-1} \mat{x}_0^\prime} \\
+        \esp{Y_0} &\in \hat{Y}_0 \pm t_{0,025}(1) s \sqrt{1 + \Xmat_0
+          (\Xmat^\prime \Xmat)^{-1} \Xmat_0^\prime} \\
         &\in 13,75 \pm 12,706 \sqrt{1,1875} \\
         &\in (-0,096, 27,596).
       \end{align*}
@@ -898,7 +903,7 @@ the p-value is 7.160e-14
 
   \begin{enumerate}
   \item Indiquer les dimensions des matrices et vecteurs dans la
-    représentation matricielle $\mat{y} = \mat{X} \betavec + \epsvec$ du
+    représentation matricielle $\yvec = \Xmat \betavec + \epsvec$ du
     modèle.
   \item La régression est-elle significative? Expliquer.
   \item On porte une attention plus particulière au paramètre
@@ -914,7 +919,7 @@ the p-value is 7.160e-14
   \end{enumerate}
   \begin{rep}
     \begin{inparaenum}
-    \item $\mat{y}_{20 \times 1}$, $\mat{X}_{20 \times 4}$, $\betavec_{4
+    \item $\yvec_{20 \times 1}$, $\Xmat_{20 \times 4}$, $\betavec_{4
         \times 1}$ et $\epsvec_{20 \times 1}$
     \end{inparaenum}
   \end{rep}
@@ -924,9 +929,9 @@ the p-value is 7.160e-14
       de liberté de la statistique $F$, on apprend que $n - p - 1 =
       16$. Par conséquent, $n = 16 + 3 + 1 = 20$. Les dimensions des
       vecteurs et de la matrice de schéma dans la représentation
-      $\mat{y} = \mat{X} \betavec + \epsvec$ sont donc: $n \times 1 = 20
-      \times 1$ pour les vecteurs $\mat{y}$ et $\epsvec$, $n \times (p
-      + 1) = 20 \times 4$ pour la matrice $\mat{X}$, $(p + 1) \times
+      $\yvec = \Xmat \betavec + \epsvec$ sont donc: $n \times 1 = 20
+      \times 1$ pour les vecteurs $\yvec$ et $\epsvec$, $n \times (p
+      + 1) = 20 \times 4$ pour la matrice $\Xmat$, $(p + 1) \times
       1$ pour le vecteur $\betavec$.
     \item La valeur $p$ associée à la statistique $F$ est, à toute fin
       pratique, nulle. Cela permet de rejeter facilement l'hypothèse
@@ -1148,7 +1153,7 @@ the p-value is 7.160e-14
 
 \begin{exercice}
   En régression linéaire multiple, on a $\hat{\betavec} \sim
-  N(\betavec, \sigma^2 (\mat{X}^\prime \mat{X})^{-1})$ et
+  N(\betavec, \sigma^2 (\Xmat^\prime \Xmat)^{-1})$ et
   $\text{SSE}/\sigma^2 \sim \chi^2(n - p - 1)$.
   \begin{enumerate}
   \item Vérifier que
@@ -1157,7 +1162,7 @@ the p-value is 7.160e-14
       t(n - p -  1), \quad i = 0, 1, \dots, p,
     \end{displaymath}
     où $c_{ii}$ est le $(i + 1)$\ieme{} élément de la diagonale de la
-    matrice $(\mat{X}^\prime \mat{X})^{-1}$ et $s^2 = \text{MSE}$.
+    matrice $(\Xmat^\prime \Xmat)^{-1}$ et $s^2 = \text{MSE}$.
   \item Que vaut $c_{11}$ en régression linéaire simple? Adapter le
     résultat ci-dessus à ce modèle.
   \end{enumerate}
@@ -1195,47 +1200,47 @@ the p-value is 7.160e-14
 \end{exercice}
 
 \begin{exercice}
-  Considérer le modèle de régression linéaire $\mat{y} = \mat{X}
-  \betavec + \epsvec$, où $\mat{X}$ est une matrice $n \times (p+1)$,
+  Considérer le modèle de régression linéaire $\yvec = \Xmat
+  \betavec + \epsvec$, où $\Xmat$ est une matrice $n \times (p+1)$,
   $\var{\epsvec} = \sigma^2\, \mat{W}^{-1}$ et $\mat{W} = \diag(w_1,
   \dots, w_n)$.  Démontrer, en dérivant
   \begin{align*}
     S(\betavec)
-    &= \sum_{t=1}^n w_t (\mat{y}_t - \mat{x}_t^\prime \betavec)^2 \\
-    &= (\mat{y} - \mat{X} \betavec)^\prime\, \mat{W}\, (\mat{y} -
-       \mat{X} \betavec)
+    &= \sum_{t=1}^n w_t (\yvec_t - \Xmat_t^\prime \betavec)^2 \\
+    &= (\yvec - \Xmat \betavec)^\prime\, \mat{W}\, (\yvec -
+       \Xmat \betavec)
   \end{align*}
   par rapport à $\betavec$, que les équations normales à résoudre pour
   obtenir l'estimateur des moindres carrés pondérés de $\betavec$ sont,
   sous forme matricielle,
   \begin{displaymath}
-    (\mat{X}^\prime\, \mat{W}\, \mat{X}) \hat\betavec^* = \mat{X}^\prime\,
-    \mat{W}\,  \mat{y},
+    (\Xmat^\prime\, \mat{W}\, \Xmat) \hat\betavec^* = \Xmat^\prime\,
+    \mat{W}\,  \yvec,
   \end{displaymath}
   puis en déduire cet estimateur.  \emph{Astuce}: cette preuve est
   simple si l'on utilise le théorème
   \ref{thm:elements:derivee_fonction} de l'annexe \ref{chap:elements}
-  avec $\mat{A} = \mat{W}$ et $f(\betavec) = \mat{y} - \mat{X} \betavec$.
+  avec $\mat{A} = \mat{W}$ et $f(\betavec) = \yvec - \Xmat \betavec$.
   \begin{sol}
     En suivant les indications donnée dans l'énoncé, on obtient aisément
     \begin{align*}
       \frac{d}{d\betavec} S(\betavec)
-      &= 2 \left(\frac{d}{d\betavec}(\mat{y} - \mat{X}
-        \betavec)\right)^\prime \mat{W} (\mat{y} - \mat{X}
+      &= 2 \left(\frac{d}{d\betavec}(\yvec - \Xmat
+        \betavec)\right)^\prime \mat{W} (\yvec - \Xmat
         \betavec) \\
-      &= - 2 \mat{X}^\prime \mat{W} (\mat{y} - \mat{X}
+      &= - 2 \Xmat^\prime \mat{W} (\yvec - \Xmat
         \betavec) \\
-      &= -2 (\mat{X}^\prime \mat{W} \mat{y} - \mat{X}^\prime \mat{W}
-      \mat{X} \betavec).
+      &= -2 (\Xmat^\prime \mat{W} \yvec - \Xmat^\prime \mat{W}
+      \Xmat \betavec).
     \end{align*}
     Par conséquent, les équations normales à résoudre pour trouver
     l'estimateur $\hat\betavec^*$ minimisant la somme de carrés pondérés
-    $S(\betavec)$ sont $(\mat{X}^\prime\, \mat{W}\, \mat{X}) \hat\betavec^* =
-    \mat{X}^\prime\, \mat{W}\, \mat{y}$ et l'estimateur des moindres
+    $S(\betavec)$ sont $(\Xmat^\prime\, \mat{W}\, \Xmat) \hat\betavec^* =
+    \Xmat^\prime\, \mat{W}\, \yvec$ et l'estimateur des moindres
     carrés pondérés est
     \begin{displaymath}
-      \hat\betavec^* = (\mat{X}^\prime \mat{W} \mat{X})^{-1} \mat{X}^\prime
-      \mat{W} \mat{y}.
+      \hat\betavec^* = (\Xmat^\prime \mat{W} \Xmat)^{-1} \Xmat^\prime
+      \mat{W} \yvec.
     \end{displaymath}
   \end{sol}
 \end{exercice}
@@ -1266,26 +1271,26 @@ the p-value is 7.160e-14
   \end{rep}
   \begin{sol}
     De manière tout à fait générale, l'estimateur linéaire sans biais
-    à variance minimale dans le modèle de régression linéaire $\mat{y}
-    = \mat{X} \betavec + \epsvec$, $\var{\epsvec} = \sigma^2\,
+    à variance minimale dans le modèle de régression linéaire $\yvec
+    = \Xmat \betavec + \epsvec$, $\var{\epsvec} = \sigma^2\,
     \mat{W}^{-1}$ est
     \begin{displaymath}
-      \hat\betavec^* = (\mat{X}^\prime \mat{W} \mat{X})^{-1} \mat{X}^\prime
-      \mat{W} \mat{y}
+      \hat\betavec^* = (\Xmat^\prime \mat{W} \Xmat)^{-1} \Xmat^\prime
+      \mat{W} \yvec
     \end{displaymath}
     et sa variance est, par le théorème \ref{thm:elements:esp_var},
     \begin{align*}
       \varmat{\hat\betavec^*}
-      &= (\mat{X}^\prime \mat{W} \mat{X})^{-1} \mat{X}^\prime \mat{W}
-      \varmat{\mat{y}}
-      \mat{W}^\prime \mat{X} (\mat{X}^\prime \mat{W} \mat{X})^{-1} \\
+      &= (\Xmat^\prime \mat{W} \Xmat)^{-1} \Xmat^\prime \mat{W}
+      \varmat{\yvec}
+      \mat{W}^\prime \Xmat (\Xmat^\prime \mat{W} \Xmat)^{-1} \\
       &= \sigma^2
-      (\mat{X}^\prime \mat{W} \mat{X})^{-1} \mat{X}^\prime \mat{W}
+      (\Xmat^\prime \mat{W} \Xmat)^{-1} \Xmat^\prime \mat{W}
       \mat{W}^{-1}
-      \mat{W} \mat{X} (\mat{X}^\prime \mat{W} \mat{X})^{-1} \\
-      &= \sigma^2 (\mat{X}^\prime \mat{W} \mat{X})^{-1}
+      \mat{W} \Xmat (\Xmat^\prime \mat{W} \Xmat)^{-1} \\
+      &= \sigma^2 (\Xmat^\prime \mat{W} \Xmat)^{-1}
     \end{align*}
-    puisque les matrices $\mat{W}$ et $\mat{X}^\prime \mat{W} \mat{X}$
+    puisque les matrices $\mat{W}$ et $\Xmat^\prime \mat{W} \Xmat$
     sont symétriques. Dans le cas de la régression linéaire simple
     passant par l'origine et en supposant que $\mat{W} = \diag(w_1,
     \dots, w_n)$, ces formules se réduisent en
