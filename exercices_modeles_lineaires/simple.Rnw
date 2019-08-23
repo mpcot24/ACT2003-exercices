@@ -127,7 +127,7 @@ plot(y ~ x, pch = 16)
       \end{align*}
     \item On peut calculer les prévisions correspondant à $x_1, \dots,
       x_{10}$ --- ou valeurs ajustées --- à partir de la relation
-      $\hat{Y}_t = 66,4488 - 0,8407 x_i$, $i = 1, 2, \dots, 10$. Avec
+      $\hat{Y}_i = 66,4488 - 0,8407 x_i$, $i = 1, 2, \dots, 10$. Avec
       \textsf{R}, on crée un objet de type modèle de régression avec
       \texttt{lm} et on en extrait les valeurs ajustées avec
       \texttt{fitted}:
@@ -141,7 +141,6 @@ fitted(fit)
       \texttt{lm}. L'ordonnée à l'origine et la pente de la droite
       seront extraites automatiquement. Voir la figure \ref{fig:simple:base2}.
       \begin{figure}
-        \centering
 <<fig.keep='none', eval=FALSE>>=
 abline(fit)
 @
@@ -154,7 +153,7 @@ abline(fit)
           régression}
         \label{fig:simple:base2}
       \end{figure}
-    \item Les résidus de la régression sont $e_t = Y_i - \hat{Y}_t$,
+    \item Les résidus de la régression sont $\varepsilon_i = Y_i - \hat{Y}_i$,
       $i = 1, \dots, 10$. Dans \textsf{R}, la fonction
       \texttt{residuals} extrait les résidus du modèle:
 <<>>=
@@ -202,7 +201,7 @@ sum(residuals(fit))
   \end{center}
   \begin{enumerate}
   \item Calculer les coefficients de la régression $Y_i = \beta_0 +
-    \beta_1 x_i + \varepsilon_t$, $\var{\varepsilon_t} = \sigma^2$.
+    \beta_1 x_i + \varepsilon_i$, $\var{\varepsilon_i} = \sigma^2$.
   \item Construire le tableau d'analyse de variance de la régression
     en a) et calculer le coefficient de détermination $R^2$.
     Interpréter les résultats.
@@ -219,7 +218,7 @@ sum(residuals(fit))
       de la régression sont
       \begin{align*}
         \hat{\beta}_1
-        &=\frac{\sum_{i=1}^8 x_tY_i-n\bar{x}\bar{Y}}{\sum_{i=1}^8
+        &=\frac{\sum_{i=1}^8 x_iY_i-n\bar{x}\bar{Y}}{\sum_{i=1}^8
           x_i^2-n\bar{x}^2} \\
         &=\frac{146-(8)(32/8)(40/8)}{156-(8)(32/8)^2}  \\
         &=-0,5 \\
@@ -237,7 +236,7 @@ sum(residuals(fit))
         &=214-(8)(40/8)^2 \\
         &=14, \\
         \SSR
-        &=\sum_{i=1}^8(\hat{Y}_t-\bar{Y})^2 \\
+        &=\sum_{i=1}^8(\hat{Y}_i-\bar{Y})^2 \\
         &=\sum_{i=1}^8\hat{\beta}_1^2(x_i-\bar{x})^2 \\
         &=\hat{\beta}_1^2(\sum_{i=1}^8x_i^2-n\bar{x}^2) \\
         &=(-1/2)^2(156-(8)(32/8)^2) \\
@@ -280,9 +279,9 @@ sum(residuals(fit))
   \item Obtenir, à l'aide de la fonction \texttt{summary} la valeur du
     coefficient de détermination $R^2$. La valeur est-elle conforme à
     la conclusion faite en c)?
-  \item Calculer les statistiques $\mathrm{SST}$, $\mathrm{SSR}$ et
-    $\mathrm{SSE}$, puis vérifier que $\mathrm{SST} = \mathrm{SSR} +
-    \mathrm{SSE}$.  Calculer ensuite la valeur de $R^2$ et la comparer
+  \item Calculer les statistiques $\SST$, $\SSR$ et
+    $\SSE$, puis vérifier que $\SST = \SSR +
+    \SSE$.  Calculer ensuite la valeur de $R^2$ et la comparer
     à celle obtenue en d).
   \end{enumerate}
 <<echo=FALSE>>=
@@ -362,15 +361,15 @@ all.equal(summary(fit)$r.squared, SSR/SST)
 \begin{exercice}
   Dans le contexte de la régression linéaire simple, démontrer que
   \begin{displaymath}
-    \sum_{i=1}^n (\hat{Y}_t - \bar{Y}) e_t = 0.
+    \sum_{i=1}^n (\hat{Y}_i - \bar{Y}) \varepsilon_i = 0.
   \end{displaymath}
   \begin{sol}
-    Puisque $\hat{Y}_t = (\bar{Y} - \hat{\beta}_1 \bar{x}) +
+    Puisque $\hat{Y}_i = (\bar{Y} - \hat{\beta}_1 \bar{x}) +
     \hat{\beta}_1 x_i = \bar{Y} + \hat{\beta}_1 (x_i - \bar{x})$ et
-    que $e_t = Y_i - \hat{Y}_t = (Y_i - \bar{Y}) - \hat{\beta}_1 (x_i
+    que $\varepsilon_i = Y_i - \hat{Y}_i = (Y_i - \bar{Y}) - \hat{\beta}_1 (x_i
     - \bar{x})$, alors
     \begin{align*}
-      \sum_{i = 1}^n (\hat{Y}_t - \bar{Y}) e_t
+      \sum_{i = 1}^n (\hat{Y}_i - \bar{Y}) \varepsilon_i
       &= \hat{\beta}_1
       \left(
         \sum_{i=1}^n (x_i - \bar{x})(Y_i - \bar{Y}) -
@@ -387,37 +386,37 @@ all.equal(summary(fit)$r.squared, SSR/SST)
 
 \begin{exercice}
   Considérer le modèle de régression linéaire par rapport au temps
-  $Y_i = \beta_0 + \beta_1 t + \varepsilon_t$, $i = 1, \dots, n$. Écrire
+  $Y_t = \beta_0 + \beta_1 t + \varepsilon_t$, $t = 1, \dots, n$. Écrire
   les équations normales et obtenir les estimateurs des moindres
   carrés des paramètres $\beta_0$ et $\beta_1$. \emph{Note}:
   $\sum_{i=1}^n i^2 = n(n + 1)(2n + 1)/6$.
   \begin{rep}
     $\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 (n + 1)/2$,
-    $\hat{\beta}_1 = (12 \sum_{t = 0}^n t Y_i - 6 n (n + 1)
+    $\hat{\beta}_1 = (12 \sum_{t = 0}^n t Y_t - 6 n (n + 1)
     \bar{Y})/(n (n^2 - 1)$
   \end{rep}
   \begin{sol}
-    On a un modèle de régression linéaire simple usuel avec $x_i =
+    On a un modèle de régression linéaire simple usuel avec $x_t =
     t$. Les estimateurs des moindres carrés des paramètres $\beta_0$ et
     $\beta_1$ sont donc
     \begin{align*}
       \hat{\beta}_0
-      &= \bar{Y} - \hat{\beta}_1\, \frac{\sum_{i = 1}^n t}{n} \\
+      &= \bar{Y} - \hat{\beta}_1\, \frac{\sum_{t = 1}^n t}{n} \\
       \intertext{et}
       \hat{\beta}_1
-      &= \frac{\sum_{i = 1}^n t Y_i - \bar{Y} \sum_{i = 1}^n t}{\sum_{t
-          = 1}^n t^2 - n^{-1} (\sum_{i = 1}^n t)^2}.
+      &= \frac{\sum_{t = 1}^n t Y_t - \bar{Y} \sum_{t = 1}^n t}{\sum_{t
+          = 1}^n t^2 - n^{-1} (\sum_{t = 1}^n t)^2}.
     \end{align*}
-    Or, puisque $\sum_{i = 1}^n t = n(n + 1)/2$ et $\sum_{i = 1}^n t^2
+    Or, puisque $\sum_{t = 1}^n t = n(n + 1)/2$ et $\sum_{t = 1}^n t^2
     = n(n + 1)(2n + 1)/6$, les expressions ci-dessus se simplifient en
     \begin{align*}
       \hat{\beta}_0
       & = \bar{Y} - \hat{\beta}_1\, \frac{n + 1}{2} \\
       \intertext{et}
       \hat{\beta}_1
-      & = \frac{\sum_{i=1}^n t Y_i - n(n + 1) \bar{Y}/2}{n(n + 1)(2n +
+      & = \frac{\sum_{t=1}^n t Y_t - n(n + 1) \bar{Y}/2}{n(n + 1)(2n +
         1)/6 - n(n + 1)^2/4} \\
-      & = \frac{12 \sum_{i=1}^n t Y_i - 6 n (n + 1) \bar{Y}}{n (n^2 - 1)}.
+      & = \frac{12 \sum_{t=1}^n t Y_t - 6 n (n + 1) \bar{Y}}{n (n^2 - 1)}.
     \end{align*}
   \end{sol}
 \end{exercice}
@@ -427,9 +426,9 @@ all.equal(summary(fit)$r.squared, SSR/SST)
   \begin{enumerate}
   \item Trouver l'estimateur des moindres carrés du paramètre $\beta$
     dans le modèle de régression linéaire passant par l'origine $Y_i =
-    \beta x_i + \varepsilon_t$, $i = 1, \dots, n$,
-    $\esp{\varepsilon_t} = 0$, $\Cov(\varepsilon_t, \varepsilon_s) =
-    \delta_{ts} \sigma^2$.
+    \beta x_i + \varepsilon_i$, $i = 1, \dots, n$,
+    $\esp{\varepsilon_i} = 0$, $\Cov(\varepsilon_i, \varepsilon_j) =
+    \delta_{ij} \sigma^2$.
   \item Démontrer que l'estimateur en a) est sans biais.
   \item Calculer la variance de l'estimateur en a).
   \end{enumerate}
@@ -446,7 +445,7 @@ all.equal(summary(fit)$r.squared, SSR/SST)
       valeur $\hat{\beta}$ minimisant la somme de carrés
       \begin{align*}
         S(\beta)
-        &=\sum_{i = 1}^n \varepsilon_t^2 \\
+        &=\sum_{i = 1}^n \varepsilon_i^2 \\
         &=\sum_{i = 1}^n (Y_i - \beta x_i)^2.
       \end{align*}
       Or,
@@ -489,16 +488,16 @@ all.equal(summary(fit)$r.squared, SSR/SST)
   l'estimateur sans biais à variance (uniformément) minimale du
   paramètre $\beta$.  En termes mathématiques: soit
   \begin{displaymath}
-    \beta^* = \sum_{i=1}^n c_t Y_i
+    \beta^* = \sum_{i=1}^n c_i Y_i
   \end{displaymath}
   un estimateur linéaire du paramètre $\beta$. Démontrer qu'en
   déterminant les coefficients $c_1, \dots, c_n$ de façon à minimiser
   \begin{displaymath}
-    \var{\beta^*} = \Var{\sum_{i=1}^n c_t Y_i}
+    \var{\beta^*} = \Var{\sum_{i=1}^n c_i Y_i}
   \end{displaymath}
   sous la contrainte que
   \begin{displaymath}
-    \esp{\beta^*} = \Esp{\sum_{i=1}^n c_t Y_i} = \beta,
+    \esp{\beta^*} = \Esp{\sum_{i=1}^n c_i Y_i} = \beta,
   \end{displaymath}
   on obtient $\beta^* = \hat{\beta}$.
   \begin{sol}
@@ -508,22 +507,22 @@ all.equal(summary(fit)$r.squared, SSR/SST)
     \begin{align*}
       f(c_1, \dots, c_n)
       &= \var{\beta^*} \\
-      &= \sum_{i=1}^n c_t^2 \var{Y_i} \\
-      &= \sigma^2 \sum_{i=1}^n c_t^2
+      &= \sum_{i=1}^n c_i^2 \var{Y_i} \\
+      &= \sigma^2 \sum_{i=1}^n c_i^2
     \end{align*}
-    sous la contrainte $\esp{\beta^*} = \sum_{i=1}^nc_t\esp{Y_i} =
-    \sum_{i=1}^nc_t\beta x_i = \beta\sum_{i=1}^nc_tx_i = \beta$, soit
-    $\sum_{i=1}^n c_t x_i = 1$ ou $g(c_1, \dots, c_n) = 0$ avec
+    sous la contrainte $\esp{\beta^*} = \sum_{i=1}^nc_i\esp{Y_i} =
+    \sum_{i=1}^nc_i\beta x_i = \beta\sum_{i=1}^nc_ix_i = \beta$, soit
+    $\sum_{i=1}^n c_i x_i = 1$ ou $g(c_1, \dots, c_n) = 0$ avec
     \begin{displaymath}
-      g(c_1, \dots, c_n) = \sum_{i=1}^n c_t x_i - 1.
+      g(c_1, \dots, c_n) = \sum_{i=1}^n c_i x_i - 1.
     \end{displaymath}
     Pour utiliser la méthode des multiplicateurs de Lagrange, on pose
     \begin{align*}
       \mathcal{L}(c_1, \dots, c_n,\lambda)
       &= f(c_1, \dots, c_n) - \lambda g(c_1, \dots, c_n), \\
-      &= \sigma^2 \sum_{i=1}^n c_t^2 - \lambda
+      &= \sigma^2 \sum_{i=1}^n c_i^2 - \lambda
       \left(
-        \sum_{i=1}^n c_t x_i - 1
+        \sum_{i=1}^n c_i x_i - 1
       \right),
     \end{align*}
     puis on dérive la fonction $\mathcal{L}$ par rapport à chacune des
@@ -532,15 +531,15 @@ all.equal(summary(fit)$r.squared, SSR/SST)
       \frac{\partial \mathcal{L}}{\partial c_u}
       & = 2 \sigma^2 c_u - \lambda x_u, \quad u = 1, \dots, n \\
       \frac{\partial \mathcal{L}}{\partial \lambda}
-      & = - \sum_{i=1}^n c_t x_i + 1.
+      & = - \sum_{i=1}^n c_i x_i + 1.
     \end{align*}
     En posant les $n$ premières dérivées égales à zéro, on obtient
     \begin{displaymath}
-      c_t = \frac{\lambda x_i}{2 \sigma^2}.
+      c_i = \frac{\lambda x_i}{2 \sigma^2}.
     \end{displaymath}
     Or, de la contrainte,
     \begin{displaymath}
-      \sum_{i=1}^n c_t x_i =
+      \sum_{i=1}^n c_i x_i =
       \frac{\lambda}{2\sigma^2} \sum_{i=1}^n x_i^2 = 1,
     \end{displaymath}
     d'où
@@ -549,12 +548,12 @@ all.equal(summary(fit)$r.squared, SSR/SST)
     \end{displaymath}
     et, donc,
     \begin{displaymath}
-      c_t = \frac{x_i}{\sum_{i=1}^n x_i^2}.
+      c_i = \frac{x_i}{\sum_{i=1}^n x_i^2}.
     \end{displaymath}
     Finalement,
     \begin{align*}
       \beta^*
-      & = \sum_{i=1}^n c_t Y_i \\
+      & = \sum_{i=1}^n c_i Y_i \\
       & = \frac{\sum_{i=1}^n x_i Y_i}{\sum_{i=1}^n x_i^2} \\
       & = \hat{\beta}.
     \end{align*}
@@ -571,25 +570,25 @@ all.equal(summary(fit)$r.squared, SSR/SST)
   \begin{sol}
     \begin{enumerate}
     \item Tout d'abord, puisque $\MSE = \SSE/(n - 2) = \sum_{i=1}^n
-      (Y_i - \hat{Y}_t)^2/(n - 2)$ et que $\esp{Y_i} =
-      \esp{\hat{Y}_t}$, alors
+      (Y_i - \hat{Y}_i)^2/(n - 2)$ et que $\esp{Y_i} =
+      \esp{\hat{Y}_i}$, alors
       \begin{align*}
         \esp{MSE}
-        &= \frac{1}{n - 2} \Esp{\sum_{i=1}^n (Y_i - \hat{Y}_t)^2} \\
-        &= \frac{1}{n - 2} \sum_{i=1}^n \esp{(Y_i - \hat{Y}_t)^2} \\
+        &= \frac{1}{n - 2} \Esp{\sum_{i=1}^n (Y_i - \hat{Y}_i)^2} \\
+        &= \frac{1}{n - 2} \sum_{i=1}^n \esp{(Y_i - \hat{Y}_i)^2} \\
         &= \frac{1}{n - 2} \sum_{i=1}^n \esp{((Y_i - \esp{Y_i}) -
-          (\hat{Y}_t - \esp{\hat{Y}_t}))^2} \\
+          (\hat{Y}_i - \esp{\hat{Y}_i}))^2} \\
         &= \frac{1}{n - 2} \sum_{i=1}^n
         \left(
-          \var{Y_i} + \var{\hat{Y}_t} - 2\, \Cov(Y_i, \hat{Y}_t)
+          \var{Y_i} + \var{\hat{Y}_i} - 2\, \Cov(Y_i, \hat{Y}_i)
         \right).
       \end{align*}
-      Or, on a par hypothèse du modèle que $\Cov(Y_i, Y_s) =
-      \Cov(\varepsilon_t, \varepsilon_s) = \delta_{ts} \sigma^2$, d'où
+      Or, on a par hypothèse du modèle que $\Cov(Y_i, Y_j) =
+      \Cov(\varepsilon_i, \varepsilon_j) = \delta_{ij} \sigma^2$, d'où
       $\var{Y_i} = \sigma^2$ et $\var{\bar{Y}} = \sigma^2/n$. D'autre
       part,
       \begin{align*}
-        \var{\hat{Y}_t}
+        \var{\hat{Y}_i}
         &= \var{\bar{Y} + \hat{\beta}_1 (x_i - \bar{x})} \\
         &= \var{\bar{Y}} + (x_i - \bar{x})^2 \var{\hat{\beta}_1} +
         2 (x_i - \bar{x}) \Cov(\bar{Y}, \hat{\beta}_1)
@@ -603,25 +602,25 @@ all.equal(summary(fit)$r.squared, SSR/SST)
         & = \Cov
         \left(
           \frac{\sum_{i = 1}^n Y_i}{n},
-          \frac{\sum_{s = 1}^n (x_s - \bar{x}) Y_s}{\sum_{i = 1}^n
-            (x_i - \bar{x})^2}
+          \frac{\sum_{j = 1}^n (x_j - \bar{x}) Y_j}{\sum_{j = 1}^n
+            (x_j - \bar{x})^2}
         \right) \\
-        &= \frac{1}{n \sum_{i = 1}^n (x_i - \bar{x})^2}
-        \sum_{i = 1}^n \sum_{s = 1}^n \Cov(Y_i, (x_s - \bar{x}) Y_s) \\
-        &= \frac{1}{n \sum_{i = 1}^n (x_i - \bar{x})^2}
-        \sum_{i = 1}^n (x_s - \bar{x}) \var{Y_i} \\
-        & = \frac{\sigma^2}{n \sum_{i = 1}^n (x_i - \bar{x})^2}
+        &= \frac{1}{n \sum_{j = 1}^n (x_j - \bar{x})^2}
+        \sum_{i = 1}^n \sum_{j = 1}^n \Cov(Y_i, (x_j - \bar{x}) Y_j) \\
+        &= \frac{1}{n \sum_{j = 1}^n (x_j - \bar{x})^2}
+        \sum_{i = 1}^n (x_j - \bar{x}) \var{Y_i} \\
+        & = \frac{\sigma^2}{n \sum_{j = 1}^n (x_j - \bar{x})^2}
         \sum_{i = 1}^n (x_i - \bar{x}) \\
         & = 0,
       \end{align*}
       puisque $\sum_{i=1}^n(x_i - \bar{x}) = 0$. Ainsi,
       \begin{displaymath}
-        \var{\hat{Y}_t} = \frac{\sigma^2}{n} +
+        \var{\hat{Y}_i} = \frac{\sigma^2}{n} +
         \frac{(x_i - \bar{x})^2 \sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2}.
       \end{displaymath}
       De manière similaire, on détermine que
       \begin{align*}
-        \Cov(Y_i, \hat{Y}_t)
+        \Cov(Y_i, \hat{Y}_i)
         &= \Cov(Y_i, \bar{Y} + \hat{\beta}_1 (x_i - \bar{x})) \\
         &= \Cov(Y_i, \bar{Y}) +
         (x_i - \bar{x}) \Cov(Y_i, \hat{\beta}_1) \\
@@ -630,11 +629,11 @@ all.equal(summary(fit)$r.squared, SSR/SST)
       \end{align*}
       Par conséquent,
       \begin{align*}
-        \esp{(Y_i - \hat{Y}_t)^2}
+        \esp{(Y_i - \hat{Y}_i)^2}
         &= \frac{n - 1}{n}\, \sigma^2 -
         \frac{(x_i - \bar{x})^2 \sigma^2}{\sum_{i = 1}^n (x_i - \bar{x})^2} \\
         \intertext{et}
-        \sum_{i=1}^n \esp{(Y_i - \hat{Y}_t)^2}
+        \sum_{i=1}^n \esp{(Y_i - \hat{Y}_i)^2}
         & = (n - 2) \sigma^2,
       \end{align*}
       d'où $\esp{\MSE} = \sigma^2$.
@@ -642,7 +641,7 @@ all.equal(summary(fit)$r.squared, SSR/SST)
       \begin{align*}
         \esp{\MSR}
         &= \esp{\SSR} \\
-        &= \Esp{\sum_{i=1}^n (\hat{Y}_t - \bar{Y})^2} \\
+        &= \Esp{\sum_{i=1}^n (\hat{Y}_i - \bar{Y})^2} \\
         &= \sum_{i=1}^n \esp{\hat{\beta}_1^2 (x_i - \bar{x})^2} \\
         &= \sum_{i=1}^n (x_i - \bar{x})^2 \esp{\hat{\beta}_1^2} \\
         &= \sum_{i=1}^n (x_i - \bar{x})^2 (\var{\hat{\beta}_1} +
@@ -665,7 +664,7 @@ all.equal(summary(fit)$r.squared, SSR/SST)
   \begin{enumerate}
   \item Trouver quel sera l'impact sur les estimateurs des moindres
     carrés des paramètres $\beta_0$ et $\beta_1$ dans le modèle de
-    régression linéaire $Y_i = \beta_0 + \beta_1 x_i + \varepsilon_t$.
+    régression linéaire $Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$.
   \item Démontrer que le coefficient de détermination $R^2$ n'est pas
     affecté par la transformation linéaire.
   \end{enumerate}
@@ -739,14 +738,14 @@ all.equal(summary(fit)$r.squared, SSR/SST)
 \begin{exercice}
   On sait depuis l'exercice \ref{chap:simple}.\ref{ex:simple:origine}
   que pour le modèle de régression linéaire simple passant par
-  l'origine $Y_i = \beta x_i + \varepsilon_t$, l'estimateur des
+  l'origine $Y_i = \beta x_i + \varepsilon_i$, l'estimateur des
   moindres carrés de $\beta$ est
   \begin{displaymath}
     \hat{\beta} = \frac{\sum_{i = 1}^n x_i Y_i}{\sum_{i = 1}^n x_i^2}.
   \end{displaymath}
   Démontrer que l'on peut obtenir ce résultat en utilisant la formule
   pour $\hat{\beta}_1$ dans la régression linéaire simple usuelle
-  ($Y_i = \beta_0 + \beta_1 x_i + \varepsilon_t$) en ayant d'abord
+  ($Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$) en ayant d'abord
   soin d'ajouter aux données un $(n + 1)${\ieme} point $(m\bar{x},
   m\bar{Y})$, où
   \begin{displaymath}
@@ -810,9 +809,7 @@ xp <- c(x, m * mean(x))
 yp <- c(y, m * mean(y))
 @
     \begin{figure}
-      \centering
-<<echo=FALSE, width=8, height=5>>=
-par(mfrow = c(1, 2))
+<<simple-pointmagique,echo=FALSE>>=
 plot(y ~ x, xlim = c(0, max(xp)), ylim = c(0, max(yp)))
 abline(lm(y ~ x), lwd = 2)
 plot(yp ~ xp, xlim = c(0, max(xp)), ylim = c(0, max(yp)),
@@ -835,8 +832,8 @@ abline(lm(y ~ -1 + x), lty = 2, lwd = 2)
 \begin{exercice}
   Soit le modèle de régression linéaire simple
   \begin{displaymath}
-    Y_i = \beta_0 + \beta_1 x_i + \varepsilon_t, \quad
-    \varepsilon_t \sim N(0, \sigma^2).
+    Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i, \quad
+    \varepsilon_i \sim N(0, \sigma^2).
   \end{displaymath}
   Construire un intervalle de confiance de niveau $1 - \alpha$ pour le
   paramètre $\beta_1$ si la variance $\sigma^2$ est connue.
@@ -845,8 +842,8 @@ abline(lm(y ~ -1 + x), lty = 2, lwd = 2)
     \left( \sum_{i=1}^n (x_i - \bar{x})^2 \right)^{-1/2}$
   \end{rep}
   \begin{sol}
-    Puisque, selon le modèle, $\varepsilon_t \sim N(0, \sigma^2)$ et
-    que $Y_i = \beta_0 + \beta_1 x_i + \varepsilon_t$, alors $Y_i \sim
+    Puisque, selon le modèle, $\varepsilon_i \sim N(0, \sigma^2)$ et
+    que $Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$, alors $Y_i \sim
     N(\beta_0 + \beta_1 x_i, \sigma^2)$. De plus, on sait que
     \begin{align*}
       \hat{\beta}_1
@@ -893,7 +890,7 @@ abline(lm(y ~ -1 + x), lty = 2, lwd = 2)
     \hat{\beta}_1 &= -1,104 &
       \sum_{i=1}^{20} (Y_i - \bar{Y})^2 &= \nombre{20838} \\
     \sum_{i=1}^{20} x_i^2 &= \nombre{90048} &
-      \sum_{i=1}^{20} e_t^2 &= \nombre{7832}. \\
+      \sum_{i=1}^{20} \varepsilon_i^2 &= \nombre{7832}. \\
     \sum_{i=1}^{20} Y_i^2 &= \nombre{116058}
   \end{align*}
   Trouver le plus petit intervalle de confiance à 95~\% pour le
@@ -1113,10 +1110,10 @@ abline(lm(y ~ -1 + x), lty = 2, lwd = 2)
   valeur de la variable indépendante correspondant à $x_0$ et
   $\hat{Y}_0$ la prévision (ou estimation) de $Y_0$. En supposant que
   \begin{enumerate}[i)]
-  \item $\varepsilon_t \sim N(0, \sigma^2)$;
-  \item $\Cov(\varepsilon_0, \varepsilon_t) = 0$ pour tout $i = 1,
+  \item $\varepsilon_i \sim N(0, \sigma^2)$;
+  \item $\Cov(\varepsilon_0, \varepsilon_i) = 0$ pour tout $i = 1,
     \dots, n$;
-  \item $\var{\varepsilon_t} = \sigma^2$ est estimé par $s^2$,
+  \item $\var{\varepsilon_i} = \sigma^2$ est estimé par $s^2$,
   \end{enumerate}
   construire un intervalle de confiance de niveau $1 - \alpha$ pour
   $Y_0$. Faire tous les calculs intermédiaires.
@@ -1340,11 +1337,14 @@ plot(medv ~ rm + age + lstat + tax, data = house)
     rejetée en a). Observer les différences dans les résultats.
   \end{enumerate}
   \begin{sol}
+  <<echo=FALSE>>=
+house <- read.table("data/house.dat", header = TRUE)
+@
     \begin{enumerate}
     \item Les données du fichier \texttt{house.dat} sont importées
       dans \textsf{R} avec la commande
-<<>>=
-house <- read.table("data/house.dat", header = TRUE)
+<<eval=FALSE>>=
+house <- read.table("house.dat", header = TRUE)
 @
       La figure \ref{fig:simple:house} contient les graphiques de
       \texttt{medv} en fonction de chacune des variables \texttt{rm},
@@ -1352,9 +1352,7 @@ house <- read.table("data/house.dat", header = TRUE)
       de variable explicative pour le prix médian semble être le
       nombre moyen de pièces par immeuble, \texttt{rm}.
       \begin{figure}
-        \centering
-<<>>=
-par(mfrow = c(2, 2))
+<<simple-house>>=
 plot(medv ~ rm + age + lstat + tax, data = house, ask = FALSE)
 @
         \caption{Relation entre la variable \texttt{medv} et les
@@ -1367,6 +1365,7 @@ plot(medv ~ rm + age + lstat + tax, data = house, ask = FALSE)
 fit1 <- lm(medv ~ rm, data = house)
 summary(fit1)
 @
+
       On peut voir que tant l'ordonnée à l'origine que la pente sont
       très significativement différentes de zéro. La régression est
       donc elle-même significative. Cependant, le coefficient de
@@ -1380,12 +1379,12 @@ summary(fit1)
 <<>>=
 pred.ci <- predict(fit1, interval = "confidence", level = 0.95)
 @
+
       La droite de régression et ses bornes d'intervalle de confiance
       inférieure et supérieure sont illustrée à la figure
       \ref{fig:simple:house2}.
       \begin{figure}
-        \centering
-<<>>=
+<<simple-house2>>=
 ord <- order(house$rm)
 plot(medv ~ rm, data = house, ylim = range(pred.ci))
 matplot(house$rm[ord], pred.ci[ord,],
@@ -1412,8 +1411,7 @@ pred.ci <- predict(fit2, interval = "confidence", level = 0.95)
       sont reproduits à la figure \ref{fig:simple:house3}. On constate
       que l'intervalle de confiance est plus large qu'en b).
       \begin{figure}
-        \centering
-<<>>=
+<<simple-house3>>=
 ord <- order(house$age)
 plot(medv ~ age, data = house, ylim = range(pred.ci))
 matplot(house$age[ord], pred.ci[ord,],
@@ -1498,7 +1496,7 @@ summary(fit)
       Le modèle est donc le suivant: $Y_i =
       \Sexpr{format(signif(b[1], 4), dec = ",")} +
       \Sexpr{format(signif(b[2], 4), dec = ",")} x_i +
-      \varepsilon_t$, $\varepsilon_t \sim N(0,
+      \varepsilon_i$, $\varepsilon_i \sim N(0,
       \Sexpr{format(signif(s, 4), dec = ",")}^2)$, où $Y_i$ est la
       consommation en litres aux 100 kilomètres et $x_i$ le poids en
       kilogrammes. La faible valeur $p$ du test $F$ indique une
@@ -1609,7 +1607,7 @@ Utiliser l'approximation de Taylor de premier ordre pour montrer que la variance
 \end{exercice}
 
 \begin{exercice}
-
+\label{ex:simple:bact}
 Les données suivantes présentent le nombre moyen de bactéries vivantes dans une boîte de conserve de nourriture et le temps (en minutes) d'exposition à une chaleur de $300^{o}$F. \footnote{Source: D. Montgomery, E.A. Peck et G.G. Vining (2012). Introduction to Linear Regression Analysis. Fifth Edition. Wiley.}
 
 \begin{center}
@@ -1649,8 +1647,7 @@ min <- 1:12
 \item Figure~\ref{fig:simple:bact1} shows a scatter plot of the number of bacteria versus the minutes of exposure. The plot shows a straight line would be a reasonable model, but an even better model would capture the curvature. In fact, the plot shows that when the canned food is exposed to $300^{o}$ F for a long time, there is ultimately no bacteria left. This suggests a model that would capture the asymptotic behavior of the number of bacteria when the number of minutes of exposure increases. A linear model would continue to drive down the number of bacteria, eventually leading to negative values, which is nonsensical in this context.
   
 \begin{figure}
-\centering
-<<echo=FALSE>>=
+<<simple-bact1, echo=FALSE>>=
 plot(min, bact, pch = 16, xlab = "Temps d'exposition (min)", ylab = "Nombre de bactéries")
 @
 \caption{Scatter Plot of the Number of Bacteria versus the Minutes of Exposure to $300^{o}$ F}
@@ -1671,27 +1668,23 @@ In order to test for the significance of regression, we use the F-statistic. The
 
 The value of $R^{2}$ is $86.93\%$. This is a high coefficient of correlation, it means that about 87\% of the variation in the number of bacteria in the canned food is explained by the minutes of exposure to $300^{o}$F. The model seems to perform well.
 
-The Q-Q Plot of the studentized residuals is shown in Figure~\ref{qqplot3b}. The line represents when the empirical quantiles are exactly equal to the standard normal quantiles. The normality assumption is seriously violated as the dots are clearly not on a straight line. This means there are serious flaws in the model, including the fact that the hypothesis tests are not reliable.
+The Q-Q Plot of the studentized residuals is shown in Figure~\ref{fig:simple:bact2}. The line represents when the empirical quantiles are exactly equal to the standard normal quantiles. The normality assumption is seriously violated as the dots are clearly not on a straight line. This means there are serious flaws in the model, including the fact that the hypothesis tests are not reliable.
 
 \begin{figure}
-\begin{center}
-<<echo=FALSE>>=
+<<simple-bact2, echo=FALSE>>=
 qqnorm(rstandard(fit1), pch = 16)
 qqline(rstandard(fit1))
 @
-\end{center}
-\caption{Q-Q Plot for Simple Linear Model in Problem 5 b)} 
+\caption{Q-Q Plot for Simple Linear Model in Problem \ref{chap:simple}.\ref{ex:simple:bact}} 
 \label{fig:simple:bact2}
 \end{figure}
 
 \begin{figure}
-\begin{center}
-<<echo=FALSE>>=
+<<simple-bact3, echo=FALSE>>=
 plot(fitted(fit1), rstandard(fit1), pch = 16, ylab = "Studentized Residuals", xlab = "Fitted values")
 abline(h = 0)
 @
-\end{center}
-\caption{Residuals versus the Fitted Values for Simple Linear Model in Problem 5 b)} \label{fig:simple:bact3}
+\caption{Residuals versus the Fitted Values for Simple Linear Model in Problem \ref{chap:simple}.\ref{ex:simple:bact}} \label{fig:simple:bact3}
 \end{figure}
 
 Figure~\ref{fig:simple:bact3} shows a plot of the studentized residuals versus the fitted values. The plot suggests a clear curve, which is usually an indicator of non-linearity. This is in line with the previous comments.
@@ -1700,21 +1693,17 @@ Finally, this model is inadequate and transformations on the response variables 
 
 \item The Box-Cox method is used to determine which transformation is optimal. Figure~\ref{fig:simple:bact4} shows the plot of the log-likelihood function in terms of $\lambda$, for two different ranges of $\lambda$. It was obtained with the \textsf{R} commands:
 <<eval = FALSE>>=
-boxCox(bact~min, lambda = seq(-2, 2, len = 20), plotit = TRUE)
-boxCox(bact~min, lambda = seq(-0.2, 0.5, len = 20), plotit = TRUE)
+boxcox(bact~min, lambda = seq(-2, 2, len = 20), plotit = TRUE)
+boxcox(bact~min, lambda = seq(-0.2, 0.5, len = 20), plotit = TRUE)
 @
 
 \begin{figure}
-\begin{center}
-<<message=FALSE,echo=FALSE>>=
+<<simple-bact4, message=FALSE,echo=FALSE>>=
 library(MASS)
-par(mfrow = c(1,2))
 boxcox(bact~min, lambda = seq(-0.2, 0.5, len = 20), plotit = TRUE)
 boxcox(bact~min, lambda = seq(-2, 2, len = 20), plotit = TRUE)
-par(mfrow = c(1,1))
 @
-\end{center}
-\caption{Log-likelihood versus $\lambda$ in the Box-Cox method for Problem 5 c)} \label{fig:simple:bact4}
+\caption{Log-likelihood versus $\lambda$ in the Box-Cox method for Problem \ref{chap:simple}.\ref{ex:simple:bact}} \label{fig:simple:bact4}
 \end{figure}
 
 Note that the maximum is around 0.1 and 0 is included in the 95\% confidence interval for $\lambda$. Therefore, it is preferable to use 0 as this is a common transformation, it represents the logarithm transformation. Let $y^{*}=\ln(y)$. A simple linear model is fitted to the transformed data. The output is the following:
@@ -1727,12 +1716,10 @@ summary(fit2)
 The fitted model is $$\hat{y}^{*}=5.33878-0.23617x,$$ where the parameters of the model are estimated by the best linear unbiased estimators. Figure~\ref{fig:simple:bact5} is a scatter plot of the transformed response variable versus the covariate, along with the fitted line. The scatter plot looks much more linear now than in (a).
 
 \begin{figure}
-\begin{center}
-<<echo=FALSE>>=
+<<simple-bact5, echo=FALSE>>=
 plot(min, logbact, pch = 16, xlab = "Temps d'exposition (min)", ylab = "Log du Nombre de bactéries")
 abline(fit2)
 @
-\end{center}
 \caption{Scatter Plot of the Logarithm of the Number of Bacteria versus the Minutes of Exposure to $300^{o}$ F}
 \label{fig:simple:bact5}
 \end{figure}
@@ -1751,23 +1738,19 @@ The Q-Q Plot of the studentized residuals is shown in Figure~\ref{fig:simple:bac
 Finally, this model is adequate and the transformation used on the response variables fixed the problems in the model.
 
 \begin{figure}
-\begin{center}
-<<echo=FALSE>>=
+<<simple-bact6, echo=FALSE>>=
 qqnorm(rstandard(fit2), pch = 16)
 qqline(rstandard(fit2))
 @
-\end{center}
-\caption{Q-Q Plot of Model for the Logarithm of the Number of Bacteria in Problem 5 c)} \label{fig:simple:bact6}
+\caption{Q-Q Plot of Model for the Logarithm of the Number of Bacteria in Problem \ref{chap:simple}.\ref{ex:simple:bact}} \label{fig:simple:bact6}
 \end{figure}
 
 \begin{figure}
-\begin{center}
-<<echo=FALSE>>=
+<<simple-bact7, echo=FALSE>>=
 plot(fitted(fit2), rstandard(fit2), pch = 16, ylab = "Studentized Residuals", xlab = "Fitted values")
 abline(h = 0)
 @
-\end{center}
-\caption{Residuals versus the Fitted Values for Model for the Logarithm of the Number of Bacteria in Problem 5 c)} 
+\caption{Residuals versus the Fitted Values for Model for the Logarithm of the Number of Bacteria in Problem \ref{chap:simple}.\ref{ex:simple:bact}} 
 \label{fig:simple:bact7}
 \end{figure}
 

@@ -2,9 +2,6 @@
 \index{regression@régression|(}
 \label{chap:regression}
 
-<<echo=FALSE>>=
-options(width=52)
-@
 
 Comme tous les grands logiciels statistiques --- et même plusieurs
 calculatrices scientifiques --- \textsf{R} comporte des fonctions
