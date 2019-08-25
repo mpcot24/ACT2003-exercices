@@ -8,14 +8,14 @@
   
   \usepackage{lucidabr,pslatex}
   \usepackage[sc]{mathpazo}
-  %\usepackage{vgmath,vgsets}
+  %\usepackage{vgmath,vgsets} % anciens packages de Vincent Goulet
   \usepackage{vmcommands,icomma,amsmath,amsthm,upgreek} 
   \usepackage{graphicx,color}
   \usepackage[absolute]{textpos}
   \usepackage{answers,listings}
   \usepackage[alwaysadjust,defblank]{paralist}
-  %\usepackage{verbatim}
-  %\usepackage[noae]{Sweave}
+  %\usepackage{verbatim} % ne semble pas être nécessaire pour utiliser l'environnement verbatim
+  %\usepackage[noae]{Sweave} % l'environnement Sweave n'est pas utilisé dans le recueil
   \usepackage{threeparttable}
   \usepackage{float}
 
