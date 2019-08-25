@@ -3,9 +3,11 @@
 *.Rhistory
 *.aux
 
+exercices_modeles_lineaires/exercices_modeles_lineaires.tex
+
 # knitr and R markdown default cache directories
 figure/
 Code/
 exercices_modeles_lineaires/figure/
-exercices_modeles_lineaires/solutions-.*
-exercices_modeles_lineaires/reponses-.*
+exercices_modeles_lineaires/solutions-*
+exercices_modeles_lineaires/reponses-*
