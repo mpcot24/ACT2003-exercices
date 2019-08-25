@@ -1,9 +1,0 @@
-> anova(fit2)
-Analysis of Variance Table
-
-Response: logbact
-          Df Sum Sq Mean Sq F value    Pr(>F)    
-minutes    1 7.9761  7.9761  550.33 4.489e-10 ***
-Residuals 10 0.1449  0.0145                      
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
