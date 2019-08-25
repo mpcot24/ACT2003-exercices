@@ -85,7 +85,7 @@
   paramètres.
   \begin{enumerate}
   \item $Y_i = \beta_0 + \varepsilon_i$
-  \item $Y_i = \beta_1 \x_i + \varepsilon_i$
+  \item $Y_i = \beta_1 x_i + \varepsilon_i$
   \item $Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} +
     \varepsilon_i$
   \end{enumerate}
