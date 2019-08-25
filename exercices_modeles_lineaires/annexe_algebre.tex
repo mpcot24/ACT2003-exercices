@@ -1,0 +1,151 @@
+\chapter{Éléments d'algèbre matricielle}
+\label{chap:elements}
+
+\section{Opérations de base sur les matrices}
+Soit une matrice finie $n\times p$ $$\mathbf{A}=\begin{pmatrix}a_{1,1} & a_{1,2} &... & a_{1,p} \\ a_{2,1} & ... & ... & a_{2,p}\\ \vdots & \vdots& ... & \vdots\\ a_{n,1} &...&...&a_{n,p}\\ \end{pmatrix}=(a_{i,j}).$$
+\begin{description}
+\item[Addition:] Soit la matrice $\mathbf{B}=(b_{i,j})$, $n\times p$. Les opérations d'addition $\mathbf{A+B}$ et $\mathbf{B+A}$ sont définies: $$(a_{i,j})+(b_{i,j})=(c_{i,j}),$$ où $c_{i,j}=a_{i,j}+b_{i,j}$.
+
+\item[Soustraction:] Soit la matrice $\mathbf{B}=(b_{i,j})$, $n\times p$. Les opérations de soustraction $\mathbf{A-B}$ et $\mathbf{B-A}$ sont définies par
+$$
+(a_{i,j})-(b_{i,j})=(c_{i,j}),
+$$ 
+où $c_{i,j}=a_{i,j}-b_{i,j}$.
+
+\item[Multiplication:] Soit la matrice $\mathbf{D}=(d_{i,j})$, $m\times n$. L'opération $\mathbf{DA}$ est définie. Le résultat est une matrice $m\times p$, dont l'élément de la ligne $i$ et la colonne $j$ est égal à 
+$$
+\sum_{k=1}^{n}d_{i,k}a_{k,j}.
+$$ 
+Soit la matrice $\mathbf{E}=(e_{i,j})$, $p\times m$. L'opération $\mathbf{AE}$ est définie. Le résultat est une matrice $n\times m$, dont l'élément de la ligne $i$ et la colonne $j$ est égal à 
+$$
+\sum_{k=1}^{n}a_{i,k}e_{k,j}.
+$$
+\end{description}
+
+\emph{Exemple:}
+On a $$\begin{pmatrix} 2 & 3 & 0 \\ 7 & 1 & 8 \\ \end{pmatrix}+\begin{pmatrix} 1 & 1 & 4 \\ 2 & 1 & 3 \\ \end{pmatrix}=\begin{pmatrix} 3 & 4 & 4 \\ 9 & 2 & 11 \\ \end{pmatrix},$$
+$$\begin{pmatrix} 2 & 3 & 0 \\ 7 & 1 & 8 \\ \end{pmatrix}-\begin{pmatrix} 1 & 1 & 4 \\ 2 & 1 & 3 \\ \end{pmatrix}=\begin{pmatrix} 1 & 2 & -4 \\5 & 0 & 5 \\ \end{pmatrix},$$
+et $$\begin{pmatrix} 2 & 3 & 0 \\ 7 & 2 & 8 \\ \end{pmatrix}\begin{pmatrix} 1 & 3 \\ 2 & 1 \\ 5 & 2 \end{pmatrix}=\begin{pmatrix} 8 & 9 \\ 51 & 39 \\ \end{pmatrix}.$$ \qed
+
+
+
+\section{Propriétés de base des matrices}
+\begin{description}
+\item[Rang:] Le rang d'une matrice est le nombre de colonnes (ou de lignes) qui sont linéairement indépendantes.
+\item[Matrice Identité:] La matrice identité d'ordre $p$, notée $\mathbf{I}_{p}$ ou $\mathbf{I}_{p}$, est une matrice $p\times p$ composée de 1 sur la diagonale et de zéros ailleurs.
+
+\item[Inverse d'une matrice:] Soit une matrice $\mathbf{A}$, $p\times p$. L'inverse de la matrice $\mathbf{A}$ est notée $\mathbf{A}^{-1}$ et est telle que $$\mathbf{A}^{-1}\mathbf{A}=\mathbf{A}\mathbf{A}^{-1}=\mathbf{I}_{p}.$$
+
+\emph{Exemple:}
+Pour une matrice $2\times 2$, on trouve $$\begin{pmatrix} a & b \\ c& d\\ \end{pmatrix}^{-1}=\frac{1}{ad-bc}\begin{pmatrix} d & -b \\ -c& a\\ \end{pmatrix}.$$ \qed
+
+On peut facilement obtenir l'inverse d'une matrice de plus grande dimension à l'aide de la fonction \verb'solve' en \verb'R'.
+
+\item[Transposition:] On note $\mathbf{A}^{\top}$ ou $\mathbf{A}'$ la transposée de $\mathbf{A}$. Cette opération consiste en échangeant les lignes et les colonnes, ce qui implique que l'élément de la ligne $i$ et la colonne $j$ de la matrice $\mathbf{A}^{\top}$ est $a_{j,i}$.
+
+\emph{Exemple:}
+On a $$\begin{pmatrix} 2 & 3 & 0 \\ 7 & 1 & 8 \\ \end{pmatrix}^{\top}=\begin{pmatrix} 2 & 7 \\3 & 1 \\0 & 8 \\ \end{pmatrix}.$$ \qed
+
+Propriétés des transpositions de matrices:
+\begin{itemize}
+\item[$\bullet$] $(\mathbf{A}^{\top})^{\top}=\mathbf{A}$
+\item[$\bullet$] $(\mathbf{A}+\mathbf{B})^{\top}=\mathbf{A}^{\top}+\mathbf{B}^{\top}$
+\item[$\bullet$] $(k\mathbf{A})^{ \top}=k\mathbf{A}^{\top}$, si  $k$ est un scalaire.
+\item[$\bullet$] $(\mathbf{A}\mathbf{B})^{\top}=\mathbf{B}^{\top}\mathbf{A}^{\top}$
+\end{itemize}
+
+\item[Matrice symmétrique:] On dit d'une matrice carrée $\mathbf{A}$ qu'elle est symmétrique si $\mathbf{A}=\mathbf{A}^{\top}$.
+\item[Matrice idempotente:] On dit d'une matrice carrée $\mathbf{A}$ qu'elle est idempotente si $\mathbf{A}=\mathbf{A}\mathbf{A}$. Si $\mathbf{A}$ est aussi symétrique, on a aussi que $\mathbf{I-A}$ est symétrique idempotente.
+
+\item [Trace:] Soit une matrice carrée $\mathbf{A}$, $p\times p$.  La trace d'une matrice carrée est un scalaire égal à la somme des éléments sur sa diagonale: 
+$$
+\mbox{tr}(\mathbf{A})=\sum_{i=1}^m a_{i,i}.
+$$
+Propriétés de la trace :
+\begin{itemize}
+\item[$\bullet$] Si $\mathbf{A}$ et $\mathbf{B}$ sont des matrices carrées $p\times p$, alors $\mbox{tr}(\mathbf{A}+\mathbf{B})=\mbox{tr}(\mathbf{A})+\mbox{tr}(\mathbf{B}).$
+\item[$\bullet$] Soit $\mathbf{A}$, $n\times p$ et $\mathbf{B}$, $p\times n$, alors $\mbox{tr}(\mathbf{AB})=\mbox{tr}(\mathbf{BA}).$ 
+\end{itemize}
+
+\item[Forme quadratique:] Soit $\mathbf{A} = (a_{i,j})$ une matrice $p \times p$ symétrique et
+$\mathbf{b} = (b_1, \ldots, b_p)^\top$ un vecteur $p\times 1$. Alors
+\begin{displaymath}
+  \mathbf{b^\top A b} = \sum_{i=1}^p \sum_{j=1}^p a_{i,j} b_i b_j
+\end{displaymath}
+est une forme quadratique. Par exemple, si $p=2$, alors
+$$
+  \mathbf{b^\top Ab}
+  = \sum_{i=1}^2 \sum_{j=1}^2 a_{i,j} b_i b_j 
+  = a_{11} b_1^2 + 2 a_{12} b_1 b_2 + a_{22} b_2^2.
+$$
+Aussi, si $\mathbf{A}$ est diagonale, $\mathbf{b^\top Ab} = \sum_{i=1}^p a_{i,i} b_i^2$.
+
+\end{description}
+
+\section{Dérivées}
+
+
+\begin{description}
+\item[Dérivée d'un produit scalaire:] Soient les vecteurs $\mathbf{a} = (a_1, \ldots, a_p)^\top$ et $\mathbf{b} = (b_1, \ldots, b_p)^\top$. Leur produit scalaire est $\mathbf{b^\top a} = a_1 b_1 + \cdots + a_p b_p = \sum_{i=1}^p a_i x_i$. La dérivée de $\mathbf{b^\top a}$ par rapport à $\mathbf{b}$ est
+ \begin{align*}
+    \frac{\partial}{\partial \mathbf{b}}\, \mathbf{b^\top a}
+    &= \frac{\partial}{\partial \mathbf{b}}\sum_{i=1}^k a_i x_i 
+    =
+    \begin{bmatrix}
+      \frac{\partial}{\partial b_1}\, \sum_{i=1}^k a_i x_i \\
+      \vdots \\
+      \frac{\partial}{\partial b_p}\, \sum_{i=1}^k a_i x_i
+    \end{bmatrix} 
+    =
+    \begin{bmatrix}
+      a_1 \\
+      \vdots \\
+      a_p
+    \end{bmatrix} 
+    = \mathbf{a}.
+  \end{align*}
+
+\item [Dérivée d'une forme quadratique:]  Soit $\mathbf{A}_{p \times p}$ une matrice symétrique. Alors
+$$ 
+ \frac{\partial}{\partial \mathbf{b}}\, \mathbf{b^\top A b} = 2 \mathbf{A b}.
+$$
+
+\emph{Preuve:}  On a
+$$
+\mathbf{b^\top A b}  = \sum_{i=1}^p \sum_{j=1}^p a_{i,j} b_i b_j 
+    = \sum_{i=1}^p a_{i,i} b_i^2 +
+       \sum_{i=1}^p \sum_{j \ne i \in \{1,\ldots, p\}} a_{i,j} b_i b_j.
+$$
+Pour $t = 1, \dots, p$ et puisque $a_{i,j} = a_{j,i}$, par symmétrie, on trouve
+  \begin{align*}
+    \frac{\partial}{\partial b_t}\, \mathbf{b^\top A b}
+    &= 2 a_{t,t} b_t + \sum_{i \ne t \in \{1,\ldots, p\}} a_{i,t} b_i +
+       \sum_{j \ne t \in \{1,\ldots, p\}} a_{t,j} b_j = 2 \sum_{i=1}^p a_{i,t} b_t. 
+  \end{align*}
+On retrouve donc l'espression désirée. \hfill \qed
+
+\item [Dérivée d'une fonction:]  Si $f(\mathbf{b})$ est une fonction dérivable du vecteur $\mathbf{b}$, alors
+$$
+ \frac{\partial}{\partial \mathbf{b}}\,f(\mathbf{b})^\top \mathbf{A} f(\mathbf{b}) =
+   2 \left\{  \frac{\partial}{\partial \mathbf{b}} f(\mathbf{b}) \right\}^\top \mathbf{A} f(\mathbf{b}).
+$$
+
+\end{description}
+
+\section{Moments de vecteurs aléatoires}
+
+\begin{description}
+\item[Espérance d'un vecteur aléatoire:] Soit $\mathbf{X}=\begin{pmatrix}X_1& X_2 & \cdots & X_n\end{pmatrix}^{\top}$ un vecteur aléatoire. Alors, l'espérance de $\mathbf{X}$ est 
+$$
+\esp{\mathbf{X}}=\begin{pmatrix} \esp{X_1}& \esp{X_2} & \cdots & \esp{X_n}\end{pmatrix}^{\top}.
+$$
+\item[Variance d'un vecteur aléatoire:] Soit $\mathbf{X}=\begin{pmatrix}X_1& X_2 & \cdots & X_n\end{pmatrix}^{\top}$ un vecteur aléatoire. Alors, la variance de $\mathbf{X}$ est 
+$$
+\var{\mathbf{X}}=\begin{pmatrix} \var{X_1}& \cov{X_1,X_2} & \ldots & \cov{X_1,X_n} \\ \cov{X_2,X_1} & \var{X_2} & \ldots &  \cov{X_2,X_n} \\ \vdots & \vdots & \cdots & \vdots\\ \cov{X_n,X_1} & \cov{X_n,X_2}&\ldots&\var{X_n}\end{pmatrix}.
+$$
+\end{description}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "exercices_methodes_statistiques"
+%%% End:

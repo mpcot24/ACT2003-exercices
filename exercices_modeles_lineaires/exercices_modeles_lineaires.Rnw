@@ -19,6 +19,8 @@
   \usepackage{threeparttable}
   \usepackage{float}
 
+ \usepackage{rotating,lscape} % table
+ 
   %%% Hyperliens
   \usepackage{hyperref}
   \definecolor{link}{rgb}{0,0,0.3}
@@ -229,7 +231,11 @@ options(width=55)
 \appendix
 %<<child='regression.Rnw'>>=
 %@
-%\include{elements}
+\include{tables}
+
+\include{annexe_normale}
+\include{annexe_algebre}
+
 \include{solutions}
 
 %\nocite{Miller:stat:1977}
