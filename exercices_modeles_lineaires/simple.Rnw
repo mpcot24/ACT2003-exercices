@@ -1766,5 +1766,5 @@ abline(h = 0)
 
 %%% Local Variables:
 %%% mode: latex
-%%% TeX-master: "exercices_methodes_statistiques"
+%%% TeX-master: "exercices_modeles_lineaires"
 %%% End:
