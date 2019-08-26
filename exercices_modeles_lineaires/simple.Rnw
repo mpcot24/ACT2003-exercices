@@ -32,14 +32,14 @@
     \end{tabular}
   \end{center}
   \begin{enumerate}
-  \item Placer ces points ci-dessus sur un graphique.
-  \item Calculer les équations normales. \label{ex:simple:base:eq_normales}
+  \item Placer les points ci-dessus sur un graphique.
+  \item Calculer les équations de score. \label{ex:simple:base:eq_normales}
   \item Calculer les estimateurs $\hat{\beta}_0$ et $\hat{\beta}_1$ en
     résolvant le système d'équations obtenu en b).
   \item Calculer les prévisions $\hat{Y}_i$ correspondant à $x_i$ pour
     $i = 1, \dots, n$.  Ajouter la droite de régression au graphique
     fait en a).
-  \item Vérifier empiriquement que $\sum_{i=1}^{10} \varepsilon_i = 0$.
+  \item Vérifier empiriquement que $\sum_{i=1}^{10} \hat{\varepsilon}_i = 0$.
   \end{enumerate}
   
   \begin{rep}
@@ -153,7 +153,7 @@ abline(fit)
           régression}
         \label{fig:simple:base2}
       \end{figure}
-    \item Les résidus de la régression sont $\varepsilon_i = Y_i - \hat{Y}_i$,
+    \item Les résidus de la régression sont $\hat{\varepsilon}_i = Y_i - \hat{Y}_i$,
       $i = 1, \dots, 10$. Dans \textsf{R}, la fonction
       \texttt{residuals} extrait les résidus du modèle:
 <<>>=
@@ -169,229 +169,15 @@ sum(residuals(fit))
 \end{exercice}
 
 \begin{exercice}
-  On vous donne les observations ci-dessous.
-  \begin{center}
-    \begin{minipage}[t]{0.3\textwidth}
-      \mbox{} \\
-      \begin{tabular}{ccc}
-        \toprule
-        $t$ & $x_i$ & $Y_i$ \\
-        \midrule
-        1 & 2 & 6 \\
-        2 & 3 & 4 \\
-        3 & 5 & 6 \\
-        4 & 7 & 3 \\
-        5 & 4 & 6 \\
-        6 & 4 & 4 \\
-        7 & 1 & 7 \\
-        8 & 6 & 4 \\
-        \bottomrule
-      \end{tabular}
-    \end{minipage}
-    \begin{minipage}[t]{0.4\textwidth}
-      \mbox{} \\[-1cm]
-      \begin{align*}
-        \sum_{i=1}^8 x_i &= 32 &
-        \sum_{i=1}^8 x_i^2 &= 156 \\
-        \sum_{i=1}^8 Y_i &= 40 &
-        \sum_{i=1}^8 Y_i^2 &= 214 \\
-        \sum_{i=1}^8 x_i\, Y_i &= 146 \\
-      \end{align*}
-    \end{minipage}
-  \end{center}
-  \begin{enumerate}
-  \item Calculer les coefficients de la régression $Y_i = \beta_0 +
-    \beta_1 x_i + \varepsilon_i$, $\var{\varepsilon_i} = \sigma^2$.
-  \item Construire le tableau d'analyse de variance de la régression
-    en a) et calculer le coefficient de détermination $R^2$.
-    Interpréter les résultats.
-  \end{enumerate}
-  \begin{rep}
-    \begin{inparaenum}
-    \item $\hat{\beta}_0=7$ et $\hat{\beta}_1=-0,5$
-    \item SST = 14, SSR = 7, SSE = 7, MSR = 7, MSE = 7/6, $F$ = 6, $R^2$ = 0,5
-    \end{inparaenum}
-  \end{rep}
-  \begin{sol}
-    \begin{enumerate}
-    \item Nous avons le modèle de régression usuel. Les coefficients
-      de la régression sont
-      \begin{align*}
-        \hat{\beta}_1
-        &=\frac{\sum_{i=1}^8 x_iY_i-n\bar{x}\bar{Y}}{\sum_{i=1}^8
-          x_i^2-n\bar{x}^2} \\
-        &=\frac{146-(8)(32/8)(40/8)}{156-(8)(32/8)^2}  \\
-        &=-0,5 \\
-        \intertext{et}
-        \hat{\beta}_0
-        &=\bar{Y}-\hat{\beta}_1\bar{x} \\
-        &=(40/8)-(-0,5)(32/8) \\
-        &=7.
-      \end{align*}
-    \item Les sommes de carrés sont
-      \begin{align*}
-        \SST
-        &=\sum_{i=1}^8(Y_i-\bar{Y})^2 \\
-        &=\sum_{i=1}^8Y_i^2-n\bar{Y}^2 \\
-        &=214-(8)(40/8)^2 \\
-        &=14, \\
-        \SSR
-        &=\sum_{i=1}^8(\hat{Y}_i-\bar{Y})^2 \\
-        &=\sum_{i=1}^8\hat{\beta}_1^2(x_i-\bar{x})^2 \\
-        &=\hat{\beta}_1^2(\sum_{i=1}^8x_i^2-n\bar{x}^2) \\
-        &=(-1/2)^2(156-(8)(32/8)^2) \\
-        &=7.
-      \end{align*}
-      et $\SSE = \SST - \SSR = 14 - 7 = 7$. Par conséquent, $R^2 =
-      SSR/SST = 7/14 = 0,5$, donc la régression explique 50~\% de la
-      variation des $Y_i$ par rapport à leur moyenne $\bar{Y}$. Le
-      tableau ANOVA est le suivant:
-      \begin{center}
-        \begin{tabular}{lcccc}
-          \toprule
-          Source & SS & d.l. & MS & Ratio F \\
-          \midrule
-          Régression & 7 & 1 & 7   & 6 \\
-          Erreur     & 7 & 6 & 7/6 &  \\
-          \midrule
-          Total & 14 & 7 & & \\
-          \bottomrule
-        \end{tabular}
-      \end{center}
-    \end{enumerate}
-  \end{sol}
-\end{exercice}
-
-\begin{exercice}
-  Le jeu de données \texttt{women.dat}, disponible à l'URL mentionnée
-  dans l'introduction et inclus dans \textsf{R}, contient les tailles
-  et les poids moyens de femmes américaines âgées de 30 à 39 ans.
-  Importer les données dans dans \textsf{R} ou rendre le jeu de
-  données disponible avec \texttt{data(women)}, puis répondre aux
-  questions suivantes.
-  \begin{enumerate}
-  \item Établir graphiquement une relation entre la taille
-    (\emph{height}) et le poids (\emph{weight}) des femmes.
-  \item À la lumière du graphique en a), proposer un modèle de
-    régression approprié et en estimer les paramètres.
-  \item Ajouter la droite de régression calculée en b) au
-    graphique. Juger visuellement de l'ajustement du modèle.
-  \item Obtenir, à l'aide de la fonction \texttt{summary} la valeur du
-    coefficient de détermination $R^2$. La valeur est-elle conforme à
-    la conclusion faite en c)?
-  \item Calculer les statistiques $\SST$, $\SSR$ et
-    $\SSE$, puis vérifier que $\SST = \SSR +
-    \SSE$.  Calculer ensuite la valeur de $R^2$ et la comparer
-    à celle obtenue en d).
-  \end{enumerate}
-<<echo=FALSE>>=
-data(women)
-fit <- lm(weight ~ height, data = women)
-b <- coef(fit)
-ss <- anova(fit)[[2]]
-@
-  \begin{rep}
-    \begin{inparaenum}
-      \stepcounter{enumi}
-    \item
-      $\hat{\beta}_0 = \Sexpr{format(round(b[1], 4), dec =  ",")}$
-      et
-      $\hat{\beta}_1 = \Sexpr{format(round(b[2], 4), dec =  ",")}$
-      \stepcounter{enumi}
-    \item $R^2 = \Sexpr{format(round(summary(fit)$r.squared, 4), dec =  ",")}$
-    \item
-      $\SSR = \Sexpr{format(round(ss[1], 2), dec =  ",")}$
-      $\SSE = \Sexpr{format(round(ss[2], 2), dec =  ",")}$ et
-      $\SST = \Sexpr{format(round(sum(ss), 2), dec = ",")}$
-    \end{inparaenum}
-  \end{rep}
-  \begin{sol}
-    \begin{enumerate}
-    \item Voir la figure \ref{fig:simple:women}.
-      \begin{figure}
-<<simple-women>>=
-data(women)
-plot(weight ~ height, data = women, pch = 16)
-@
-        \caption{Relation entre la taille et le poids moyen de femmes américaines âgées de 30 à 39 ans (données \texttt{women})}
-        \label{fig:simple:women}
-      \end{figure}
-    \item Le graphique montre qu'un modèle linéaire serait
-      excellent. On estime les paramètres de ce modèle avec \texttt{lm}:
-<<>>=
-(fit <- lm(weight ~ height, data = women))
-@
-    \item Voir la figure \ref{fig:simple:women2}.
-      \begin{figure}
-<<fig.keep='none', eval = FALSE>>=
-abline(fit)
-@
-<<simple-women2,echo=FALSE>>=
-plot(weight ~ height, data = women, pch = 16)
-abline(fit)
-@
-        \caption{Relation entre les données \texttt{women} et droite de régression linéaire simple}
-        \label{fig:simple:women2}
-      \end{figure}
-      On constate que l'ajustement est excellent.
-    \item Le résultat de la fonction \texttt{summary} appliquée au
-      modèle \texttt{fit} est le suivant:
-<<>>=
-summary(fit)
-@
-      Le coefficient de détermination est donc
-      $R^2 = \Sexpr{format(round(summary(fit)$r.squared, 4), dec = ",")}$, %$
-      ce qui est près de 1 et confirme donc l'excellent
-      ajustement du modèle évoqué en c).
-    \item On a
-<<>>=
-attach(women)
-SST <- sum((weight - mean(weight))^2)
-SSR <- sum((fitted(fit) - mean(weight))^2)
-SSE <- sum((weight - fitted(fit))^2)
-all.equal(SST, SSR + SSE)
-all.equal(summary(fit)$r.squared, SSR/SST)
-@
-    \end{enumerate}
-  \end{sol}
-\end{exercice}
-
-\begin{exercice}
-  Dans le contexte de la régression linéaire simple, démontrer que
-  \begin{displaymath}
-    \sum_{i=1}^n (\hat{Y}_i - \bar{Y}) \varepsilon_i = 0.
-  \end{displaymath}
-  \begin{sol}
-    Puisque $\hat{Y}_i = (\bar{Y} - \hat{\beta}_1 \bar{x}) +
-    \hat{\beta}_1 x_i = \bar{Y} + \hat{\beta}_1 (x_i - \bar{x})$ et
-    que $\varepsilon_i = Y_i - \hat{Y}_i = (Y_i - \bar{Y}) - \hat{\beta}_1 (x_i
-    - \bar{x})$, alors
-    \begin{align*}
-      \sum_{i = 1}^n (\hat{Y}_i - \bar{Y}) \varepsilon_i
-      &= \hat{\beta}_1
-      \left(
-        \sum_{i=1}^n (x_i - \bar{x})(Y_i - \bar{Y}) -
-        \hat{\beta}_1 \sum_{i = 1}^n (x_i - \bar{x})^2
-      \right) \\
-      & = \hat{\beta}_1
-      \left(
-        S_{xy} - \frac{S_{xy}}{S_{xx}}\, S_{xx}
-      \right) \\
-      & = 0.
-    \end{align*}
-  \end{sol}
-\end{exercice}
-
-\begin{exercice}
   Considérer le modèle de régression linéaire par rapport au temps
-  $Y_t = \beta_0 + \beta_1 t + \varepsilon_t$, $t = 1, \dots, n$. Écrire
-  les équations normales et obtenir les estimateurs des moindres
+  $Y_t = \beta_0 + \beta_1 t + \varepsilon_t$, pour $t = 1, \dots, n$. Écrire
+  les équations de score et obtenir les estimateurs des moindres
   carrés des paramètres $\beta_0$ et $\beta_1$. \emph{Note}:
   $\sum_{i=1}^n i^2 = n(n + 1)(2n + 1)/6$.
   \begin{rep}
-    $\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 (n + 1)/2$,
-    $\hat{\beta}_1 = (12 \sum_{t = 0}^n t Y_t - 6 n (n + 1)
-    \bar{Y})/(n (n^2 - 1)$
+    $\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 (n + 1)/2$, et 
+    $\hat{\beta}_1 = \{12 \sum_{t = 0}^n t Y_t - 6 n (n + 1)
+    \bar{Y}\}/\{n (n^2 - 1)\}$
   \end{rep}
   \begin{sol}
     On a un modèle de régression linéaire simple usuel avec $x_t =
@@ -424,9 +210,9 @@ all.equal(summary(fit)$r.squared, SSR/SST)
   \begin{enumerate}
   \item Trouver l'estimateur des moindres carrés du paramètre $\beta$
     dans le modèle de régression linéaire passant par l'origine $Y_i =
-    \beta x_i + \varepsilon_i$, $i = 1, \dots, n$,
-    $\esp{\varepsilon_i} = 0$, $\cov{\varepsilon_i, \varepsilon_j} =
-    \delta_{ij} \sigma^2$.
+    \beta x_i + \varepsilon_i$, $i = 1, \dots, n$, sous les postulats
+    $\esp{\varepsilon_i} = 0$, et $\cov{\varepsilon_i, \varepsilon_j} =
+    \mathbf{1}(i=j) \sigma^2$.
   \item Démontrer que l'estimateur en a) est sans biais.
   \item Calculer la variance de l'estimateur en a).
   \end{enumerate}
@@ -478,6 +264,50 @@ all.equal(summary(fit)$r.squared, SSR/SST)
       \end{align*}
     \end{enumerate}
   \end{sol}
+\end{exercice}
+
+\begin{exercice}
+On s'intéresse à l'impact du sexe sur l'espérance de vie. On connaît les durées de vie de $n_{F}=300$ femmes et $n_H=200$ hommes. On choisit d'utiliser la variable indicatrice 
+$$x_{i}=\left\{ \begin{array}{ll}
+0 & \mbox{, si \texttt{SEXE}}_i=\texttt{H}\\
+1 & \mbox{, si \texttt{SEXE}}_i=\texttt{F}\\
+\end{array}\right. .$$
+On note $\bar{Y}_F$ la moyenne des durées de vie des femmes et $\bar{Y}_H$ la moyenne des durées de vie des hommes.
+
+\begin{enumerate}
+\item Montrer que l'estimateur des moindres carrés $\hat{\beta}_1$ (lié à la variable explicative $x$) est égal à $\bar{Y}_F-\bar{Y}_H$. \emph{Indice: On peut exprimer $\bar{Y}$ en termes de $\bar{Y}_F$ et $\bar{Y}_H$.} 
+
+\item Ce résultat permet-il d'interpréter le coefficient relié à une variable catégorique binaire? Expliquer. 
+
+\item Que représente $\hat{\beta}_0$ dans ce cas? 
+
+\end{enumerate}
+\begin{sol}
+\begin{enumerate}
+\item On a $$\bar{Y}=\frac{\sum_{i=1}^{500}Y_i}{500}=\frac{300\bar{Y}_F+200\bar{Y}_H}{500}.$$ Aussi,
+$$\hat{\beta}_1=\frac{S_{xy}}{S_{xx}}=\frac{\sum_{i=1}^{500}x_iY_i-500\bar{x}\bar{Y}}{\sum_{i=1}^{500}x_i^2-500\bar{x}^2}.$$  Or, 
+\begin{align*}
+\bar{x}&=\frac{\sum_{i=1}^{500}x_i}{500}=\frac{300}{500},\\
+\sum_{i=1}^{500}x_i^2&=300,\\
+\sum_{i=1}^{500}x_i Y_i&=300\bar{Y}_F
+\end{align*}
+Donc, 
+\begin{align*}
+\hat{\beta}_1&=\frac{300\bar{Y}_F-500\times\frac{300}{500}\times\frac{300\bar{Y}_F+200\bar{Y}_H}{500}}{300-500\left(\frac{300}{500}\right)^2}\\
+&=\frac{500\bar{Y}_F-300\bar{Y}_F-200\bar{Y}_H}{500-300}\\
+&=\bar{Y}_F-\bar{Y}_H.
+\end{align*}
+
+\item Oui, le coefficient relié à la variable indicatrice qui vaut 1 si le sexe est F représente la différence etre la moyenne de l'espérance de vie pour les femmes et la moyenne de l'espérace de vie pour les hommes.
+
+\item
+\begin{align*}
+\hat{\beta}_0&=\bar{Y}-\hat{\beta}_1\bar{x}=\bar{Y}-(\bar{Y}_F-\bar{Y}_H)\frac{300}{500}=\bar{Y}_H.
+\end{align*}
+$\Rightarrow \hat{\beta}_0$ est la moyenne de l'espérance de vie pour les hommes.
+
+\end{enumerate}
+\end{sol}
 \end{exercice}
 
 \begin{exercice}
@@ -559,273 +389,6 @@ all.equal(summary(fit)$r.squared, SSR/SST)
 \end{exercice}
 
 \begin{exercice}
-  Dans le contexte de la régression linéaire simple, démontrer que
-  \begin{enumerate}
-  \item $\esp{\MSE} = \sigma^2$
-  \item $\esp{\MSR} = \sigma^2 + \beta_1^2 \sum_{i=1}^n (x_i -
-    \bar{x})^2$
-  \end{enumerate}
-  \begin{sol}
-    \begin{enumerate}
-    \item Tout d'abord, puisque $\MSE = \SSE/(n - 2) = \sum_{i=1}^n
-      (Y_i - \hat{Y}_i)^2/(n - 2)$ et que $\esp{Y_i} =
-      \esp{\hat{Y}_i}$, alors
-      \begin{align*}
-        \esp{MSE}
-        &= \frac{1}{n - 2} \Esp{\sum_{i=1}^n (Y_i - \hat{Y}_i)^2} \\
-        &= \frac{1}{n - 2} \sum_{i=1}^n \esp{(Y_i - \hat{Y}_i)^2} \\
-        &= \frac{1}{n - 2} \sum_{i=1}^n \esp{((Y_i - \esp{Y_i}) -
-          (\hat{Y}_i - \esp{\hat{Y}_i}))^2} \\
-        &= \frac{1}{n - 2} \sum_{i=1}^n
-        \left(
-          \var{Y_i} + \var{\hat{Y}_i} - 2\, \cov{Y_i, \hat{Y}_i}
-        \right).
-      \end{align*}
-      Or, on a par hypothèse du modèle que $\cov{Y_i, Y_j} =
-      \cov{\varepsilon_i, \varepsilon_j} = \delta_{ij} \sigma^2$, d'où
-      $\var{Y_i} = \sigma^2$ et $\var{\bar{Y}} = \sigma^2/n$. D'autre
-      part,
-      \begin{align*}
-        \var{\hat{Y}_i}
-        &= \var{\bar{Y} + \hat{\beta}_1 (x_i - \bar{x})} \\
-        &= \var{\bar{Y}} + (x_i - \bar{x})^2 \var{\hat{\beta}_1} +
-        2 (x_i - \bar{x}) \cov{\bar{Y}, \hat{\beta}_1}
-      \end{align*}
-      et l'on sait que
-      \begin{align*}
-        \var{\hat{\beta}_1}
-        &= \frac{\sigma^2}{\sum_{i=1}^n(x_i-\bar{x})^2} \\
-        \intertext{et que}
-        \cov{\bar{Y}, \hat{\beta}_1}
-        & = \Cov{
-          \frac{\sum_{i = 1}^n Y_i}{n},
-          \frac{\sum_{j = 1}^n (x_j - \bar{x}) Y_j}{\sum_{j = 1}^n
-            (x_j - \bar{x})^2}} \\
-        &= \frac{1}{n \sum_{j = 1}^n (x_j - \bar{x})^2}
-        \sum_{i = 1}^n \sum_{j = 1}^n \cov{Y_i, (x_j - \bar{x}) Y_j} \\
-        &= \frac{1}{n \sum_{j = 1}^n (x_j - \bar{x})^2}
-        \sum_{i = 1}^n (x_j - \bar{x}) \var{Y_i} \\
-        & = \frac{\sigma^2}{n \sum_{j = 1}^n (x_j - \bar{x})^2}
-        \sum_{i = 1}^n (x_i - \bar{x}) \\
-        & = 0,
-      \end{align*}
-      puisque $\sum_{i=1}^n(x_i - \bar{x}) = 0$. Ainsi,
-      \begin{displaymath}
-        \var{\hat{Y}_i} = \frac{\sigma^2}{n} +
-        \frac{(x_i - \bar{x})^2 \sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2}.
-      \end{displaymath}
-      De manière similaire, on détermine que
-      \begin{align*}
-        \cov{Y_i, \hat{Y}_i}
-        &= \cov{Y_i, \bar{Y} + \hat{\beta}_1 (x_i - \bar{x})} \\
-        &= \cov{Y_i, \bar{Y}} +
-        (x_i - \bar{x}) \cov{Y_i, \hat{\beta}_1} \\
-        &= \frac{\sigma^2}{n} + \frac{(x_i -
-          \bar{x})^2 \sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2}.
-      \end{align*}
-      Par conséquent,
-      \begin{align*}
-        \esp{(Y_i - \hat{Y}_i)^2}
-        &= \frac{n - 1}{n}\, \sigma^2 -
-        \frac{(x_i - \bar{x})^2 \sigma^2}{\sum_{i = 1}^n (x_i - \bar{x})^2} \\
-        \intertext{et}
-        \sum_{i=1}^n \esp{(Y_i - \hat{Y}_i)^2}
-        & = (n - 2) \sigma^2,
-      \end{align*}
-      d'où $\esp{\MSE} = \sigma^2$.
-    \item On a
-      \begin{align*}
-        \esp{\MSR}
-        &= \esp{\SSR} \\
-        &= \Esp{\sum_{i=1}^n (\hat{Y}_i - \bar{Y})^2} \\
-        &= \sum_{i=1}^n \esp{\hat{\beta}_1^2 (x_i - \bar{x})^2} \\
-        &= \sum_{i=1}^n (x_i - \bar{x})^2 \esp{\hat{\beta}_1^2} \\
-        &= \sum_{i=1}^n (x_i - \bar{x})^2 (\var{\hat{\beta}_1} +
-        \esp{\hat{\beta}_1}^2) \\
-        &= \sum_{i=1}^n (x_i - \bar{x})^2
-        \left(
-          \frac{\sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2} + \beta_1^2
-        \right) \\
-        &= \sigma^2 + \beta_1^2 \sum_{i=1}^n (x_i - \bar{x})^2.
-      \end{align*}
-    \end{enumerate}
-  \end{sol}
-\end{exercice}
-
-\begin{exercice}
-  Supposons que les observations $(x_1, Y_1), \dots, (x_n, Y_n)$
-  sont soumises à une transformation linéaire, c'est-à-dire que $Y_i$
-  devient $Y_i^\prime = a + b Y_i$ et que $x_i$ devient $x_i^\prime =
-  c + d x_i$, $i = 1, \dots, n$.
-  \begin{enumerate}
-  \item Trouver quel sera l'impact sur les estimateurs des moindres
-    carrés des paramètres $\beta_0$ et $\beta_1$ dans le modèle de
-    régression linéaire $Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$.
-  \item Démontrer que le coefficient de détermination $R^2$ n'est pas
-    affecté par la transformation linéaire.
-  \end{enumerate}
-  \begin{rep}
-    \begin{enumerate}
-    \item $\hat{\beta}_1^\prime = (b/d) \hat{\beta}_1$
-    \end{enumerate}
-  \end{rep}
-  \begin{sol}
-    \begin{enumerate}
-    \item Il faut exprimer $\hat{\beta}_0^\prime$ et
-      $\hat{\beta}_1^\prime$ en fonction de $\hat{\beta}_0$ et
-      $\hat{\beta}_1$. Pour ce faire, on trouve d'abord une expression
-      pour chacun des éléments qui entrent dans la définition de
-      $\hat{\beta}_1^\prime$. Tout d'abord,
-      \begin{align*}
-        \bar{x}^\prime
-        &= \frac{1}{n} \sum_{i=1}^n x_i^\prime \\
-        &= \frac{1}{n} \sum_{i=1}^n (c + d x_i) \\
-        &= c + d \bar{x},
-      \end{align*}
-      et, de manière similaire, $\bar{Y}^\prime = a + b \bar{Y}$. Ensuite,
-      \begin{align*}
-        S_{xx}^\prime
-        &= \sum_{i=1}^n (x_i^\prime - \bar{x}^\prime)^2 \\
-        &= \sum_{i=1}^n (c + d x_i - c - d \bar{x})^2 \\
-        &= d^2 S_{xx}
-      \end{align*}
-      et $S_{yy}^\prime = b^2 S_{yy}$, $S_{xy}^\prime = bd S_{xy}$.
-      Par conséquent,
-      \begin{align*}
-        \hat{\beta}_1^\prime
-        &= \frac{S_{xy}^\prime}{S_{xx}^\prime} \\
-        &= \frac{bd S_{xy}}{d^2 S_{xx}} \\
-        &= \frac{b}{d}\, \hat{\beta}_1 \\
-        \intertext{et}
-        \hat{\beta}_0^\prime
-        &= \bar{Y}^\prime - \hat{\beta}_1^\prime \bar{x}^\prime \\
-        &= a + b \bar{Y} - \frac{b}{d}\, \hat{\beta}_1 (c + d \bar{x}) \\
-        &= a - \frac{bc}{d}\, \hat{\beta}_1 + b (\bar{Y} -
-        \hat{\beta}_1 \bar{x}) \\
-        &= a - \frac{bc}{d}\, \hat{\beta}_1 + b \hat{\beta}_0.
-      \end{align*}
-    \item Tout d'abord, on établit que
-      \begin{align*}
-        R^2
-        &= \frac{\SSR}{\SST} \\
-        &= \frac{\sum_{i=1}^n (\hat{Y_i} - \bar{Y})^2}{\sum_{i=1}^n
-          (Y_i - \bar{Y})^2} \\
-        &= \hat{\beta}_1^2\, \frac{\sum_{i=1}^n (x_i -
-          \bar{x})^2}{\sum_{i=1}^n (Y_i - \bar{Y})^2} \\
-        &= \hat{\beta}_1^2\, \frac{S_{xx}}{S_{yy}}.
-      \end{align*}
-      Maintenant, avec les résultats obtenus en a), on démontre
-      directement que
-      \begin{align*}
-        (R^2)^\prime
-        &= (\hat{\beta}_1^\prime)^2 \frac{S_{xx}^\prime}{S_{yy}^\prime} \\
-        &=
-        \left(
-          \frac{b}{d}
-        \right)^2\,
-        \hat{\beta}_1^2\, \frac{d^2 S_{xx}}{b^2 S_{yy}} \\
-        &= \hat{\beta}_1^2\, \frac{S_{xx}}{S_{yy}} \\
-        &= R^2.
-      \end{align*}
-    \end{enumerate}
-  \end{sol}
-\end{exercice}
-
-\begin{exercice}
-  On sait depuis l'exercice \ref{chap:simple}.\ref{ex:simple:origine}
-  que pour le modèle de régression linéaire simple passant par
-  l'origine $Y_i = \beta x_i + \varepsilon_i$, l'estimateur des
-  moindres carrés de $\beta$ est
-  \begin{displaymath}
-    \hat{\beta} = \frac{\sum_{i = 1}^n x_i Y_i}{\sum_{i = 1}^n x_i^2}.
-  \end{displaymath}
-  Démontrer que l'on peut obtenir ce résultat en utilisant la formule
-  pour $\hat{\beta}_1$ dans la régression linéaire simple usuelle
-  ($Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$) en ayant d'abord
-  soin d'ajouter aux données un $(n + 1)${\ieme} point $(m\bar{x},
-  m\bar{Y})$, où
-  \begin{displaymath}
-    m = \frac{n}{\sqrt{n + 1} - 1} = \frac{n}{a}.
-  \end{displaymath}
-  \begin{sol}
-    Considérons un modèle de régression usuel avec l'ensemble de
-    données $(x_1, Y_1), \dots, (x_n, Y_n), (m \bar{x}, m \bar{Y})$,
-    où $\bar{x} = n^{-1} \sum_{i = 1}^n x_i$, $\bar{Y} = n^{-1}
-    \sum_{i = 1}^n Y_i$, $m = n/a$ et $a = \sqrt{n + 1} - 1$. On
-    définit
-    \begin{align*}
-      \bar{x}^\prime
-      &= \frac{1}{n + 1} \sum_{i = 1}^{n + 1} x_i \\
-      &= \frac{1}{n + 1} \sum_{i = 1}^n x_i + \frac{m}{n + 1} \bar{x} \\
-      &= k \bar{x} \\
-      \intertext{et, de manière similaire,}
-      \bar{Y}^\prime
-      &= k \bar{Y},
-      \intertext{où}
-      k
-      &= \frac{n + m}{n + 1} \\
-      &= \frac{n (a + 1)}{a (n + 1)}.
-    \end{align*}
-    L'expression pour l'estimateur des moindres carrés de la pente de
-    la droite de régression pour cet ensemble de données est
-    \begin{align*}
-      \hat{\beta}_1
-      &= \frac{\sum_{i = 1}^{n + 1} x_i Y_i - (n + 1)
-        \bar{x}^\prime \bar{Y}^\prime}{%
-        \sum_{i = 1}^{n + 1} x_i^2 - (n + 1) (\bar{x}^\prime)^2} \\
-      &= \frac{\sum_{i = 1}^n x_i Y_i + m^2 \bar{x} \bar{Y} - (n + 1)
-        k^2 \bar{x} \bar{Y}}{%
-        \sum_{i = 1}^n x_i^2 + m^2 \bar{x}^2 - (n + 1) k^2 \bar{x}^2}.
-    \end{align*}
-    Or,
-    \begin{align*}
-      m^2 - k^2 (n + 1)
-      &= \frac{n^2}{a^2} - \frac{n^2 (a + 1)^2}{a^2 (n + 1)} \\
-      &= \frac{n^2 (n + 1) - n^2 (n + 1)}{a^2 (n + 1)} \\
-      &= 0.
-    \end{align*}
-    Par conséquent,
-    \begin{align*}
-      \hat{\beta}_1
-      &= \frac{\sum_{i = 1}^n x_i Y_i}{\sum_{i = 1}^n x_i^2} \\
-      &= \hat{\beta}.
-    \end{align*}
-    Interprétation: en ajoutant un point bien spécifique à n'importe
-    quel ensemble de données, on peut s'assurer que la pente de la
-    droite de régression sera la même que celle d'un modèle passant
-    par l'origine. Voir la figure \ref{fig:simple:pointmagique} pour
-    une illustration du phénomène.
-<<echo=FALSE>>=
-data(anscombe)
-x <- anscombe$x1
-y <- anscombe$y1 + 10
-n <- length(x)
-m <- n/(sqrt(n + 1) - 1)
-xp <- c(x, m * mean(x))
-yp <- c(y, m * mean(y))
-@
-    \begin{figure}
-<<simple-pointmagique,echo=FALSE>>=
-plot(y ~ x, xlim = c(0, max(xp)), ylim = c(0, max(yp)))
-abline(lm(y ~ x), lwd = 2)
-plot(yp ~ xp, xlim = c(0, max(xp)), ylim = c(0, max(yp)),
-     pch = c(rep(1, n), 16))
-abline(lm(yp ~ xp), lwd = 2)
-abline(lm(y ~ -1 + x), lty = 2, lwd = 2)
-@
-      \caption{Illustration de l'effet de l'ajout d'un point spécial à
-        un ensemble de données. À gauche, la droite de régression
-        usuelle. À droite, le même ensemble de points avec le point
-        spécial ajouté (cercle plein), la droite de régression avec ce
-        nouveau point (ligne pleine) et la droite de régression
-        passant par l'origine (ligne pointillée). Les deux droites
-        sont parallèles.}
-      \label{fig:simple:pointmagique}
-    \end{figure}
-  \end{sol}
-\end{exercice}
-
-\begin{exercice}
   Soit le modèle de régression linéaire simple
   \begin{displaymath}
     Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i, \quad
@@ -835,7 +398,7 @@ abline(lm(y ~ -1 + x), lty = 2, lwd = 2)
   paramètre $\beta_1$ si la variance $\sigma^2$ est connue.
   \begin{rep}
     $\beta_1 \in \hat{\beta}_1 \pm z_{\alpha/2} \sigma
-    \left( \sum_{i=1}^n (x_i - \bar{x})^2 \right)^{-1/2}$
+    \left\{ \sum_{i=1}^n (x_i - \bar{x})^2 \right\}^{-1/2}$
   \end{rep}
   \begin{sol}
     Puisque, selon le modèle, $\varepsilon_i \sim N(0, \sigma^2)$ et
@@ -886,7 +449,7 @@ abline(lm(y ~ -1 + x), lty = 2, lwd = 2)
     \hat{\beta}_1 &= -1,104 &
       \sum_{i=1}^{20} (Y_i - \bar{Y})^2 &= \nombre{20838} \\
     \sum_{i=1}^{20} x_i^2 &= \nombre{90048} &
-      \sum_{i=1}^{20} \varepsilon_i^2 &= \nombre{7832}. \\
+      \sum_{i=1}^{20} \hat{\varepsilon}_i^2 &= \nombre{7832}. \\
     \sum_{i=1}^{20} Y_i^2 &= \nombre{116058}
   \end{align*}
   Trouver le plus petit intervalle de confiance à 95~\% pour le
@@ -926,176 +489,6 @@ abline(lm(y ~ -1 + x), lty = 2, lwd = 2)
        &\in -1,104 \pm 2,101 \sqrt{\frac{435,315}{\nombre{10668}}} \\
        &\in (-1,528, -0,680).
      \end{align*}
-  \end{sol}
-\end{exercice}
-
-\begin{exercice}
-  Le tableau ci-dessous présente les résultats de l'effet de la
-  température sur le rendement d'un procédé chimique.
-  \begin{center}
-    \begin{tabular}{rr}
-      \toprule
-      $x$ & $Y$ \\
-      \midrule
-      $-5$ &  1 \\
-      $-4$ &  5 \\
-      $-3$ &  4 \\
-      $-2$ &  7 \\
-      $-1$ & 10 \\
-        0  &  8 \\
-        1  &  9 \\
-        2  & 13 \\
-        3  & 14 \\
-        4  & 13 \\
-        5  & 18 \\
-      \bottomrule
-    \end{tabular}
-  \end{center}
-  \begin{enumerate}
-  \item On suppose une relation linéaire simple entre la température
-    et le rendement. Calculer les estimateurs des moindres carrés de
-    l'ordonnée à l'origine et de la pente de cette relation.
-  \item Établir le tableau d'analyse de variance et tester si la pente
-    est significativement différente de zéro avec un niveau de
-    confiance de \nombre{0,95}.
-  \item Quelles sont les limites de l'intervalle de confiance à 95~\%
-    pour la pente?
-  \item Y a-t-il quelque indication qu'un meilleur modèle devrait être
-    employé?
-  \end{enumerate}
-  \begin{rep}
-    \begin{inparaenum}
-    \item $\hat{\beta}_0 = 9,273$, $\hat{\beta}_1 = 1,436$
-    \item $t = 9,809$
-    \item $(1,105, 1,768)$
-    \end{inparaenum}
-  \end{rep}
-  \begin{sol}
-    \begin{enumerate}
-    \item On trouve aisément les estimateurs de la pente et de
-      l'ordonnée à l'origine de la droite de régression:
-      \begin{align*}
-        \hat{\beta}_1
-        &= \frac{\sum_{i=1}^n x_i Y_i - n \bar{x}\bar{Y}}{%
-          \sum_{i=1}^n x_i^2 - n \bar{x}^2} \\
-        &= 1,436 \\
-        \hat{\beta}_0
-        &= \bar{Y} - \hat{\beta}_1 \bar{x} \\
-        &= 9,273.
-      \end{align*}
-    \item Les sommes de carrés sont
-      \begin{align*}
-        \SST
-        &= \sum_{i=1}^n Y_i^2 - n \bar{Y}^2 \\
-        &= 1194 - 11 (9,273)^2 \\
-        &= 248,18 \\
-        \SSR
-        &= \hat{\beta}_1^2
-        \left(
-          \sum_{i=1}^n x_i^2 - n \bar{x}^2
-        \right) \\
-        &= (1,436)^2 (110 - 11 (0)) \\
-        &= 226,95
-      \end{align*}
-      et $\SSE = \SST - \SSR = 21,23$. Le tableau d'analyse de
-      variance est donc le suivant:
-
-      \begin{center}
-        \begin{tabular}{lrrrc}
-          \toprule
-          Source
-          & \multicolumn{1}{c}{SS}
-          & \multicolumn{1}{c}{d.l.}
-          & \multicolumn{1}{c}{MS}
-          & Ratio F \\
-          \midrule
-          Régression & 226,95 &   1  & 226,95 & 96,21 \\
-          Erreur     &  21,23 &   9  &   2,36 &  \\
-          \midrule
-          Total      & 248,18 &  10  &        & \\
-          \bottomrule
-        \end{tabular}
-      \end{center}
-
-      Or, puisque $t = \sqrt{F} = 9,809 > t_{\alpha/2}(n-2) =
-      t_{0,025}(9) = 2,26$, on rejette l'hypothèse $H_0: \beta_1 =
-      0$ soit, autrement dit, la pente est significativement
-      différente de zéro.
-    \item Puisque la variance $\sigma^2$ est inconnue, on l'estime par
-      $s^2 = \MSE = 2,36$. On a alors
-      \begin{align*}
-        \beta_1
-        &\in \hat{\beta}_1 \pm t_{\alpha/2}(n-2)
-        \sqrt{\widehat{\mathrm{Var}}[\hat{\beta}_1]} \\
-        &\in 1,436 \pm 2,26 \sqrt{\frac{2,36}{110}} \\
-        &\in (1,105, 1,768).
-      \end{align*}
-    \item Le coefficient de détermination de la régression est $R^2 =
-      \SSR/\SST = 226,95/248,18 = 0,914$, ce qui indique que
-      l'ajustement du modèle aux données est très bon. En outre, suite
-      au test effectué à la partie b), on conclut que la régression
-      est globalement significative.  Toutes ces informations portent
-      à conclure qu'il n'y a pas lieu d'utiliser un autre modèle.
-    \end{enumerate}
-  \end{sol}
-\end{exercice}
-
-\begin{exercice}
-  Y a-t-il une relation entre l'espérance de vie et la longueur de la
-  «ligne de vie» dans la main? Dans un article de 1974 publié dans le
-  \emph{Journal of the American Medical Association}, Mather et Wilson
-  dévoilent les 50 observations contenues dans le fichier
-  \texttt{lifeline.dat}. À la lumière de ces données, y a-t-il, selon
-  vous, une relation entre la «ligne de vie» et l'espérance de vie?
-  Vous pouvez utiliser l'information partielle suivante:
-  \begin{align*}
-    \sum_{i=1}^{50} x_i &= \nombre{3333} &
-    \sum_{i=1}^{50} x_i^2 &= \nombre{231933} &
-    \sum_{i=1}^{50} x_i Y_i &= \nombre{30549,75} \\
-    \sum_{i=1}^{50} Y_i &= \nombre{459,9} &
-    \sum_{i=1}^{50} Y_i^2 &= \nombre{4308,57}.
-  \end{align*}
-  \begin{rep}
-    $F = 0,73$, valeur $p$: $0,397$
-  \end{rep}
-  \begin{sol}
-    On doit déterminer si la régression est significative, ce qui peut
-    se faire à l'aide de la statistique $F$. Or, à partir de
-    l'information donnée dans l'énoncé, on peut calculer
-    \begin{align*}
-      \hat{\beta}_1
-      &= \frac{\sum_{i=1}^{50} x_i Y_i - 50 \bar{x} \bar{Y}}{%
-        \sum_{i=1}^{50} x_i^2 - 50 \bar{x})^2} \\
-      &= -0,0110 \\
-      \SST
-      &= \sum_{i=1}^{50} Y_i^2 - 50 \bar{Y}^2 \\
-      &= 78,4098 \\
-      \SSR
-      &= \hat{\beta}_1^2 \sum_{i=1}^{50} (x_i - \bar{x})^2 \\
-      &= 1,1804 \\
-      \SSE
-      &= \SST - \SSR \\
-      &= 77,2294 \\
-      \intertext{d'où}
-      \MSR
-      &= 1,1804 \\
-      \MSE
-      &= \frac{\SSE}{50 - 2} \\
-      &= 1,6089 \\
-      \intertext{et, enfin,}
-      F
-      &= \frac{\MSR}{\MSE} \\
-      &= 0,7337.
-    \end{align*}
-    Soit $F$ une variable aléatoire ayant une distribution de Fisher
-    avec 1 et 48 degrés de liberté, soit la même distribution que la
-    statistique $F$ sous l'hypothèse $H_0: \beta_1 = 0$. On a que
-    $\Pr[F > 0,7337] = 0,3959$, donc la valeur $p$ du test $H_0:
-    \beta_1 = 0$ est $0,3959$. Une telle valeur $p$ est généralement
-    considérée trop élevée pour rejeter l'hypothèse $H_0$. On ne peut
-    donc considérer la relation entre la ligne de vie et l'espérance
-    de vie comme significative. (Ou on ne la considère significative
-    qu'avec un niveau de confiance de $1 - p = 60,41$~\%.)
   \end{sol}
 \end{exercice}
 
@@ -1297,6 +690,710 @@ abline(lm(y ~ -1 + x), lty = 2, lwd = 2)
     \end{enumerate}
   \end{sol}
 \end{exercice}
+
+
+\begin{exercice}
+  Dans le contexte de la régression linéaire simple, démontrer que
+  \begin{enumerate}
+  \item $\esp{\MSE} = \sigma^2$
+  \item $\esp{\MSR} = \sigma^2 + \beta_1^2 \sum_{i=1}^n (x_i -
+    \bar{x})^2$
+  \end{enumerate}
+  \begin{sol}
+    \begin{enumerate}
+    \item Tout d'abord, puisque $\MSE = \SSE/(n - 2) = \sum_{i=1}^n
+      (Y_i - \hat{Y}_i)^2/(n - 2)$ et que $\esp{Y_i} =
+      \esp{\hat{Y}_i}$, alors
+      \begin{align*}
+        \esp{MSE}
+        &= \frac{1}{n - 2} \Esp{\sum_{i=1}^n (Y_i - \hat{Y}_i)^2} \\
+        &= \frac{1}{n - 2} \sum_{i=1}^n \esp{(Y_i - \hat{Y}_i)^2} \\
+        &= \frac{1}{n - 2} \sum_{i=1}^n \esp{((Y_i - \esp{Y_i}) -
+          (\hat{Y}_i - \esp{\hat{Y}_i}))^2} \\
+        &= \frac{1}{n - 2} \sum_{i=1}^n
+        \left(
+          \var{Y_i} + \var{\hat{Y}_i} - 2\, \cov{Y_i, \hat{Y}_i}
+        \right).
+      \end{align*}
+      Or, on a par hypothèse du modèle que $\cov{Y_i, Y_j} =
+      \cov{\varepsilon_i, \varepsilon_j} = \delta_{ij} \sigma^2$, d'où
+      $\var{Y_i} = \sigma^2$ et $\var{\bar{Y}} = \sigma^2/n$. D'autre
+      part,
+      \begin{align*}
+        \var{\hat{Y}_i}
+        &= \var{\bar{Y} + \hat{\beta}_1 (x_i - \bar{x})} \\
+        &= \var{\bar{Y}} + (x_i - \bar{x})^2 \var{\hat{\beta}_1} +
+        2 (x_i - \bar{x}) \cov{\bar{Y}, \hat{\beta}_1}
+      \end{align*}
+      et l'on sait que
+      \begin{align*}
+        \var{\hat{\beta}_1}
+        &= \frac{\sigma^2}{\sum_{i=1}^n(x_i-\bar{x})^2} \\
+        \intertext{et que}
+        \cov{\bar{Y}, \hat{\beta}_1}
+        & = \Cov{
+          \frac{\sum_{i = 1}^n Y_i}{n},
+          \frac{\sum_{j = 1}^n (x_j - \bar{x}) Y_j}{\sum_{j = 1}^n
+            (x_j - \bar{x})^2}} \\
+        &= \frac{1}{n \sum_{j = 1}^n (x_j - \bar{x})^2}
+        \sum_{i = 1}^n \sum_{j = 1}^n \cov{Y_i, (x_j - \bar{x}) Y_j} \\
+        &= \frac{1}{n \sum_{j = 1}^n (x_j - \bar{x})^2}
+        \sum_{i = 1}^n (x_j - \bar{x}) \var{Y_i} \\
+        & = \frac{\sigma^2}{n \sum_{j = 1}^n (x_j - \bar{x})^2}
+        \sum_{i = 1}^n (x_i - \bar{x}) \\
+        & = 0,
+      \end{align*}
+      puisque $\sum_{i=1}^n(x_i - \bar{x}) = 0$. Ainsi,
+      \begin{displaymath}
+        \var{\hat{Y}_i} = \frac{\sigma^2}{n} +
+        \frac{(x_i - \bar{x})^2 \sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2}.
+      \end{displaymath}
+      De manière similaire, on détermine que
+      \begin{align*}
+        \cov{Y_i, \hat{Y}_i}
+        &= \cov{Y_i, \bar{Y} + \hat{\beta}_1 (x_i - \bar{x})} \\
+        &= \cov{Y_i, \bar{Y}} +
+        (x_i - \bar{x}) \cov{Y_i, \hat{\beta}_1} \\
+        &= \frac{\sigma^2}{n} + \frac{(x_i -
+          \bar{x})^2 \sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2}.
+      \end{align*}
+      Par conséquent,
+      \begin{align*}
+        \esp{(Y_i - \hat{Y}_i)^2}
+        &= \frac{n - 1}{n}\, \sigma^2 -
+        \frac{(x_i - \bar{x})^2 \sigma^2}{\sum_{i = 1}^n (x_i - \bar{x})^2} \\
+        \intertext{et}
+        \sum_{i=1}^n \esp{(Y_i - \hat{Y}_i)^2}
+        & = (n - 2) \sigma^2,
+      \end{align*}
+      d'où $\esp{\MSE} = \sigma^2$.
+    \item On a
+      \begin{align*}
+        \esp{\MSR}
+        &= \esp{\SSR} \\
+        &= \Esp{\sum_{i=1}^n (\hat{Y}_i - \bar{Y})^2} \\
+        &= \sum_{i=1}^n \esp{\hat{\beta}_1^2 (x_i - \bar{x})^2} \\
+        &= \sum_{i=1}^n (x_i - \bar{x})^2 \esp{\hat{\beta}_1^2} \\
+        &= \sum_{i=1}^n (x_i - \bar{x})^2 (\var{\hat{\beta}_1} +
+        \esp{\hat{\beta}_1}^2) \\
+        &= \sum_{i=1}^n (x_i - \bar{x})^2
+        \left(
+          \frac{\sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2} + \beta_1^2
+        \right) \\
+        &= \sigma^2 + \beta_1^2 \sum_{i=1}^n (x_i - \bar{x})^2.
+      \end{align*}
+    \end{enumerate}
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  Le tableau ci-dessous présente les résultats de l'effet de la
+  température sur le rendement d'un procédé chimique.
+  \begin{center}
+    \begin{tabular}{rr}
+      \toprule
+      $x$ & $Y$ \\
+      \midrule
+      $-5$ &  1 \\
+      $-4$ &  5 \\
+      $-3$ &  4 \\
+      $-2$ &  7 \\
+      $-1$ & 10 \\
+        0  &  8 \\
+        1  &  9 \\
+        2  & 13 \\
+        3  & 14 \\
+        4  & 13 \\
+        5  & 18 \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+  \begin{enumerate}
+  \item On suppose une relation linéaire simple entre la température
+    et le rendement. Calculer les estimateurs des moindres carrés de
+    l'ordonnée à l'origine et de la pente de cette relation.
+  \item Établir le tableau d'analyse de variance et tester si la pente
+    est significativement différente de zéro avec un niveau de
+    confiance de \nombre{0,95}.
+  \item Quelles sont les limites de l'intervalle de confiance à 95~\%
+    pour la pente?
+  \item Y a-t-il quelque indication qu'un meilleur modèle devrait être
+    employé?
+  \end{enumerate}
+  \begin{rep}
+    \begin{inparaenum}
+    \item $\hat{\beta}_0 = 9,273$, $\hat{\beta}_1 = 1,436$
+    \item $t = 9,809$
+    \item $(1,105, 1,768)$
+    \end{inparaenum}
+  \end{rep}
+  \begin{sol}
+    \begin{enumerate}
+    \item On trouve aisément les estimateurs de la pente et de
+      l'ordonnée à l'origine de la droite de régression:
+      \begin{align*}
+        \hat{\beta}_1
+        &= \frac{\sum_{i=1}^n x_i Y_i - n \bar{x}\bar{Y}}{%
+          \sum_{i=1}^n x_i^2 - n \bar{x}^2} \\
+        &= 1,436 \\
+        \hat{\beta}_0
+        &= \bar{Y} - \hat{\beta}_1 \bar{x} \\
+        &= 9,273.
+      \end{align*}
+    \item Les sommes de carrés sont
+      \begin{align*}
+        \SST
+        &= \sum_{i=1}^n Y_i^2 - n \bar{Y}^2 \\
+        &= 1194 - 11 (9,273)^2 \\
+        &= 248,18 \\
+        \SSR
+        &= \hat{\beta}_1^2
+        \left(
+          \sum_{i=1}^n x_i^2 - n \bar{x}^2
+        \right) \\
+        &= (1,436)^2 (110 - 11 (0)) \\
+        &= 226,95
+      \end{align*}
+      et $\SSE = \SST - \SSR = 21,23$. Le tableau d'analyse de
+      variance est donc le suivant:
+
+      \begin{center}
+        \begin{tabular}{lrrrc}
+          \toprule
+          Source
+          & \multicolumn{1}{c}{SS}
+          & \multicolumn{1}{c}{d.l.}
+          & \multicolumn{1}{c}{MS}
+          & Ratio F \\
+          \midrule
+          Régression & 226,95 &   1  & 226,95 & 96,21 \\
+          Erreur     &  21,23 &   9  &   2,36 &  \\
+          \midrule
+          Total      & 248,18 &  10  &        & \\
+          \bottomrule
+        \end{tabular}
+      \end{center}
+
+      Or, puisque $t = \sqrt{F} = 9,809 > t_{\alpha/2}(n-2) =
+      t_{0,025}(9) = 2,26$, on rejette l'hypothèse $H_0: \beta_1 =
+      0$ soit, autrement dit, la pente est significativement
+      différente de zéro.
+    \item Puisque la variance $\sigma^2$ est inconnue, on l'estime par
+      $s^2 = \MSE = 2,36$. On a alors
+      \begin{align*}
+        \beta_1
+        &\in \hat{\beta}_1 \pm t_{\alpha/2}(n-2)
+        \sqrt{\widehat{\mathrm{Var}}[\hat{\beta}_1]} \\
+        &\in 1,436 \pm 2,26 \sqrt{\frac{2,36}{110}} \\
+        &\in (1,105, 1,768).
+      \end{align*}
+    \item Le coefficient de détermination de la régression est $R^2 =
+      \SSR/\SST = 226,95/248,18 = 0,914$, ce qui indique que
+      l'ajustement du modèle aux données est très bon. En outre, suite
+      au test effectué à la partie b), on conclut que la régression
+      est globalement significative.  Toutes ces informations portent
+      à conclure qu'il n'y a pas lieu d'utiliser un autre modèle.
+    \end{enumerate}
+  \end{sol}
+\end{exercice}
+
+
+
+\begin{exercice}
+  Y a-t-il une relation entre l'espérance de vie et la longueur de la
+  «ligne de vie» dans la main? Dans un article de 1974 publié dans le
+  \emph{Journal of the American Medical Association}, Mather et Wilson
+  dévoilent les 50 observations contenues dans le fichier
+  \texttt{lifeline.dat}. À la lumière de ces données, y a-t-il, selon
+  vous, une relation entre la «ligne de vie» et l'espérance de vie?
+  Vous pouvez utiliser l'information partielle suivante:
+  \begin{align*}
+    \sum_{i=1}^{50} x_i &= \nombre{3333} &
+    \sum_{i=1}^{50} x_i^2 &= \nombre{231933} &
+    \sum_{i=1}^{50} x_i Y_i &= \nombre{30549,75} \\
+    \sum_{i=1}^{50} Y_i &= \nombre{459,9} &
+    \sum_{i=1}^{50} Y_i^2 &= \nombre{4308,57}.
+  \end{align*}
+  \begin{rep}
+    $F = 0,73$, valeur $p$: $0,397$
+  \end{rep}
+  \begin{sol}
+    On doit déterminer si la régression est significative, ce qui peut
+    se faire à l'aide de la statistique $F$. Or, à partir de
+    l'information donnée dans l'énoncé, on peut calculer
+    \begin{align*}
+      \hat{\beta}_1
+      &= \frac{\sum_{i=1}^{50} x_i Y_i - 50 \bar{x} \bar{Y}}{%
+        \sum_{i=1}^{50} x_i^2 - 50 \bar{x})^2} \\
+      &= -0,0110 \\
+      \SST
+      &= \sum_{i=1}^{50} Y_i^2 - 50 \bar{Y}^2 \\
+      &= 78,4098 \\
+      \SSR
+      &= \hat{\beta}_1^2 \sum_{i=1}^{50} (x_i - \bar{x})^2 \\
+      &= 1,1804 \\
+      \SSE
+      &= \SST - \SSR \\
+      &= 77,2294 \\
+      \intertext{d'où}
+      \MSR
+      &= 1,1804 \\
+      \MSE
+      &= \frac{\SSE}{50 - 2} \\
+      &= 1,6089 \\
+      \intertext{et, enfin,}
+      F
+      &= \frac{\MSR}{\MSE} \\
+      &= 0,7337.
+    \end{align*}
+    Soit $F$ une variable aléatoire ayant une distribution de Fisher
+    avec 1 et 48 degrés de liberté, soit la même distribution que la
+    statistique $F$ sous l'hypothèse $H_0: \beta_1 = 0$. On a que
+    $\Pr[F > 0,7337] = 0,3959$, donc la valeur $p$ du test $H_0:
+    \beta_1 = 0$ est $0,3959$. Une telle valeur $p$ est généralement
+    considérée trop élevée pour rejeter l'hypothèse $H_0$. On ne peut
+    donc considérer la relation entre la ligne de vie et l'espérance
+    de vie comme significative. (Ou on ne la considère significative
+    qu'avec un niveau de confiance de $1 - p = 60,41$~\%.)
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  Dans le contexte de la régression linéaire simple, démontrer que
+  \begin{displaymath}
+    \sum_{i=1}^n (\hat{Y}_i - \bar{Y}) \hat{\varepsilon}_i = 0.
+  \end{displaymath}
+  \begin{sol}
+    Puisque $\hat{Y}_i = (\bar{Y} - \hat{\beta}_1 \bar{x}) +
+    \hat{\beta}_1 x_i = \bar{Y} + \hat{\beta}_1 (x_i - \bar{x})$ et
+    que $\hat{\varepsilon}_i = Y_i - \hat{Y}_i = (Y_i - \bar{Y}) - \hat{\beta}_1 (x_i
+    - \bar{x})$, alors
+    \begin{align*}
+      \sum_{i = 1}^n (\hat{Y}_i - \bar{Y}) \hat{\varepsilon}_i
+      &= \hat{\beta}_1
+      \left(
+        \sum_{i=1}^n (x_i - \bar{x})(Y_i - \bar{Y}) -
+        \hat{\beta}_1 \sum_{i = 1}^n (x_i - \bar{x})^2
+      \right) \\
+      & = \hat{\beta}_1
+      \left(
+        S_{xy} - \frac{S_{xy}}{S_{xx}}\, S_{xx}
+      \right) \\
+      & = 0.
+    \end{align*}
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+On s'intéresse à la covariance entre deux résidus.
+
+\begin{enumerate}
+\item D'abord, trouver $\cov{Y_i,\hat{Y}_j}$. 
+
+\item Puis, calculer $\cov{\hat{Y}_i,\hat{Y}_j}$. 
+
+\item Déduire de a) et b) que $$\cov{\hat{\varepsilon}_i,\hat{\varepsilon}_j}=-\sigma^2\left(\frac{1}{n}+\frac{(x_i-\bar{x})(x_j-\bar{x})}{S_{xx}}\right).$$ 
+\end{enumerate}
+
+\begin{sol}
+\begin{enumerate}
+\item
+\begin{align*}
+\cov{Y_i,\hat{Y}_j}&=\cov{Y_i,\hat{\beta}_0+\hat{\beta}_1x_j}\\
+&=\cov{Y_i,\bar{Y}-\hat{\beta}_1\bar{x}+\hat{\beta}_1x_j}\\
+&=\cov{Y_i,\bar{Y}}+(x_j-\bar{x})\cov{Y_i,\hat{\beta}_1} \mbox{ par indépendance des observations}\\
+&=\frac{\sigma^2}{n}+\frac{(x_j-\bar{x})}{S_{xx}}\sum_{l=1}^n(x_l-\bar{x})\cov{Y_i,Y_l}\\
+&=\frac{\sigma^2}{n}+\frac{(x_j-\bar{x})(x_i-\bar{x})}{S_{xx}}\sigma^2\mbox{ par indépendance des observations}.\\
+\end{align*}
+
+\item
+\begin{align*}
+\cov{\hat{Y}_i,\hat{Y}_j}&=\cov{\hat{\beta}_0+\hat{\beta}_1x_i,\hat{\beta}_0+\hat{\beta}_1x_j}\\
+&=\var{\hat{\beta}_0}+(x_i+x_j)\cov{\hat{\beta}_0,\hat{\beta}_1}+x_ix_j\var{\hat{\beta}_1}\\
+&=\sigma^2\left(\frac{1}{n}+\frac{\bar{x}^2}{S_{xx}}\right)-(x_i+x_j)\frac{\bar{x}\sigma^2}{S_{xx}}+x_ix_j\frac{\sigma^2}{S_{xx}}\\
+&=...\\
+&=\sigma^2\left(\frac{1}{n}+\frac{(x_j-\bar{x})(x_i-\bar{x})}{S_{xx}}\right).
+\end{align*}
+
+\item
+\begin{align*}
+\cov{\hat{\varepsilon}_i,\hat{\varepsilon}_j}&=\cov{Y_i-\hat{Y}_i,Y_j-\hat{Y}_j}\\
+&=\cov{Y_i,Y_j}-\cov{Y_i,\hat{Y}_j}-\cov{\hat{Y}_i,Y_j}+\cov{\hat{Y}_i,\hat{Y}_j}\\
+&=0-2\sigma^2\left(\frac{1}{n}+\frac{(x_j-\bar{x})(x_i-\bar{x})}{S_{xx}}\right)+\left(\frac{1}{n}+\frac{(x_j-\bar{x})(x_i-\bar{x})}{S_{xx}}\right)\\
+&=-\sigma^2\left(\frac{1}{n}+\frac{(x_i-\bar{x})(x_j-\bar{x})}{S_{xx}}\right).
+\end{align*}
+\end{enumerate}
+\end{sol}
+\end{exercice}
+
+\begin{exercice}
+  On vous donne les observations ci-dessous.
+  \begin{center}
+    \begin{minipage}[t]{0.3\textwidth}
+      \mbox{} \\
+      \begin{tabular}{ccc}
+        \toprule
+        $i$ & $x_i$ & $Y_i$ \\
+        \midrule
+        1 & 2 & 6 \\
+        2 & 3 & 4 \\
+        3 & 5 & 6 \\
+        4 & 7 & 3 \\
+        5 & 4 & 6 \\
+        6 & 4 & 4 \\
+        7 & 1 & 7 \\
+        8 & 6 & 4 \\
+        \bottomrule
+      \end{tabular}
+    \end{minipage}
+    \begin{minipage}[t]{0.4\textwidth}
+      \mbox{} \\[-1cm]
+      \begin{align*}
+        \sum_{i=1}^8 x_i &= 32 &
+        \sum_{i=1}^8 x_i^2 &= 156 \\
+        \sum_{i=1}^8 Y_i &= 40 &
+        \sum_{i=1}^8 Y_i^2 &= 214 \\
+        \sum_{i=1}^8 x_i\, Y_i &= 146 \\
+      \end{align*}
+    \end{minipage}
+  \end{center}
+  \begin{enumerate}
+  \item Calculer les coefficients de la régression $Y_i = \beta_0 +
+    \beta_1 x_i + \varepsilon_i$, avec $\var{\varepsilon_i} = \sigma^2$.
+  \item Construire le tableau d'analyse de variance de la régression
+    en a) et calculer le coefficient de détermination $R^2$.
+    Interpréter les résultats.
+  \end{enumerate}
+  \begin{rep}
+    \begin{inparaenum}
+    \item $\hat{\beta}_0=7$ et $\hat{\beta}_1=-0,5$
+    \item SST = 14, SSR = 7, SSE = 7, MSR = 7, MSE = 7/6, $F$ = 6, $R^2$ = 0,5
+    \end{inparaenum}
+  \end{rep}
+  \begin{sol}
+    \begin{enumerate}
+    \item Nous avons le modèle de régression usuel. Les coefficients
+      de la régression sont
+      \begin{align*}
+        \hat{\beta}_1
+        &=\frac{\sum_{i=1}^8 x_iY_i-n\bar{x}\bar{Y}}{\sum_{i=1}^8
+          x_i^2-n\bar{x}^2} \\
+        &=\frac{146-(8)(32/8)(40/8)}{156-(8)(32/8)^2}  \\
+        &=-0,5 \\
+        \intertext{et}
+        \hat{\beta}_0
+        &=\bar{Y}-\hat{\beta}_1\bar{x} \\
+        &=(40/8)-(-0,5)(32/8) \\
+        &=7.
+      \end{align*}
+    \item Les sommes de carrés sont
+      \begin{align*}
+        \SST
+        &=\sum_{i=1}^8(Y_i-\bar{Y})^2 \\
+        &=\sum_{i=1}^8Y_i^2-n\bar{Y}^2 \\
+        &=214-(8)(40/8)^2 \\
+        &=14, \\
+        \SSR
+        &=\sum_{i=1}^8(\hat{Y}_i-\bar{Y})^2 \\
+        &=\sum_{i=1}^8\hat{\beta}_1^2(x_i-\bar{x})^2 \\
+        &=\hat{\beta}_1^2(\sum_{i=1}^8x_i^2-n\bar{x}^2) \\
+        &=(-1/2)^2(156-(8)(32/8)^2) \\
+        &=7.
+      \end{align*}
+      et $\SSE = \SST - \SSR = 14 - 7 = 7$. Par conséquent, $R^2 =
+      SSR/SST = 7/14 = 0,5$, donc la régression explique 50~\% de la
+      variation des $Y_i$ par rapport à leur moyenne $\bar{Y}$. Le
+      tableau ANOVA est le suivant:
+      \begin{center}
+        \begin{tabular}{lcccc}
+          \toprule
+          Source & SS & d.l. & MS & Ratio F \\
+          \midrule
+          Régression & 7 & 1 & 7   & 6 \\
+          Erreur     & 7 & 6 & 7/6 &  \\
+          \midrule
+          Total & 14 & 7 & & \\
+          \bottomrule
+        \end{tabular}
+      \end{center}
+    \end{enumerate}
+  \end{sol}
+\end{exercice}
+
+
+\begin{exercice}
+  Le jeu de données \texttt{women.dat}, inclus dans \textsf{R}, contient les tailles
+  et les poids moyens de femmes américaines âgées de 30 à 39 ans.
+  Importer les données dans \textsf{R} avec \texttt{data(women)}, puis répondre aux
+  questions suivantes.
+  \begin{enumerate}
+  \item Établir graphiquement une relation entre la taille
+    (\emph{height}) et le poids (\emph{weight}) des femmes.
+  \item À la lumière du graphique en a), proposer un modèle de
+    régression approprié et en estimer les paramètres.
+  \item Ajouter la droite de régression calculée en b) au
+    graphique. Juger visuellement de l'ajustement du modèle.
+  \item Obtenir, à l'aide de la fonction \texttt{summary} la valeur du
+    coefficient de détermination $R^2$. La valeur est-elle conforme à
+    la conclusion faite en c)?
+  \item Calculer les statistiques $\SST$, $\SSR$ et
+    $\SSE$, puis vérifier que $\SST = \SSR +
+    \SSE$.  Calculer ensuite la valeur de $R^2$ et la comparer
+    à celle obtenue en d).
+  \end{enumerate}
+<<echo=FALSE>>=
+data(women)
+fit <- lm(weight ~ height, data = women)
+b <- coef(fit)
+ss <- anova(fit)[[2]]
+@
+  \begin{rep}
+    \begin{inparaenum}
+      \stepcounter{enumi}
+    \item
+      $\hat{\beta}_0 = \Sexpr{format(round(b[1], 4), dec =  ",")}$
+      et
+      $\hat{\beta}_1 = \Sexpr{format(round(b[2], 4), dec =  ",")}$
+      \stepcounter{enumi}
+    \item $R^2 = \Sexpr{format(round(summary(fit)$r.squared, 4), dec =  ",")}$
+    \item
+      $\SSR = \Sexpr{format(round(ss[1], 2), dec =  ",")}$
+      $\SSE = \Sexpr{format(round(ss[2], 2), dec =  ",")}$ et
+      $\SST = \Sexpr{format(round(sum(ss), 2), dec = ",")}$
+    \end{inparaenum}
+  \end{rep}
+  \begin{sol}
+    \begin{enumerate}
+    \item Voir la figure \ref{fig:simple:women}.
+      \begin{figure}
+<<simple-women>>=
+data(women)
+plot(weight ~ height, data = women, pch = 16)
+@
+        \caption{Relation entre la taille et le poids moyen de femmes américaines âgées de 30 à 39 ans (données \texttt{women})}
+        \label{fig:simple:women}
+      \end{figure}
+    \item Le graphique montre qu'un modèle linéaire serait
+      excellent. On estime les paramètres de ce modèle avec \texttt{lm}:
+<<>>=
+(fit <- lm(weight ~ height, data = women))
+@
+    \item Voir la figure \ref{fig:simple:women2}.
+      \begin{figure}
+<<fig.keep='none', eval = FALSE>>=
+abline(fit)
+@
+<<simple-women2,echo=FALSE>>=
+plot(weight ~ height, data = women, pch = 16)
+abline(fit)
+@
+        \caption{Relation entre les données \texttt{women} et droite de régression linéaire simple}
+        \label{fig:simple:women2}
+      \end{figure}
+      On constate que l'ajustement est excellent.
+    \item Le résultat de la fonction \texttt{summary} appliquée au
+      modèle \texttt{fit} est le suivant:
+<<>>=
+summary(fit)
+@
+      Le coefficient de détermination est donc
+      $R^2 = \Sexpr{format(round(summary(fit)$r.squared, 4), dec = ",")}$, %$
+      ce qui est près de 1 et confirme donc l'excellent
+      ajustement du modèle évoqué en c).
+    \item On a
+<<>>=
+attach(women)
+SST <- sum((weight - mean(weight))^2)
+SSR <- sum((fitted(fit) - mean(weight))^2)
+SSE <- sum((weight - fitted(fit))^2)
+all.equal(SST, SSR + SSE)
+all.equal(summary(fit)$r.squared, SSR/SST)
+@
+    \end{enumerate}
+  \end{sol}
+\end{exercice}
+
+
+
+
+\begin{exercice}
+  Supposons que les observations $(x_1, Y_1), \dots, (x_n, Y_n)$
+  sont soumises à une transformation linéaire, c'est-à-dire que $Y_i$
+  devient $Y_i^\prime = a + b Y_i$ et que $x_i$ devient $x_i^\prime =
+  c + d x_i$, $i = 1, \dots, n$.
+  \begin{enumerate}
+  \item Trouver quel sera l'impact sur les estimateurs des moindres
+    carrés des paramètres $\beta_0$ et $\beta_1$ dans le modèle de
+    régression linéaire $Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$.
+  \item Démontrer que le coefficient de détermination $R^2$ n'est pas
+    affecté par la transformation linéaire.
+  \end{enumerate}
+  \begin{rep}
+    \begin{enumerate}
+    \item $\hat{\beta}_1^\prime = (b/d) \hat{\beta}_1$
+    \end{enumerate}
+  \end{rep}
+  \begin{sol}
+    \begin{enumerate}
+    \item Il faut exprimer $\hat{\beta}_0^\prime$ et
+      $\hat{\beta}_1^\prime$ en fonction de $\hat{\beta}_0$ et
+      $\hat{\beta}_1$. Pour ce faire, on trouve d'abord une expression
+      pour chacun des éléments qui entrent dans la définition de
+      $\hat{\beta}_1^\prime$. Tout d'abord,
+      \begin{align*}
+        \bar{x}^\prime
+        &= \frac{1}{n} \sum_{i=1}^n x_i^\prime \\
+        &= \frac{1}{n} \sum_{i=1}^n (c + d x_i) \\
+        &= c + d \bar{x},
+      \end{align*}
+      et, de manière similaire, $\bar{Y}^\prime = a + b \bar{Y}$. Ensuite,
+      \begin{align*}
+        S_{xx}^\prime
+        &= \sum_{i=1}^n (x_i^\prime - \bar{x}^\prime)^2 \\
+        &= \sum_{i=1}^n (c + d x_i - c - d \bar{x})^2 \\
+        &= d^2 S_{xx}
+      \end{align*}
+      et $S_{yy}^\prime = b^2 S_{yy}$, $S_{xy}^\prime = bd S_{xy}$.
+      Par conséquent,
+      \begin{align*}
+        \hat{\beta}_1^\prime
+        &= \frac{S_{xy}^\prime}{S_{xx}^\prime} \\
+        &= \frac{bd S_{xy}}{d^2 S_{xx}} \\
+        &= \frac{b}{d}\, \hat{\beta}_1 \\
+        \intertext{et}
+        \hat{\beta}_0^\prime
+        &= \bar{Y}^\prime - \hat{\beta}_1^\prime \bar{x}^\prime \\
+        &= a + b \bar{Y} - \frac{b}{d}\, \hat{\beta}_1 (c + d \bar{x}) \\
+        &= a - \frac{bc}{d}\, \hat{\beta}_1 + b (\bar{Y} -
+        \hat{\beta}_1 \bar{x}) \\
+        &= a - \frac{bc}{d}\, \hat{\beta}_1 + b \hat{\beta}_0.
+      \end{align*}
+    \item Tout d'abord, on établit que
+      \begin{align*}
+        R^2
+        &= \frac{\SSR}{\SST} \\
+        &= \frac{\sum_{i=1}^n (\hat{Y_i} - \bar{Y})^2}{\sum_{i=1}^n
+          (Y_i - \bar{Y})^2} \\
+        &= \hat{\beta}_1^2\, \frac{\sum_{i=1}^n (x_i -
+          \bar{x})^2}{\sum_{i=1}^n (Y_i - \bar{Y})^2} \\
+        &= \hat{\beta}_1^2\, \frac{S_{xx}}{S_{yy}}.
+      \end{align*}
+      Maintenant, avec les résultats obtenus en a), on démontre
+      directement que
+      \begin{align*}
+        (R^2)^\prime
+        &= (\hat{\beta}_1^\prime)^2 \frac{S_{xx}^\prime}{S_{yy}^\prime} \\
+        &=
+        \left(
+          \frac{b}{d}
+        \right)^2\,
+        \hat{\beta}_1^2\, \frac{d^2 S_{xx}}{b^2 S_{yy}} \\
+        &= \hat{\beta}_1^2\, \frac{S_{xx}}{S_{yy}} \\
+        &= R^2.
+      \end{align*}
+    \end{enumerate}
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  On sait depuis l'exercice \ref{chap:simple}.\ref{ex:simple:origine}
+  que pour le modèle de régression linéaire simple passant par
+  l'origine $Y_i = \beta x_i + \varepsilon_i$, l'estimateur des
+  moindres carrés de $\beta$ est
+  \begin{displaymath}
+    \hat{\beta} = \frac{\sum_{i = 1}^n x_i Y_i}{\sum_{i = 1}^n x_i^2}.
+  \end{displaymath}
+  Démontrer que l'on peut obtenir ce résultat en utilisant la formule
+  pour $\hat{\beta}_1$ dans la régression linéaire simple usuelle
+  ($Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$) en ayant d'abord
+  soin d'ajouter aux données un $(n + 1)${\ieme} point $(m\bar{x},
+  m\bar{Y})$, où
+  \begin{displaymath}
+    m = \frac{n}{\sqrt{n + 1} - 1} = \frac{n}{a}.
+  \end{displaymath}
+  \begin{sol}
+    Considérons un modèle de régression usuel avec l'ensemble de
+    données $(x_1, Y_1), \dots, (x_n, Y_n), (m \bar{x}, m \bar{Y})$,
+    où $\bar{x} = n^{-1} \sum_{i = 1}^n x_i$, $\bar{Y} = n^{-1}
+    \sum_{i = 1}^n Y_i$, $m = n/a$ et $a = \sqrt{n + 1} - 1$. On
+    définit
+    \begin{align*}
+      \bar{x}^\prime
+      &= \frac{1}{n + 1} \sum_{i = 1}^{n + 1} x_i \\
+      &= \frac{1}{n + 1} \sum_{i = 1}^n x_i + \frac{m}{n + 1} \bar{x} \\
+      &= k \bar{x} \\
+      \intertext{et, de manière similaire,}
+      \bar{Y}^\prime
+      &= k \bar{Y},
+      \intertext{où}
+      k
+      &= \frac{n + m}{n + 1} \\
+      &= \frac{n (a + 1)}{a (n + 1)}.
+    \end{align*}
+    L'expression pour l'estimateur des moindres carrés de la pente de
+    la droite de régression pour cet ensemble de données est
+    \begin{align*}
+      \hat{\beta}_1
+      &= \frac{\sum_{i = 1}^{n + 1} x_i Y_i - (n + 1)
+        \bar{x}^\prime \bar{Y}^\prime}{%
+        \sum_{i = 1}^{n + 1} x_i^2 - (n + 1) (\bar{x}^\prime)^2} \\
+      &= \frac{\sum_{i = 1}^n x_i Y_i + m^2 \bar{x} \bar{Y} - (n + 1)
+        k^2 \bar{x} \bar{Y}}{%
+        \sum_{i = 1}^n x_i^2 + m^2 \bar{x}^2 - (n + 1) k^2 \bar{x}^2}.
+    \end{align*}
+    Or,
+    \begin{align*}
+      m^2 - k^2 (n + 1)
+      &= \frac{n^2}{a^2} - \frac{n^2 (a + 1)^2}{a^2 (n + 1)} \\
+      &= \frac{n^2 (n + 1) - n^2 (n + 1)}{a^2 (n + 1)} \\
+      &= 0.
+    \end{align*}
+    Par conséquent,
+    \begin{align*}
+      \hat{\beta}_1
+      &= \frac{\sum_{i = 1}^n x_i Y_i}{\sum_{i = 1}^n x_i^2} \\
+      &= \hat{\beta}.
+    \end{align*}
+    Interprétation: en ajoutant un point bien spécifique à n'importe
+    quel ensemble de données, on peut s'assurer que la pente de la
+    droite de régression sera la même que celle d'un modèle passant
+    par l'origine. Voir la figure \ref{fig:simple:pointmagique} pour
+    une illustration du phénomène.
+<<echo=FALSE>>=
+data(anscombe)
+x <- anscombe$x1
+y <- anscombe$y1 + 10
+n <- length(x)
+m <- n/(sqrt(n + 1) - 1)
+xp <- c(x, m * mean(x))
+yp <- c(y, m * mean(y))
+@
+    \begin{figure}
+<<simple-pointmagique,echo=FALSE>>=
+plot(y ~ x, xlim = c(0, max(xp)), ylim = c(0, max(yp)))
+abline(lm(y ~ x), lwd = 2)
+plot(yp ~ xp, xlim = c(0, max(xp)), ylim = c(0, max(yp)),
+     pch = c(rep(1, n), 16))
+abline(lm(yp ~ xp), lwd = 2)
+abline(lm(y ~ -1 + x), lty = 2, lwd = 2)
+@
+      \caption{Illustration de l'effet de l'ajout d'un point spécial à
+        un ensemble de données. À gauche, la droite de régression
+        usuelle. À droite, le même ensemble de points avec le point
+        spécial ajouté (cercle plein), la droite de régression avec ce
+        nouveau point (ligne pleine) et la droite de régression
+        passant par l'origine (ligne pointillée). Les deux droites
+        sont parallèles.}
+      \label{fig:simple:pointmagique}
+    \end{figure}
+  \end{sol}
+\end{exercice}
+
+
+
+
+
+
 
 \begin{exercice}
   Le fichier \texttt{house.dat} contient diverses données relatives à
@@ -1509,91 +1606,9 @@ predict(fit, newdata = data.frame(poids = 1350), interval = "prediction")
   \end{sol}
 \end{exercice}
 
-\begin{exercice}
-On s'intéresse à l'impact du sexe sur l'espérance de vie. On connaît les durées de vie de $n_{F}=300$ femmes et $n_H=200$ hommes. On choisit d'utiliser la variable indicatrice 
-$$x_{i}=\left\{ \begin{array}{ll}
-0 & \mbox{, si \texttt{SEXE}}_i=\texttt{H}\\
-1 & \mbox{, si \texttt{SEXE}}_i=\texttt{F}\\
-\end{array}\right. .$$
-On note $\bar{Y}_F$ la moyenne des durées de vie des femmes et $\bar{Y}_H$ la moyenne des durées de vie des hommes.
 
-\begin{enumerate}
-\item Montrer que l'estimateur des moindres carrés $\hat{\beta}_1$ (lié à la variable explicative $x$) est égal à $\bar{Y}_F-\bar{Y}_H$. \emph{Indice: On peut exprimer $\bar{Y}$ en termes de $\bar{Y}_F$ et $\bar{Y}_H$.} 
 
-\item Ce résultat permet-il d'interpréter le coefficient relié à une variable catégorique binaire? Expliquer. 
 
-\item Que représente $\hat{\beta}_0$ dans ce cas? 
-
-\end{enumerate}
-\begin{sol}
-\begin{enumerate}
-\item On a $$\bar{Y}=\frac{\sum_{i=1}^{500}Y_i}{500}=\frac{300\bar{Y}_F+200\bar{Y}_H}{500}.$$ Aussi,
-$$\hat{\beta}_1=\frac{S_{xy}}{S_{xx}}=\frac{\sum_{i=1}^{500}x_iY_i-500\bar{x}\bar{Y}}{\sum_{i=1}^{500}x_i^2-500\bar{x}^2}.$$  Or, 
-\begin{align*}
-\bar{x}&=\frac{\sum_{i=1}^{500}x_i}{500}=\frac{300}{500},\\
-\sum_{i=1}^{500}x_i^2&=300,\\
-\sum_{i=1}^{500}x_i Y_i&=300\bar{Y}_F
-\end{align*}
-Donc, 
-\begin{align*}
-\hat{\beta}_1&=\frac{300\bar{Y}_F-500\times\frac{300}{500}\times\frac{300\bar{Y}_F+200\bar{Y}_H}{500}}{300-500\left(\frac{300}{500}\right)^2}\\
-&=\frac{500\bar{Y}_F-300\bar{Y}_F-200\bar{Y}_H}{500-300}\\
-&=\bar{Y}_F-\bar{Y}_H.
-\end{align*}
-
-\item Oui, le coefficient relié à la variable indicatrice qui vaut 1 si le sexe est F représente la différence etre la moyenne de l'espérance de vie pour les femmes et la moyenne de l'espérace de vie pour les hommes.
-
-\item
-\begin{align*}
-\hat{\beta}_0&=\bar{Y}-\hat{\beta}_1\bar{x}=\bar{Y}-(\bar{Y}_F-\bar{Y}_H)\frac{300}{500}=\bar{Y}_H.
-\end{align*}
-$\Rightarrow \hat{\beta}_0$ est la moyenne de l'espérance de vie pour les hommes.
-
-\end{enumerate}
-\end{sol}
-\end{exercice}
-
-\begin{exercice}
-On s'intéresse à la covariance entre deux résidus.
-
-\begin{enumerate}
-\item D'abord, trouver $\cov{Y_i,\hat{Y}_j}$. 
-
-\item Puis, calculer $\cov{\hat{Y}_i,\hat{Y}_j}$. 
-
-\item Déduire de a) et b) que $$\cov{\hat{\varepsilon}_i,\hat{\varepsilon}_j}=-\sigma^2\left(\frac{1}{n}+\frac{(x_i-\bar{x})(x_j-\bar{x})}{S_{xx}}\right).$$ 
-\end{enumerate}
-
-\begin{sol}
-\begin{enumerate}
-\item
-\begin{align*}
-\cov{Y_i,\hat{Y}_j}&=\cov{Y_i,\hat{\beta}_0+\hat{\beta}_1x_j}\\
-&=\cov{Y_i,\bar{Y}-\hat{\beta}_1\bar{x}+\hat{\beta}_1x_j}\\
-&=\cov{Y_i,\bar{Y}}+(x_j-\bar{x})\cov{Y_i,\hat{\beta}_1} \mbox{ par indépendance des observations}\\
-&=\frac{\sigma^2}{n}+\frac{(x_j-\bar{x})}{S_{xx}}\sum_{l=1}^n(x_l-\bar{x})\cov{Y_i,Y_l}\\
-&=\frac{\sigma^2}{n}+\frac{(x_j-\bar{x})(x_i-\bar{x})}{S_{xx}}\sigma^2\mbox{ par indépendance des observations}.\\
-\end{align*}
-
-\item
-\begin{align*}
-\cov{\hat{Y}_i,\hat{Y}_j}&=\cov{\hat{\beta}_0+\hat{\beta}_1x_i,\hat{\beta}_0+\hat{\beta}_1x_j}\\
-&=\var{\hat{\beta}_0}+(x_i+x_j)\cov{\hat{\beta}_0,\hat{\beta}_1}+x_ix_j\var{\hat{\beta}_1}\\
-&=\sigma^2\left(\frac{1}{n}+\frac{\bar{x}^2}{S_{xx}}\right)-(x_i+x_j)\frac{\bar{x}\sigma^2}{S_{xx}}+x_ix_j\frac{\sigma^2}{S_{xx}}\\
-&=...\\
-&=\sigma^2\left(\frac{1}{n}+\frac{(x_j-\bar{x})(x_i-\bar{x})}{S_{xx}}\right).
-\end{align*}
-
-\item
-\begin{align*}
-\cov{\hat{\varepsilon}_i,\hat{\varepsilon}_j}&=\cov{Y_i-\hat{Y}_i,Y_j-\hat{Y}_j}\\
-&=\cov{Y_i,Y_j}-\cov{Y_i,\hat{Y}_j}-\cov{\hat{Y}_i,Y_j}+\cov{\hat{Y}_i,\hat{Y}_j}\\
-&=0-2\sigma^2\left(\frac{1}{n}+\frac{(x_j-\bar{x})(x_i-\bar{x})}{S_{xx}}\right)+\left(\frac{1}{n}+\frac{(x_j-\bar{x})(x_i-\bar{x})}{S_{xx}}\right)\\
-&=-\sigma^2\left(\frac{1}{n}+\frac{(x_i-\bar{x})(x_j-\bar{x})}{S_{xx}}\right).
-\end{align*}
-\end{enumerate}
-\end{sol}
-\end{exercice}
 
 \begin{exercice}
 Dans un graphiques des résidus en fonction des valeurs prédites, on observe de l'hétéroscédasticité. Après une analyse plus poussée, on note que la variance de $\hat{\varepsilon}_i$ est approximativement proportionnelle à $E[Y_i]^4$ . Proposer une transformation $g$ de la variable réponse qui permettra de stabiliser la variance.
