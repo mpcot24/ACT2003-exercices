@@ -17,10 +17,6 @@
 \end{Filesave}
 
 
-<<echo=FALSE>>=
-options(width = 55)
-@
-
 \begin{exercice}
 Est-ce que les distributions suivantes font partie de la famille exponentielle linéaire? Si oui, écrire la densité sous la forme exponentielle linéaire, donner le paramètre canonique, le paramètre de dispersion, l'espérance et la variance de $Y$ en termes de la fonction $b()$ et la relation $V()$ entre la moyenne et la variance.
 
@@ -46,12 +42,13 @@ f_{Y}(y)&=\frac{1}{(2\pi\sigma^2)^1/2}\exp\left(-\frac{(y-\mu)^2}{2\sigma^2}\rig
 \item[$\bullet$] Paramètre canonique: $\theta=\mu$
 \item[$\bullet$] Paramètre de dispersion: $\phi=\sigma^2$
 \item[$\bullet$] $b(\theta)=\frac{\theta^2}{2}$
-\item[$\bullet$] $E[Y]=\dot{b}(\theta)=\frac{\partial}{\partial\theta}\frac{\theta^2}{2}=\theta=\mu$
-\item[$\bullet$] $\var(Y)=\phi\ddot{b}(\theta)=\sigma^2\frac{\partial}{\partial\theta}\theta=\sigma^2$
+\item[$\bullet$] $\esp{Y}=\dot{b}(\theta)=\frac{\partial}{\partial\theta}\frac{\theta^2}{2}=\theta=\mu$
+\item[$\bullet$] $\var{Y}=\phi\ddot{b}(\theta)=\sigma^2\frac{\partial}{\partial\theta}\theta=\sigma^2$
 \item[$\bullet$] $V(\mu)=1$.
 \end{itemize}
 
 \item Uniforme$(0,\beta)$: non. Le domaine dépend du paramètre $\beta$.
+
 \item Poisson$(\lambda)$: 
 \begin{align*}
 f_{Y}(y;\lambda)&=\frac{\lambda^{y}e^{-\lambda}}{y!} \mbox{, pour }y\in \mathbb{N}^{+}\\
@@ -62,8 +59,8 @@ f_{Y}(y;\theta,\phi)&=\exp\left\{\frac{y\theta - e^{\theta}}{\phi} - \ln y!\righ
 \item[$\bullet$] Paramètre canonique: $\theta=\ln \lambda$
 \item[$\bullet$] Paramètre de dispersion: $\phi=1$
 \item[$\bullet$] $b(\theta)=e^{\theta}$
-\item[$\bullet$] $E[Y]=\dot{b}(\theta)=\frac{\partial}{\partial\theta}e^{\theta}=e^{\theta}=\lambda$
-\item[$\bullet$] $\var(Y)=\phi\ddot{b}(\theta)=\frac{\partial}{\partial\theta}e^{\theta}=e^{\theta}=\lambda$
+\item[$\bullet$] $\esp{Y}=\dot{b}(\theta)=\frac{\partial}{\partial\theta}e^{\theta}=e^{\theta}=\lambda$
+\item[$\bullet$] $\var{Y}=\phi\ddot{b}(\theta)=\frac{\partial}{\partial\theta}e^{\theta}=e^{\theta}=\lambda$
 \item[$\bullet$] $V(\mu)=\mu$.
 \end{itemize}
 
@@ -76,8 +73,8 @@ f_{Y}(y;\pi)&=\pi^{y}(1-\pi)^{1-y}1(y \in \{0,1\})\\
 \item[$\bullet$] Paramètre canonique: $\theta=\ln\left(\frac{\pi}{1-\pi}\right)$
 \item[$\bullet$] Paramètre de dispersion:  $\phi=1$
 \item[$\bullet$] $b(\theta)=\ln(1+e^{\theta})$
-\item[$\bullet$] $E[Y]=\dot{b}(\theta)=\frac{\partial}{\partial\theta}\ln(1+e^{\theta})=\frac{e^{\theta}}{1+e^\theta}=\pi$
-\item[$\bullet$] $\var(Y)=\phi\ddot{b}(\theta)=\frac{\partial}{\partial\theta}\frac{e^{\theta}}{1+e^\theta}=\frac{e^\theta}{(1+e^\theta)^2}=\pi(1-\pi)$
+\item[$\bullet$] $\esp{Y}=\dot{b}(\theta)=\frac{\partial}{\partial\theta}\ln(1+e^{\theta})=\frac{e^{\theta}}{1+e^\theta}=\pi$
+\item[$\bullet$] $\var{Y}=\phi\ddot{b}(\theta)=\frac{\partial}{\partial\theta}\frac{e^{\theta}}{1+e^\theta}=\frac{e^\theta}{(1+e^\theta)^2}=\pi(1-\pi)$
 \item[$\bullet$] $V(\mu)=\mu(1-\mu)$.
 \end{itemize}
 
@@ -86,7 +83,7 @@ f_{Y}(y;\pi)&=\pi^{y}(1-\pi)^{1-y}1(y \in \{0,1\})\\
 f_{Y}(y;\pi)&=\begin{pmatrix} m\\y\end{pmatrix}\pi^{y}(1-\pi)^{m-y}1(y \in \{0,1,...,m\})\\
 &=\exp\left\{y\ln\left(\frac{\pi}{1-\pi}\right)+m\ln(1-\pi)+\ln\begin{pmatrix} m\\y\end{pmatrix}\right\}1(y \in \{0,1,...,m\}).\\
 \end{align*}
-Dans cette représentation, on a $$E[Y]=m\pi \mbox{ et } Var(Y)=m\pi(1-\pi).$$ Cette forme est moins utilisée car l'espérance de $Y$ dépend de $m$, le paramètre de dispersion. Souvent, on transforme les données. On utilise plutôt $Y^{*}=Y/m$. Alors, pour ces données transformées,
+Dans cette représentation, on a $$\esp{Y}=m\pi \mbox{ et } \var{Y}=m\pi(1-\pi).$$ Cette forme est moins utilisée car l'espérance de $Y$ dépend de $m$, le paramètre de dispersion. Souvent, on transforme les données. On utilise plutôt $Y^{*}=Y/m$. Alors, pour ces données transformées,
 \begin{align*}
 f_{Y^{*}}(y;\pi)&=\exp\left\{my\ln\left(\frac{\pi}{1-\pi}\right)+m\ln(1-\pi)+\ln\begin{pmatrix} m\\my\end{pmatrix}\right\}, \,y \in \{0,1/m,...,1\}\\
 &=\exp\left\{\frac{y\ln\left(\frac{\pi}{1-\pi}\right)+\ln(1-\pi)}{1/m}+\ln\begin{pmatrix} m\\my\end{pmatrix}\right\}, \,y \in \{0,1/m,...,1\}.\\
@@ -95,15 +92,16 @@ f_{Y^{*}}(y;\pi)&=\exp\left\{my\ln\left(\frac{\pi}{1-\pi}\right)+m\ln(1-\pi)+\ln
 \item[$\bullet$] Paramètre canonique: $\theta=\ln\left(\frac{\pi}{1-\pi}\right)$
 \item[$\bullet$] Paramètre de dispersion:  $\phi=1/m$
 \item[$\bullet$] $b(\theta)=\ln(1+e^{\theta})$
-\item[$\bullet$] $E[Y^*]=\dot{b}(\theta)=\frac{\partial}{\partial\theta}\ln(1+e^{\theta})=\frac{e^{\theta}}{1+e^\theta}=\pi$
-\item[$\bullet$] $\var(Y^*)=\phi\ddot{b}(\theta)=\frac{1}{m}\frac{\partial}{\partial\theta}\frac{e^{\theta}}{1+e^\theta}=\frac{e^\theta}{m(1+e^\theta)^2}=\frac{\pi(1-\pi)}{m}$
+\item[$\bullet$] $\esp{Y^*}=\dot{b}(\theta)=\frac{\partial}{\partial\theta}\ln(1+e^{\theta})=\frac{e^{\theta}}{1+e^\theta}=\pi$
+\item[$\bullet$] $\var{Y^*}=\phi\ddot{b}(\theta)=\frac{1}{m}\frac{\partial}{\partial\theta}\frac{e^{\theta}}{1+e^\theta}=\frac{e^\theta}{m(1+e^\theta)^2}=\frac{\pi(1-\pi)}{m}$
 \item[$\bullet$] $V(\mu)=\mu(1-\mu)$.
 \end{itemize}
 
 \item Pareto$(\alpha,\lambda)$: non.
+
 \item Gamma$(\alpha,\beta)$
 Soit $Y\sim Gamma(\alpha,\beta)$. Alors, avec un peu de travail, la densité peut être écrite sous la forme exponentielle linéaire.
-$$f_{Y}(y;\alpha,\beta)=\frac{\beta^{\alpha}}{\Gamma(\alpha)}y^{\alpha-1}e^{-\beta y},$$ pour $y>0$. On reparamétrise: $\mu=\alpha/\beta=E[Y]$ et $\alpha$, on a donc $\beta=\alpha/\mu$ et $$f_{Y}(y;\alpha,\mu)=\frac{1}{y\Gamma(\alpha)}\left(\frac{\alpha y}{\mu}\right)^{\alpha}\exp\left\{-\frac{\alpha y}{\mu}\right\}.$$ Posons $\theta=-1/\mu$, et $a(\phi)=1/\alpha$, alors on trouve $$f_{Y}(y;\theta,\phi)=\exp\left\{\frac{y\theta +\ln(-\theta)}{\phi} +\alpha\ln\alpha+(\alpha-1)\ln y -\ln\Gamma(\alpha)\right\}.$$ Donc, $b(\theta)=-\ln(-\theta)$ et $a(\phi)=1/\alpha \Rightarrow \dot{b}(\theta)=\frac{-1}{\theta}=\mu$ et $\ddot{b}(\theta)=\frac{1}{\theta^{2}}=\mu^{2}$. Finalement, $$E[Y]=\frac{-1}{\theta}=\mu \mbox{ et } Var(Y)=\frac{1}{\alpha}\mu^{2}.$$
+$$f_{Y}(y;\alpha,\beta)=\frac{\beta^{\alpha}}{\Gamma(\alpha)}y^{\alpha-1}e^{-\beta y},$$ pour $y>0$. On reparamétrise: $\mu=\alpha/\beta=\esp{Y}$ et $\alpha$, on a donc $\beta=\alpha/\mu$ et $$f_{Y}(y;\alpha,\mu)=\frac{1}{y\Gamma(\alpha)}\left(\frac{\alpha y}{\mu}\right)^{\alpha}\exp\left\{-\frac{\alpha y}{\mu}\right\}.$$ Posons $\theta=-1/\mu$, et $a(\phi)=1/\alpha$, alors on trouve $$f_{Y}(y;\theta,\phi)=\exp\left\{\frac{y\theta +\ln(-\theta)}{\phi} +\alpha\ln\alpha+(\alpha-1)\ln y -\ln\Gamma(\alpha)\right\}.$$ Donc, $b(\theta)=-\ln(-\theta)$ et $a(\phi)=1/\alpha \Rightarrow \dot{b}(\theta)=\frac{-1}{\theta}=\mu$ et $\ddot{b}(\theta)=\frac{1}{\theta^{2}}=\mu^{2}$. Finalement, $$\esp{Y}=\frac{-1}{\theta}=\mu \mbox{ et } \var{Y}=\frac{1}{\alpha}\mu^{2}.$$
 
 \item Binomiale négative$(r,\pi)$ avec $r$ connu. On considère $Y^*=Y/r$:
 \begin{align*}
@@ -114,8 +112,8 @@ f_Y^*(y)&=\begin{pmatrix} r+ry-1\\ry\end{pmatrix}\pi^r(1-\pi)^{ry}, \mbox{ pour 
 \item[$\bullet$] Paramètre canonique: $\theta=\ln(1-\pi)$
 \item[$\bullet$] Paramètre de dispersion:  $\phi=1/r$
 \item[$\bullet$] $b(\theta)=-\ln(1-e^\theta)$
-\item[$\bullet$] $E[Y^*]=\dot{b}(\theta)=\frac{\partial}{\partial\theta}-\ln(1-e^\theta)=\frac{e^{\theta}}{1-e^\theta}=\frac{1-\pi}{\pi}$
-\item[$\bullet$] $\var(Y^*)=\phi\ddot{b}(\theta)=\frac{1}{r}\frac{\partial}{\partial\theta}\frac{e^{\theta}}{1-e^\theta}=\frac{e^\theta}{r(1-e^\theta)^2}=\frac{(1-\pi)}{r\pi^2}$
+\item[$\bullet$] $\esp{Y^*}=\dot{b}(\theta)=\frac{\partial}{\partial\theta}-\ln(1-e^\theta)=\frac{e^{\theta}}{1-e^\theta}=\frac{1-\pi}{\pi}$
+\item[$\bullet$] $\var{Y^*}=\phi\ddot{b}(\theta)=\frac{1}{r}\frac{\partial}{\partial\theta}\frac{e^{\theta}}{1-e^\theta}=\frac{e^\theta}{r(1-e^\theta)^2}=\frac{(1-\pi)}{r\pi^2}$
 \item[$\bullet$] $V(\mu)=\mu(\mu+1)$.
 \end{itemize}
 \end{enumerate}
@@ -176,19 +174,19 @@ Montrer que la déviance pour le modèle binomial est $$D(y,\hat{\mu})=2\sum_{i=
 \begin{sol}
 La déviance est $$D(y;\hat{\mu})=2(\ell_n(\tilde{\theta})-\ell_n(\hat{\theta})).$$ Pour le modèle Binomial, on a que
 \begin{align*}
-\ell_n(\theta)&=\sum_{i=1}^n\frac{y_i\ln\left(\frac{\mu_i}{1-\mu_i}\right)+\ln(1-\mu_i)}{1/m_i}.
-\end{align*} Alors, dans le modèle complet, $\mu_i=y_i$ et on trouve
+\ell_n(\theta)&=\sum_{i=1}^n\frac{Y_i\ln\left(\frac{\mu_i}{1-\mu_i}\right)+\ln(1-\mu_i)}{1/m_i}.
+\end{align*} Alors, dans le modèle complet, $\mu_i=Y_i$ et on trouve
 \begin{align*}
-\ell_n(\tilde{\theta})&=\sum_{i=1}^n\frac{y_i\ln\left(\frac{y_i}{1-y_i}\right)+\ln(1-y_i)}{1/m_i}.
+\ell_n(\tilde{\theta})&=\sum_{i=1}^n\frac{Y_i\ln\left(\frac{Y_i}{1-Y_i}\right)+\ln(1-Y_i)}{1/m_i}.
 \end{align*}
 Dans le modèle développé avec le lien log, $\mu_i=\hat{\mu}_i$ et on trouve
 \begin{align*}
-\ell_n(\hat{\theta})&=\sum_{i=1}^n\frac{y_i\ln\left(\frac{\hat{\mu}_i}{1-\hat{\mu}_i}\right)+\ln(1-\hat{\mu}_i)}{1/m_i}.
+\ell_n(\hat{\theta})&=\sum_{i=1}^n\frac{Y_i\ln\left(\frac{\hat{\mu}_i}{1-\hat{\mu}_i}\right)+\ln(1-\hat{\mu}_i)}{1/m_i}.
 \end{align*}
 Finalement, la déviance est
 \begin{align*}
-D(y;\hat{\mu})&=\sum_{i=1}^n\frac{y_i\ln\left(\frac{y_i}{1-y_i}\right)+\ln(1-y_i)}{1/m_i}-\frac{y_i\ln\left(\frac{\hat{\mu}_i}{1-\hat{\mu}_i}\right)+\ln(1-\hat{\mu}_i)}{1/m_i}\\
-&=\sum_{i=1}^n m_i\left[y_i\ln\left(\frac{y_i}{\hat{\mu}_i}\right)+(1-y_i)\ln\left(\frac{1-y_i}{1-\hat{\mu}_i}\right)\right].
+D(y;\hat{\mu})&=\sum_{i=1}^n\frac{Y_i\ln\left(\frac{Y_i}{1-Y_i}\right)+\ln(1-Y_i)}{1/m_i}-\frac{Y_i\ln\left(\frac{\hat{\mu}_i}{1-\hat{\mu}_i}\right)+\ln(1-\hat{\mu}_i)}{1/m_i}\\
+&=\sum_{i=1}^n m_i\left[Y_i\ln\left(\frac{Y_i}{\hat{\mu}_i}\right)+(1-Y_i)\ln\left(\frac{1-Y_i}{1-\hat{\mu}_i}\right)\right].
 \end{align*}
 \end{sol}
 \end{exercice}
@@ -198,18 +196,18 @@ Trouver les expressions des résidus de Pearson, d'Anscombe et de déviance pour
 \begin{sol}
 Pour la distribution Gamma, on a $V(t)=t^2$ et $b(t)=-\ln(-t)$.
 
-Résidus de Pearson: $$r_{P_i}=\frac{y_i-\hat{\mu}_i}{\sqrt{\hat{\mu}_i^2}}=\frac{y_i-\hat{\mu}_i}{\hat{\mu}_i}.$$
+Résidus de Pearson: $$r_{P_i}=\frac{Y_i-\hat{\mu}_i}{\sqrt{\hat{\mu}_i^2}}=\frac{Y_i-\hat{\mu}_i}{\hat{\mu}_i}.$$
 Résidus d'Anscombe:
 \begin{align*}
 A(t)&=\int_{0}^{t} \frac{\mbox{d}s}{s^{2/3}}=3t^{1/3}\\
 \dot{A}(t)&=\frac{1}{s^{2/3}}\\
-r_{A_i}&=\frac{A(y_i)-A(\hat{\mu}_i)}{\dot{A}(\hat{\mu}_i)\sqrt{V(\hat{\mu}_i)}}=\frac{3(y_i^{1/3}-\hat{\mu}_i^{1/3})}{\hat{\mu}_i^{1/3}}.
+r_{A_i}&=\frac{A(Y_i)-A(\hat{\mu}_i)}{\dot{A}(\hat{\mu}_i)\sqrt{V(\hat{\mu}_i)}}=\frac{3(Y_i^{1/3}-\hat{\mu}_i^{1/3})}{\hat{\mu}_i^{1/3}}.
 \end{align*}
 Résidus de déviance: 
 \begin{align*}
-D_i&=2\left(-\frac{y_i}{y_i}-\ln(y_i)+\frac{y_i}{\hat{\mu}_i}+\ln(\hat{\mu}_i)\right)\\
-&=2\left(\ln\left(\frac{\hat{\mu}_i}{y_i}\right)+\frac{y_i-\hat{\mu}_i}{\hat{\mu}_i}\right)\\
-r_{D_i}&=sign(y_i-\hat{\mu}_i)\sqrt{2\left(\ln\left(\frac{\hat{\mu}_i}{y_i}\right)+\frac{y_i-\hat{\mu}_i}{\hat{\mu}_i}\right)}.
+D_i&=2\left(-\frac{Y_i}{Y_i}-\ln(Y_i)+\frac{Y_i}{\hat{\mu}_i}+\ln(\hat{\mu}_i)\right)\\
+&=2\left(\ln\left(\frac{\hat{\mu}_i}{Y_i}\right)+\frac{Y_i-\hat{\mu}_i}{\hat{\mu}_i}\right)\\
+r_{D_i}&=sign(Y_i-\hat{\mu}_i)\sqrt{2\left(\ln\left(\frac{\hat{\mu}_i}{Y_i}\right)+\frac{Y_i-\hat{\mu}_i}{\hat{\mu}_i}\right)}.
 \end{align*}
 \end{sol}
 \end{exercice}
@@ -290,13 +288,13 @@ On s'intéresse à la modélisation du coût moyen par réclamation.
 
 \begin{sol}
 \begin{enumerate}
-\item En \texttt{R}, on obtient
+\item En \textsf{R}, on obtient
 <<>>=
 modinv <- glm(AvCost~OwnerAge+Model+CarAge,family=Gamma,data=Bcar)
 summary(modinv)
 @
 
-\item On a utilisé un lien inverse, alors $E[Y_i]=\frac{1}{\eta_i}.$ Puisque les variables explicatives prennent toutes leur niveau de base, on a que $\hat{\eta}_i=\hat{\beta}_0=0.0033233$ et $$\widehat{E[Y_i]}=0.0033233^{-1}=300.91.$$
+\item On a utilisé un lien inverse, alors $\esp{Y_i}=\frac{1}{\eta_i}.$ Puisque les variables explicatives prennent toutes leur niveau de base, on a que $\hat{\eta}_i=\hat{\beta}_0=0.0033233$ et $$\widehat{\esp{Y_i}}=0.0033233^{-1}=300.91.$$
 
 \item Puisqu'on a utilisé un lien inverse, un coefficient plus élevé implique une diminution de l'espérance du coût de la réclamation, alors qu'un coefficient négatif signifie une augmentation de cette espérance. Ici on observe que les sept coefficients sont positifs, alors la catégorie d'âge ayant une espérance de coût la plus élevée est la catégorie de base, 17-20 ans. Le coût moyen semble ensuite relativement élevé pour les jeunes entre 21 et 29 ans. La catégorie d'âge avec coût de réclamation minimal est 35-39 ans, puis la moyenne semble relativement stable pour les détenteurs de police plus âgés.
 
@@ -304,17 +302,16 @@ summary(modinv)
 
 \item De la même façon, on observe que d'augmenter l'âge du véhicule diminue le coût moyen des réclamations.
 
-\item Pour un détenteur de police entre 17 et 20 ans, avec un véhicule de type D âgé de un à 3 ans, on trouve que $$\widehat{E[Y_i]}=\frac{1}{\hat{\beta}_0+\hat{\beta}^{MODEL}_D}=\frac{1}{0.0033233-0.0018235}=666.76.$$
+\item Pour un détenteur de police entre 17 et 20 ans, avec un véhicule de type D âgé de un à 3 ans, on trouve que $$\widehat{\esp{Y_i}}=\frac{1}{\hat{\beta}_0+\hat{\beta}^{MODEL}_D}=\frac{1}{0.0033233-0.0018235}=666.76.$$
 
-\item Pour un détenteur de police entre 35 et 39 ans, avec un véhicule de type A âgé de plus de 10 ans, on trouve que $$\widehat{E[Y_i]}=\frac{1}{\hat{\beta}_0+\hat{\beta}^{OWNERAGE}_{35-39}+\hat{\beta}^{CARAGE}_{10+}}=\frac{1}{0.0033233+0.0016372+0.0033776}=119.93.$$
+\item Pour un détenteur de police entre 35 et 39 ans, avec un véhicule de type A âgé de plus de 10 ans, on trouve que $$\widehat{\esp{Y_i}}=\frac{1}{\hat{\beta}_0+\hat{\beta}^{OWNERAGE}_{35-39}+\hat{\beta}^{CARAGE}_{10+}}=\frac{1}{0.0033233+0.0016372+0.0033776}=119.93.$$
 
-\item La déviance $D(y,\hat{\mu})=11.511$ est donnée dans la sortie \texttt{R} pour la sous-question a). On a que $$\frac{D(y,\hat{\mu})}{\hat{\phi}}=\frac{11.511}{0.1074529}=107.126,$$ ce qui est très près de $n-p'=109$. Le modèle semble donc adéquat.
+\item La déviance $D(y,\hat{\mu})=11.511$ est donnée dans la sortie \textsf{R} pour la sous-question a). On a que $$\frac{D(y,\hat{\mu})}{\hat{\phi}}=\frac{11.511}{0.1074529}=107.126,$$ ce qui est très près de $n-p'=109$. Le modèle semble donc adéquat.
 
 \item Les résidus sont calculés avec les formules trouvées à la question 6. Il faut d'abord enlever les données manquantes du vecteur contenant les coûts moyens. On obtient les graphiques de la Figure~\ref{fig:glm:residuals}.
 
 \begin{figure}
-\begin{center}
-<<echo=FALSE, fig.width=3, fig.height=3, fig=TRUE>>=
+<<glm-residuals,echo=FALSE>>=
 attach(Bcar)
 pears <- (AvCost[-which(is.na(AvCost))]-fitted(modinv))/fitted(modinv)
 ansc <- 3*(AvCost[-which(is.na(AvCost))]^(1/3)-fitted(modinv)^(1/3))/fitted(modinv)^(1/3)
@@ -325,7 +322,6 @@ plot(fitted(modinv),ansc,xlab="Valeurs prédites",ylab="Résidus Anscombe",pch=1
 plot(fitted(modinv),dev,xlab="Valeurs prédites",ylab="Résidus de déviance",pch=16)
 @
 \caption{Résidus pour GLM Gamma}\label{fig:glm:residuals}
-\end{center}
 \end{figure}
 
 \item a. Le modèle avec le lien logarithmique est 
@@ -335,15 +331,15 @@ modlog <- glm(AvCost~OwnerAge+Model+CarAge,family=Gamma(link=log),data=Bcar)
 summary(modlog)
 @
 
-b. Avec ce modèle $E[Y_i]=e^{\eta_i}.$ Puisque les variables explicatives prennent toutes leur niveau de base, on a que $\hat{\eta}_i=\hat{\beta}_0=5.711739$ et $$\widehat{E[Y_i]}=e^5.711739=302.39.$$ Cela ne diffère pas beaucoup du résultat trouvé en b).
+b. Avec ce modèle $\esp{Y_i}=e^{\eta_i}.$ Puisque les variables explicatives prennent toutes leur niveau de base, on a que $\hat{\eta}_i=\hat{\beta}_0=5.711739$ et $$\widehat{\esp{Y_i}}=e^5.711739=302.39.$$ Cela ne diffère pas beaucoup du résultat trouvé en b).
 
 c-d-e. Puisqu'on a utilisé un lien logarithmique, on a un modèle multiplicatif. Si $e^\beta>1$, alors l'espérance du coût augmente, alors que si $e^\beta<1$ alors l'espérance du coût diminue. On peut donc tirer des conclusions similaires à celles en c), d) et e).
 
-f. Pour un détenteur de police entre 17 et 20 ans, avec un véhicule de type D âgé de un à 3 ans, on trouve que $$\widehat{E[Y_i]}=\exp{\hat{\beta}_0+\hat{\beta}^{MODEL}_D}=\exp{5.711739+0.472290}=484.94.$$ On note que cette valeur est beaucoup moins élevée que celle obtenue en f).
+f. Pour un détenteur de police entre 17 et 20 ans, avec un véhicule de type D âgé de un à 3 ans, on trouve que $$\widehat{\esp{Y_i}}=\exp\left(\hat{\beta}_0+\hat{\beta}^{MODEL}_D \right)=\exp(5.711739+0.472290)=484.94.$$ On note que cette valeur est beaucoup moins élevée que celle obtenue en f).
 
-g. Pour un détenteur de police entre 35 et 39 ans, avec un véhicule de type A âgé de plus de 10 ans, on trouve que $$\widehat{E[Y_i]}=\exp{\hat{\beta}_0+\hat{\beta}^{OWNERAGE}_{35-39}+\hat{\beta}^{CARAGE}_{10+}}=\exp{5.711739-0.331420-0.735513}=104.04.$$
+g. Pour un détenteur de police entre 35 et 39 ans, avec un véhicule de type A âgé de plus de 10 ans, on trouve que $$\widehat{\esp{Y_i}}=\exp\left(\hat{\beta}_0+\hat{\beta}^{OWNERAGE}_{35-39}+\hat{\beta}^{CARAGE}_{10+}\right)=\exp(5.711739-0.331420-0.735513)=104.04.$$
 
-h. La déviance $D(y,\hat{\mu})=11.263$ est donnée dans la sortie \texttt{R} pour la sous-question a). On a que $$\frac{D(y,\hat{\mu})}{\hat{\phi}}=\frac{11.263}{0.0910768}=123.66,$$ ce qui est moins près de $n-p'=109$ que pour le modèle avec le lien inverse. Le modèle semble donc moins adéquat.
+h. La déviance $D(y,\hat{\mu})=11.263$ est donnée dans la sortie \textsf{R} pour la sous-question a). On a que $$\frac{D(y,\hat{\mu})}{\hat{\phi}}=\frac{11.263}{0.0910768}=123.66,$$ ce qui est moins près de $n-p'=109$ que pour le modèle avec le lien inverse. Le modèle semble donc moins adéquat.
 \end{enumerate}
 \end{sol}
 \end{exercice}
@@ -420,12 +416,12 @@ y_{i}-m_{i}\frac{e^{\hat{\beta}_{0}+\hat{\beta}_{i}}}{1+e^{\hat{\beta}_{0}+\hat{
 &\hat{\beta}_{0}=\ln\left(\frac{y_{1}}{m_{1}-y_{1}}\right)\\
 &\hat{\beta}_{i}=\ln\left(\frac{y_{i}}{m_{i}-y_{i}}\right)-\hat{\beta}_{0}=\ln\left(\frac{y_{i}/(m_{i}-y_{i})}{y_{1}/(m_{1}-y_{1})}\right)  \mbox{,  } i=2,...,11.\\
 \end{align*}
-The estimates of the model parameters are easily found in \texttt{R} as follows:
+The estimates of the model parameters are easily found in \textsf{R} as follows:
 <<>>=
 (beta0 <- log(y[1]/(m[1]-y[1])))
 (beta <- c(0,log(y[-1]/(m[-1]-y[-1]))-beta0))
 @
-Hence, here $$\hat{\beta}=(-2.9178, 0, 0.4122, 0.6152, 0.6740, 1.3083, 1.7138, 1.6185, 2.7636, 3.5239, 3.0179, 3.2542)^{T}.$$
+Hence, here $$\hat{\beta}=(-2.9178, 0, 0.4122, 0.6152, 0.6740, 1.3083, 1.7138, 1.6185, 2.7636, 3.5239, 3.0179, 3.2542)^\top.$$
 
 As a consistency check following from the invariance property of maximum likelihood estimation, we can verify that the estimates of $\pi_{i}$ using the expit function are equal to the MLE estimates $\hat{\pi}_{i}=\frac{y_{i}}{m_{i}}$:
 <<>>=
@@ -433,21 +429,21 @@ As a consistency check following from the invariance property of maximum likelih
 y/m
 @
 
-\item The Binomial GLM model with logit link and the linear predictor $\eta_{i}=\beta_{0}+\beta_{1}x_{i}$, $i=1,...,11$ is fitted to the data using \texttt{R} and the command:
+\item The Binomial GLM model with logit link and the linear predictor $\eta_{i}=\beta_{0}+\beta_{1}x_{i}$, $i=1,...,11$ is fitted to the data using \textsf{R} and the command:
 <<echo=TRUE, eval=FALSE>>=
 glm(cbind(y,m-y)~x,family=binomial)
 @
 
 The estimates of the parameters are $\hat{\beta}_{0}=-3.6070615$ and $\hat{\beta}_{1}=0.0009121$, with standard error $SE(\hat{\beta}_{0})=0.3533875$ and $SE(\hat{\beta}_{1})=0.0001084$.
 
-\item The Binomial GLM model with probit link and the linear predictor $\eta_{i}=\beta_{0}+\beta_{1}x_{i}$, $i=1,...,11$ is fitted to the data using \texttt{R} and the command:
+\item The Binomial GLM model with probit link and the linear predictor $\eta_{i}=\beta_{0}+\beta_{1}x_{i}$, $i=1,...,11$ is fitted to the data using \textsf{R} and the command:
 <<echo=TRUE, eval=FALSE>>=
 glm(cbind(y,m-y)~x,family=binomial(link=probit))
 @
 
 The estimates of the parameters are $\hat{\beta}_{0}=-2.080$ and $\hat{\beta}_{1}=5.230\times10^{-4}$, with standard error $SE(\hat{\beta}_{0})=0.1852$ and $SE(\hat{\beta}_{1})=5.973\times10^{-5}$.
 
-\item The Binomial GLM model with complementary log-log link and the linear predictor $\eta_{i}=\beta_{0}+\beta_{1}x_{i}$, $i=1,...,11$ is fitted to the data using \texttt{R} and the command:
+\item The Binomial GLM model with complementary log-log link and the linear predictor $\eta_{i}=\beta_{0}+\beta_{1}x_{i}$, $i=1,...,11$ is fitted to the data using \textsf{R} and the command:
 <<echo=TRUE, eval=FALSE>>=
 glm(cbind(y,m-y)~x,family=binomial(link=cloglog))
 @
@@ -469,7 +465,7 @@ The estimates of the parameters are $\hat{\beta}_{0}=-3.360$ and $\hat{\beta}_{1
 \end{center}
 \end{table}
 
-\item Figure~\ref{fig:glm:modfit} shows a plot of the data points along with the three fitted lines. It was obtained using the following code in \texttt{R}, where \texttt{ilogit, iprobit} and \texttt{icloglog} are the inverse of the corresponding link functions:
+\item Figure~\ref{fig:glm:modfit} shows a plot of the data points along with the three fitted lines. It was obtained using the following code in \textsf{R}, where \texttt{ilogit, iprobit} and \texttt{icloglog} are the inverse of the corresponding link functions:
 <<echo=TRUE, eval=FALSE>>=
 plot(x,y/m,pch=19,xlab="Number of Hours of Operation (x)",
      ylab="Prob of Developing Fissures")
@@ -490,9 +486,8 @@ iprobit <- function(x) pnorm(x)
 icloglog <- function(x) 1 - exp(-exp(x))
 @
 
-\begin{figure}[htbp]
-\begin{center}
-<<echo=FALSE>>=
+\begin{figure}
+<<glm-modfit,echo=FALSE>>=
 plot(x,y/m,pch=19,xlab="Number of Hours of Operation (x)",
      ylab="Prob of Developing Fissures")
 j <- seq(0,4800,1)
@@ -502,7 +497,6 @@ lines(j,icloglog(coef(modeld)[1]+coef(modeld)[2]*j),lty=3,col=4,lwd=2)
 legend("topleft",legend=c("Logit","Probit","Complementary log-log"),
        lty=c(1,2,3),col=c(1,2,4),lwd=rep(2,3))
 @
-\end{center}
 \caption{Logistic, Probit and Complementary Log-Log Model Fit} \label{fig:glm:modfit}
 \end{figure}
 

@@ -351,7 +351,7 @@
        ou, autrement dit, que les vecteurs doivent être orthogonaux.
        C'est là une condition essentielle pour que l'erreur
        quadratique moyenne entre les vecteurs $\yvec$ et
-       $\hat\yvec$ soit minimale. \textcolor{(Pour de plus amples détails sur
+       $\hat\yvec$ soit minimale. \textcolor{red}{(Pour de plus amples détails sur
        l'interprétation géométrique du modèle de régression, consulter
        {\shorthandoff{:} \citet[chapitres 20 et
          21]{Draper:regression:1998}}.)} 
@@ -772,17 +772,17 @@ summary(fit)
 @
       Le modèle est donc le suivant:
       \begin{displaymath}
-        Y_t =
+        Y_i =
         \Sexpr{format(signif(b[1], 4), dec = ",")} +
-        \Sexpr{format(signif(b[2], 4), dec = ",")} X_{t1} +
-        \Sexpr{format(signif(b[3], 4), dec = ",")} X_{t2} +
-        \varepsilon_t,
+        \Sexpr{format(signif(b[2], 4), dec = ",")} x_{i1} +
+        \Sexpr{format(signif(b[3], 4), dec = ",")} x_{i2} +
+        \varepsilon_i,
         \quad
-        \epsvec_t \sim \Norm(0,
+        \epsvec_i \sim \Norm(0,
         \Sexpr{format(signif(s, 4), dec = ",")}^2 \mat{I})
       \end{displaymath}
-      où $Y_t$ est la consommation en litres aux 100 kilomètres,
-      $X_{t1}$ le poids en kilogrammes et $X_{t2}$ la cylindrée en
+      où $Y_i$ est la consommation en litres aux 100 kilomètres,
+      $x_{i1}$ le poids en kilogrammes et $x_{i2}$ la cylindrée en
       litres. La faible valeur $p$ du test $F$ indique une régression
       globalement très significative. Les tests $t$ des paramètres
       individuels indiquent également que les deux variables du modèle
@@ -853,7 +853,7 @@ anova(fit2)
     de cette variable est minime. À ce stade de l'analyse, il vaudrait
     sans doute mieux reprendre tout depuis le début avec d'autres
     variables. Des méthodes de sélection des variables seront étudiées
-    plus avant dans le chapitre.
+    dans les chapitres suivants.
   \end{sol}
 \end{exercice}
 
@@ -1086,14 +1086,14 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
         avec 2 et 21 degrés de liberté.
       \end{enumerate}
     \item À la lecture du premier tableau d'analyse de variance que
-      tant les variables $X_2$ que $X_3$ sont significatives dans le
+      tant les variables $x_2$ que $x_3$ sont significatives dans le
       modèle. Par contre, comme on le voit dans le second tableau, la
-      variable $X_2$ devient non significative dès lors que la
-      variable $X_1$ est ajoutée au modèle. (L'impact de la variable
-      $X_3$ demeure, lui, inchangé.) Cela signifie que les variables
-      $X_1$ et $X_2$ sont redondantes et qu'il faut choisir l'une ou
+      variable $x_2$ devient non significative dès lors que la
+      variable $x_1$ est ajoutée au modèle. (L'impact de la variable
+      $x_3$ demeure, lui, inchangé.) Cela signifie que les variables
+      $x_1$ et $x_2$ sont redondantes et qu'il faut choisir l'une ou
       l'autre, mais pas les deux. Par conséquent, les choix de modèle
-      possibles sont $X_1$ et $X_3$, ou $X_2$ et $X_3$.
+      possibles sont $x_1$ et $x_3$, ou $x_2$ et $x_3$.
     \end{enumerate}
   \end{sol}
 \end{exercice}
@@ -1180,13 +1180,13 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
         = \frac{\hat{\beta}_i - \beta_i}{s \sqrt{c_{ii}}}
         \sim t(n - p - 1).
       \end{displaymath}
-    \item En régression linéaire simple, $c_{11} = 1/\sum_{t = 1}^n
-      (X_t - \bar{X})^2 = 1/S_{XX}$ et $\sigma^2 c_{11} =
+    \item En régression linéaire simple, $c_{11} = 1/\sum_{i = 1}^n
+      (x_i - \bar{x})^2 = 1/S_{xx}$ et $\sigma^2 c_{11} =
       \var{\hat{\beta}_1}$. Le résultat général en a) se réduit donc,
       en régression linéaire simple, au résultat bien connu du test $t$
       sur le paramètre $\beta_1$
       \begin{displaymath}
-        \frac{\hat{\beta}_1 - \beta_1}{s \sqrt{1/S_{XX}}}
+        \frac{\hat{\beta}_1 - \beta_1}{s \sqrt{1/S_{xx}}}
         \sim t(n - 1 - 1).
       \end{displaymath}
     \end{enumerate}
@@ -1256,8 +1256,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     \item $\hat{\beta}^* = \sum_{i=1}^n w_i x_i Y_i/\sum_{i=1}^n
       w_i x_i^2$,
       $\var{\hat{\beta}^*} = \sigma^2/\sum_{i=1}^n w_i x_i^2$
-    \item $\hat{\beta}^* = \bar{Y}/\bar{X}$,
-      $\var{\hat{\beta}^*} = \sigma^2/(n \bar{X})$
+    \item $\hat{\beta}^* = \bar{Y}/\bar{x}$,
+      $\var{\hat{\beta}^*} = \sigma^2/(n \bar{x})$
     \item $\hat{\beta}^* = \sum_{i=1}^n Y_i/x_i$,
       $\var{\hat{\beta}^*} = \sigma^2/n$
     \end{enumerate}
@@ -1311,10 +1311,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
       \begin{align*}
         \hat{\beta}^*
         &= \frac{\sum_{i=1}^n Y_i}{\sum_{i=1}^n x_i} \\
-        &= \frac{\bar{Y}}{\bar{X}}, \\
+        &= \frac{\bar{Y}}{\bar{x}}, \\
         \var{\hat{\beta}^*}
         &= \frac{\sigma^2}{\sum_{i=1}^n x_i} \\
-        &= \frac{\sigma^2}{n \bar{X}}.
+        &= \frac{\sigma^2}{n \bar{x}}.
       \end{align*}
     \item Si $\var{\varepsilon_i} = \sigma^2 x_i^2$, alors $w_i =
       x_i^{-2}$. On a donc
@@ -1370,12 +1370,12 @@ s2 <- signif(summary(fit)$sigma^2, 4)
     $\varepsilon_i \sim \Norm(0, \Sexpr{format(s2, dec = ",")})$
   \end{rep}
   \begin{sol}
-    Le graphique des valeurs de $Y$ en fonction de celles de $X$, à la
+    Le graphique des valeurs de $Y$ en fonction de celles de $x$, à la
     figure \ref{fig:multiple:quadratique}, montre clairement une
     relation quadratique. On postule donc le modèle
     \begin{displaymath}
-      Y_t = \beta_0 + \beta_1 X_t + \beta_2 X_t^2 + \varepsilon_t, \quad
-      \varepsilon_t \sim \Norm(0, \sigma^2).
+      Y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \varepsilon_i, \quad
+      \varepsilon_i \sim \Norm(0, \sigma^2).
     \end{displaymath}
     \begin{figure}
 <<multiple-quadratique>>=
@@ -1398,10 +1398,10 @@ anova(fit)
     l'ajustement du modèle est bon. On conclut donc qu'un modèle
     adéquat pour cet ensemble de données est
     \begin{displaymath}
-      Y_t = \Sexpr{format(b[1], dec = ",")} +
-      \Sexpr{format(b[2], dec = ",")} X_t +
-      \Sexpr{format(b[3], dec = ",")} X_t^2 + \varepsilon_t, \quad
-      \varepsilon_t \sim \Norm(0, \Sexpr{format(s2, dec = ",")}).
+      Y_i = \Sexpr{format(b[1], dec = ",")} +
+      \Sexpr{format(b[2], dec = ",")} x_i +
+      \Sexpr{format(b[3], dec = ",")} x_i^2 + \varepsilon_i, \quad
+      \varepsilon_i \sim \Norm(0, \Sexpr{format(s2, dec = ",")}).
     \end{displaymath}
     \begin{figure}
 <<multiple-quadratique2>>=
@@ -1695,7 +1695,7 @@ ggplot(dat, aes(x= X, y= Y, label=CODES))+
 \end{enumerate}
 
 \begin{sol}
-On pourrait croire qu'un point sur 20, ça ne change rien, mais ce n'est pas le cas! Le point 1 a un impact sur la pente et la qualité de l'ajustement. Le point 2 a un grand levier mais n'affecte pas beaucoup les estimations, le point 3 a un grand levier et un gros impact.
+On pourrait croire qu'un point sur 20, ça ne change rien, mais ce n'est pas le cas! Le point 1 a un impact sur la pente et la qualité de l'ajustement. Le point 2 a un grand levier mais n'affecte pas beaucoup les estimations, le point 3 a un grand levier et un gros impact. Pour observer l'impact, exécuter le code \textsf{R} suivant.
 
 \begin{verbatim}
 dat <- read.csv("OutlierExample.csv")

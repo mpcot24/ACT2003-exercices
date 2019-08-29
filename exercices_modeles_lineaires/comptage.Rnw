@@ -17,10 +17,6 @@
 \end{Filesave}
 
 
-<<echo=FALSE>>=
-options(width = 55)
-@
-
 \begin{exercice}
 Ajuster un modèle de Poisson avec lien logarithmique au données \texttt{esoph} du package \texttt{datasets} en \textsf{R}. À partir du modèle avec effets principaux et les interactions de second ordre 
 
@@ -189,7 +185,7 @@ exp(fit4$coef[1]+c(-1,1)*qnorm(0.975)*summary(fit4)$coefficients[1,2])
 
 \begin{exercice}
 Le tableau~\ref{tab:comptage:etudiants} dénombre les applications aux études graduées à l'Université Berkeley en Californie, pour l'automne 1973. On y voit les décisions d'admission par sexe et par département.
-\begin{table}
+\begin{table}[h!]
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline

@@ -17,10 +17,6 @@
 \end{Filesave}
 
 
-<<echo=FALSE>>=
-options(width = 55)
-@
-
 \begin{exercice}
 Est-ce que les compagnies d'assurance utilisent la race comme un facteur déterminant dans leur décision de rendre de l'assurance disponible? Fienberg (1985) a rassemblé des données d'un rapport de la \emph{U.S. Commission on Civil Rights} sur le nombre de polices d'assurance habitation émises à Chicago entre Décembre 1977 et Février 1978. Les polices d'assurance étaient placées dans 2 catégories:
 \begin{itemize}
@@ -131,11 +127,11 @@ H     &10& 5.4817& 0.7004& 10.00 &-102.98& -84.91&0.7989\\ \hline
 \end{exercice}
 
 \begin{exercice}
-Cet exercice est inspiré de James et al. (2013). Considérons le cas simplifié où $n=p$ et la matrice d'incidence $X$ est diagonale, avec des 1 sur la diagonale et des 0 pour tous les éléments hors-diagonale.
+Cet exercice est inspiré de James et al. (2013). Considérons le cas simplifié où $n=p$ et la matrice d'incidence $\Xmat$ est diagonale, avec des 1 sur la diagonale et des 0 pour tous les éléments hors-diagonale.
 
 On ajuste une régression linéaire multiple passant par l'origine avec de telles données, c'est-à-dire que $\beta_0=0$ est connu et on ne l'estime pas.
 
-\medskip
+
 Sous ces hypothèses,
 \begin{enumerate}
 \item Trouvez les estimateurs des moindres carrés $\hat\beta_1,\ldots,\hat\beta_p$.
@@ -149,9 +145,9 @@ Sous ces hypothèses,
 \item Montrez que l'estimateur lasso a la forme
 $$
 \hat\beta_j^{\mathrm{lasso}}=\left\{\begin{array}{ll}
-y_j-\lambda/2, & \mbox{ si } y_j> \lambda/2\\
-y_j+\lambda/2, & \mbox{ si } y_j < -\lambda/2\\
-0, & \mbox{ si } |y_j| < \lambda/2.
+y_j-\lambda/2, & \mbox{ si } Y_j> \lambda/2\\
+y_j+\lambda/2, & \mbox{ si } Y_j < -\lambda/2\\
+0, & \mbox{ si } |Y_j| < \lambda/2.
 \end{array}\right.
 $$
 
@@ -160,44 +156,44 @@ $$
 
 \begin{sol}
 \begin{enumerate}
-\item Puisque $n=p$, $\beta_0=0$ et que la matrice d'incidence est diagonale, on a $\hat{y}_i = \hat\beta_i$ pour $i=1,\ldots,n$. On minimise $S(\bobeta)=\sum_{i=1}^n (y_i-\beta_i)^2$ et on trouve pour $i\in \{1,\ldots,n\}$,
+\item Puisque $n=p$, $\beta_0=0$ et que la matrice d'incidence est diagonale, on a $\hat{Y}_i = \hat\beta_i$ pour $i=1,\ldots,n$. On minimise $S(\beta)=\sum_{i=1}^n (Y_i-\beta_i)^2$ et on trouve pour $i\in \{1,\ldots,n\}$,
 $$
-\left.\frac{\partial}{\partial\beta_i}S(\bobeta)\right|_{\hat\beta_i}= -2 (y_i-\hat\beta_i) =0 \quad \Rightarrow \quad \hat\beta_i =  y_i.
+\left.\frac{\partial}{\partial\beta_i}S(\beta)\right|_{\hat\beta_i}= -2 (Y_i-\hat\beta_i) =0 \quad \Rightarrow \quad \hat\beta_i =  Y_i.
 $$
 
 \item On minimise, pour une valeur $\lambda>0$,
 $$
-S^{\mathrm{ridge}}(\bobeta)=\sum_{i=1}^n (y_i-\beta_i)^2 +\lambda \sum_{i=1}^n \beta_i^2.
+S^{\mathrm{ridge}}(\betavec)=\sum_{i=1}^n (Y_i-\beta_i)^2 +\lambda \sum_{i=1}^n \beta_i^2.
 $$
 
 \item On a
 $$
-\frac{\partial}{\partial\beta_i}S^{\mathrm{ridge}}(\bobeta)=-2(y_i-\beta_i) +2 \lambda  \beta_i.
+\frac{\partial}{\partial\beta_i}S^{\mathrm{ridge}}(\betavec)=-2(Y_i-\beta_i) +2 \lambda  \beta_i.
 $$
 On pose égal à 0 et on trouve
 $$
-y_i-\hat \beta_i^{\mathrm{ridge}} = \lambda  \hat\beta_i^{\mathrm{ridge}} \quad \Rightarrow \quad \hat\beta_i^{\mathrm{ridge}} =  \frac{y_i}{1+\lambda}.
+Y_i-\hat \beta_i^{\mathrm{ridge}} = \lambda  \hat\beta_i^{\mathrm{ridge}} \quad \Rightarrow \quad \hat\beta_i^{\mathrm{ridge}} =  \frac{Y_i}{1+\lambda}.
 $$
 
 \item On minimise, pour une valeur $\lambda>0$,
 $$
-S^{\mathrm{lasso}}(\bobeta)=\sum_{i=1}^n (y_i-\beta_i)^2 +\lambda \sum_{i=1}^n |\beta_i|.
+S^{\mathrm{lasso}}(\betavec)=\sum_{i=1}^n (Y_i-\beta_i)^2 +\lambda \sum_{i=1}^n |\beta_i|.
 $$
 
 \item On a
 $$
-\frac{\partial}{\partial\beta_i}S^{\mathrm{lasso}}(\bobeta)=-2(y_i-\beta_i) + \lambda\, \mathrm{signe}(\beta_i) .
+\frac{\partial}{\partial\beta_i}S^{\mathrm{lasso}}(\betavec)=-2(Y_i-\beta_i) + \lambda\, \mathrm{signe}(\beta_i) .
 $$
-On utilise les EMV trouvés en a) pour définir le signe. Supposons d'abord que $\hat\beta_i = y_i>0$. Alors, on a aussi $\hat\beta_i^{\mathrm{lasso}}>0$ (sinon, changer le signe donnera une valeur plus petite de l'équation à minimiser). On pose la dérivée égale à 0 et on trouve
+On utilise les EMV trouvés en a) pour définir le signe. Supposons d'abord que $\hat\beta_i = Y_i>0$. Alors, on a aussi $\hat\beta_i^{\mathrm{lasso}}>0$ (sinon, changer le signe donnera une valeur plus petite de l'équation à minimiser). On pose la dérivée égale à 0 et on trouve
 $$
-2(y_i-\hat \beta_i^{\mathrm{lasso}}) = \lambda  \quad \Rightarrow \quad \hat\beta_i^{\mathrm{ridge}} =  y_i- \lambda/2,
+2(Y_i-\hat \beta_i^{\mathrm{lasso}}) = \lambda  \quad \Rightarrow \quad \hat\beta_i^{\mathrm{ridge}} =  Y_i- \lambda/2,
 $$
-ce qui tient seulement si $\hat\beta_i^{\mathrm{lasso}}>0$, alors on a $\hat\beta_i^{\mathrm{ridge}} =  \max(0,y_i- \lambda/2)$.
-Supposons ensuite que $\hat \beta_i = y_i <0$. Alors, on a aussi $\hat\beta_i^{\mathrm{lasso}}<0$. On pose la dérivée égale à 0 et on trouve
+ce qui tient seulement si $\hat\beta_i^{\mathrm{lasso}}>0$, alors on a $\hat\beta_i^{\mathrm{ridge}} =  \max(0,Y_i- \lambda/2)$.
+Supposons ensuite que $\hat \beta_i = Y_i <0$. Alors, on a aussi $\hat\beta_i^{\mathrm{lasso}}<0$. On pose la dérivée égale à 0 et on trouve
 $$
-2(y_i-\hat \beta_i^{\mathrm{lasso}}) = -\lambda  \quad \Rightarrow \quad \hat\beta_i^{\mathrm{ridge}} =  y_i+ \lambda/2,
+2(Y_i-\hat \beta_i^{\mathrm{lasso}}) = -\lambda  \quad \Rightarrow \quad \hat\beta_i^{\mathrm{ridge}} =  Y_i+ \lambda/2,
 $$
-sous la contrainte que ce soit négatif, donc dans ce cas, $\hat\beta_i^{\mathrm{ridge}} =  \min(0,y_i+\lambda/2)$. On combine les deux cas et on obtient l'équation donnée.
+sous la contrainte que ce soit négatif, donc dans ce cas, $\hat\beta_i^{\mathrm{ridge}} =  \min(0,Y_i+\lambda/2)$. On combine les deux cas et on obtient l'équation donnée.
 
 \item On peut voir que la façon de rapetisser les paramètres est bien différente pour les deux méthodes. Avec ridge, chaque coefficient des moindres carrés est réduit par la même proportion. Avec lasso, chaque coefficient des moindres carrés est réduit vers 0 d'un montant constant $\lambda/2$; ceux qui sont plus petits que $\lambda/2$ en valeur absolue sont mis exactement égaux à 0. C'est de cette façon que le lasso permet de faire la sélection des variables explicatives.
 
@@ -205,13 +201,12 @@ sous la contrainte que ce soit négatif, donc dans ce cas, $\hat\beta_i^{\mathrm
 \end{sol}
 \end{exercice}
 
-
 \begin{exercice}
 On considère un modèle de régression linéaire
 $$
 Y_i = \beta_0+\beta_1 x_i+\varepsilon_i,
 $$
-avec $\varepsilon_i\sim N(0,\sigma^2)$ pour $i=1,\ldots,8$ pour la base de données suivante~:
+avec $\varepsilon_i\sim \Norm(0,\sigma^2)$ pour $i=1,\ldots,8$ pour la base de données suivante~:
 
 \begin{center}
 \begin{tabular}{ccc}
@@ -233,24 +228,27 @@ $i$ & $x_i$ & $y_i$ \\ \midrule
 \item En utilisant la régression Ridge avec $\lambda=4$, calculer l'erreur quadratique moyenne.
 \end{enumerate}
 
-\begin{reponse}
-a) $40$ et $2.1875$   b) $1.8125$
-\end{reponse}
+\begin{rep}
+\begin{enumerate}
+\item $40$ et $2.1875$   
+\item $1.8125$
+\end{enumerate}
+\end{rep}
 
 \begin{sol}
 \begin{enumerate}
-\item Avec un paramètre de régularisation de $\lambda=0$, il s'agit d'une régression linéaire simple. On a alors, puisque $\bar x=0$,
+\item Avec un paramètre de régularisation de $\lambda=0$, il s'agit d'une régression linéaire simple. On a alors, puisque $\bar{x}=0$,
 \begin{align*}
-\hat\beta_1 &= \frac{\sum_{i=1}^8 x_i y_i}{\sum_{i=1}^8 x_i^2}= \frac{35}{16} = \Sexpr{round(35/16,4)}\\
-\hat\beta_0 &= \bar y = \Sexpr{mean(c(35,40,36,38,40,43,45,43))}.
+\hat\beta_1 &= \frac{\sum_{i=1}^8 x_i Y_i}{\sum_{i=1}^8 x_i^2}= \frac{35}{16} = \Sexpr{round(35/16,4)}\\
+\hat\beta_0 &= \bar Y = \Sexpr{mean(c(35,40,36,38,40,43,45,43))}.
 \end{align*}
 \item Pour la régression Ridge, on a vu que l'ordonnée à l'origine n'est pas affectée par la pénalité alors $\hat\beta_0=40$. La solution générale pour $p$ variables explicatives est
 $$
-\betabh_\lambda^{\mbox{ridge}} = (\mathbf{X}^\top\mathbf{X}+\lambda \mathbf{I}_p)^{-1}\mathbf{X}^{\top}\mathbf{Y}.
+\betavec_\lambda^{\mathrm{ridge}} = (\Xmat^\top\Xmat+\lambda \mathbf{I}_p)^{-1}\Xmat^\top \yvec.
 $$
 En dimension $p=1$, cela se réduit à
 $$
-\hat\beta_1 = \frac{\sum_{i=1}^8 x_i y_i}{\sum_{i=1}^8 x_i^2 +\lambda} = \frac{35}{16+\lambda}.
+\hat\beta_1 = \frac{\sum_{i=1}^8 x_i Y_i}{\sum_{i=1}^8 x_i^2 +\lambda} = \frac{35}{16+\lambda}.
 $$
 Pour $\lambda=4$, on obtient $\hat\beta_1=1.75$. Cette valeur est, comme prévu, plus près de 0 que celle obtenue en a). L'équation du modèle est alors
 $$
@@ -266,34 +264,33 @@ Par la suite, on obtient les prévisions
 \end{align*}
 et on calcule l'erreur quadratique moyenne
 $$
-MSE = \frac{\sum_{i=1}^8 (\hat Y_i - y_i)^2}{8} = 1.8125.
+\MSE = \frac{\sum_{i=1}^8 (Y_i - \hat{Y}_i)^2}{8} = 1.8125.
 $$
 \end{enumerate}
 \end{sol}
 \end{exercice}
 
 \begin{exercice}
-Sachant que l'estimateur des moindres carrés $\betabh = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^{\top}\mathbf{Y}$ est sans biais pour $\betab$, vérifier que, si $\lambda\ne 0$, l'estimateur du modèle ridge
+Sachant que l'estimateur des moindres carrés $\betavec = (\Xmat^\top\Xmat)^{-1}\Xmat^\top\yvec$ est sans biais pour $\betavec$, vérifier que, si $\lambda\ne 0$, l'estimateur du modèle ridge
 $$
-\betabh_\lambda^{\mbox{ridge}} = (\mathbf{X}^\top\mathbf{X}+\lambda \mathbf{I}_p)^{-1}\mathbf{X}^{\top}\mathbf{Y}
+\betavec_\lambda^{\mathrm{ridge}} = (\Xmat^\top\Xmat+\lambda \mathbf{I}_p)^{-1}\Xmat^\top\yvec
 $$
 est biaisé.
-
 
 \begin{sol}
 On a
 \begin{align*}
-\betabh_\lambda^{\mbox{ridge}} &= (\mathbf{X}^\top\mathbf{X}+\lambda \mathbf{I}_p)^{-1}\mathbf{X}^{\top}\mathbf{Y}\\
-&=(\mathbf{X}^\top\mathbf{X}+\lambda \mathbf{I}_p)^{-1}(\mathbf{X}^\top\mathbf{X})(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^{\top}\mathbf{Y}\\
-&=(\mathbf{X}^\top\mathbf{X}+\lambda \mathbf{I}_p)^{-1}(\mathbf{X}^\top\mathbf{X})\betabh.
+\betavec_\lambda^{\mathrm{ridge}} &= (\Xmat^\top\Xmat+\lambda \mathbf{I}_p)^{-1}\Xmat^{\top}\yvec\\
+&=(\Xmat^\top\Xmat+\lambda \mathbf{I}_p)^{-1}(\Xmat^\top\Xmat)(\Xmat^\top\Xmat)^{-1}\Xmat^{\top}\yvec\\
+&=(\Xmat^\top\Xmat+\lambda \mathbf{I}_p)^{-1}(\Xmat^\top\Xmat)\betavec.
 \end{align*}
 Si $\lambda=0$, on a 
 $$
-\mbox{E}\left(\betabh_\lambda^{\mbox{ridge}}\right) = \mbox{E}\left(\betabh\right) = \betab.
+\Esp{\betavec_\lambda^{\mathrm{ridge}}} = \esp{\betavec} = \betavec.
 $$
 Sinon, on a
 $$
-\mbox{E}\left(\betabh_\lambda^{\mbox{ridge}}\right) = \mbox{E}\left\{(\mathbf{X}^\top\mathbf{X}+\lambda \mathbf{I}_p)^{-1}(\mathbf{X}^\top\mathbf{X})\betabh\right\} = (\mathbf{X}^\top\mathbf{X}+\lambda \mathbf{I}_p)^{-1}(\mathbf{X}^\top\mathbf{X})\betab \ne \betab.
+\Esp{\betavec_\lambda^{\mathrm{ridge}}} = \Esp{(\Xmat^\top\Xmat+\lambda \mathbf{I}_p)^{-1}(\Xmat^\top\Xmat)\betavec} = (\Xmat^\top\Xmat+\lambda \mathbf{I}_p)^{-1}(\Xmat^\top\Xmat)\betavec \ne \betavec.
 $$
 \end{sol}
 \end{exercice}
