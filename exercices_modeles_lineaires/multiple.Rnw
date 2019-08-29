@@ -24,7 +24,7 @@
   Démontrer, en dérivant
   \begin{align*}
     S(\betavec)
-    &= \sum_{i=1}^n (Y_i - \xvec_i \betavec)^2 \\
+    &= \sum_{i=1}^n (Y_i - \xvec_i^\top \betavec)^2 \\
     &= (\yvec - \Xmat \betavec)^\top (\yvec - \Xmat \betavec)
   \end{align*}
   par rapport à $\betavec$, que les équations normales à résoudre pour
@@ -56,7 +56,7 @@
       \left(
         \frac{d}{d\betavec} (\yvec - \Xmat \betavec)
       \right)^\top
-      \yvec - \Xmat \betavec \\
+      (\yvec - \Xmat \betavec) \\
       &= 2 (-\Xmat)^\top (\yvec - \Xmat \betavec)\\
       &= -2 \Xmat^\top (\yvec - \Xmat \betavec).
     \end{align*}
@@ -98,7 +98,7 @@
   \begin{sol}
     \begin{enumerate}
     \item On a un modèle sans variable explicative. Intuitivement, la
-      meilleure prévision de $Y_t$ sera alors $\bar{Y}$. En effet,
+      meilleure prévision de $Y_i$ sera alors $\bar{Y}$. En effet,
       pour ce modèle,
       \begin{displaymath}
         \Xmat =
@@ -126,7 +126,7 @@
         \begin{bmatrix}
           Y_1 \\ \vdots \\ Y_n
         \end{bmatrix}\\
-        &= n^{-1} \sum_{t=1}^n Y_t \\
+        &= n^{-1} \sum_{i=1}^n Y_i \\
         &= \bar{Y}.
       \end{align*}
     \item Il s'agit du modèle de régression linéaire simple passant
@@ -134,7 +134,7 @@
       \begin{displaymath}
         \Xmat =
         \begin{bmatrix}
-          X_1 \\ \vdots \\ X_n
+          x_1 \\ \vdots \\ x_n
         \end{bmatrix}_{n \times 1}.
       \end{displaymath}
       Par conséquent,
@@ -143,23 +143,23 @@
         &=
         \left(
           \begin{bmatrix}
-            X_1 & \cdots & X_n
+            x_1 & \cdots & x_n
           \end{bmatrix}
           \begin{bmatrix}
-            X_1 \\ \vdots \\ X_n
+            x_1 \\ \vdots \\ x_n
           \end{bmatrix}
         \right)^{-1}
         \begin{bmatrix}
-          X_1 & \cdots & X_n
+          x_1 & \cdots & x_n
         \end{bmatrix}
         \begin{bmatrix}
           Y_1 \\ \vdots \\ Y_n
         \end{bmatrix} \\
         &=
         \left(
-          \sum_{t=1}^n X_t^2
-        \right)^{-1} \sum_{t=1}^n X_tY_t \\
-        &= \frac{\sum_{t=1}^n X_t Y_t}{\sum_{t=1}^n X_t^2},
+          \sum_{i=1}^n x_i^2
+        \right)^{-1} \sum_{i=1}^n x_iY_i \\
+        &= \frac{\sum_{i=1}^n x_i Y_i}{\sum_{i=1}^n x_i^2},
       \end{align*}
       tel qu'obtenu à l'exercice
       \ref{chap:simple}.\ref{ex:simple:origine}.
@@ -169,9 +169,9 @@
       \begin{displaymath}
         \Xmat =
         \begin{bmatrix}
-          1      & X_{11}  & X_{12} \\
+          1      & x_{11}  & x_{12} \\
           \vdots & \vdots & \vdots \\
-          1      & X_{n1}  & X_{n2}
+          1      & x_{n1}  & x_{n2}
         \end{bmatrix}_{n \times 3}.
       \end{displaymath}
       Par conséquent,
@@ -181,32 +181,32 @@
         \left(
           \begin{bmatrix}
             1     & \cdots & 1      \\
-            X_{11} & \cdots & X_{n1} \\
-            X_{12} & \cdots & X_{n2}
+            x_{11} & \cdots & x_{n1} \\
+            x_{12} & \cdots & x_{n2}
           \end{bmatrix}
           \begin{bmatrix}
-            1      & X_{11}  & X_{12} \\
+            1      & x_{11}  & x_{12} \\
             \vdots & \vdots & \vdots \\
-            1      & X_{n1}  & X_{n2}
+            1      & x_{n1}  & x_{n2}
           \end{bmatrix}
         \right)^{-1}
         \begin{bmatrix}
           1     & \cdots & 1      \\
-          X_{11} & \cdots & X_{n1} \\
-          X_{12} & \cdots & X_{n2}
+          x_{11} & \cdots & x_{n1} \\
+          x_{12} & \cdots & x_{n2}
         \end{bmatrix}
         \begin{bmatrix}
           Y_1 \\ \vdots \\ Y_n
         \end{bmatrix} \\
         & =
         \begin{bmatrix}
-          n           & n \bar{X}_1             & n \bar{X}_2 \\
-          n \bar{X}_1 & \sum_{t=1}^n X_{t1}^2    & \sum_{t=1}^n X_{t1}X_{t2} \\
-          n \bar{X}_2 & \sum_{t=1}^n X_{t1}X_{t2} & \sum_{t=1}^n X_{t2}^2
+          n           & n \bar{x}_1             & n \bar{x}_2 \\
+          n \bar{x}_1 & \sum_{i=1}^n x_{i1}^2    & \sum_{i=1}^n x_{i1}x_{i2} \\
+          n \bar{x}_2 & \sum_{i=1}^n x_{i1}x_{i2} & \sum_{i=1}^n x_{i2}^2
         \end{bmatrix}^{-1}
         \begin{bmatrix}
-          \sum_{t=1}^n Y_t \\ \sum_{t=1}^n X_{t1}Y_t \\ \sum_{t=1}^n
-          X_{t2}Y_t
+          \sum_{i=1}^n Y_i \\ \sum_{i=1}^n x_{i1}Y_i \\ \sum_{i=1}^n
+          x_{i2}Y_i
         \end{bmatrix}.
       \end{align*}
       L'inversion de la première matrice et le produit par la seconde
@@ -227,9 +227,9 @@
     \begin{displaymath}
       \Xmat =
       \begin{bmatrix}
-        1      & X_1    \\
+        1      & x_1    \\
         \vdots & \vdots \\
-        1      & X_n
+        1      & x_n
       \end{bmatrix}.
     \end{displaymath}
     Par conséquent,
@@ -240,40 +240,40 @@
       \left(
         \begin{bmatrix}
           1   & \cdots & 1  \\
-          X_1 & \cdots & X_n
+          x_1 & \cdots & x_n
         \end{bmatrix}
         \begin{bmatrix}
-          1      & X_1    \\
+          1      & x_1    \\
           \vdots & \vdots \\
-          1      & X_n
+          1      & x_n
         \end{bmatrix}
       \right)^{-1} \\
       &= \sigma^2
       \begin{bmatrix}
-        n         & n \bar{X}        \\
-        n \bar{X} & \sum_{t=1}^n X_t^2
+        n         & n \bar{x}        \\
+        n \bar{x} & \sum_{i=1}^n x_i^2
       \end{bmatrix}^{-1}\\
-      &= \frac{\sigma^2}{n \sum_{t=1}^n X_t^2 - n^2 \bar{X}^2}
+      &= \frac{\sigma^2}{n \sum_{i=1}^n x_i^2 - n^2 \bar{x}^2}
       \begin{bmatrix}
-        \sum_{t=1}^n X_t^2 & -n \bar{X} \\
-        -n \bar{X}        & n
+        \sum_{i=1}^n x_i^2 & -n \bar{x} \\
+        -n \bar{x}        & n
       \end{bmatrix} \\
-      &= \frac{\sigma^2}{\sum_{t=1}^n (X_t - \bar{X}^2)}
+      &= \frac{\sigma^2}{\sum_{i=1}^n (x_i - \bar{x}^2)}
       \begin{bmatrix}
-        n^{-1} \sum_{t=1}^n X_t^2 & -\bar{X} \\
-        -\bar{X}                 & 1
+        n^{-1} \sum_{i=1}^n x_i^2 & -\bar{x} \\
+        -\bar{x}                 & 1
       \end{bmatrix},
     \end{align*}
     d'où
     \begin{align*}
       \var{\hat{\beta}_0}
-      &= \sigma^2\, \frac{\sum_{t=1}^n X_t^2}{%
-        n \sum_{t=1}^n (X_t - \bar{X})^2} \\
-      &= \sigma^2\, \frac{\sum_{t=1}^n (X_t - \bar{X}^2) + n \bar{X}^2}{%
-        n \sum_{t=1}^n (X_t - \bar{X})^2} \\
+      &= \sigma^2\, \frac{\sum_{i=1}^n x_i^2}{%
+        n \sum_{i=1}^n (x_i - \bar{x})^2} \\
+      &= \sigma^2\, \frac{\sum_{x=1}^n (x_i - \bar{x}^2) + n \bar{x}^2}{%
+        n \sum_{i=1}^n (x_i - \bar{x})^2} \\
       \intertext{et}
       \var{\hat{\beta}_1}
-      &= \frac{\sigma^2}{\sum_{t=1}^n (X_t - \bar{X})^2}.
+      &= \frac{\sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2}.
     \end{align*}
     Ceci correspond aux résultats antérieurs.
   \end{sol}
@@ -284,8 +284,8 @@
   linéaire multiple et trouver leur équivalent en régression linéaire
   simple. Utiliser $\hat\epsvec = \yvec - \hat\yvec$.
   \begin{enumerate}
-  \item $\Xmat^\top \epsvec = 0$
-  \item $\hat\yvec^\top \epsvec = 0$
+  \item $\Xmat^\top \hat\epsvec = 0$
+  \item $\hat\yvec^\top \hat\epsvec = 0$
   \item $\hat\yvec^\top \hat\yvec = \hat\betavec^\top
     \Xmat^\top \yvec$
   \end{enumerate}
@@ -293,14 +293,14 @@
   \begin{sol}
     Dans les démonstrations qui suivent, trois relations de base
     seront utilisées:
-    $\mat{e} = \mat{y - \hat{y}}$,
-    $\mat{\hat{y}} = \Xmat \hat\betavec$ et
+    $\hat\epsvec = \yvec - \hat\yvec$,
+    $\hat\yvec = \Xmat \hat\betavec$ et
     $\hat\betavec = (\Xmat^\top \Xmat)^{-1} \Xmat^\top \yvec$.
     \begin{enumerate}
     \item On a
       \begin{align*}
-        \Xmat^\top \mat{e}
-        &= \Xmat^\top (\mat{y - \hat{y}}) \\
+        \Xmat^\top \hat\epsvec
+        &= \Xmat^\top (\yvec - \hat\yvec) \\
         &= \Xmat^\top (\yvec - \Xmat \hat\betavec) \\
         &= \Xmat^\top \yvec - (\Xmat^\top \Xmat) \hat\betavec \\
         &= \Xmat^\top \yvec - (\Xmat^\top \Xmat)
@@ -310,30 +310,30 @@
       \end{align*}
       En régression linéaire simple, cela donne
       \begin{align*}
-        \Xmat^\top \mat{e} &=
+        \Xmat^\top \hat\epsvec &=
         \begin{bmatrix}
           1   & \cdots & 1  \\
-          X_1 & \cdots & X_n
+          x_1 & \cdots & x_n
         \end{bmatrix}
         \begin{bmatrix}
-          e_1 \\ \vdots \\ e_n
+          \hat\varepsilon_1 \\ \vdots \\ \hat\varepsilon_n
         \end{bmatrix} \\
         &=
         \begin{bmatrix}
-          \sum_{t=1}^n e_t \\
-          \sum_{t=1}^n X_t e_t
+          \sum_{i=1}^n \hat\varepsilon_i \\
+          \sum_{i=1}^n x_i \hat\varepsilon_i
         \end{bmatrix}.
       \end{align*}
-      Par conséquent, $\Xmat^\top \mat{e} = \mat{0}$ se simplifie
-      en $\sum_{t=1}^n e_t = 0$ et $\sum_{t=1}^n X_t e_t = 0$ soit,
+      Par conséquent, $\Xmat^\top \hat\epsvec = \mat{0}$ se simplifie
+      en $\sum_{i=1}^n \hat\varepsilon_i = 0$ et $\sum_{i=1}^n x_i \hat\varepsilon_i = 0$ soit,
       respectivement, la condition pour que l'estimateur des moindres
       carrés soit sans biais et la seconde équation normale obtenue à
       la partie \ref{ex:simple:base:eq_normales}) de l'exercice
       \ref{chap:simple}.\ref{ex:simple:base}.
      \item On a
        \begin{align*}
-         \hat{\yvec}^\top \mat{e}
-         &= (\Xmat\hat\betavec)^\top (\mat{y - \hat{y}}) \\
+         \hat{\yvec}^\top \hat\epsvec
+         &= (\Xmat\hat\betavec)^\top (\yvec - \hat\yvec) \\
          &= \hat\betavec^\top \Xmat^\top (\yvec - \Xmat\hat\betavec) \\
          &= \hat\betavec^\top \Xmat^\top \yvec - \hat\betavec^\top
          (\Xmat^\top \Xmat) \hat\betavec \\
@@ -345,26 +345,26 @@
          &= 0.
        \end{align*}
        Pour tout modèle de régression cette équation peut aussi
-       s'écrire sous la forme plus conventionnelle $\sum_{t=1}^n
-       \hat{Y}_t e_t = 0$. Cela signifie que le produit scalaire entre
+       s'écrire sous la forme plus conventionnelle $\sum_{i=1}^n
+       \hat{Y}_i \hat\varepsilon_i = 0$. Cela signifie que le produit scalaire entre
        le vecteur des prévisions et celui des erreurs doit être nul
        ou, autrement dit, que les vecteurs doivent être orthogonaux.
        C'est là une condition essentielle pour que l'erreur
        quadratique moyenne entre les vecteurs $\yvec$ et
-       $\mat{\hat{y}}$ soit minimale. (Pour de plus amples détails sur
+       $\hat\yvec$ soit minimale. \textcolor{(Pour de plus amples détails sur
        l'interprétation géométrique du modèle de régression, consulter
        {\shorthandoff{:} \citet[chapitres 20 et
-         21]{Draper:regression:1998}}.) 
+         21]{Draper:regression:1998}}.)} 
          D'ailleurs, on constate que
-       $\hat{\yvec}^\top \mat{e} = \hat\betavec^\top \Xmat^\top
-       \mat{e}$ et donc, en supposant sans perte de généralité que
+       $\hat{\yvec}^\top \hat\epsvec = \hat\betavec^\top \Xmat^\top
+       \hat\epsvec$ et donc, en supposant sans perte de généralité que
        $\hat\betavec \ne \mat{0}$, 
-       que $\hat{\yvec}^\top \mat{e} = 0$
-       et $\Xmat^\top \mat{e} = \mat{0}$ sont des conditions en
+       que $\hat{\yvec}^\top \hat\epsvec = 0$
+       et $\Xmat^\top \hat\epsvec = \mat{0}$ sont des conditions en
        tous points équivalentes.
      \item On a
        \begin{align*}
-         \mat{\hat{y}}^\top \mat{\hat{y}}
+         \hat\yvec^\top \hat\yvec
          &= (\Xmat \hat\betavec)^\top \Xmat \hat\betavec \\
          &= \hat\betavec^\top (\Xmat^\top \Xmat) \hat\betavec \\
          &= \hat\betavec^\top (\Xmat^\top \Xmat) (\Xmat^\top
@@ -374,24 +374,24 @@
        Cette équation est l'équivalent matriciel de l'identité
        \begin{align*}
          \SSR
-         &= \hat{\beta}_1^2 \sum_{t = 1}^n (X_t - \bar{X})^2 \\
-         &= \frac{S_{XY}^2}{S_{XX}}
+         &= \hat{\beta}_1^2 \sum_{i = 1}^n (x_i - \bar{x})^2 \\
+         &= \frac{S_{xy}^2}{S_{xx}}
        \end{align*}
        utilisée à plusieurs reprises dans les solutions du chapitre
        \ref{chap:simple}.  En effet, en régression linéaire simple,
-       $\mat{\hat{y}}^\top \mat{\hat{y}} = \sum_{t = 1}^n
-       \hat{Y}_t^2 = \sum_{t = 1}^n (\hat{Y} - \bar{Y})^2 + n
+       $\hat\yvec^\top \hat\yvec = \sum_{i = 1}^n
+       \hat{Y}_i^2 = \sum_{i = 1}^n (\hat{Y} - \bar{Y})^2 + n
        \bar{Y}^2 = \SSR + n \bar{Y}^2$ et
        \begin{align*}
          \hat\betavec^\top \Xmat^\top \yvec
-         &= \hat{\beta}_0 n \bar{Y} + \hat{\beta}_1 \sum_{t = 1}^n X_t Y_t \\
-         &= (\bar{Y} - \hat{\beta}_1 \bar{X}) n \bar{Y} +
-         \hat{\beta}_1 \sum_{t = 1}^n X_t Y_t \\
-         &= \hat{\beta}_1 \sum_{t = 1}^n (X_t - \bar{X})(Y_t -
+         &= \hat{\beta}_0 n \bar{Y} + \hat{\beta}_1 \sum_{i = 1}^n x_i Y_i \\
+         &= (\bar{Y} - \hat{\beta}_1 \bar{x}) n \bar{Y} +
+         \hat{\beta}_1 \sum_{i = 1}^n x_i Y_i \\
+         &= \hat{\beta}_1 \sum_{i = 1}^n (x_i - \bar{x})(Y_i -
          \bar{Y}) + n \bar{Y}^2 \\
-         &= \frac{S_{XY}^2}{S_{XX}} + n \bar{Y}^2,
+         &= \frac{S_{xy}^2}{S_{xx}} + n \bar{Y}^2,
        \end{align*}
-       d'où $\SSR = S_{XY}^2/S_{XX}$.
+       d'où $\SSR = S_{xy}^2/S_{xx}$.
      \end{enumerate}
    \end{sol}
 \end{exercice}
@@ -403,7 +403,7 @@
   valeurs du vecteur colonne $\xvec_0^\top = (1, x_{01}, \dots, x_{0p})$
   des $p$ variables indépendantes. On a donc
   \begin{displaymath}
-    \hat{Y}_0 = \xvec_0 \hat\betavec.
+    \hat{Y}_0 = \xvec_0^\top \hat\betavec.
   \end{displaymath}
   \begin{enumerate}
   \item Démontrer que $\esp{\hat{Y}_0} = \esp{Y_0}$.
@@ -411,25 +411,25 @@
     de $Y_0$ est
     \begin{displaymath}
       \esp{(\hat{Y}_0 - \esp{Y_0})^2} =
-      \sigma^2\, \Xmat_0 (\Xmat^\top \Xmat)^{-1} \Xmat_0^\top.
+      \sigma^2\, \xvec_0^\top (\Xmat^\top \Xmat)^{-1} \xvec_0.
     \end{displaymath}
     Construire un intervalle de confiance de niveau $1 - \alpha$ pour
     $\esp{Y_0}$.
   \item Démontrer que l'erreur dans la prévision de $Y_0$ est
     \begin{displaymath}
       \esp{(Y_0 - \hat{Y}_0)^2} =
-      \sigma^2\, (1 + \Xmat_0 (\Xmat^\top \Xmat)^{-1} \Xmat_0^\top).
+      \sigma^2\, (1 + \xvec_0^\top (\Xmat^\top \Xmat)^{-1} \xvec_0).
     \end{displaymath}
     Construire un intervalle de confiance de niveau $1 - \alpha$ pour
     $Y_0$.
   \end{enumerate}
   \begin{sol}
     \begin{enumerate}
-    \item Premièrement, $Y_0 = \Xmat_0 \betavec + \varepsilon_0$ avec
-      $\esp{\varepsilon_0} = 0$. Par conséquent, $\esp{Y_0} = \esp{x_0
-        \betavec + \varepsilon_0} = \Xmat_0 \betavec$. Deuxièmement,
-      $\esp{\hat{Y}_0} = \esp{\Xmat_0 \hat\betavec} = \Xmat_0
-      \esp{\hat\betavec} = x_0 \betavec$ puisque l'estimateur des moindres
+    \item Premièrement, $Y_0 = \xvec_0^\top \betavec + \varepsilon_0$ avec
+      $\esp{\varepsilon_0} = 0$. Par conséquent, $\esp{Y_0} = \esp{\xvec_0^\top
+        \betavec + \varepsilon_0} = \xvec_0^\top \betavec$. Deuxièmement,
+      $\esp{\hat{Y}_0} = \esp{\xvec_0^\top \hat\betavec} = \xvec_0^\top
+      \esp{\hat\betavec} = \xvec_0^\top \betavec$ puisque l'estimateur des moindres
       carrés de $\betavec$ est sans biais. Ceci complète la preuve.
     \item Tout d'abord, $\esp{(\hat{Y}_0 - \esp{Y_0})^2} =
       \varmat{\hat{Y}_0} = \var{\hat{Y}_0}$ puisque la matrice de
@@ -437,15 +437,15 @@
       contient, ici, qu'une seule valeur. Or, par le théorème de la section~\ref{sec:elements:moments}, la variance est
        \begin{align*}
          \var{\hat{Y}_0}
-         &= \varmat{\Xmat_0 \hat\betavec} \\
-         &= \Xmat_0 \varmat{\hat\betavec} \Xmat_0^\top \\
-         &= \sigma^2 \Xmat_0 (\Xmat^\top \Xmat)^{-1}
-         \Xmat_0^\top.
+         &= \varmat{\xvec_0^\top \hat\betavec} \\
+         &= \xvec_0^\top \varmat{\hat\betavec} \xvec_0 \\
+         &= \sigma^2 \xvec_0^\top (\Xmat^\top \Xmat)^{-1}
+         \xvec_0.
        \end{align*}
        Afin de construire un intervalle de confiance pour $\esp{Y_0}$,
-       on ajoute au modèle l'hypothèse $\epsvec \sim N(\mat{0}, \sigma^2
+       on ajoute au modèle l'hypothèse $\epsvec \sim \Norm(\mat{0}, \sigma^2
        \mat{I})$. Par linéarité de l'estimateur des moindres carrés,
-       on a alors $\hat{Y}_0 \sim N(\esp{Y_0}, \var{\hat{Y}_0})$. Par
+       on a alors $\hat{Y}_0 \sim \Norm(\esp{Y_0}, \var{\hat{Y}_0})$. Par
        conséquent,
        \begin{displaymath}
          \Pr
@@ -462,7 +462,7 @@
        \begin{displaymath}
          \esp{Y_0}
          \in \hat{Y}_0 \pm z_{\alpha/2}\, \sigma\,
-         \sqrt{\Xmat_0 (\Xmat^\top \Xmat)^{-1} \Xmat_0^\top}.
+         \sqrt{\xvec_0^\top (\Xmat^\top \Xmat)^{-1} \xvec_0}.
        \end{displaymath}
        Si la variance $\sigma^2$ est inconnue et estimée par $s^2$,
        alors la distribution normale est remplacée par une
@@ -471,33 +471,32 @@
        \begin{displaymath}
          \esp{Y_0}
          \in \hat{Y}_0 \pm t_{\alpha/2}(n - p - 1)\, s\,
-         \sqrt{\Xmat_0 (\Xmat^\top \Xmat)^{-1} \Xmat_0^\top}.
+         \sqrt{\xvec_0^\top (\Xmat^\top \Xmat)^{-1} \xvec_0}.
        \end{displaymath}
      \item Par le résultat obtenu en a) et en supposant que
-       $\Cov(\varepsilon_0, \varepsilon_t) = 0$ pour tout $t = 1,
+       $\cov{\varepsilon_0, \varepsilon_i} = 0$ pour tout $i = 1,
        \dots, n$, on a
        \begin{align*}
          \esp{(Y_0 - \hat{Y}_0)^2}
          &= \var{Y_0 - \hat{Y}_0} \\
          &= \var{Y_0} + \var{\hat{Y}_0} \\
-         &= \sigma^2 (1 + \Xmat_0 (\Xmat^\top \Xmat)^{-1}
-         \Xmat_0^\top).
+         &= \sigma^2 (1 + \xvec_0^\top (\Xmat^\top \Xmat)^{-1} \xvec_0).
        \end{align*}
        Ainsi, avec l'hypothèse sur le terme d'erreur énoncée en b),
-       $Y_0 - \hat{Y}_0 \sim N(0, \var{Y_0 - \hat{Y}_0})$. En suivant
+       $Y_0 - \hat{Y}_0 \sim \Norm(0, \var{Y_0 - \hat{Y}_0})$. En suivant
        le même cheminement qu'en b), on détermine qu'un intervalle de
        confiance de niveau $1 - \alpha$ pour $Y_0$ est
        \begin{displaymath}
          Y_0
          \in \hat{Y}_0 \pm z_{\alpha/2}\, \sigma\,
-         \sqrt{1 + \Xmat_0 (\Xmat^\top \Xmat)^{-1} \Xmat_0^\top}.
+         \sqrt{1 + \xvec_0^\top (\Xmat^\top \Xmat)^{-1} \xvec_0}.
        \end{displaymath}
        ou, si la variance $\sigma^2$ est inconnue et estimée par
        $s^2$,
        \begin{displaymath}
          Y_0
          \in \hat{Y}_0 \pm t_{\alpha/2}(n - p - 1)\, s\,
-         \sqrt{1 + \Xmat_0 (\Xmat^\top \Xmat)^{-1} \Xmat_0^\top}.
+         \sqrt{1 + \xvec_0^\top (\Xmat^\top \Xmat)^{-1} \xvec_0}.
        \end{displaymath}
      \end{enumerate}
    \end{sol}
@@ -564,7 +563,7 @@
     Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \varepsilon_i,
     \quad i = 1, 2, 3, 4,
   \end{displaymath}
-  où $\varepsilon_i \sim N(0, \sigma^2)$, alors
+  où $\varepsilon_i \sim \Norm(0, \sigma^2)$, alors
   \begin{align*}
     (\Xmat^\top \Xmat)^{-1}
     &= \frac{1}{2}
@@ -693,27 +692,26 @@
       tests est $t_{0,025}(1) = 12,706$. Dans les deux cas, on ne
       rejette donc pas $H_0$, les variables $x_1$ et $x_2$ ne sont pas
       significatives dans le modèle.
-    \item Soit $\Xmat_0 = \begin{bmatrix} 1 & 3,5 & 9 \end{bmatrix}$
+    \item Soit $\xvec_0^\top = \begin{bmatrix} 1 & 3,5 & 9 \end{bmatrix}$
       et $Y_0$ la valeur de la variable dépendante correspondant à
-      $\Xmat_0$. La prévision de $Y_0$ donnée par le modèle trouvé
+      $x_0$. La prévision de $Y_0$ donnée par le modèle trouvé
       en a) est
       \begin{align*}
         \hat{Y}_0
-        &= \Xmat_0 \hat\betavec \\
+        &= \xvec_0^\top \hat\betavec \\
         &= -22,5 + 6,5(3,5) + 1,5(9) \\
         &= 13,75.
       \end{align*}
       D'autre part,
       \begin{align*}
-        \widehat{\text{Var}}[Y_0 - \hat{Y}_0]
-        &= s^2 (1 + \Xmat_0 (\Xmat^\top \Xmat)^{-1} \Xmat_0^\top) \\
+        \widehat{\text{var}}(Y_0 - \hat{Y}_0)
+        &= s^2 (1 + \xvec_0^\top (\Xmat^\top \Xmat)^{-1} \xvec_0) \\
         &= 1,1875.
       \end{align*}
       Par conséquent, un intervalle de confiance à 95~\% pour $Y_0$
       est
       \begin{align*}
-        \esp{Y_0} &\in \hat{Y}_0 \pm t_{0,025}(1) s \sqrt{1 + \Xmat_0
-          (\Xmat^\top \Xmat)^{-1} \Xmat_0^\top} \\
+        \esp{Y_0} &\in \hat{Y}_0 \pm t_{0,025}(1) s \sqrt{1 + \xvec_0^\top (\Xmat^\top \Xmat)^{-1} \xvec_0} \\
         &\in 13,75 \pm 12,706 \sqrt{1,1875} \\
         &\in (-0,096, 27,596).
       \end{align*}
@@ -780,7 +778,7 @@ summary(fit)
         \Sexpr{format(signif(b[3], 4), dec = ",")} X_{t2} +
         \varepsilon_t,
         \quad
-        \epsvec_t \sim N(0,
+        \epsvec_t \sim \Norm(0,
         \Sexpr{format(signif(s, 4), dec = ",")}^2 \mat{I})
       \end{displaymath}
       où $Y_t$ est la consommation en litres aux 100 kilomètres,
@@ -868,11 +866,11 @@ anova(fit2)
   de l'année précédente). Un total de 20 observations sont
   disponibles.  Vous postulez le modèle
   \begin{displaymath}
-    Y_t = \beta_0 + \beta_1 x_{t1} + \beta_2 x_{t2} + \beta_3 x_{t3} +
-    \varepsilon_t,
+    Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_3 x_{i3} +
+    \varepsilon_i,
   \end{displaymath}
-  où $\esp{\varepsilon_t} = 0$ et $\cov{\varepsilon_t, \varepsilon_s}
-  = \delta_{ts} \sigma^2$. Les résultats de cette régression, tels que
+  où $\esp{\varepsilon_i} = 0$ et $\cov{\varepsilon_i, \varepsilon_j}
+  = \delta_{ij} \sigma^2$. Les résultats de cette régression, tels que
   calculés dans \textsf{R}, sont fournis ci-dessous.
 
 \begin{verbatim}
@@ -934,7 +932,7 @@ the p-value is 7.160e-14
       pratique, nulle. Cela permet de rejeter facilement l'hypothèse
       nulle selon laquelle la régression n'est pas significative.
     \item On doit se fier ici au résultat du test $t$ associé à la
-      variable $X_2$. Dans les résultats obtenus avec \textsf{R}, on
+      variable $x_2$. Dans les résultats obtenus avec \textsf{R}, on
       voit que la valeur $p$ de la statistique $t$ du paramètre
       $\beta_2$ est $0,0916$. Cela signifie que jusqu'à un seuil de
       signification de 9,16~\% (ou un niveau de confiance supérieur à
@@ -1022,7 +1020,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
       \item 0,098, 1 et 21 degrés de liberté
       \item 9,82, 2 et 21 degrés de liberté
       \end{inparaenum}
-    \item $X_1$ et $X_3$, ou $X_2$ et $X_3$
+    \item $x_1$ et $x_3$, ou $x_2$ et $x_3$
     \end{inparaenum}
   \end{rep}
   \begin{sol}
@@ -1169,7 +1167,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
       \begin{displaymath}
         \frac{Z}{\sqrt{V/r}} \sim t(r).
       \end{displaymath}
-      Tel que mentionné dans l'énoncé, $\hat{\beta}_i \sim N(\beta_i,
+      Tel que mentionné dans l'énoncé, $\hat{\beta}_i \sim \Norm(\beta_i,
       \sigma^2 c_{ii})$ ou, de manière équivalente,
       \begin{displaymath}
         \frac{\hat{\beta}_i - \beta_i}{\sigma \sqrt{c_{ii}}} \sim
@@ -1202,7 +1200,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
   \dots, w_n)$.  Démontrer, en dérivant
   \begin{align*}
     S(\betavec)
-    &= \sum_{t=1}^n w_t (\yvec_t - \Xmat_t^\top \betavec)^2 \\
+    &= \sum_{i=1}^n w_i (Y_i - \xvec_i^\top \betavec)^2 \\
     &= (\yvec - \Xmat \betavec)^\top\, \mat{W}\, (\yvec -
        \Xmat \betavec)
   \end{align*}
@@ -1366,10 +1364,10 @@ b <- signif(coef(fit), 4)
 s2 <- signif(summary(fit)$sigma^2, 4)
 @
   \begin{rep}
-    $Y_t = \Sexpr{format(b[1], dec = ",")} +
-    \Sexpr{format(b[2], dec = ",")} X_t +
-    \Sexpr{format(b[3], dec = ",")} X_t^2 + \varepsilon_t$,
-    $\varepsilon_t \sim N(0, \Sexpr{format(s2, dec = ",")})$
+    $Y_i = \Sexpr{format(b[1], dec = ",")} +
+    \Sexpr{format(b[2], dec = ",")} x_i +
+    \Sexpr{format(b[3], dec = ",")} x_i^2 + \varepsilon_i$,
+    $\varepsilon_i \sim \Norm(0, \Sexpr{format(s2, dec = ",")})$
   \end{rep}
   \begin{sol}
     Le graphique des valeurs de $Y$ en fonction de celles de $X$, à la
@@ -1377,7 +1375,7 @@ s2 <- signif(summary(fit)$sigma^2, 4)
     relation quadratique. On postule donc le modèle
     \begin{displaymath}
       Y_t = \beta_0 + \beta_1 X_t + \beta_2 X_t^2 + \varepsilon_t, \quad
-      \varepsilon_t \sim N(0, \sigma^2).
+      \varepsilon_t \sim \Norm(0, \sigma^2).
     \end{displaymath}
     \begin{figure}
 <<multiple-quadratique>>=
@@ -1403,7 +1401,7 @@ anova(fit)
       Y_t = \Sexpr{format(b[1], dec = ",")} +
       \Sexpr{format(b[2], dec = ",")} X_t +
       \Sexpr{format(b[3], dec = ",")} X_t^2 + \varepsilon_t, \quad
-      \varepsilon_t \sim N(0, \Sexpr{format(s2, dec = ",")}).
+      \varepsilon_t \sim \Norm(0, \Sexpr{format(s2, dec = ",")}).
     \end{displaymath}
     \begin{figure}
 <<multiple-quadratique2>>=
@@ -1425,7 +1423,7 @@ lines(x, predict(fit, data.frame(X = x), lwd = 2))
   \begin{center}
     \begin{tabular}{rcc@{\qquad}rcc@{\qquad}rcc}
       \toprule
-      $t$ & $Y_t$ & $x_t$ & $t$ & $Y_t$ & $x_t$ & $t$ & $Y_t$ & $x_t$ \\
+      $i$ & $Y_i$ & $x_i$ & $i$ & $Y_i$ & $x_i$ & $i$ & $Y_i$ & $x_i$ \\
       \midrule
       12 & 2,3 & 1,3 & 19 & 1,7 & 3,7 &  6 & 2,8 & 5,3 \\
       23 & 1,8 & 1,3 & 20 & 2,8 & 4,0 & 10 & 2,1 & 5,3 \\
@@ -1574,7 +1572,7 @@ legend(1.2, 6, legend = c("Modèle a)", "Modèle b)", "Modèle c)"),
     du conducteur» dans le modèle, utiliser une variable indicatrice
     du type
     \begin{displaymath}
-      x_{t2} =
+      x_{i2} =
       \begin{cases}
         1, & \text{si le conducteur est un homme} \\
         0, & \text{si le conducteur est une femme}.
@@ -1653,7 +1651,7 @@ Le modèle de régression linéaire multiple $$Y_i=\beta_0+\beta_1 x_{i1}+\beta_
 
 \begin{figure}[h]
 \centering
-\centerline{\includegraphics[width=0.98\textwidth]{figure/ResPlots.pdf}}
+\centerline{\includegraphics[width=0.85\textwidth]{figure/ResPlots.pdf}}
 \caption{Nuage de points des résidus studentisés en fonction de chacune des variables exogènes et en fonction de la variable prédite}\label{fig:multiple:postulat2}
 \end{figure}
 \end{enumerate}
