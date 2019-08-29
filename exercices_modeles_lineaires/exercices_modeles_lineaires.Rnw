@@ -216,16 +216,16 @@ options(width=55)
 <<child='multiple.Rnw'>>=
 @
 
-%<<child='selection.Rnw'>>=
-%@
+<<child='selection.Rnw'>>=
+@
 
 \part{Modèles linéaires généralisés}
 
-%<<child='glm.Rnw'>>=
-%@
-%
-%<<child='comptage.Rnw'>>=
-%@
+<<child='glm.Rnw'>>=
+@
+
+<<child='comptage.Rnw'>>=
+@
 
 \part{Annexes}
 \appendix
