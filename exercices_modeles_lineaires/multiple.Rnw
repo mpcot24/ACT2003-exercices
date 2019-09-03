@@ -31,7 +31,7 @@
   obtenir l'estimateur des moindres carrés de $\betavec$ sont, sous
   forme matricielle,
   \begin{displaymath}
-    (\Xmat^\top \Xmat) \hat\betavec = \Xmat^\top \yvec,
+    (\Xmat^\top \Xmat) \hatbetavec = \Xmat^\top \yvec,
   \end{displaymath}
   Déduire l'estimateur des moindres carrés de ces équations.
   \emph{Astuce}: utiliser le théorème \textbf{Dérivée d'une fonction}
@@ -65,19 +65,19 @@
     résoudre pour calculer l'estimateur des moindres carrés du vecteur
     $\betavec$, soit
     \begin{displaymath}
-      \Xmat^\top \Xmat \hat\betavec = \Xmat^\top \yvec.
+      \Xmat^\top \Xmat \hatbetavec = \Xmat^\top \yvec.
     \end{displaymath}
-    En isolant $\hat\betavec$ dans l'équation ci-dessus, on obtient,
+    En isolant $\hatbetavec$ dans l'équation ci-dessus, on obtient,
     finalement, l'estimateur des moindres carrés:
     \begin{displaymath}
-      \hat\betavec = (\Xmat^\top \Xmat)^{-1} \Xmat^\top \yvec.
+      \hatbetavec = (\Xmat^\top \Xmat)^{-1} \Xmat^\top \yvec.
     \end{displaymath}
   \end{sol}
 \end{exercice}
 
 \begin{exercice}
   Pour chacun des modèles de régression ci-dessous, spécifier la
-  matrice de schéma $\Xmat$ dans la représentation $\yvec =
+  matrice d'incidence $\Xmat$ dans la représentation $\yvec =
   \Xmat \betavec + \epsvec$ du modèle, puis obtenir, si possible, les
   formules explicites des estimateurs des moindres carrés des
   paramètres.
@@ -108,7 +108,7 @@
       \end{displaymath}
       et
       \begin{align*}
-        \hat\betavec
+        \hatbetavec
         &=\left(\Xmat^\top \Xmat \right)^{-1} \Xmat^\top
         \yvec \\
         &=
@@ -130,7 +130,7 @@
         &= \bar{Y}.
       \end{align*}
     \item Il s'agit du modèle de régression linéaire simple passant
-      par l'origine, pour lequel la matrice de schéma est
+      par l'origine, pour lequel la matrice d'incidence est
       \begin{displaymath}
         \Xmat =
         \begin{bmatrix}
@@ -139,7 +139,7 @@
       \end{displaymath}
       Par conséquent,
       \begin{align*}
-        \hat\betavec
+        \hatbetavec
         &=
         \left(
           \begin{bmatrix}
@@ -165,7 +165,7 @@
       \ref{chap:simple}.\ref{ex:simple:origine}.
     \item On est ici en présence d'un modèle de régression multiple ne
       passant pas par l'origine et ayant deux variables explicatives.
-      La matrice de schéma est alors
+      La matrice d'incidence est alors
       \begin{displaymath}
         \Xmat =
         \begin{bmatrix}
@@ -176,7 +176,7 @@
       \end{displaymath}
       Par conséquent,
       \begin{align*}
-        \hat\betavec
+        \hatbetavec
         &=
         \left(
           \begin{bmatrix}
@@ -219,7 +219,7 @@
 \begin{exercice}
   Vérifier, pour le modèle de régression linéaire simple, que les
   valeurs trouvées dans la matrice de variance-covariance
-  $\var{\hat\betavec} = \sigma^2 (\Xmat^\top \Xmat)^{-1}$
+  $\var{\hatbetavec} = \sigma^2 (\Xmat^\top \Xmat)^{-1}$
   correspondent à celles calculées au chapitre \ref{chap:simple}.
   
   \begin{sol}
@@ -234,7 +234,7 @@
     \end{displaymath}
     Par conséquent,
     \begin{align*}
-      \var{\hat\betavec}
+      \var{\hatbetavec}
       &= \sigma^2 (\Xmat^\top \Xmat)^{-1} \\
       &= \sigma^2
       \left(
@@ -282,27 +282,27 @@
 \begin{exercice}
   Démontrer les relations ci-dessous dans le contexte de la régression
   linéaire multiple et trouver leur équivalent en régression linéaire
-  simple. Utiliser $\hat\epsvec = \yvec - \hat\yvec$.
+  simple. Utiliser $\hatepsvec = \yvec - \hat\yvec$.
   \begin{enumerate}
-  \item $\Xmat^\top \hat\epsvec = 0$
-  \item $\hat\yvec^\top \hat\epsvec = 0$
-  \item $\hat\yvec^\top \hat\yvec = \hat\betavec^\top
+  \item $\Xmat^\top \hatepsvec = 0$
+  \item $\hat\yvec^\top \hatepsvec = 0$
+  \item $\hat\yvec^\top \hat\yvec = \hatbetavec^\top
     \Xmat^\top \yvec$
   \end{enumerate}
   
   \begin{sol}
     Dans les démonstrations qui suivent, trois relations de base
     seront utilisées:
-    $\hat\epsvec = \yvec - \hat\yvec$,
-    $\hat\yvec = \Xmat \hat\betavec$ et
-    $\hat\betavec = (\Xmat^\top \Xmat)^{-1} \Xmat^\top \yvec$.
+    $\hatepsvec = \yvec - \hat\yvec$,
+    $\hat\yvec = \Xmat \hatbetavec$ et
+    $\hatbetavec = (\Xmat^\top \Xmat)^{-1} \Xmat^\top \yvec$.
     \begin{enumerate}
     \item On a
       \begin{align*}
-        \Xmat^\top \hat\epsvec
+        \Xmat^\top \hatepsvec
         &= \Xmat^\top (\yvec - \hat\yvec) \\
-        &= \Xmat^\top (\yvec - \Xmat \hat\betavec) \\
-        &= \Xmat^\top \yvec - (\Xmat^\top \Xmat) \hat\betavec \\
+        &= \Xmat^\top (\yvec - \Xmat \hatbetavec) \\
+        &= \Xmat^\top \yvec - (\Xmat^\top \Xmat) \hatbetavec \\
         &= \Xmat^\top \yvec - (\Xmat^\top \Xmat)
         (\Xmat^\top \Xmat)^{-1} \Xmat^\top \yvec \\
         &= \Xmat^\top \yvec - \Xmat^\top \yvec \\
@@ -310,7 +310,7 @@
       \end{align*}
       En régression linéaire simple, cela donne
       \begin{align*}
-        \Xmat^\top \hat\epsvec &=
+        \Xmat^\top \hatepsvec &=
         \begin{bmatrix}
           1   & \cdots & 1  \\
           x_1 & \cdots & x_n
@@ -324,7 +324,7 @@
           \sum_{i=1}^n x_i \hat\varepsilon_i
         \end{bmatrix}.
       \end{align*}
-      Par conséquent, $\Xmat^\top \hat\epsvec = \mat{0}$ se simplifie
+      Par conséquent, $\Xmat^\top \hatepsvec = \mat{0}$ se simplifie
       en $\sum_{i=1}^n \hat\varepsilon_i = 0$ et $\sum_{i=1}^n x_i \hat\varepsilon_i = 0$ soit,
       respectivement, la condition pour que l'estimateur des moindres
       carrés soit sans biais et la seconde équation normale obtenue à
@@ -332,15 +332,15 @@
       \ref{chap:simple}.\ref{ex:simple:base}.
      \item On a
        \begin{align*}
-         \hat{\yvec}^\top \hat\epsvec
-         &= (\Xmat\hat\betavec)^\top (\yvec - \hat\yvec) \\
-         &= \hat\betavec^\top \Xmat^\top (\yvec - \Xmat\hat\betavec) \\
-         &= \hat\betavec^\top \Xmat^\top \yvec - \hat\betavec^\top
-         (\Xmat^\top \Xmat) \hat\betavec \\
-         &= \hat\betavec^\top \Xmat^\top \yvec - \hat\betavec^\top
+         \hat{\yvec}^\top \hatepsvec
+         &= (\Xmat\hatbetavec)^\top (\yvec - \hat\yvec) \\
+         &= \hatbetavec^\top \Xmat^\top (\yvec - \Xmat\hatbetavec) \\
+         &= \hatbetavec^\top \Xmat^\top \yvec - \hatbetavec^\top
+         (\Xmat^\top \Xmat) \hatbetavec \\
+         &= \hatbetavec^\top \Xmat^\top \yvec - \hatbetavec^\top
          (\Xmat^\top \Xmat) (\Xmat^\top \Xmat)^{-1}
          \Xmat^\top \yvec \\
-         &= \hat\betavec^\top \Xmat^\top \yvec - \hat\betavec^\top
+         &= \hatbetavec^\top \Xmat^\top \yvec - \hatbetavec^\top
          \Xmat^\top \yvec \\
          &= 0.
        \end{align*}
@@ -356,20 +356,20 @@
        {\shorthandoff{:} \citet[chapitres 20 et
          21]{Draper:regression:1998}}.)} 
          D'ailleurs, on constate que
-       $\hat{\yvec}^\top \hat\epsvec = \hat\betavec^\top \Xmat^\top
-       \hat\epsvec$ et donc, en supposant sans perte de généralité que
-       $\hat\betavec \ne \mat{0}$, 
-       que $\hat{\yvec}^\top \hat\epsvec = 0$
-       et $\Xmat^\top \hat\epsvec = \mat{0}$ sont des conditions en
+       $\hat{\yvec}^\top \hatepsvec = \hatbetavec^\top \Xmat^\top
+       \hatepsvec$ et donc, en supposant sans perte de généralité que
+       $\hatbetavec \ne \mat{0}$, 
+       que $\hat{\yvec}^\top \hatepsvec = 0$
+       et $\Xmat^\top \hatepsvec = \mat{0}$ sont des conditions en
        tous points équivalentes.
      \item On a
        \begin{align*}
          \hat\yvec^\top \hat\yvec
-         &= (\Xmat \hat\betavec)^\top \Xmat \hat\betavec \\
-         &= \hat\betavec^\top (\Xmat^\top \Xmat) \hat\betavec \\
-         &= \hat\betavec^\top (\Xmat^\top \Xmat) (\Xmat^\top
+         &= (\Xmat \hatbetavec)^\top \Xmat \hatbetavec \\
+         &= \hatbetavec^\top (\Xmat^\top \Xmat) \hatbetavec \\
+         &= \hatbetavec^\top (\Xmat^\top \Xmat) (\Xmat^\top
          \Xmat)^{-1} \Xmat^\top \yvec \\
-         &= \hat\betavec^\top \Xmat^\top \yvec.
+         &= \hatbetavec^\top \Xmat^\top \yvec.
        \end{align*}
        Cette équation est l'équivalent matriciel de l'identité
        \begin{align*}
@@ -383,7 +383,7 @@
        \hat{Y}_i^2 = \sum_{i = 1}^n (\hat{Y} - \bar{Y})^2 + n
        \bar{Y}^2 = \SSR + n \bar{Y}^2$ et
        \begin{align*}
-         \hat\betavec^\top \Xmat^\top \yvec
+         \hatbetavec^\top \Xmat^\top \yvec
          &= \hat{\beta}_0 n \bar{Y} + \hat{\beta}_1 \sum_{i = 1}^n x_i Y_i \\
          &= (\bar{Y} - \hat{\beta}_1 \bar{x}) n \bar{Y} +
          \hat{\beta}_1 \sum_{i = 1}^n x_i Y_i \\
@@ -397,13 +397,61 @@
 \end{exercice}
 
 \begin{exercice}
+  En régression linéaire multiple, on a $\hatbetavec \sim
+  \Norm(\betavec, \sigma^2 (\Xmat^\top \Xmat)^{-1})$ et
+  $\SSE/\sigma^2 \sim \chi^2(n - p - 1)$.
+  \begin{enumerate}
+  \item Vérifier que
+    \begin{displaymath}
+      \frac{\hat{\beta_i} - \beta_i}{s \sqrt{c_{ii}}} \sim
+      t(n - p -  1), \quad i = 0, 1, \dots, p,
+    \end{displaymath}
+    où $c_{ii}$ est le $(i + 1)$\ieme{} élément de la diagonale de la
+    matrice $(\Xmat^\top \Xmat)^{-1}$ et $s^2 = \MSE$.
+  \item Que vaut $c_{11}$ en régression linéaire simple? Adapter le
+    résultat ci-dessus à ce modèle.
+  \end{enumerate}
+  \begin{sol}
+    \begin{enumerate}
+    \item Tout d'abord, si $Z \sim \Norm(0,1)$ et $V \sim \upchi^2(r)$
+      alors, par définition,
+      \begin{displaymath}
+        \frac{Z}{\sqrt{V/r}} \sim t(r).
+      \end{displaymath}
+      Tel que mentionné dans l'énoncé, $\hat{\beta}_i \sim \Norm(\beta_i,
+      \sigma^2 c_{ii})$ ou, de manière équivalente,
+      \begin{displaymath}
+        \frac{\hat{\beta}_i - \beta_i}{\sigma \sqrt{c_{ii}}} \sim
+        N(0, 1).
+      \end{displaymath}
+      Par conséquent,
+      \begin{displaymath}
+        \frac{\frac{\hat{\beta}_i - \beta_i}{\sigma \sqrt{c_{ii}}}}{%
+          \sqrt{\frac{\SSE}{\sigma^2(n - p - 1)}}}
+        = \frac{\hat{\beta}_i - \beta_i}{s \sqrt{c_{ii}}}
+        \sim t(n - p - 1).
+      \end{displaymath}
+    \item En régression linéaire simple, $c_{11} = 1/\sum_{i = 1}^n
+      (x_i - \bar{x})^2 = 1/S_{xx}$ et $\sigma^2 c_{11} =
+      \var{\hat{\beta}_1}$. Le résultat général en a) se réduit donc,
+      en régression linéaire simple, au résultat bien connu du test $t$
+      sur le paramètre $\beta_1$
+      \begin{displaymath}
+        \frac{\hat{\beta}_1 - \beta_1}{s \sqrt{1/S_{xx}}}
+        \sim t(n - 1 - 1).
+      \end{displaymath}
+    \end{enumerate}
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
   Considérer le modèle de régression linéaire multiple présenté à
   l'exercice \ref{chap:multiple}.\ref{ex:multiple:preuve}. Soit
   $\hat{Y}_0$ la prévision de la variable dépendante correspondant aux
   valeurs du vecteur colonne $\xvec_0^\top = (1, x_{01}, \dots, x_{0p})$
   des $p$ variables indépendantes. On a donc
   \begin{displaymath}
-    \hat{Y}_0 = \xvec_0^\top \hat\betavec.
+    \hat{Y}_0 = \xvec_0^\top \hatbetavec.
   \end{displaymath}
   \begin{enumerate}
   \item Démontrer que $\esp{\hat{Y}_0} = \esp{Y_0}$.
@@ -428,8 +476,8 @@
     \item Premièrement, $Y_0 = \xvec_0^\top \betavec + \varepsilon_0$ avec
       $\esp{\varepsilon_0} = 0$. Par conséquent, $\esp{Y_0} = \esp{\xvec_0^\top
         \betavec + \varepsilon_0} = \xvec_0^\top \betavec$. Deuxièmement,
-      $\esp{\hat{Y}_0} = \esp{\xvec_0^\top \hat\betavec} = \xvec_0^\top
-      \esp{\hat\betavec} = \xvec_0^\top \betavec$ puisque l'estimateur des moindres
+      $\esp{\hat{Y}_0} = \esp{\xvec_0^\top \hatbetavec} = \xvec_0^\top
+      \esp{\hatbetavec} = \xvec_0^\top \betavec$ puisque l'estimateur des moindres
       carrés de $\betavec$ est sans biais. Ceci complète la preuve.
     \item Tout d'abord, $\esp{(\hat{Y}_0 - \esp{Y_0})^2} =
       \varmat{\hat{Y}_0} = \var{\hat{Y}_0}$ puisque la matrice de
@@ -437,8 +485,8 @@
       contient, ici, qu'une seule valeur. Or, par le théorème de la section~\ref{sec:elements:moments}, la variance est
        \begin{align*}
          \var{\hat{Y}_0}
-         &= \varmat{\xvec_0^\top \hat\betavec} \\
-         &= \xvec_0^\top \varmat{\hat\betavec} \xvec_0 \\
+         &= \varmat{\xvec_0^\top \hatbetavec} \\
+         &= \xvec_0^\top \varmat{\hatbetavec} \xvec_0 \\
          &= \sigma^2 \xvec_0^\top (\Xmat^\top \Xmat)^{-1}
          \xvec_0.
        \end{align*}
@@ -513,7 +561,7 @@
     R^2 &= 0,521 \\
     F   &= 5,438.
   \end{align*}
-  Déterminer la valeur $p$ approximative du test global de validité du
+  Déterminer le seuil approximatif du test global de validité du
   modèle.
   \begin{rep}
     $p \approx 0,01$
@@ -534,10 +582,9 @@
     \end{align*}
     Soit $F$ une variable aléatoire dont la distribution est une loi
     de Fisher avec $3$ et $19 - 3 - 1 = 15$ degrés de liberté, soit la
-    même distribution que la statistique $F$ du modèle. On obtient la
-    valeur $p$ du test global de validité du modèle dans un tableau de
+    même distribution que la statistique $F$ du modèle. On obtient le seuil observé du test global de validité du modèle dans un tableau de
     quantiles de la distribution $F$ ou avec la fonction \texttt{pf}
-    dans R:
+    dans \textsf{R}:
     \begin{align*}
       \Pr[F > 5,438] = 0,0099
     \end{align*}
@@ -558,7 +605,7 @@
       \bottomrule
     \end{tabular}
   \end{center}
-  De plus, si $\Xmat$ est la matrice de schéma du modèle
+  De plus, si $\Xmat$ est la matrice d'incidence du modèle
   \begin{displaymath}
     Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \varepsilon_i,
     \quad i = 1, 2, 3, 4,
@@ -597,7 +644,7 @@
   \end{enumerate}
   \begin{rep}
     \begin{inparaenum}
-    \item $\hat\betavec = (-22,5,\; 6,5,\; 1,5)$
+    \item $\hatbetavec = (-22,5,\; 6,5,\; 1,5)$
     \item $F = 13,5$, $R^2 = 0,9643$
     \item $t_1 = 3,920$, $t_2 = 1,732$
     \item $13,75 \pm 13,846$
@@ -607,7 +654,7 @@
     \begin{enumerate}
     \item On a
       \begin{align*}
-        \hat\betavec
+        \hatbetavec
         &= (\Xmat^\top \Xmat)^{-1} \Xmat^\top \yvec \\
         &= \frac{1}{2}
         \left[
@@ -634,11 +681,11 @@
       \end{align*}
     \item Avec les résultats de la partie a), on a
       \begin{align*}
-        \hat\yvec &= \Xmat \hat\betavec =
+        \hat\yvec &= \Xmat \hatbetavec =
         \begin{bmatrix}
           17 \\ 12 \\ 13,5 \\ 13,5
         \end{bmatrix}, \\
-        \hat\epsvec &= \yvec - \hat\yvec =
+        \hatepsvec &= \yvec - \hat\yvec =
         \left[
           \begin{array}{r}
             0 \\ 0 \\ 0,5 \\ -0,5
@@ -650,7 +697,7 @@
         \SST
         &= \yvec^\top \yvec - n \bar{Y}^2 = 14 \\
         \SSE
-        &= \hat\epsvec^\top \hat\epsvec = 0,5 \\
+        &= \hatepsvec^\top \hatepsvec = 0,5 \\
         \SSR &= \SST - \SSR = 13,5,
       \end{align*}
       d'où le tableau d'analyse de variance est le suivant:
@@ -698,7 +745,7 @@
       en a) est
       \begin{align*}
         \hat{Y}_0
-        &= \xvec_0^\top \hat\betavec \\
+        &= \xvec_0^\top \hatbetavec \\
         &= -22,5 + 6,5(3,5) + 1,5(9) \\
         &= 13,75.
       \end{align*}
@@ -783,7 +830,7 @@ summary(fit)
       \end{displaymath}
       où $Y_i$ est la consommation en litres aux 100 kilomètres,
       $x_{i1}$ le poids en kilogrammes et $x_{i2}$ la cylindrée en
-      litres. La faible valeur $p$ du test $F$ indique une régression
+      litres. Le faible seuil observé du test $F$ indique une régression
       globalement très significative. Les tests $t$ des paramètres
       individuels indiquent également que les deux variables du modèle
       sont significatives. Enfin, le $R^2$ de %
@@ -923,17 +970,17 @@ the p-value is 7.160e-14
     \item On a $p = 3$ variables explicatives et, du nombre de degrés
       de liberté de la statistique $F$, on apprend que $n - p - 1 =
       16$. Par conséquent, $n = 16 + 3 + 1 = 20$. Les dimensions des
-      vecteurs et de la matrice de schéma dans la représentation
+      vecteurs et de la matrice d'incidence dans la représentation
       $\yvec = \Xmat \betavec + \epsvec$ sont donc: $n \times 1 = 20
       \times 1$ pour les vecteurs $\yvec$ et $\epsvec$, $n \times (p
       + 1) = 20 \times 4$ pour la matrice $\Xmat$, $(p + 1) \times
       1$ pour le vecteur $\betavec$.
-    \item La valeur $p$ associée à la statistique $F$ est, à toute fin
+    \item Le seuil observé associé à la statistique $F$ est, à toute fin
       pratique, nulle. Cela permet de rejeter facilement l'hypothèse
       nulle selon laquelle la régression n'est pas significative.
     \item On doit se fier ici au résultat du test $t$ associé à la
       variable $x_2$. Dans les résultats obtenus avec \textsf{R}, on
-      voit que la valeur $p$ de la statistique $t$ du paramètre
+      voit que le seuil observé du test $t$ sur le paramètre
       $\beta_2$ est $0,0916$. Cela signifie que jusqu'à un seuil de
       signification de 9,16~\% (ou un niveau de confiance supérieur à
       90,84~\%), on ne peut rejeter l'hypothèse $H_0: \beta_2 = 0$ en
@@ -953,6 +1000,52 @@ the p-value is 7.160e-14
       plusieurs autres variables redondantes avec la première pour
       rendre les tests $t$ non significatifs.
     \end{enumerate}
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  Dans une régression multiple avec quatre variables explicatives et
+  506 données, on a obtenu:
+  \begin{align*}
+    \SSR(x_1,x_4) &= \nombre{24016} \\
+    \SSR(x_4) &= \nombre{2668} \\
+    R^2 &= 0,6903 \\
+    s^2 &= 26,41,
+  \end{align*}
+  où $\SSR(x)$ est la somme des carrés de la régression pour le modèle incluant la variable $x$. Calculer la statistique appropriée pour le test
+  \begin{align*}
+    H_0 &: \beta_2 = \beta_3 = 0 \\
+    H_1 &: \beta_2 \ne 0 \text{ ou } \beta_3 \ne 0.
+  \end{align*}
+  \begin{rep}
+    $103,67$
+  \end{rep}
+  \begin{sol}
+    La statistique à utiliser pour faire ce test $F$ partiel est
+    \begin{align*}
+      F^*
+      &= \frac{\{\SSR(X_1, X_2, X_3, X_4) - \SSR(X_1, X_4)\}/2}{ \MSE} \\
+      &= \frac{\SSR - \SSR(X_1,X_4)}{2 s^2}
+    \end{align*}
+    où $\SSR = \SSR(X_1,X_2,X_3,X_4)$. Or,
+    \begin{align*}
+      R^2
+      &= \frac{\SSR}{\SST} \\
+      &= \frac{\SSR}{\SSR + \SSE}, \\
+      \intertext{d'où}
+      \SSR
+      &= \frac{R^2}{1 - R^2}\, \SSE \\
+      &= \frac{R^2}{1 - R^2}\, \MSE (n - p - 1) \\
+      &= \frac{0,6903}{1 - 0,6903}\, (26,41) (506 - 4 - 1) \\
+      &= \nombre{29492}.
+    \end{align*}
+    Par conséquent,
+    \begin{align*}
+      F^*
+      &= \frac{\nombre{29492} - \nombre{24016}}{%
+        (2) (26,41)} \\
+      &= 103,67.
+    \end{align*}
   \end{sol}
 \end{exercice}
 
@@ -1002,7 +1095,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
     l'information ci-dessus, calculer la statistique appropriée pour
     compléter chacun des tests suivants. Indiquer également le nombre
     de degrés de liberté de cette statistique. Dans tous les cas,
-    l'hypothèse alternative $H_1$ est la négation de l'hypothèse
+    la contre-hypothèse $H_1$ est la négation de l'hypothèse
     $H_0$.
     \begin{enumerate}
     \item $H_0: \beta_1 = \beta_2 = \beta_3 = 0$
@@ -1035,11 +1128,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
       les sommes de carrés
       \begin{align*}
         \SSR(X_2)          &= 45,59085 \\
-        \SSR(X_3|X_2)      &= 8,76355 \\
+        \SSR(X_3,X_2)-\SSR(X_2)      &= 8,76355 \\
         \intertext{alors que du second tableau on a}
         \SSR(X_1)          &= 45,59240 \\
-        \SSR(X_2|X_1)      &= 0,01842 \\
-        \SSR(X_3|X_1, X_2) &= 8,78766,
+        \SSR(X_2,X_1)-\SSR(X_1)      &= 0,01842 \\
+        \SSR(X_3,X_1, X_2)-\SSR(X_1,X_2) &= 8,78766,
       \end{align*}
       ainsi que
       \begin{align*}
@@ -1054,7 +1147,6 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
         \begin{align*}
           F
           &= \frac{\SSR(X_1, X_2, X_3)/3}{\MSE} \\
-          &= \frac{(\SSR(X_1) + \SSR(X_2|X_1) + \SSR(X_3|X_1,X_2))/3}{\MSE} \\
           &= \frac{(45,5924 + 0,01842 + 8,78766)/3}{0,44844} \\
           &= 40,44.
         \end{align*}
@@ -1065,9 +1157,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
         la régression globale. La statistique du test est alors
         \begin{align*}
           F^*
-          &= \frac{\SSR(X_1|X_2,X_3)/1}{\MSE} \\
-          &= \frac{\SSR(X_1, X_2, X_3) - \SSR(X_2, X_3)}{\MSE} \\
-          &= \frac{\SSR(X_1, X_2, X_3) - \SSR(X_2) - \SSR(X_3|X_2)}{\MSE} \\
+          &= \frac{\{\SSR(X_1,X_2,X_3)-\SSR(X_2,X_3)\}/1}{\MSE} \\
           &= \frac{54,39848 - 45,59085 - 8,76355}{0,44844} \\
           &= 0,098,
         \end{align*}
@@ -1078,8 +1168,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
         statistique
         \begin{align*}
           F^*
-          &= \frac{\SSR(X_2, X_3|X_1)/2}{\MSE} \\
-          &= \frac{(\SSR(X_1, X_2, X_3) - \SSR(X_1))/2}{\MSE} \\
+          &= \frac{\{\SSR(X_2, X_3,X_1)-\SSR(X_1)\}/2}{\MSE} \\
           &= \frac{(54,39848 - 45,5924)/2}{0,44844} \\
           &= 9,819,
         \end{align*}
@@ -1094,439 +1183,6 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
       $x_1$ et $x_2$ sont redondantes et qu'il faut choisir l'une ou
       l'autre, mais pas les deux. Par conséquent, les choix de modèle
       possibles sont $x_1$ et $x_3$, ou $x_2$ et $x_3$.
-    \end{enumerate}
-  \end{sol}
-\end{exercice}
-
-\begin{exercice}
-  Dans une régression multiple avec quatre variables explicatives et
-  506 données, on a obtenu:
-  \begin{align*}
-    \SSR(x_1|x_4) &= \nombre{21348} \\
-    \SSR(x_4) &= \nombre{2668} \\
-    R^2 &= 0,6903 \\
-    s^2 &= 26,41.
-  \end{align*}
-  Calculer la statistique appropriée pour le test
-  \begin{align*}
-    H_0 &: \beta_2 = \beta_3 = 0 \\
-    H_1 &: \beta_2 \ne 0 \text{ ou } \beta_3 \ne 0.
-  \end{align*}
-  \begin{rep}
-    $103,67$
-  \end{rep}
-  \begin{sol}
-    La statistique à utiliser pour faire ce test $F$ partiel est
-    \begin{align*}
-      F^*
-      &= \frac{\SSR(X_2, X_3|X_1, X_4)/2}{\MSE} \\
-      &= \frac{\SSR(X_1, X_2, X_3, X_4) - \SSR(X_1, X_4)}{2\, \MSE} \\
-      &= \frac{\SSR - \SSR(X_4) - \SSR(X_1|X_4)}{2 s^2}
-    \end{align*}
-    où $\SSR = \SSR(X_1,X_2,X_3,X_4)$. Or,
-    \begin{align*}
-      R^2
-      &= \frac{\SSR}{\SST} \\
-      &= \frac{\SSR}{\SSR + \SSE}, \\
-      \intertext{d'où}
-      \SSR
-      &= \frac{R^2}{1 - R^2}\, \SSE \\
-      &= \frac{R^2}{1 - R^2}\, \MSE (n - p - 1) \\
-      &= \frac{0,6903}{1 - 0,6903}\, (26,41) (506 - 4 - 1) \\
-      &= \nombre{29492}.
-    \end{align*}
-    Par conséquent,
-    \begin{align*}
-      F^*
-      &= \frac{\nombre{29492} - \nombre{2668} - \nombre{21348}}{%
-        (2) (26,41)} \\
-      &= 103,67.
-    \end{align*}
-  \end{sol}
-\end{exercice}
-
-\begin{exercice}
-  En régression linéaire multiple, on a $\hat{\betavec} \sim
-  \Norm(\betavec, \sigma^2 (\Xmat^\top \Xmat)^{-1})$ et
-  $\SSE/\sigma^2 \sim \chi^2(n - p - 1)$.
-  \begin{enumerate}
-  \item Vérifier que
-    \begin{displaymath}
-      \frac{\hat{\beta_i} - \beta_i}{s \sqrt{c_{ii}}} \sim
-      t(n - p -  1), \quad i = 0, 1, \dots, p,
-    \end{displaymath}
-    où $c_{ii}$ est le $(i + 1)$\ieme{} élément de la diagonale de la
-    matrice $(\Xmat^\top \Xmat)^{-1}$ et $s^2 = \MSE$.
-  \item Que vaut $c_{11}$ en régression linéaire simple? Adapter le
-    résultat ci-dessus à ce modèle.
-  \end{enumerate}
-  \begin{sol}
-    \begin{enumerate}
-    \item Tout d'abord, si $Z \sim \Norm(0,1)$ et $V \sim \upchi^2(r)$
-      alors, par définition,
-      \begin{displaymath}
-        \frac{Z}{\sqrt{V/r}} \sim t(r).
-      \end{displaymath}
-      Tel que mentionné dans l'énoncé, $\hat{\beta}_i \sim \Norm(\beta_i,
-      \sigma^2 c_{ii})$ ou, de manière équivalente,
-      \begin{displaymath}
-        \frac{\hat{\beta}_i - \beta_i}{\sigma \sqrt{c_{ii}}} \sim
-        N(0, 1).
-      \end{displaymath}
-      Par conséquent,
-      \begin{displaymath}
-        \frac{\frac{\hat{\beta}_i - \beta_i}{\sigma \sqrt{c_{ii}}}}{%
-          \sqrt{\frac{\SSE}{\sigma^2(n - p - 1)}}}
-        = \frac{\hat{\beta}_i - \beta_i}{s \sqrt{c_{ii}}}
-        \sim t(n - p - 1).
-      \end{displaymath}
-    \item En régression linéaire simple, $c_{11} = 1/\sum_{i = 1}^n
-      (x_i - \bar{x})^2 = 1/S_{xx}$ et $\sigma^2 c_{11} =
-      \var{\hat{\beta}_1}$. Le résultat général en a) se réduit donc,
-      en régression linéaire simple, au résultat bien connu du test $t$
-      sur le paramètre $\beta_1$
-      \begin{displaymath}
-        \frac{\hat{\beta}_1 - \beta_1}{s \sqrt{1/S_{xx}}}
-        \sim t(n - 1 - 1).
-      \end{displaymath}
-    \end{enumerate}
-  \end{sol}
-\end{exercice}
-
-\begin{exercice}
-  Considérer le modèle de régression linéaire $\yvec = \Xmat
-  \betavec + \epsvec$, où $\Xmat$ est une matrice $n \times (p+1)$,
-  $\var{\epsvec} = \sigma^2\, \mat{W}^{-1}$ et $\mat{W} = \diag(w_1,
-  \dots, w_n)$.  Démontrer, en dérivant
-  \begin{align*}
-    S(\betavec)
-    &= \sum_{i=1}^n w_i (Y_i - \xvec_i^\top \betavec)^2 \\
-    &= (\yvec - \Xmat \betavec)^\top\, \mat{W}\, (\yvec -
-       \Xmat \betavec)
-  \end{align*}
-  par rapport à $\betavec$, que les équations normales à résoudre pour
-  obtenir l'estimateur des moindres carrés pondérés de $\betavec$ sont,
-  sous forme matricielle,
-  \begin{displaymath}
-    (\Xmat^\top\, \mat{W}\, \Xmat) \hat\betavec^* = \Xmat^\top\,
-    \mat{W}\,  \yvec,
-  \end{displaymath}
-  puis en déduire cet estimateur.  \emph{Astuce}: cette preuve est
-  simple si l'on utilise le théorème \textbf{Dérivée d'une fonction} de la section~\ref{sec:elements:derivees}
-  avec $\mat{A} = \mat{W}$ et $f(\betavec) = \yvec - \Xmat \betavec$.
-  \begin{sol}
-    En suivant les indications données dans l'énoncé, on obtient aisément
-    \begin{align*}
-      \frac{d}{d\betavec} S(\betavec)
-      &= 2 \left(\frac{d}{d\betavec}(\yvec - \Xmat
-        \betavec)\right)^\top \mat{W} (\yvec - \Xmat
-        \betavec) \\
-      &= - 2 \Xmat^\top \mat{W} (\yvec - \Xmat
-        \betavec) \\
-      &= -2 (\Xmat^\top \mat{W} \yvec - \Xmat^\top \mat{W}
-      \Xmat \betavec).
-    \end{align*}
-    Par conséquent, les équations normales à résoudre pour trouver
-    l'estimateur $\hat\betavec^*$ minimisant la somme de carrés pondérés
-    $S(\betavec)$ sont $(\Xmat^\top\, \mat{W}\, \Xmat) \hat\betavec^* =
-    \Xmat^\top\, \mat{W}\, \yvec$ et l'estimateur des moindres
-    carrés pondérés est
-    \begin{displaymath}
-      \hat\betavec^* = (\Xmat^\top \mat{W} \Xmat)^{-1} \Xmat^\top
-      \mat{W} \yvec.
-    \end{displaymath}
-  \end{sol}
-\end{exercice}
-
-\begin{exercice}
-  Considérer le modèle de régression linéaire simple passant par
-  l'origine $Y_i = \beta x_i + \varepsilon_i$. Trouver l'estimateur
-  linéaire sans biais à variance minimale du paramètre $\beta$, ainsi
-  que sa variance, sous chacune des hypothèses suivantes.
-  \begin{enumerate}
-  \item $\var{\varepsilon_i} = \sigma^2$
-  \item $\var{\varepsilon_i} = \sigma^2/w_i$
-  \item $\var{\varepsilon_i} = \sigma^2 x_i$
-  \item $\var{\varepsilon_i} = \sigma^2 x_i^2$
-  \end{enumerate}
-  \begin{rep}
-    \begin{enumerate}
-    \item $\hat{\beta}^* = \sum_{i=1}^n x_i Y_i/\sum_{i=1}^n x_i^2$,
-      $\var{\hat{\beta}^*} = \sigma^2/\sum_{i=1}^n x_i^2$
-    \item $\hat{\beta}^* = \sum_{i=1}^n w_i x_i Y_i/\sum_{i=1}^n
-      w_i x_i^2$,
-      $\var{\hat{\beta}^*} = \sigma^2/\sum_{i=1}^n w_i x_i^2$
-    \item $\hat{\beta}^* = \bar{Y}/\bar{x}$,
-      $\var{\hat{\beta}^*} = \sigma^2/(n \bar{x})$
-    \item $\hat{\beta}^* = \sum_{i=1}^n Y_i/x_i$,
-      $\var{\hat{\beta}^*} = \sigma^2/n$
-    \end{enumerate}
-  \end{rep}
-  \begin{sol}
-    De manière tout à fait générale, l'estimateur linéaire sans biais
-    à variance minimale dans le modèle de régression linéaire $\yvec
-    = \Xmat \betavec + \epsvec$, $\var{\epsvec} = \sigma^2\,
-    \mat{W}^{-1}$ est
-    \begin{displaymath}
-      \hat\betavec^* = (\Xmat^\top \mat{W} \Xmat)^{-1} \Xmat^\top
-      \mat{W} \yvec
-    \end{displaymath}
-    et sa variance est, par le théorème de la section~\ref{sec:elements:moments},
-    \begin{align*}
-      \varmat{\hat\betavec^*}
-      &= (\Xmat^\top \mat{W} \Xmat)^{-1} \Xmat^\top \mat{W}
-      \varmat{\yvec}
-      \mat{W}^\top \Xmat (\Xmat^\top \mat{W} \Xmat)^{-1} \\
-      &= \sigma^2
-      (\Xmat^\top \mat{W} \Xmat)^{-1} \Xmat^\top \mat{W}
-      \mat{W}^{-1}
-      \mat{W} \Xmat (\Xmat^\top \mat{W} \Xmat)^{-1} \\
-      &= \sigma^2 (\Xmat^\top \mat{W} \Xmat)^{-1}
-    \end{align*}
-    puisque les matrices $\mat{W}$ et $\Xmat^\top \mat{W} \Xmat$
-    sont symétriques. Dans le cas de la régression linéaire simple
-    passant par l'origine et en supposant que $\mat{W} = \diag(w_1,
-    \dots, w_n)$, ces formules se réduisent en
-    \begin{align*}
-      \hat{\beta}^*
-      &= \frac{\sum_{i=1}^n w_i x_i Y_i}{\sum_{i=1}^n w_i x_i^2} \\
-      \intertext{et}
-      \var{\hat{\beta}^*}
-      &= \frac{\sigma^2}{\sum_{i=1}^n w_i x_i^2}.
-    \end{align*}
-    \begin{enumerate}
-    \item Cas déjà traité à l'exercice
-      \ref{chap:simple}.\ref{ex:simple:origine} où $\mat{W} = \mat{I}$
-      et, donc,
-      \begin{align*}
-        \hat{\beta}^*
-        &= \frac{\sum_{i=1}^n x_i Y_i}{\sum_{i=1}^n x_i^2} \\
-        \intertext{et}
-        \var{\hat{\beta}^*}
-        &= \frac{\sigma^2}{\sum_{i=1}^n w_i x_i^2}.
-      \end{align*}
-    \item Cas général traité ci-dessus.
-    \item Si $\var{\varepsilon_i} = \sigma^2 x_i$, alors $w_i =
-      x_i^{-1}$. Le cas général se simplifie donc en
-      \begin{align*}
-        \hat{\beta}^*
-        &= \frac{\sum_{i=1}^n Y_i}{\sum_{i=1}^n x_i} \\
-        &= \frac{\bar{Y}}{\bar{x}}, \\
-        \var{\hat{\beta}^*}
-        &= \frac{\sigma^2}{\sum_{i=1}^n x_i} \\
-        &= \frac{\sigma^2}{n \bar{x}}.
-      \end{align*}
-    \item Si $\var{\varepsilon_i} = \sigma^2 x_i^2$, alors $w_i =
-      x_i^{-2}$. On a donc
-      \begin{align*}
-        \hat{\beta}^*
-        &= \frac{1}{n} \sum_{i=1}^n \frac{Y_i}{x_i} \\
-        \var{\hat{\beta}^*}
-        &= \frac{\sigma^2}{n}.
-      \end{align*}
-    \end{enumerate}
-  \end{sol}
-\end{exercice}
-
-\begin{exercice}
-  \label{ex:multiple:quadratique}
-  Proposer, à partir des données ci-dessous, un modèle de
-  régression complet (incluant la distribution du terme d'erreur)
-  pouvant expliquer le comportement de la variable $Y$ en fonction de
-  celui de $x$.
-  \begin{center}
-    \begin{tabular}{rr}
-      \toprule
-      \multicolumn{1}{c}{$Y$} & $x$ \\
-      \midrule
-      32,83 & 25 \\
-       9,70 &  3 \\
-      29,25 & 24 \\
-      15,35 & 11 \\
-      13,25 & 10 \\
-      24,19 & 20 \\
-       8,59 &  6 \\
-      25,79 & 21 \\
-      24,78 & 19 \\
-      10,23 &  9 \\
-       8,34 &  4 \\
-      22,10 & 18 \\
-      10,00 &  7 \\
-      18,64 & 16 \\
-      18,82 & 15 \\
-      \bottomrule
-    \end{tabular}
-  \end{center}
-<<echo=FALSE>>=
-donnees <- read.table("data/exercice_3.16.dat", header = TRUE)
-fit <- lm(Y ~ poly(X, 2), data = donnees)
-b <- signif(coef(fit), 4)
-s2 <- signif(summary(fit)$sigma^2, 4)
-@
-  \begin{rep}
-    $Y_i = \Sexpr{format(b[1], dec = ",")} +
-    \Sexpr{format(b[2], dec = ",")} x_i +
-    \Sexpr{format(b[3], dec = ",")} x_i^2 + \varepsilon_i$,
-    $\varepsilon_i \sim \Norm(0, \Sexpr{format(s2, dec = ",")})$
-  \end{rep}
-  \begin{sol}
-    Le graphique des valeurs de $Y$ en fonction de celles de $x$, à la
-    figure \ref{fig:multiple:quadratique}, montre clairement une
-    relation quadratique. On postule donc le modèle
-    \begin{displaymath}
-      Y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \varepsilon_i, \quad
-      \varepsilon_i \sim \Norm(0, \sigma^2).
-    \end{displaymath}
-    \begin{figure}
-<<multiple-quadratique>>=
-plot(Y ~ X, data = donnees)
-@
-      \caption{Graphique des données de l'exercice
-        \ref{chap:multiple}.\ref{ex:multiple:quadratique}}
-      \label{fig:multiple:quadratique}
-    \end{figure}
-    Par la suite, on peut estimer les paramètres de ce modèle avec la
-    fonction \texttt{lm} de \textsf{R}:
-<<>>=
-fit <- lm(Y ~ poly(X, 2), data = donnees)
-summary(fit)
-anova(fit)
-@
-    Tant le test $F$ global que les tests $t$ individuels sont
-    concluants, le coefficient de détermination est élevé et l'on peut
-    constater à la figure \ref{fig:multiple:quadratique2} que
-    l'ajustement du modèle est bon. On conclut donc qu'un modèle
-    adéquat pour cet ensemble de données est
-    \begin{displaymath}
-      Y_i = \Sexpr{format(b[1], dec = ",")} +
-      \Sexpr{format(b[2], dec = ",")} x_i +
-      \Sexpr{format(b[3], dec = ",")} x_i^2 + \varepsilon_i, \quad
-      \varepsilon_i \sim \Norm(0, \Sexpr{format(s2, dec = ",")}).
-    \end{displaymath}
-    \begin{figure}
-<<multiple-quadratique2>>=
-plot(Y ~ X, data = donnees)
-x <- seq(min(donnees$X), max(donnees$X), length = 200)
-lines(x, predict(fit, data.frame(X = x), lwd = 2))
-@
-      \caption{Graphique des données de l'exercice
-        \ref{chap:multiple}.\ref{ex:multiple:quadratique} et courbe
-        obtenue par régression}
-      \label{fig:multiple:quadratique2}
-    \end{figure}
-  \end{sol}
-\end{exercice}
-
-\begin{exercice}
-  \label{ex:multiple:pondere}
-  On vous donne les 23 données dans le tableau ci-dessous.
-  \begin{center}
-    \begin{tabular}{rcc@{\qquad}rcc@{\qquad}rcc}
-      \toprule
-      $i$ & $Y_i$ & $x_i$ & $i$ & $Y_i$ & $x_i$ & $i$ & $Y_i$ & $x_i$ \\
-      \midrule
-      12 & 2,3 & 1,3 & 19 & 1,7 & 3,7 &  6 & 2,8 & 5,3 \\
-      23 & 1,8 & 1,3 & 20 & 2,8 & 4,0 & 10 & 2,1 & 5,3 \\
-      7 & 2,8 & 2,0 &  5 & 2,8 & 4,0 &  4 & 3,4 & 5,7 \\
-      8 & 1,5 & 2,0 &  2 & 2,2 & 4,0 &  9 & 3,2 & 6,0 \\
-      17 & 2,2 & 2,7 & 21 & 3,2 & 4,7 & 13 & 3,0 & 6,0 \\
-      22 & 3,8 & 3,3 & 15 & 1,9 & 4,7 & 14 & 3,0 & 6,3 \\
-      1 & 1,8 & 3,3 & 18 & 1,8 & 5,0 & 16 & 5,9 & 6,7 \\
-      11 & 3,7 & 3,7 &  3 & 3,5 & 5,3 \\
-      \bottomrule
-    \end{tabular}
-  \end{center}
-  \begin{enumerate}
-  \item Calculer l'estimateur des moindres carrés ordinaires
-    $\hat\betavec$.
-  \item Supposons que la variance de $Y_{16}$ est $4 \sigma^2$ plutôt
-    que $\sigma^2$. Recalculer la régression en a) en utilisant cette
-    fois les moindres carrés pondérés.
-  \item Refaire la partie b) en supposant maintenant que la variance
-    de l'observation $Y_{16}$ est $16 \sigma^2$. Quelles différences
-    note-t-on?
-  \end{enumerate}
-<<echo=FALSE>>=
-donnees <- read.table("data/exercice_3.17.dat", header = TRUE)
-fit1 <- lm(Y ~ X, data = donnees)
-b1 <- round(coef(fit1), 4)
-w <- rep(1, nrow(donnees))
-w[16] <- 0.25
-fit2 <- update(fit1, weights = w)
-b2 <- round(coef(fit2), 4)
-w[16] <- 0.0625
-fit3 <- update(fit1, weights = w)
-b3 <- round(coef(fit3), 4)
-@
-  \begin{rep}
-    \begin{inparaenum}
-    \item $\hat\betavec = (%
-      \Sexpr{format(b1[1], dec = ",")},
-      \Sexpr{format(b1[2], dec = ",")})$
-    \item $\hat\betavec^* = (%
-      \Sexpr{format(b2[1], dec = ",")},
-      \Sexpr{format(b2[2], dec = ",")})$
-    \item $\hat\betavec^* = (%
-      \Sexpr{format(b3[1], dec = ",")},
-      \Sexpr{format(b3[2], dec = ",")})$
-    \end{inparaenum}
-  \end{rep}
-  \begin{sol}
-    Comme on peut le constater à la figure \ref{fig:multiple:pondere},
-    le point $(X_{16}, Y_{16})$ est plus éloigné des autres. En b) et
-    c), on diminue son poids dans la régression.
-    \begin{figure}
-<<multiple-pondere>>=
-plot(Y ~ X, data = donnees)
-points(donnees$X[16], donnees$Y[16], pch = 16)
-@
-      \caption{Graphique des données de l'exercice
-        \ref{chap:multiple}.\ref{ex:multiple:pondere}. Le cercle plein
-        représente la donnée $(X_{16}, Y_{16})$.}
-      \label{fig:multiple:pondere}
-    \end{figure}
-    \begin{enumerate}
-    \item On calcule d'abord l'estimateur des moindres carrés ordinaires:
-<<>>=
-(fit1 <- lm(Y ~ X, data = donnees))
-@
-    \item Si l'on suppose que la variance de la données $(X_{16},
-      Y_{16})$ est quatre fois plus élevée que la variance des autres
-      données, alors il convient d'accorder un point quatre fois moins
-      grand à cette donnée dans la régression. Cela requiert les
-      moindres carrés pondérés. Pour calculer les estimateurs avec
-      \texttt{lm} dans \textsf{R}, on utilise l'argument
-      \texttt{weights}:
-<<>>=
-w <- rep(1, nrow(donnees))
-w[16] <- 0.25
-(fit2 <- update(fit1, weights = w))
-@
-    \item On répète la procédure en b) avec un poids de encore plus
-      petit pour la donnée $(X_{16}, Y_{16})$:
-<<>>=
-w[16] <- 0.0625
-(fit3 <- update(fit1, weights = w))
-@
-      Plus le poids accordé à la donnée $(X_{16}, Y_{16})$ est faible,
-      moins la droite de régression est attirée vers ce point (voir la
-      figure \ref{fig:multiple:pondere2}).
-      \begin{figure}[t]
-<<multiple-pondere2>>=
-plot(Y ~ X, data = donnees)
-points(donnees$X[16], donnees$Y[16], pch = 16)
-abline(fit1, lwd = 2, lty = 1)
-abline(fit2, lwd = 2, lty = 2)
-abline(fit3, lwd = 2, lty = 3)
-legend(1.2, 6, legend = c("Modèle a)", "Modèle b)", "Modèle c)"),
-       lwd = 2, lty = 1:3)
-@
-        \caption{Graphique des données de l'exercice
-          \ref{chap:multiple}.\ref{ex:multiple:pondere} avec les
-          droites de régression obtenues à l'aide des moindres carrés
-          pondérés.}
-        \label{fig:multiple:pondere2}
-      \end{figure}
     \end{enumerate}
   \end{sol}
 \end{exercice}
@@ -1635,6 +1291,7 @@ predict(fit, newdata = data.frame(age = 4, sexe = "F"),
   \end{sol}
 \end{exercice}
 
+
 \begin{exercice}
 Le modèle de régression linéaire multiple $$Y_i=\beta_0+\beta_1 x_{i1}+\beta_2 x_{i2}+\beta_3 x_{i3}+\varepsilon_i, \mbox{ pour }i=1,...,n$$ a été ajusté à des données avec la méthode des moindres carrés.
 
@@ -1649,9 +1306,9 @@ Le modèle de régression linéaire multiple $$Y_i=\beta_0+\beta_1 x_{i1}+\beta_
 
 \item La figure~\ref{fig:multiple:postulat2} montre les résidus studentisés en fonction de chacune des variables exogènes et en fonction des valeurs prédites. Utiliser ces graphiques pour commenter sur la validité des postulats du modèle. Y en a-t-il qui ne sont pas respectés? S'il y a lieu, expliquer l'impact de la violation de ce ou ces postulats.
 
-\begin{figure}[h]
+\begin{figure}[t]
 \centering
-\centerline{\includegraphics[width=0.85\textwidth]{figure/ResPlots.pdf}}
+\centerline{\includegraphics[width=0.8\textwidth]{figure/ResPlots.pdf}}
 \caption{Nuage de points des résidus studentisés en fonction de chacune des variables exogènes et en fonction de la variable prédite}\label{fig:multiple:postulat2}
 \end{figure}
 \end{enumerate}
@@ -1674,6 +1331,350 @@ Cela signifie que les variances des paramètres ne sont pas calculées de façon
 \end{enumerate}
 \end{sol}
 \end{exercice}
+
+\begin{exercice}
+  \label{ex:multiple:quadratique}
+  Proposer, à partir des données ci-dessous, un modèle de
+  régression complet (incluant la distribution du terme d'erreur)
+  pouvant expliquer le comportement de la variable $Y$ en fonction de
+  celui de $x$.
+  \begin{center}
+    \begin{tabular}{rr}
+      \toprule
+      \multicolumn{1}{c}{$Y$} & $x$ \\
+      \midrule
+      32,83 & 25 \\
+       9,70 &  3 \\
+      29,25 & 24 \\
+      15,35 & 11 \\
+      13,25 & 10 \\
+      24,19 & 20 \\
+       8,59 &  6 \\
+      25,79 & 21 \\
+      24,78 & 19 \\
+      10,23 &  9 \\
+       8,34 &  4 \\
+      22,10 & 18 \\
+      10,00 &  7 \\
+      18,64 & 16 \\
+      18,82 & 15 \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+<<echo=FALSE>>=
+donnees <- read.table("data/exercice_3.16.dat", header = TRUE)
+fit <- lm(Y ~ poly(X, 2), data = donnees)
+b <- signif(coef(fit), 4)
+s2 <- signif(summary(fit)$sigma^2, 4)
+@
+  \begin{rep}
+    $Y_i = \Sexpr{format(b[1], dec = ",")} +
+    \Sexpr{format(b[2], dec = ",")} x_i +
+    \Sexpr{format(b[3], dec = ",")} x_i^2 + \varepsilon_i$,
+    $\varepsilon_i \sim \Norm(0, \Sexpr{format(s2, dec = ",")})$
+  \end{rep}
+  \begin{sol}
+    Le graphique des valeurs de $Y$ en fonction de celles de $x$, à la
+    figure \ref{fig:multiple:quadratique}, montre clairement une
+    relation quadratique. On postule donc le modèle
+    \begin{displaymath}
+      Y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \varepsilon_i, \quad
+      \varepsilon_i \sim \Norm(0, \sigma^2).
+    \end{displaymath}
+    \begin{figure}
+<<multiple-quadratique>>=
+plot(Y ~ X, data = donnees)
+@
+      \caption{Graphique des données de l'exercice
+        \ref{chap:multiple}.\ref{ex:multiple:quadratique}}
+      \label{fig:multiple:quadratique}
+    \end{figure}
+    Par la suite, on peut estimer les paramètres de ce modèle avec la
+    fonction \texttt{lm} de \textsf{R}:
+<<>>=
+fit <- lm(Y ~ poly(X, 2), data = donnees)
+summary(fit)
+anova(fit)
+@
+    Tant le test $F$ global que les tests $t$ individuels sont
+    concluants, le coefficient de détermination est élevé et l'on peut
+    constater à la figure \ref{fig:multiple:quadratique2} que
+    l'ajustement du modèle est bon. On conclut donc qu'un modèle
+    adéquat pour cet ensemble de données est
+    \begin{displaymath}
+      Y_i = \Sexpr{format(b[1], dec = ",")} +
+      \Sexpr{format(b[2], dec = ",")} x_i +
+      \Sexpr{format(b[3], dec = ",")} x_i^2 + \varepsilon_i, \quad
+      \varepsilon_i \sim \Norm(0, \Sexpr{format(s2, dec = ",")}).
+    \end{displaymath}
+    \begin{figure}
+<<multiple-quadratique2>>=
+plot(Y ~ X, data = donnees)
+x <- seq(min(donnees$X), max(donnees$X), length = 200)
+lines(x, predict(fit, data.frame(X = x), lwd = 2))
+@
+      \caption{Graphique des données de l'exercice
+        \ref{chap:multiple}.\ref{ex:multiple:quadratique} et courbe
+        obtenue par régression}
+      \label{fig:multiple:quadratique2}
+    \end{figure}
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  Considérer le modèle de régression linéaire $\yvec = \Xmat
+  \betavec + \epsvec$, où $\Xmat$ est une matrice $n \times (p+1)$,
+  $\var{\epsvec} = \sigma^2\, \mat{W}^{-1}$ et $\mat{W} = \diag(w_1,
+  \dots, w_n)$.  Démontrer, en dérivant
+  \begin{align*}
+    S(\betavec)
+    &= \sum_{i=1}^n w_i (Y_i - \xvec_i^\top \betavec)^2 \\
+    &= (\yvec - \Xmat \betavec)^\top\, \mat{W}\, (\yvec -
+       \Xmat \betavec)
+  \end{align*}
+  par rapport à $\betavec$, que les équations normales à résoudre pour
+  obtenir l'estimateur des moindres carrés pondérés de $\betavec$ sont,
+  sous forme matricielle,
+  \begin{displaymath}
+    (\Xmat^\top\, \mat{W}\, \Xmat) \hatbetavec^* = \Xmat^\top\,
+    \mat{W}\,  \yvec,
+  \end{displaymath}
+  puis en déduire cet estimateur.  \emph{Astuce}: cette preuve est
+  simple si l'on utilise le théorème \textbf{Dérivée d'une fonction} de la section~\ref{sec:elements:derivees}
+  avec $\mat{A} = \mat{W}$ et $f(\betavec) = \yvec - \Xmat \betavec$.
+  \begin{sol}
+    En suivant les indications données dans l'énoncé, on obtient aisément
+    \begin{align*}
+      \frac{d}{d\betavec} S(\betavec)
+      &= 2 \left(\frac{d}{d\betavec}(\yvec - \Xmat
+        \betavec)\right)^\top \mat{W} (\yvec - \Xmat
+        \betavec) \\
+      &= - 2 \Xmat^\top \mat{W} (\yvec - \Xmat
+        \betavec) \\
+      &= -2 (\Xmat^\top \mat{W} \yvec - \Xmat^\top \mat{W}
+      \Xmat \betavec).
+    \end{align*}
+    Par conséquent, les équations normales à résoudre pour trouver
+    l'estimateur $\hatbetavec^*$ minimisant la somme de carrés pondérés
+    $S(\betavec)$ sont $(\Xmat^\top\, \mat{W}\, \Xmat) \hatbetavec^* =
+    \Xmat^\top\, \mat{W}\, \yvec$ et l'estimateur des moindres
+    carrés pondérés est
+    \begin{displaymath}
+      \hatbetavec^* = (\Xmat^\top \mat{W} \Xmat)^{-1} \Xmat^\top
+      \mat{W} \yvec.
+    \end{displaymath}
+  \end{sol}
+\end{exercice}
+
+\begin{exercice}
+  Considérer le modèle de régression linéaire simple passant par
+  l'origine $Y_i = \beta x_i + \varepsilon_i$. Trouver l'estimateur
+  linéaire sans biais à variance minimale du paramètre $\beta$, ainsi
+  que sa variance, sous chacune des hypothèses suivantes.
+  \begin{enumerate}
+  \item $\var{\varepsilon_i} = \sigma^2$
+  \item $\var{\varepsilon_i} = \sigma^2/w_i$
+  \item $\var{\varepsilon_i} = \sigma^2 x_i$
+  \item $\var{\varepsilon_i} = \sigma^2 x_i^2$
+  \end{enumerate}
+  \begin{rep}
+    \begin{enumerate}
+    \item $\hat{\beta}^* = \sum_{i=1}^n x_i Y_i/\sum_{i=1}^n x_i^2$,
+      $\var{\hat{\beta}^*} = \sigma^2/\sum_{i=1}^n x_i^2$
+    \item $\hat{\beta}^* = \sum_{i=1}^n w_i x_i Y_i/\sum_{i=1}^n
+      w_i x_i^2$,
+      $\var{\hat{\beta}^*} = \sigma^2/\sum_{i=1}^n w_i x_i^2$
+    \item $\hat{\beta}^* = \bar{Y}/\bar{x}$,
+      $\var{\hat{\beta}^*} = \sigma^2/(n \bar{x})$
+    \item $\hat{\beta}^* = \sum_{i=1}^n Y_i/x_i$,
+      $\var{\hat{\beta}^*} = \sigma^2/n$
+    \end{enumerate}
+  \end{rep}
+  \begin{sol}
+    De manière tout à fait générale, l'estimateur linéaire sans biais
+    à variance minimale dans le modèle de régression linéaire $\yvec
+    = \Xmat \betavec + \epsvec$, $\var{\epsvec} = \sigma^2\,
+    \mat{W}^{-1}$ est
+    \begin{displaymath}
+      \hatbetavec^* = (\Xmat^\top \mat{W} \Xmat)^{-1} \Xmat^\top
+      \mat{W} \yvec
+    \end{displaymath}
+    et sa variance est, par le théorème de la section~\ref{sec:elements:moments},
+    \begin{align*}
+      \varmat{\hatbetavec^*}
+      &= (\Xmat^\top \mat{W} \Xmat)^{-1} \Xmat^\top \mat{W}
+      \varmat{\yvec}
+      \mat{W}^\top \Xmat (\Xmat^\top \mat{W} \Xmat)^{-1} \\
+      &= \sigma^2
+      (\Xmat^\top \mat{W} \Xmat)^{-1} \Xmat^\top \mat{W}
+      \mat{W}^{-1}
+      \mat{W} \Xmat (\Xmat^\top \mat{W} \Xmat)^{-1} \\
+      &= \sigma^2 (\Xmat^\top \mat{W} \Xmat)^{-1}
+    \end{align*}
+    puisque les matrices $\mat{W}$ et $\Xmat^\top \mat{W} \Xmat$
+    sont symétriques. Dans le cas de la régression linéaire simple
+    passant par l'origine et en supposant que $\mat{W} = \diag(w_1,
+    \dots, w_n)$, ces formules se réduisent en
+    \begin{align*}
+      \hat{\beta}^*
+      &= \frac{\sum_{i=1}^n w_i x_i Y_i}{\sum_{i=1}^n w_i x_i^2} \\
+      \intertext{et}
+      \var{\hat{\beta}^*}
+      &= \frac{\sigma^2}{\sum_{i=1}^n w_i x_i^2}.
+    \end{align*}
+    \begin{enumerate}
+    \item Cas déjà traité à l'exercice
+      \ref{chap:simple}.\ref{ex:simple:origine} où $\mat{W} = \mat{I}$
+      et, donc,
+      \begin{align*}
+        \hat{\beta}^*
+        &= \frac{\sum_{i=1}^n x_i Y_i}{\sum_{i=1}^n x_i^2} \\
+        \intertext{et}
+        \var{\hat{\beta}^*}
+        &= \frac{\sigma^2}{\sum_{i=1}^n w_i x_i^2}.
+      \end{align*}
+    \item Cas général traité ci-dessus.
+    \item Si $\var{\varepsilon_i} = \sigma^2 x_i$, alors $w_i =
+      x_i^{-1}$. Le cas général se simplifie donc en
+      \begin{align*}
+        \hat{\beta}^*
+        &= \frac{\sum_{i=1}^n Y_i}{\sum_{i=1}^n x_i} \\
+        &= \frac{\bar{Y}}{\bar{x}}, \\
+        \var{\hat{\beta}^*}
+        &= \frac{\sigma^2}{\sum_{i=1}^n x_i} \\
+        &= \frac{\sigma^2}{n \bar{x}}.
+      \end{align*}
+    \item Si $\var{\varepsilon_i} = \sigma^2 x_i^2$, alors $w_i =
+      x_i^{-2}$. On a donc
+      \begin{align*}
+        \hat{\beta}^*
+        &= \frac{1}{n} \sum_{i=1}^n \frac{Y_i}{x_i} \\
+        \var{\hat{\beta}^*}
+        &= \frac{\sigma^2}{n}.
+      \end{align*}
+    \end{enumerate}
+  \end{sol}
+\end{exercice}
+
+
+
+\begin{exercice}
+  \label{ex:multiple:pondere}
+  On vous donne les 23 données dans le tableau ci-dessous.
+  \begin{center}
+    \begin{tabular}{rcc@{\qquad}rcc@{\qquad}rcc}
+      \toprule
+      $i$ & $Y_i$ & $x_i$ & $i$ & $Y_i$ & $x_i$ & $i$ & $Y_i$ & $x_i$ \\
+      \midrule
+      12 & 2,3 & 1,3 & 19 & 1,7 & 3,7 &  6 & 2,8 & 5,3 \\
+      23 & 1,8 & 1,3 & 20 & 2,8 & 4,0 & 10 & 2,1 & 5,3 \\
+      7 & 2,8 & 2,0 &  5 & 2,8 & 4,0 &  4 & 3,4 & 5,7 \\
+      8 & 1,5 & 2,0 &  2 & 2,2 & 4,0 &  9 & 3,2 & 6,0 \\
+      17 & 2,2 & 2,7 & 21 & 3,2 & 4,7 & 13 & 3,0 & 6,0 \\
+      22 & 3,8 & 3,3 & 15 & 1,9 & 4,7 & 14 & 3,0 & 6,3 \\
+      1 & 1,8 & 3,3 & 18 & 1,8 & 5,0 & 16 & 5,9 & 6,7 \\
+      11 & 3,7 & 3,7 &  3 & 3,5 & 5,3 \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+  \begin{enumerate}
+  \item Calculer l'estimateur des moindres carrés ordinaires
+    $\hatbetavec$.
+  \item Supposons que la variance de $Y_{16}$ est $4 \sigma^2$ plutôt
+    que $\sigma^2$. Recalculer la régression en a) en utilisant cette
+    fois les moindres carrés pondérés.
+  \item Refaire la partie b) en supposant maintenant que la variance
+    de l'observation $Y_{16}$ est $16 \sigma^2$. Quelles différences
+    note-t-on?
+  \end{enumerate}
+<<echo=FALSE>>=
+donnees <- read.table("data/exercice_3.17.dat", header = TRUE)
+fit1 <- lm(Y ~ X, data = donnees)
+b1 <- round(coef(fit1), 4)
+w <- rep(1, nrow(donnees))
+w[16] <- 0.25
+fit2 <- update(fit1, weights = w)
+b2 <- round(coef(fit2), 4)
+w[16] <- 0.0625
+fit3 <- update(fit1, weights = w)
+b3 <- round(coef(fit3), 4)
+@
+  \begin{rep}
+    \begin{inparaenum}
+    \item $\hatbetavec = (%
+      \Sexpr{format(b1[1], dec = ",")},
+      \Sexpr{format(b1[2], dec = ",")})$
+    \item $\hatbetavec^* = (%
+      \Sexpr{format(b2[1], dec = ",")},
+      \Sexpr{format(b2[2], dec = ",")})$
+    \item $\hatbetavec^* = (%
+      \Sexpr{format(b3[1], dec = ",")},
+      \Sexpr{format(b3[2], dec = ",")})$
+    \end{inparaenum}
+  \end{rep}
+  \begin{sol}
+    Comme on peut le constater à la figure \ref{fig:multiple:pondere},
+    le point $(X_{16}, Y_{16})$ est plus éloigné des autres. En b) et
+    c), on diminue son poids dans la régression.
+    \begin{figure}
+<<multiple-pondere>>=
+plot(Y ~ X, data = donnees)
+points(donnees$X[16], donnees$Y[16], pch = 16)
+@
+      \caption{Graphique des données de l'exercice
+        \ref{chap:multiple}.\ref{ex:multiple:pondere}. Le cercle plein
+        représente la donnée $(X_{16}, Y_{16})$.}
+      \label{fig:multiple:pondere}
+    \end{figure}
+    \begin{enumerate}
+    \item On calcule d'abord l'estimateur des moindres carrés ordinaires:
+<<>>=
+(fit1 <- lm(Y ~ X, data = donnees))
+@
+    \item Si l'on suppose que la variance de la données $(X_{16},
+      Y_{16})$ est quatre fois plus élevée que la variance des autres
+      données, alors il convient d'accorder un point quatre fois moins
+      grand à cette donnée dans la régression. Cela requiert les
+      moindres carrés pondérés. Pour calculer les estimateurs avec
+      \texttt{lm} dans \textsf{R}, on utilise l'argument
+      \texttt{weights}:
+<<>>=
+w <- rep(1, nrow(donnees))
+w[16] <- 0.25
+(fit2 <- update(fit1, weights = w))
+@
+    \item On répète la procédure en b) avec un poids de encore plus
+      petit pour la donnée $(X_{16}, Y_{16})$:
+<<>>=
+w[16] <- 0.0625
+(fit3 <- update(fit1, weights = w))
+@
+      Plus le poids accordé à la donnée $(X_{16}, Y_{16})$ est faible,
+      moins la droite de régression est attirée vers ce point (voir la
+      figure \ref{fig:multiple:pondere2}).
+      \begin{figure}[t]
+<<multiple-pondere2>>=
+plot(Y ~ X, data = donnees)
+points(donnees$X[16], donnees$Y[16], pch = 16)
+abline(fit1, lwd = 2, lty = 1)
+abline(fit2, lwd = 2, lty = 2)
+abline(fit3, lwd = 2, lty = 3)
+legend(1.2, 6, legend = c("Modèle a)", "Modèle b)", "Modèle c)"),
+       lwd = 2, lty = 1:3)
+@
+        \caption{Graphique des données de l'exercice
+          \ref{chap:multiple}.\ref{ex:multiple:pondere} avec les
+          droites de régression obtenues à l'aide des moindres carrés
+          pondérés.}
+        \label{fig:multiple:pondere2}
+      \end{figure}
+    \end{enumerate}
+  \end{sol}
+\end{exercice}
+
+
+
+
 
 \begin{exercice}
 La base de données \texttt{OutlierExample.csv} disponible sur le site du cours contient 19 observations de base, et trois observations supplémentaires, notées par les \texttt{CODES} 1, 2 et 3, qui sont aberrantes ou influentes.
