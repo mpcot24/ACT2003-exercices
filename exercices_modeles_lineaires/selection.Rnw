@@ -18,12 +18,12 @@
 
 
 \begin{exercice}
-Est-ce que les compagnies d'assurance utilisent la race comme un facteur déterminant dans leur décision de rendre de l'assurance disponible? Fienberg (1985) a rassemblé des données d'un rapport de la \emph{U.S. Commission on Civil Rights} sur le nombre de polices d'assurance habitation émises à Chicago entre Décembre 1977 et Février 1978. Les polices d'assurance étaient placées dans 2 catégories:
+Est-ce que les compagnies d'assurance utilisent l'ethnicité comme un facteur déterminant dans leur décision de rendre de l'assurance disponible? Fienberg (1985) a rassemblé des données d'un rapport de la \emph{U.S. Commission on Civil Rights} sur le nombre de polices d'assurance habitation émises à Chicago entre Décembre 1977 et Février 1978. Les polices d'assurance étaient placées dans 2 catégories:
 \begin{itemize}
 \item[$\bullet$] polices émises dans le marché standard, volontaire
 \item[$\bullet$] polices émises dans le marché sous-standard, involontaire
 \end{itemize}
-Les polices du marché sous-standard sont émises selon un programme gouvernemental d'accès à l'assurance. Les personnes qui contractent ce type d'assurance se sont vues refuser une police d'assurance sur le marché volontaire. On s'intéresse à l'accessibilité à l'assurance selon la race et on utilise le nombre de polices émises (ou renouvellées) sur le marché sous-standard comme mesure de ``non-accessibilité''.
+Les polices du marché sous-standard sont émises selon un programme gouvernemental d'accès à l'assurance. Les personnes qui contractent ce type d'assurance se sont vues refuser une police d'assurance sur le marché volontaire. On s'intéresse à l'accessibilité à l'assurance selon l'ethnicité et on utilise le nombre de polices émises (ou renouvellées) sur le marché sous-standard comme mesure de ``non-accessibilité''.
 
 \medskip \noindent
 La ville de Chicago a été divisée en 45 régions (selon le code postal). Pour chaque région, on a les informations suivantes:
@@ -36,11 +36,12 @@ Variable & Description\\
 \texttt{fire}& Nombre d'incendies par millier de maisons\\
 \texttt{theft}& Nombre de vols par millier de maisons\\
 \texttt{age} & Pourcentage des maisons construites avant 1940\\
-\texttt{involact} & Nouvelles polices et renouvellements dans le marché sous-standard, par centaine de maisons\\
+\texttt{involact} & Nouvelles polices et renouvellements dans le marché sous-standard,\\;
+& par centaine de maisons\\
 \texttt{income}& Revenu familial moyen\\ \hline
 \end{tabular}
 \end{center}
-On s'intéresse majoritairement à l'effet de la variable explicative \texttt{race}, mais on veut aussi tenir compte des autres facteurs qui pourraient être en cause, et des intéractions entre ces facteurs. Les modèles considérés sont:
+On s'intéresse majoritairement à l'effet de la variable explicative \texttt{race}, mais on veut aussi tenir compte des autres facteurs qui pourraient être en cause, et des interactions entre ces facteurs. Les modèles considérés sont:
 \begin{description}
 \item[Modèle A:] \texttt{involact}$\sim$\texttt{race}
 \item[Modèle B:] \texttt{involact}$\sim$\texttt{race+I(log(income))}
@@ -51,7 +52,7 @@ On s'intéresse majoritairement à l'effet de la variable explicative \texttt{ra
 \item[Modèle G:] \texttt{involact}$\sim$\texttt{I(log(income))*(age+race)+fire+theft}
 \item[Modèle H:] \texttt{involact}$\sim$\texttt{I(log(income))*age+race*(fire+theft+I(log(income)))}
 \end{description}
-Note: \texttt{A*B} représente \texttt{A+B+A:B}, c'est-à-dire les effets principaux et les intéractions entre les variables explicatives \texttt{A} et \texttt{B}.
+Note: \texttt{A*B} représente \texttt{A+B+A:B}, c'est-à-dire les effets principaux et les interactions entre les variables explicatives \texttt{A} et \texttt{B}.
 
 \noindent On a les informations suivantes sur les modèles A à H: 
 
@@ -134,15 +135,15 @@ On ajuste une régression linéaire multiple passant par l'origine avec de telle
 
 Sous ces hypothèses,
 \begin{enumerate}
-\item Trouvez les estimateurs des moindres carrés $\hat\beta_1,\ldots,\hat\beta_p$.
+\item Trouver les estimateurs des moindres carrés $\hat\beta_1,\ldots,\hat\beta_p$.
 
-\item Écrivez l'expression à minimiser pour trouver les estimateurs sous la régression ridge.
+\item Écrire l'expression à minimiser pour trouver les estimateurs sous la régression ridge.
 
-\item Trouvez l'expression de l'estimateur ridge.
+\item Trouver l'expression de l'estimateur ridge.
 
-\item Écrivez l'expression à minimiser pour trouver les estimateurs sous la régression lasso.
+\item Écrire l'expression à minimiser pour trouver les estimateurs sous la régression lasso.
 
-\item Montrez que l'estimateur lasso a la forme
+\item Démontrer que l'estimateur lasso a la forme
 $$
 \hat\beta_j^{\mathrm{lasso}}=\left\{\begin{array}{ll}
 y_j-\lambda/2, & \mbox{ si } Y_j> \lambda/2\\
@@ -151,7 +152,7 @@ y_j+\lambda/2, & \mbox{ si } Y_j < -\lambda/2\\
 \end{array}\right.
 $$
 
-\item Interprétez les effets des pénalités ridge et lasso à la lumière de vos réponses aux sous-questions précédentes.
+\item Interpréter les effets des pénalités ridge et lasso à la lumière de vos réponses aux sous-questions précédentes.
 \end{enumerate}
 
 \begin{sol}
