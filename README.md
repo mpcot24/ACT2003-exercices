@@ -1,8 +1,11 @@
-# ACT2003-exercices
-Recueil d'exercices pour le cours Modèles linéaires en actuariat à l'École d'actuariat de l'Université Laval
+﻿# Modèles linéaires en actuariat: Recueil d'exercices avec solutions 
 
-Ne roule pas pour l'instant, mais tout est là.
+Recueil d'exercices de Marie-Pier Côté pour le cours ACT-2003 Modèles linéaires en actuariat à l'École d'actuariat de l'Université Laval.
 
-À partir de exercices_methodes_statistiques.tex, créer un nouveau fichier main de format Rnw et renommer modèles linéaires (plutôt que méthodes statistiques).
+Le recueil a été mis en place par Marie-Pier Côté et Vincent Mercier, auxiliaire d'enseignement à l'École d'actuariat, 
+avec le soutien de la Chaire de leadership en enseignement en analyse de données massives pour l'actuariat -- Intact.
 
-Changer la notation, supprimer les chapitres superflus, et ajouter les chapitres dans le dossier Exercices_MP. Ces derniers pourraient être réécrits sous format knitr, ce qui serait plus agréable à travailler.
+La première version est disponible à l'automne 2019 et contient encore plusieurs coquilles. 
+Les chapitres sur les modèles linéaires généralisés sont encore en version préliminaire.
+
+Les bases de données sont disponibles dans le dossier data.
