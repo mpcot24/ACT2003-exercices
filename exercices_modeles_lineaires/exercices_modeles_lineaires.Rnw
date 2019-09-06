@@ -227,6 +227,9 @@ options(width=55)
 <<child='comptage.Rnw'>>=
 @
 
+<<child='binom.Rnw'>>=
+@
+
 \part{Annexes}
 \appendix
 %<<child='regression.Rnw'>>=
