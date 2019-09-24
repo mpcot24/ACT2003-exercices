@@ -705,15 +705,15 @@ $\Rightarrow \hat{\beta}_0$ est la moyenne de l'espérance de vie pour les homme
       (Y_i - \hat{Y}_i)^2/(n - 2)$ et que $\esp{Y_i} =
       \esp{\hat{Y}_i}$, alors
       \begin{align*}
-        \esp{MSE}
+        \esp{\MSE}
         &= \frac{1}{n - 2} \Esp{\sum_{i=1}^n (Y_i - \hat{Y}_i)^2} \\
         &= \frac{1}{n - 2} \sum_{i=1}^n \esp{(Y_i - \hat{Y}_i)^2} \\
-        &= \frac{1}{n - 2} \sum_{i=1}^n \esp{((Y_i - \esp{Y_i}) -
-          (\hat{Y}_i - \esp{\hat{Y}_i}))^2} \\
+        &= \frac{1}{n - 2} \sum_{i=1}^n \esp{\{(Y_i - \esp{Y_i}) -
+          (\hat{Y}_i - \esp{\hat{Y}_i})\}^2} \\
         &= \frac{1}{n - 2} \sum_{i=1}^n
-        \left(
+        \left\{
           \var{Y_i} + \var{\hat{Y}_i} - 2\, \cov{Y_i, \hat{Y}_i}
-        \right).
+        \right\}.
       \end{align*}
       Or, on a par hypothèse du modèle que $\cov{Y_i, Y_j} =
       \cov{\varepsilon_i, \varepsilon_j} = \delta_{ij} \sigma^2$, d'où
@@ -746,7 +746,7 @@ $\Rightarrow \hat{\beta}_0$ est la moyenne de l'espérance de vie pour les homme
       puisque $\sum_{i=1}^n(x_i - \bar{x}) = 0$. Ainsi,
       \begin{displaymath}
         \var{\hat{Y}_i} = \frac{\sigma^2}{n} +
-        \frac{(x_i - \bar{x})^2 \sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2}.
+        \frac{(x_i - \bar{x})^2 \sigma^2}{\sum_{j=1}^n (x_j - \bar{x})^2}.
       \end{displaymath}
       De manière similaire, on détermine que
       \begin{align*}
@@ -755,13 +755,13 @@ $\Rightarrow \hat{\beta}_0$ est la moyenne de l'espérance de vie pour les homme
         &= \cov{Y_i, \bar{Y}} +
         (x_i - \bar{x}) \cov{Y_i, \hat{\beta}_1} \\
         &= \frac{\sigma^2}{n} + \frac{(x_i -
-          \bar{x})^2 \sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2}.
+          \bar{x})^2 \sigma^2}{\sum_{j=1}^n (x_j - \bar{x})^2}.
       \end{align*}
       Par conséquent,
       \begin{align*}
         \esp{(Y_i - \hat{Y}_i)^2}
         &= \frac{n - 1}{n}\, \sigma^2 -
-        \frac{(x_i - \bar{x})^2 \sigma^2}{\sum_{i = 1}^n (x_i - \bar{x})^2} \\
+        \frac{(x_i - \bar{x})^2 \sigma^2}{\sum_{j = 1}^n (x_j - \bar{x})^2} \\
         \intertext{et}
         \sum_{i=1}^n \esp{(Y_i - \hat{Y}_i)^2}
         & = (n - 2) \sigma^2,
@@ -778,7 +778,7 @@ $\Rightarrow \hat{\beta}_0$ est la moyenne de l'espérance de vie pour les homme
         \esp{\hat{\beta}_1}^2) \\
         &= \sum_{i=1}^n (x_i - \bar{x})^2
         \left(
-          \frac{\sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2} + \beta_1^2
+          \frac{\sigma^2}{\sum_{j=1}^n (x_j - \bar{x})^2} + \beta_1^2
         \right) \\
         &= \sigma^2 + \beta_1^2 \sum_{i=1}^n (x_i - \bar{x})^2.
       \end{align*}
