@@ -637,8 +637,7 @@
     des paramètres du modèle mentionné ci-dessus.
   \item Construire le tableau d'analyse de variance du modèle obtenu
     en a) et calculer le coefficient de détermination.
-  \item Vérifier si les variables $x_1$ et $x_2$ sont significatives
-    dans le modèle.
+  \item Vérifier si la variable $x_1$ est significative dans le modèle. Refaire pour la variable $x_2$.
   \item Trouver un intervalle de confiance à 95~\% pour la valeur de
     $Y$ lorsque $x_1 = 3,5$ et $x_2 = 9$.
   \end{enumerate}
@@ -1050,12 +1049,26 @@ the p-value is 7.160e-14
 \end{exercice}
 
 \begin{exercice}
-  %%% Je ne me souviens plus comment j'ai obtenu ces résultats. Fort
+  %%% VG: Je ne me souviens plus comment j'ai obtenu ces résultats. Fort
   %%% probablement simulés.
   Au cours d'une analyse de régression, on a colligé les valeurs
   de trois variables explicatives $x_1$, $x_2$ et $x_3$ ainsi que
   celles d'une variable dépendante $Y$. Les résultats suivants ont par
   la suite été obtenus avec \textsf{R}.
+ \begin{verbatim}
+> anova(lm(Y ~ X1, data = foo))
+  \end{verbatim}
+  \begin{verbatim}
+Analysis of Variance Table
+
+Response: Y
+
+          Df Sum of Sq  Mean Sq  F Value    Pr(>F)
+       X1  1  45.59240 45.59240 44.8001 0.000000791 ***
+Residuals 23   18.2234  0.79232
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+  \end{verbatim}
   
   \begin{verbatim}
 > anova(lm(Y ~ X2 + X3, data = foo))
@@ -1119,17 +1132,16 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
   \begin{sol}
     \begin{enumerate}
     \item L'information demandée doit évidemment être extraite des
-      deux tableaux d'analyse de variance fournis dans l'énoncé. Il
-      importe, ici, de savoir que le résultat de la fonction
+      tableaux d'analyse de variance fournis dans l'énoncé. Le résultat de la fonction
       \texttt{anova} de \textsf{R} est un tableau d'analyse de
       variance séquentiel, où chaque ligne identifiée par le nom d'une
       variable correspond au test $F$ partiel résultant de l'ajout de
-      cette variable au modèle. Ainsi, du premier tableau on obtient
+      cette variable au modèle. Ainsi, du deuxième tableau on obtient
       les sommes de carrés
       \begin{align*}
         \SSR(X_2)          &= 45,59085 \\
         \SSR(X_3,X_2)-\SSR(X_2)      &= 8,76355 \\
-        \intertext{alors que du second tableau on a}
+        \intertext{alors que du troisième tableau on a}
         \SSR(X_1)          &= 45,59240 \\
         \SSR(X_2,X_1)-\SSR(X_1)      &= 0,01842 \\
         \SSR(X_3,X_1, X_2)-\SSR(X_1,X_2) &= 8,78766,
@@ -1174,9 +1186,9 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
         \end{align*}
         avec 2 et 21 degrés de liberté.
       \end{enumerate}
-    \item À la lecture du premier tableau d'analyse de variance que
+    \item À la lecture du deuxième tableau d'analyse de variance,
       tant les variables $x_2$ que $x_3$ sont significatives dans le
-      modèle. Par contre, comme on le voit dans le second tableau, la
+      modèle. Par contre, comme on le voit dans le troisième tableau, la
       variable $x_2$ devient non significative dès lors que la
       variable $x_1$ est ajoutée au modèle. (L'impact de la variable
       $x_3$ demeure, lui, inchangé.) Cela signifie que les variables
@@ -1363,7 +1375,7 @@ Cela signifie que les variances des paramètres ne sont pas calculées de façon
   \end{center}
 <<echo=FALSE>>=
 donnees <- read.table("data/exercice_3.16.dat", header = TRUE)
-fit <- lm(Y ~ poly(X, 2), data = donnees)
+fit <- lm(Y ~  X + I(X^2), data = donnees)
 b <- signif(coef(fit), 4)
 s2 <- signif(summary(fit)$sigma^2, 4)
 @
@@ -1392,7 +1404,7 @@ plot(Y ~ X, data = donnees)
     Par la suite, on peut estimer les paramètres de ce modèle avec la
     fonction \texttt{lm} de \textsf{R}:
 <<>>=
-fit <- lm(Y ~ poly(X, 2), data = donnees)
+fit <- lm(Y ~ X + I(X^2), data = donnees)
 summary(fit)
 anova(fit)
 @
@@ -1417,6 +1429,15 @@ lines(x, predict(fit, data.frame(X = x), lwd = 2))
         \ref{chap:multiple}.\ref{ex:multiple:quadratique} et courbe
         obtenue par régression}
       \label{fig:multiple:quadratique2}
+    \end{figure}
+    
+    On note que l'utilisation d'une régression linéaire simple ici mènerait à un problème de non-linéarité, tel que montré dans le graphique des résidus standardisés en fonction de $x$, dans la Figure~\ref{fig:multiple:linaire:residus}.
+        \begin{figure}
+<<multiple-lineaire-residus>>=
+plot(rstandard(lm(Y ~ X, data = donnees))~X, data = donnees)
+@
+      \caption{Graphique des résidus de la régression linéaire simple en fonction de la variable explicative dans  l'exercice \ref{chap:multiple}.\ref{ex:multiple:quadratique}}
+      \label{fig:multiple:linaire:residus}
     \end{figure}
   \end{sol}
 \end{exercice}
