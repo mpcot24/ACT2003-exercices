@@ -757,9 +757,9 @@
       Par conséquent, un intervalle de confiance à 95~\% pour $Y_0$
       est
       \begin{align*}
-        \esp{Y_0} &\in \hat{Y}_0 \pm t_{0,025}(1) s \sqrt{1 + \xvec_0^\top (\Xmat^\top \Xmat)^{-1} \xvec_0} \\
+        Y_0 &\in \hat{Y}_0 \pm t_{0,025}(1) s \sqrt{1 + \xvec_0^\top (\Xmat^\top \Xmat)^{-1} \xvec_0} \\
         &\in 13,75 \pm 12,706 \sqrt{1,1875} \\
-        &\in (-0,096, 27,596).
+        &\in (-0,096,\, 27,596).
       \end{align*}
     \end{enumerate}
   \end{sol}

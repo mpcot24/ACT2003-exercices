@@ -113,7 +113,7 @@ H     &10& 5.4817& 0.7004& 10.00 &-102.98& -84.91&0.7989\\ \hline
 \begin{enumerate}
 \item modèle D
 \item modèle D
-\item modèle G
+\item modèle G (On ne peut pas choisir le modèle $H$ sur la base du $C_p$. Comme ce modèle est le plus complexe, c'est celui qui a été utilisé pour calculer $\hat\sigma^2$ et sa valeur de $C_p$ sera forcément exactement $p'$.)
 \item modèle G
 \item modèle C
 \item modèle H
@@ -187,14 +187,14 @@ $$
 $$
 On utilise les EMV trouvés en a) pour définir le signe. Supposons d'abord que $\hat\beta_i = Y_i>0$. Alors, on a aussi $\hat\beta_i^{\mathrm{lasso}}>0$ (sinon, changer le signe donnera une valeur plus petite de l'équation à minimiser). On pose la dérivée égale à 0 et on trouve
 $$
-2(Y_i-\hat \beta_i^{\mathrm{lasso}}) = \lambda  \quad \Rightarrow \quad \hat\beta_i^{\mathrm{ridge}} =  Y_i- \lambda/2,
+2(Y_i-\hat \beta_i^{\mathrm{lasso}}) = \lambda  \quad \Rightarrow \quad \hat\beta_i^{\mathrm{lasso}} =  Y_i- \lambda/2,
 $$
-ce qui tient seulement si $\hat\beta_i^{\mathrm{lasso}}>0$, alors on a $\hat\beta_i^{\mathrm{ridge}} =  \max(0,Y_i- \lambda/2)$.
+ce qui tient seulement si $\hat\beta_i^{\mathrm{lasso}}>0$, alors on a $\hat\beta_i^{\mathrm{lasso}} =  \max(0,Y_i- \lambda/2)$.
 Supposons ensuite que $\hat \beta_i = Y_i <0$. Alors, on a aussi $\hat\beta_i^{\mathrm{lasso}}<0$. On pose la dérivée égale à 0 et on trouve
 $$
-2(Y_i-\hat \beta_i^{\mathrm{lasso}}) = -\lambda  \quad \Rightarrow \quad \hat\beta_i^{\mathrm{ridge}} =  Y_i+ \lambda/2,
+2(Y_i-\hat \beta_i^{\mathrm{lasso}}) = -\lambda  \quad \Rightarrow \quad \hat\beta_i^{\mathrm{lasso}} =  Y_i+ \lambda/2,
 $$
-sous la contrainte que ce soit négatif, donc dans ce cas, $\hat\beta_i^{\mathrm{ridge}} =  \min(0,Y_i+\lambda/2)$. On combine les deux cas et on obtient l'équation donnée.
+sous la contrainte que ce soit négatif, donc dans ce cas, $\hat\beta_i^{\mathrm{lasso}} =  \min(0,Y_i+\lambda/2)$. On combine les deux cas et on obtient l'équation donnée.
 
 \item On peut voir que la façon de rapetisser les paramètres est bien différente pour les deux méthodes. Avec ridge, chaque coefficient des moindres carrés est réduit par la même proportion. Avec lasso, chaque coefficient des moindres carrés est réduit vers 0 d'un montant constant $\lambda/2$; ceux qui sont plus petits que $\lambda/2$ en valeur absolue sont mis exactement égaux à 0. C'est de cette façon que le lasso permet de faire la sélection des variables explicatives.
 
