@@ -122,6 +122,11 @@ f_Y^*(y)&=\begin{pmatrix} r+ry-1\\ry\end{pmatrix}\pi^r(1-\pi)^{ry}, \mbox{ pour 
 
 \begin{exercice}
 Quelles fonctions de lien peut-on utiliser pour un GLM avec une loi de Poisson?
+
+\begin{rep}
+$\eta=\ln(\mu)$
+\end{rep}
+
 \begin{sol}
 Le lien canonique est le lien log: $\eta=\ln(\mu)$. On pourrait aussi utiliser d'autres fonctions de lien, telle que le lien identité $\eta=\mu$, le lien inverse $\eta=\frac{1}{\mu}$, mais le lien log est le plus approprié parce que son utilisation garantit une moyenne $\mu$ positive, ce qui est nécessaire pour la loi de Poisson.
 \end{sol}
@@ -129,6 +134,11 @@ Le lien canonique est le lien log: $\eta=\ln(\mu)$. On pourrait aussi utiliser d
 
 \begin{exercice}
 Quel est le lien canonique pour la loi gamma? Est-ce que ce lien est toujours approprié?
+
+\begin{rep}
+$\eta=1/\mu$
+\end{rep}
+
 \begin{sol}
 Le lien canonique pour la loi Gamma est le lien inverse $\eta=1/\mu$. Comme la moyenne d'une loi Gamma est toujours positive, ce lien n'est pas toujours approprié parce qu'il ne restreint pas le domaine de $\mu$ aux réels positifs. Le lien log serait plus approprié dans certains cas.
 \end{sol}
@@ -140,6 +150,13 @@ On suppose que $Y_1,...,Y_n$ sont des v.a.s indépendantes et $Y_i\sim Poisson(\
 \item Quel est le lien canonique?
 \item Trouver les fonctions de score (à résoudre pour l'estimation des paramètres par maximum de vraisemblance) 
 \end{enumerate}
+
+\begin{rep}
+\begin{inparaenum}
+\item $\eta=g(\mu)=\ln(\mu)$
+\item $\sum_{i=1}^n y_i-e^{\beta_0+\beta_1x_i}=0 \text{ et } \sum_{i=1}^n x_i(y_i-e^{\beta_0+\beta_1x_i})=0$
+\end{inparaenum}
+\end{rep}
 
 \begin{sol}
 \begin{enumerate}
@@ -193,6 +210,13 @@ D(y;\hat{\mu})&=\sum_{i=1}^n\frac{Y_i\ln\left(\frac{Y_i}{1-Y_i}\right)+\ln(1-Y_i
 
 \begin{exercice}
 Trouver les expressions des résidus de Pearson, d'Anscombe et de déviance pour la loi Gamma.
+
+\begin{rep}
+Pearson : $r_{P_i} = (Y_i-\hat{\mu}_i)/\hat{\mu}_i $, 
+Anscombe : $r_{A_i} = (3(Y_i^{1/3}-\hat{\mu}_i^{1/3}))(\hat{\mu}_i^{1/3})$,
+Déviance : $r_{D_i}&=sign(Y_i-\hat{\mu}_i)\sqrt{2\left(\ln\left(\frac{\hat{\mu}_i}{Y_i}\right)+\frac{Y_i-\hat{\mu}_i}{\hat{\mu}_i}\right)}$
+\end{rep}
+
 \begin{sol}
 Pour la distribution Gamma, on a $V(t)=t^2$ et $b(t)=-\ln(-t)$.
 
