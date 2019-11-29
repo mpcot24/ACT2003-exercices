@@ -26,7 +26,8 @@ Ajuster un modèle de Poisson avec lien logarithmique au données \texttt{esoph}
 On ajuste d'abord le modèle avec les effets principaux et les interactions.
 <<>>=
 library(datasets)
-fit1 <- glm(ncases~factor(agegp)*(factor(alcgp)+factor(tobgp))+factor(alcgp):factor(tobgp),family=poisson,data=esoph)
+fit1 <- glm(ncases~factor(agegp)*(factor(alcgp)+factor(tobgp))
+           +factor(alcgp):factor(tobgp), family=poisson, data=esoph)
 anova(fit1)
 qchisq(0.95,9) ## rejette alcgp:tobgp
 qchisq(0.95,15) ## rejette agegp:tobgp mais conserve agegp:alcgp
@@ -56,9 +57,30 @@ Par conséquent, le modèle final est \texttt{agegp*alcgp+tobgp}. Cela signifie 
 \end{exercice}
 
 \begin{exercice}
-Montrer que si $Y|Z=z\sim Poisson(\mu z)$, et $Z\sim Gamma(\theta_z,\theta_z)$, alors $Y\sim BinNeg(\mu,\theta_z)$, soit $$f(y)=\frac{\Gamma(\theta_z+y)}{\Gamma(\theta_z)y!}\left(\frac{\mu}{\mu+\theta_z}\right)^y\left(\frac{\theta_z}{\mu+\theta_z}\right)^{\theta_z}, y=0,1,\ldots$$
+Montrer que si $Y|Z=z\sim Poisson(\mu z)$, et $Z\sim Gamma(\theta_z,\theta_z)$, alors $Y\sim BinNeg(\mu,\theta_z)$, soit 
+$$
+f(y)=\frac{\Gamma(\theta_z+y)}{\Gamma(\theta_z)y!}\left(\frac{\mu}{\mu+\theta_z}\right)^y\left(\frac{\theta_z}{\mu+\theta_z}\right)^{\theta_z}, y=0,1,\ldots
+$$
 \begin{sol}
-Intégrer la densité conditionnelle Poisson sur $z$. Comme c'est plus agréable à faire à la main qu'à taper, je vous laisse le soin de réussir par vous-même.
+On doit intégrer la densité conditionnelle Poisson sur $z$.
+
+On veut prouver que $Y \sim \text{BinNeg}(\mu, \theta_{z})$ avec la fonction de densité suivante:
+\begin{align*}
+	f_{Y}(y)
+	&=	\int_{0}^{\infty} f_{Y|Z = z}(y | z) \cdot g_{Z}(z) dz	\\
+	&=	\int_{0}^{\infty} \frac{(\mu z)^{y} e^{-\mu z}}{y!} \cdot \frac{z^{\theta_{z} - 1} \theta_{z}^{\theta_{z}} e^{-\theta_{z} z}}{\Gamma(\theta_{z})} dz	\\
+	&=	\frac{(\theta_{z} + y - 1)!}{(\theta_{z} + y - 1 - y)! y!} \cdot \frac{\theta_{z}^{\theta_{z}} \mu^{y}}{(\mu + \theta_{z})^{\theta_{z} + y}}
+			\underset{1}{\underbrace{\int_{0}^{\infty} \frac{z^{\theta_{z} + y - 1} \textrm{e}^{-(\mu + \theta_{z})z}}{\Gamma(\theta_{z} + y)} (\mu + \theta_{z})^{\theta_{z} + y} dz}}	
+\end{align*}
+
+On trouve donc que 
+\begin{align*}			
+f_{Y}(y)
+	&=	\binom{\theta_{z} + y - 1}{y} \left(\frac{\mu}{\mu + \theta_{z}}\right)^y \left(\frac{\theta_{z}}{\mu + \theta_{z}}\right)^{\theta_{z}}	\\
+	&=	\frac{\Gamma(\theta_{z} + y)}{\Gamma(\theta_z) y!} \left(\frac{\mu}{\mu + \theta_{z}}\right)^y \left(\frac{\theta_{z}}{\mu + \theta_{z}}\right)^{\theta_{z}}.
+\end{align*}
+
+Et donc, $Y \sim \text{BinNeg}(\mu, \theta_{z})$ où $y \in \{0,1,\ldots\}$.
 \end{sol}
 \end{exercice}
 
