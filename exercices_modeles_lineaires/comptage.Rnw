@@ -318,7 +318,7 @@ dat <- read.csv("data/MNlung.csv")
 attach(dat)
 @
 \begin{enumerate}
-If $Y_{i}\sim Poisson(E_{i}\lambda_{i})$, then, using the canonical link, $$\log(\mu_{i})=log(E_{i})+log(\lambda_{i}),$$ where $\lambda_{i}$ is the mean $SMR$ for observation $i$. $\log(E_{i})$, the natural logarithm of the expected count of lung cancer based on the demographics of the county, is passed to the \texttt{glm} function as an offset factor. 
+\item If $Y_{i}\sim Poisson(E_{i}\lambda_{i})$, then, using the canonical link, $$\log(\mu_{i})=log(E_{i})+log(\lambda_{i}),$$ where $\lambda_{i}$ is the mean $SMR$ for observation $i$. $\log(E_{i})$, the natural logarithm of the expected count of lung cancer based on the demographics of the county, is passed to the \texttt{glm} function as an offset factor. 
 
 The data for males and females are concatenated to create a model with one covariate, Radon exposure, and one factor predictor, Sex, which takes 2 levels (0 for males and 1 for females).
 <<>>=
