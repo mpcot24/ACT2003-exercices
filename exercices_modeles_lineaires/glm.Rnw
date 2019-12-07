@@ -355,11 +355,11 @@ modlog <- glm(AvCost~OwnerAge+Model+CarAge,family=Gamma(link=log),data=Bcar)
 summary(modlog)
 @
 
-b. Avec ce modèle $\esp{Y_i}=e^{\eta_i}.$ Puisque les variables explicatives prennent toutes leur niveau de base, on a que $\hat{\eta}_i=\hat{\beta}_0=5.711739$ et $$\widehat{\esp{Y_i}}=e^5.711739=302.39.$$ Cela ne diffère pas beaucoup du résultat trouvé en b).
+b. Avec ce modèle $\esp{Y_i}=e^{\eta_i}.$ Puisque les variables explicatives prennent toutes leur niveau de base, on a que $\hat{\eta}_i=\hat{\beta}_0=5.711739$ et $$\widehat{\esp{Y_i}}=e^{5.711739}=302.39.$$ Cela ne diffère pas beaucoup du résultat trouvé en b).
 
 c-d-e. Puisqu'on a utilisé un lien logarithmique, on a un modèle multiplicatif. Si $e^\beta>1$, alors l'espérance du coût augmente, alors que si $e^\beta<1$ alors l'espérance du coût diminue. On peut donc tirer des conclusions similaires à celles en c), d) et e).
 
-f. Pour un détenteur de police entre 17 et 20 ans, avec un véhicule de type D âgé de un à 3 ans, on trouve que $$\widehat{\esp{Y_i}}=\exp\left(\hat{\beta}_0+\hat{\beta}^{MODEL}_D \right)=\exp(5.711739+0.472290)=484.94.$$ On note que cette valeur est beaucoup moins élevée que celle obtenue en f).
+f. Pour un détenteur de police entre 25 et 29 ans, avec un véhicule de type D âgé de un à 3 ans, on trouve que $$\widehat{\esp{Y_i}}=\exp\left(\hat{\beta}_0+\hat{\beta}^{OWNERAGE}_{25-29}+\hat{\beta}^{MODEL}_D \right)=\exp(5.711739+0.005223+0.472290)=\Sexpr{round(exp(5.711739+0.005223+0.472290),2)}.$$ On note que cette valeur est beaucoup moins élevée que celle obtenue en f).
 
 g. Pour un détenteur de police entre 35 et 39 ans, avec un véhicule de type A âgé de plus de 10 ans, on trouve que $$\widehat{\esp{Y_i}}=\exp\left(\hat{\beta}_0+\hat{\beta}^{OWNERAGE}_{35-39}+\hat{\beta}^{CARAGE}_{10+}\right)=\exp(5.711739-0.331420-0.735513)=104.04.$$
 
