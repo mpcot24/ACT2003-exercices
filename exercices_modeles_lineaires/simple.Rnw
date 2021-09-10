@@ -176,7 +176,7 @@ sum(residuals(fit))
   $\sum_{i=1}^n i^2 = n(n + 1)(2n + 1)/6$.
   \begin{rep}
     $\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 (n + 1)/2$, et 
-    $\hat{\beta}_1 = \{12 \sum_{t = 0}^n t Y_t - 6 n (n + 1)
+    $\hat{\beta}_1 = \{12 \sum_{t = 1}^n t Y_t - 6 n (n + 1)
     \bar{Y}\}/\{n (n^2 - 1)\}$
   \end{rep}
   \begin{sol}
