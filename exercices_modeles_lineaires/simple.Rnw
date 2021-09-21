@@ -327,7 +327,7 @@ $\Rightarrow \hat{\beta}_0$ est la moyenne de l'espérance de vie pour les homme
   \begin{displaymath}
     \esp{\beta^*} = \Esp{\sum_{i=1}^n c_i Y_i} = \beta,
   \end{displaymath}
-  on obtient $\beta^* = \hat{\beta}$.
+  on obtient $\beta^* = \hat{\beta}$. \emph{Indice: le lagrangien permet de faire l'optimisation sous contrainte, voir l'annexe~D des notes de cours.}
   \begin{sol}
     On veut trouver les coefficients $c_1, \dots, c_n$ tels que
     $\esp{\beta^*} = \beta$ et $\var{\beta^*}$ est minimale. On
@@ -1019,7 +1019,7 @@ On s'intéresse à la covariance entre deux résidus.
 \begin{align*}
 \cov{\hat{\varepsilon}_i,\hat{\varepsilon}_j}&=\cov{Y_i-\hat{Y}_i,Y_j-\hat{Y}_j}\\
 &=\cov{Y_i,Y_j}-\cov{Y_i,\hat{Y}_j}-\cov{\hat{Y}_i,Y_j}+\cov{\hat{Y}_i,\hat{Y}_j}\\
-&=0-2\sigma^2\left(\frac{1}{n}+\frac{(x_j-\bar{x})(x_i-\bar{x})}{S_{xx}}\right)+\left(\frac{1}{n}+\frac{(x_j-\bar{x})(x_i-\bar{x})}{S_{xx}}\right)\\
+&=0-2\sigma^2\left(\frac{1}{n}+\frac{(x_j-\bar{x})(x_i-\bar{x})}{S_{xx}}\right)+\sigma^2\left(\frac{1}{n}+\frac{(x_j-\bar{x})(x_i-\bar{x})}{S_{xx}}\right)\\
 &=-\sigma^2\left(\frac{1}{n}+\frac{(x_i-\bar{x})(x_j-\bar{x})}{S_{xx}}\right).
 \end{align*}
 \end{enumerate}
