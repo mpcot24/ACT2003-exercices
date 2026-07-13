@@ -35,10 +35,142 @@ min <- 1:12
 ```
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
-**a)** Figure @sec-simple-bacteroes shows a scatter plot of the number of bacteria versus the minutes of exposure. The plot shows a straight line would be a reasonable model, but an even better model would capture the curvature. In fact, the plot shows that when the canned food is exposed to $300^{o}$ F for a long time, there is ultimately no bacteria left. This suggests a model that would capture the asymptotic behavior of the number of bacteria when the number of minutes of exposure increases. A linear model would continue to drive down the number of bacteria, eventually leading to negative values, which is nonsensical in this context. 
+**a)** La figure [-@sec-simple-bacteroes] montre le nuage de points du nombre de bactéries en fonction du temps d'exposition en minutes. Le graphique montre qu'une ligne droite pourrait être un modèle raisonnable, mais un meilleur modèle pourrait capter la courbe. En fait, le graphique montre que, lorsque la nourriture en canne est exposée à une température de $300^{o}$ F pour une longue période, il n'y a pas de bactérie restante. Cela suggère qu'un modèle qui capture le comportement asymptotique du nombre de bactéries quand le nombre de minutes d'exposition augmente serait meilleur. Un modèle linéaire continuerait de faire diminuer le nombre de bactéries, menant éventuellement à des valeurs négatives (ce qui n'a pas de sens dans le contexte).
 
-**b)** A simple linear model is fitted to the data using \textsf{R}. Here is a summary of the model: ```{r} fit1 <- lm(bact min) summary(fit1) ``` The fitted model is $$\hat{y}=142.20-12.48x,$$ where the parameters of the model are estimated by the best linear unbiased estimators. The ANOVA table is obtained using \textsf{R}: ```{r} anova(fit1) ``` In order to test for the significance of regression, we use the F-statistic. The F-statistic is 66.512, and it has 1 and 10 degrees of freedom, so the $p$-value is $$P[F_{(1,10)}>66.512]=9.944\times10^{-6} .$$ Since the $p$-value is much smaller than 1\
+**b)** On ajuste un modèle linéaire simple avec les données en R. Le sommaire du modèle est le suivant :
+```{r} 
+fit1 <- lm(bact ~ min) 
+summary(fit1) 
+``` 
 
-**c)** The Box-Cox method is used to determine which transformation is optimal. Figure @sec-simple-bacteroes shows the plot of the log-likelihood function in terms of $\lambda$, for two different ranges of $\lambda$. It was obtained with the \textsf{R} commands: ```{r eval} #| eval: false boxcox(bact min, lambda = seq(-2, 2, len = 20), plotit = TRUE) boxcox(bact min, lambda = seq(-0.2, 0.5, len = 20), plotit = TRUE) ```
+Le modèle ajusté est 
+$$
+\hat{y}=142.20-12.48x,
+$$ 
+où le modèle est estimé avec les BLUE. Le tableau d'analyse de variance est obtenu avec R :
+
+```{r} 
+anova(fit1) 
+``` 
+
+Pour tester la significativité du modèle de régression, on utilise la statistique F. Elle prend un valeur de 66.512 et a 1 et 10 degrés de liberté, ce qui mène à un seuil observé de 
+$$
+P[F_{(1,10)}>66.512]=9.944\times10^{-6} .
+$$ 
+Comme le seuil observé est plus petit que  1 %, le modèle de régression linéaire simple est globalement significatif.
+
+La valeur du $R^2$ est 0.8693. Cela est un coefficient de détermination élevé, ce qui signifie qu'environ 87 % de la variation dans le nombre de bactéries dans la nourriture en cannes est expliquée par les minutes d'exposition à plus de $300^{o}$F. Ce modèle semble bien performé.
+
+Le diagramme quantile-quantile des résidus studentiszés est présenté à la figure @fig-simple-bact2. La ligne représente le moment où les quantiles empiriques sont égaux aux quantiles normaux standards. Le postulat de normalité est sérieusement violé parce que les points ne font clairement pas une ligne droite. Cela signifie qu'il y a de nombreux problèmes dans le modèle, incluant le fait que les tests d'hypothèse ne seront pas vrais.
+
+```{r}
+#| echo: false
+#| fig-cap: "Diagramme quantile-quantile pour la régression linéaire simple."
+#| label: fig-simple-bact2
+
+
+qqnorm(rstandard(fit1), pch = 16)
+qqline(rstandard(fit1))
+```
+
+```{r}
+#| echo: false
+#| fig-cap: "Résidus en fonction des valeurs ajustées pour le modèle de régression linéaire simple."
+#| label: fig-simple-bact3
+
+
+plot(fitted(fit1), rstandard(fit1), pch = 16, ylab = "Résidus studentizés", xlab = "Fitted values")
+abline(h = 0)
+```
+
+La figure @fig-simple-bact3 montre le nuage de points des résidus studentisés en fonction des valeurs ajustées. Le nuage de points suggère une courbe, ce qui est un indicateur de non-linéarité. Cela rejoint les commentaires précédents.
+
+Finalement, le modèle n'est pas adéquat et la variable réponse doit être transformée.
+
+
+**c)** On utilise la méthode Box-Cox pour déterminer la transformation optimale. La figure @fig-simple-bact4 montre le graphique de la log-vraisemblance en fonction de $\lambda$ pour deux différents intervalles :
+
+```{r}
+#| eval: false
+
+boxcox(bact~min, lambda = seq(-2, 2, len = 20), plotit = TRUE)
+boxcox(bact~min, lambda = seq(-0.2, 0.5, len = 20), plotit = TRUE)
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| fig-cap: "Log-vraisemblance en fonction du paramètre pour la méthode Box-Cox"
+#| label: fig-simple-bact4
+
+library(MASS)
+boxcox(bact~min, lambda = seq(-0.2, 0.5, len = 20), plotit = TRUE)
+boxcox(bact~min, lambda = seq(-2, 2, len = 20), plotit = TRUE)
+```
+
+Le maximum est autour de 0.1 et 0, inclus dans l'intervalle de confiance à 95 % pour $\lambda$. Ainsi, il est préférable d'utilise 0 comme une transformation commune (logarithmique). Posons $y^{*}=\ln(y)$. Le modèle de régression linéaire simple est ajusté aux données transformées. On obtient :
+
+```{r}
+logbact <- log(bact)
+fit2 <- lm(logbact~min)
+summary(fit2)
+```
+
+Le modèle ajusté est 
+$$
+\hat{y}^{*}=5.33878-0.23617x,
+$$
+où les paramètres du modèle sont estimés avec les BLUE. La figure @fig-simple-bact5 est un nuage de points de la variable réponse transformée en fonction de la variable explicative. La relation est beaucoup plus linéaire.
+
+```{r}
+#| echo: false
+#| fig-cap: "Nuage de points du logarithme du nombre de bactéries en fonction de temps d'exposition."
+#| label: fig-simple-bact5
+
+
+plot(min, logbact, pch = 16, xlab = "Temps d'exposition (min)", ylab = "Log du Nombre de bactéries")
+abline(fit2)
+```
+
+Le tableau d'analyse de variance est obtenu avec
+```{r}
+anova(fit2)
+```
+
+La statistique F pour la validité globale de la régression est 550.33 et il y a 1 et 10 degrés de liberté. Le seuil observé est donc
+
+$$
+P[F_{(1,10)}>550.33]= 4.489\times10^{-10}.
+$$ 
+Comme le seuil observé est beaucoup plus petit que 1 %, il y a assez de preuves pour rejeter l'hypothèse nulle selon laquelle $\beta_{1}=0$ au niveau 1%. Le modèle est siginificatif globalement.
+
+La valeur de $R^2$ est très élevée à 0.9822. Cela signifie que 98 % de la variance dans le logarithme du nombre de bactéries est expliquée par le temps d'exposition à la haute température. Le modèle semble bien performer contrairement à avant.
+
+Le diagramme quantile-quantile des résidus standardizés est à la figure @fig-simple-bact6. Les points sont bien alignés avec les quantiles normaux et le postulat de normalité semble approprié.
+
+La figure @fig-simple-bact7 montre un nuage de points des résidus studentizés en fonction des valeurs ajustées. Les points sont contenus dans des bandes horizontales et semblent uniformément distribués. 
+
+Finalement, le modèle est adéquat et la transformation de la variable réponse a réglé les problèmes.
+
+```{r}
+#| echo: false
+#| fig-cap: "Diagramme quantile-quantile pour le logarithme du nombre de bactéries"
+#| label: fig-simple-bact6
+
+qqnorm(rstandard(fit2), pch = 16)
+qqline(rstandard(fit2))
+
+```
+
+
+```{r}
+#| echo: false
+#| fig-cap: "Résidus en fonction des valeurs ajustées pour le logarithme du nombre de bactéries"
+#| label: fig-simple-bact7
+
+plot(fitted(fit2), rstandard(fit2), pch = 16, ylab = "Studentized Residuals", xlab = "Fitted values")
+abline(h = 0)
+```
+
 :::
 

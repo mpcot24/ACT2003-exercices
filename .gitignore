@@ -11,3 +11,5 @@ Code/
 exercices_modeles_lineaires/figure/
 exercices_modeles_lineaires/solutions-*
 exercices_modeles_lineaires/reponses-*
+/.quarto/
+**/*.quarto_ipynb

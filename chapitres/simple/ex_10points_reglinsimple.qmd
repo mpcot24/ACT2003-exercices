@@ -12,6 +12,7 @@ Considérer les données suivantes et le modèle de régression
         \bottomrule
     \end{tabular}
   \end{center}
+  
 **a)** Placer les points ci-dessus sur un graphique.
 
 **b)** Calculer les équations de score.
@@ -37,12 +38,31 @@ Considérer les données suivantes et le modèle de régression
 \begin{aligned} S(\beta_0, \beta_1) &=\sum_{i = 1}^n \varepsilon^2_i \\ &=\sum_{i = 1}^n \left(Y_i-\beta_0-\beta_1x_i\right)^2. \end{aligned}
 $$ Or, $$
 \begin{aligned} \frac{\partial S}{\partial \beta_0} &= -2 \sum_{i=1}^n (Y_i - \beta_0 - \beta_1 x_i) \\ \frac{\partial S}{\partial \beta_1} &= -2 \sum_{i=1}^n (Y_i - \beta_0 - \beta_1 x_i) x_i, \end{aligned}
-$$ d'où les équations normales sont $$
+$$ d'où les équations normales sont 
+$$
 \begin{aligned} \sum_{i=1}^n (Y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i) &= 0 \\ \sum_{i=1}^n (Y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i) x_i &= 0. \end{aligned}
 $$
 
-**c)** Par la première des deux équations normales, on trouve $$ \sum_{i=1}^nY_i-n\hat{\beta}_0-\hat{\beta}_1\sum_{i=1}^nx_i = 0, $$ soit, en isolant $\hat{\beta}_0$, $$ \hat{\beta}_0=\frac{\sum_{i=1}^nY_i-\hat{\beta}_1\sum_{i=1}^nx_i}{n}=\bar{Y}-\hat{\beta}_1\bar{x}. $$ De la seconde équation normale, on obtient $$ \sum_{i=1}^n x_i Y_i - \hat{\beta}_0 \sum_{i=1}^n x_i - \hat{\beta}_1 \sum_{i=1}^n x_i^2 = 0 $$ puis, en remplaçant $\hat{\beta}_0$ par la valeur obtenue ci-dessus, $$ \hat{\beta}_1 \left( \sum_{i=1}^n x_i^2 - n \bar{x}^2 \right) = \sum_{i=1}^n x_i Y_i - n \bar{x} \bar{Y}. $$ Par conséquent, $$
-\begin{aligned} \hat{\beta}_1 &= \frac{\sum_{i=1}^n x_i Y_i - n \bar{x}\bar{Y}}{\sum_{i=1}^n x_i^2 - n \bar{x}^2} \\ &= \frac{\nombre{11654} - (10)(49,3)(25)}{\nombre{25103} - (10)(49,3)^2} \\ &= -0,8407 \\ \end{aligned}
+**c)** Par la première des deux équations normales, on trouve 
+$$ 
+\sum_{i=1}^nY_i-n\hat{\beta}_0-\hat{\beta}_1\sum_{i=1}^nx_i = 0, 
+$$ 
+soit, en isolant $\hat{\beta}_0$, 
+$$ 
+\hat{\beta}_0=\frac{\sum_{i=1}^nY_i-\hat{\beta}_1\sum_{i=1}^nx_i}{n}=\bar{Y}-\hat{\beta}_1\bar{x}. 
+$$ 
+
+De la seconde équation normale, on obtient 
+$$ 
+\sum_{i=1}^n x_i Y_i - \hat{\beta}_0 \sum_{i=1}^n x_i - \hat{\beta}_1 \sum_{i=1}^n x_i^2 = 0 
+$$ 
+puis, en remplaçant $\hat{\beta}_0$ par la valeur obtenue ci-dessus, 
+$$ 
+\hat{\beta}_1 \left( \sum_{i=1}^n x_i^2 - n \bar{x}^2 \right) = \sum_{i=1}^n x_i Y_i - n \bar{x} \bar{Y}. 
+$$ Par conséquent, 
+
+$$
+\begin{aligned} \hat{\beta}_1 &= \frac{\sum_{i=1}^n x_i Y_i - n \bar{x}\bar{Y}}{\sum_{i=1}^n x_i^2 - n \bar{x}^2} \\ &= \frac{11654 - (10)(49,3)(25)}{25103 - (10)(49,3)^2} \\ &= -0,8407 \\ \end{aligned}
 $$
 
 et
@@ -51,8 +71,23 @@ $$
 \begin{aligned} \hat{\beta}_0 &=\bar{Y}-\hat{\beta}_1\bar{x}\\ &=25 - (-0,8407)(49,3)\\ &=66,4488. \end{aligned}
 $$
 
-**d)** On peut calculer les prévisions correspondant à $x_1, \dots, x_{10}$ --- ou valeurs ajustées --- à partir de la relation $\hat{Y}_i = 66,4488 - 0,8407 x_i$, $i = 1, 2, \dots, 10$. Avec \textsf{R}, on crée un objet de type modèle de régression avec \texttt{lm} et on en extrait les valeurs ajustées avec \texttt{fitted}: ```{r} fit <- lm(y   x) fitted(fit) ``` Pour ajouter la droite de régression au graphique de la figure @sec-simple-10points_reglinsimple, il suffit d'utiliser la fonction \texttt{abline} avec en argument l'objet créé avec \texttt{lm}. L'ordonnée à l'origine et la pente de la droite seront extraites automatiquement. Voir la figure @sec-simple-10points_reglinsimple. 
+**d)** On peut calculer les prévisions correspondant à $x_1, \dots, x_{10}$ --- ou valeurs ajustées --- à partir de la relation $\hat{Y}_i = 66,4488 - 0,8407 x_i$, $i = 1, 2, \dots, 10$. Avec R, on crée un objet de type modèle de régression avec `lm` et on en extrait les valeurs ajustées avec `fitted` : 
 
-**e)** Les résidus de la régression sont $\hat{\varepsilon}_i = Y_i - \hat{Y}_i$, $i = 1, \dots, 10$. Dans \textsf{R}, la fonction \texttt{residuals} extrait les résidus du modèle: ```{r} residuals(fit) ``` On vérifie ensuite que la somme des résidus est (essentiellement) nulle: ```{r} sum(residuals(fit)) ```
+```{r} 
+fit <- lm(y ~ x) 
+fitted(fit) 
+``` 
+
+Pour ajouter la droite de régression au graphique de la figure [-@sec-simple-10points_reglinsimple], il suffit d'utiliser la fonction `abline` avec en argument l'objet créé avec `lm`. L'ordonnée à l'origine et la pente de la droite seront extraites automatiquement. Voir la figure [-@sec-simple-10points_reglinsimple]. 
+
+**e)** Les résidus de la régression sont $\hat{\varepsilon}_i = Y_i - \hat{Y}_i$, $i = 1, \dots, 10$. Dans R, la fonction `residuals` extrait les résidus du modèle : 
+```{r} 
+residuals(fit) 
+``` 
+
+On vérifie ensuite que la somme des résidus est (essentiellement) nulle : 
+```{r} 
+sum(residuals(fit)) 
+```
 :::
 

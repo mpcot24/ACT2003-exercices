@@ -1,20 +1,20 @@
 ## Ajout d'un nouveau point {#sec-simple-ajout_point_reg_lin_simple_origine}
 
-On sait depuis l'exercice @simple.@sec-simple-estimateurs_moindres_carres_origine
+On sait depuis l'exercice [-@sec-simple-estimateurs_moindres_carres_origine]
   que pour le modèle de régression linéaire simple passant par
   l'origine $Y_i = \beta x_i + \varepsilon_i$, l'estimateur des
   moindres carrés de $\beta$ est
-  $$
-    \hat{\beta} = \frac{\sum_{i = 1}^n x_i Y_i}{\sum_{i = 1}^n x_i^2}.
-  $$
-  Démontrer que l'on peut obtenir ce résultat en utilisant la formule
+  
+$$
+\hat{\beta} = \frac{\sum_{i = 1}^n x_i Y_i}{\sum_{i = 1}^n x_i^2}.
+$$
+ Démontrer que l'on peut obtenir ce résultat en utilisant la formule
   pour $\hat{\beta}_1$ dans la régression linéaire simple usuelle
   ($Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$) en ayant d'abord
-  soin d'ajouter aux données un $(n + 1)${\ieme} point $(m\bar{x},
-  m\bar{Y})$, où
-  $$
-    m = \frac{n}{\sqrt{n + 1} - 1} = \frac{n}{a}.
-  $$
+  soin d'ajouter aux données un $(n + 1)$ème point $(m\bar{x},  m\bar{Y})$, où
+$$
+m = \frac{n}{\sqrt{n + 1} - 1} = \frac{n}{a}.
+$$
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
 Considérons un modèle de régression usuel avec l'ensemble de
@@ -22,13 +22,13 @@ Considérons un modèle de régression usuel avec l'ensemble de
     où $\bar{x} = n^{-1} \sum_{i = 1}^n x_i$, $\bar{Y} = n^{-1}
     \sum_{i = 1}^n Y_i$, $m = n/a$ et $a = \sqrt{n + 1} - 1$. On
     définit
-    $$
+$$
 \begin{aligned}
       \bar{x}^\prime
       &= \frac{1}{n + 1} \sum_{i = 1}^{n + 1} x_i \\
       &= \frac{1}{n + 1} \sum_{i = 1}^n x_i + \frac{m}{n + 1} \bar{x} \\
       &= k \bar{x} \\
-      \end{aligned}
+\end{aligned}
 $$
 
 et, de manière similaire,
@@ -51,7 +51,7 @@ $$
 $$
     L'expression pour l'estimateur des moindres carrés de la pente de
     la droite de régression pour cet ensemble de données est
-    $$
+$$
 \begin{aligned}
       \hat{\beta}_1
       &= \frac{\sum_{i = 1}^{n + 1} x_i Y_i - (n + 1)
@@ -63,7 +63,7 @@ $$
     \end{aligned}
 $$
     Or,
-    $$
+$$
 \begin{aligned}
       m^2 - k^2 (n + 1)
       &= \frac{n^2}{a^2} - \frac{n^2 (a + 1)^2}{a^2 (n + 1)} \\
@@ -72,18 +72,19 @@ $$
     \end{aligned}
 $$
     Par conséquent,
-    $$
+$$
 \begin{aligned}
       \hat{\beta}_1
       &= \frac{\sum_{i = 1}^n x_i Y_i}{\sum_{i = 1}^n x_i^2} \\
       &= \hat{\beta}.
     \end{aligned}
 $$
-    Interprétation: en ajoutant un point bien spécifique à n'importe
+    Interprétation : en ajoutant un point bien spécifique à n'importe
     quel ensemble de données, on peut s'assurer que la pente de la
     droite de régression sera la même que celle d'un modèle passant
-    par l'origine. Voir la figure @sec-simple-ajout_point_reg_lin_simple_origine pour
+    par l'origine. Voir la figure [-@sec-simple-ajout_point_reg_lin_simple_origine] pour
     une illustration du phénomène.
+    
 ```{r echo}
 #| echo: false
 
@@ -99,21 +100,16 @@ yp <- c(y, m * mean(y))
     
 ```{r simple-pointmagique}
 #| echo: false
+#| fig-cap: "Illustration de l'effet de l'ajout d'un point spécial à un ensemble de données. À gauche, la droite de régression usuelle. À droite, le même ensemble de points avec le point spécial ajouté (cercle plein), la droite de régression avec ce nouveau point (ligne pleine) et la droite de régression passant par l'origine (ligne pointillée). Les deux droites sont parallèles."
 
-plot(y   x, xlim = c(0, max(xp)), ylim = c(0, max(yp)))
-abline(lm(y   x), lwd = 2)
-plot(yp   xp, xlim = c(0, max(xp)), ylim = c(0, max(yp)),
+plot(y ~ x, xlim = c(0, max(xp)), ylim = c(0, max(yp)))
+abline(lm(y ~ x), lwd = 2)
+plot(yp ~ xp, xlim = c(0, max(xp)), ylim = c(0, max(yp)),
      pch = c(rep(1, n), 16))
-abline(lm(yp   xp), lwd = 2)
-abline(lm(y   -1 + x), lty = 2, lwd = 2)
+abline(lm(yp ~ xp), lwd = 2)
+abline(lm(y ~ -1 + x), lty = 2, lwd = 2)
 ```
 
-      : Illustration de l'effet de l'ajout d'un point spécial à
-        un ensemble de données. À gauche, la droite de régression
-        usuelle. À droite, le même ensemble de points avec le point
-        spécial ajouté (cercle plein), la droite de régression avec ce
-        nouveau point (ligne pleine) et la droite de régression
-        passant par l'origine (ligne pointillée). Les deux droites
-        sont parallèles.
+
 :::
 

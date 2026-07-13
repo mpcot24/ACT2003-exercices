@@ -2,19 +2,20 @@ project:
   type: book
 
 book:
-  title: "ACT2000 — Recueil d'exercices"
+  title: "ACT2003 — Recueil d'exercices"
   author: "Marie-Pier Côté"
   language: fr
   chapters:
     - index.qmd
     - part: "Exercices"
       chapters:
-        - chapitres//binom.qmd
-        - chapitres//comptage.qmd
-        - chapitres//glm.qmd
-        - chapitres//multiple.qmd
-        - chapitres//selection.qmd
-        - chapitres//simple.qmd
+        - chapitres/simple.qmd
+        - chapitres/multiple.qmd
+        - chapitres/selection.qmd
+        - chapitres/glm.qmd
+        - chapitres/comptage.qmd
+        - chapitres/binom.qmd
+
   search: true
   sidebar:
     style: docked
