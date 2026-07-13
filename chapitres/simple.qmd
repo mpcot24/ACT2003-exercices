@@ -1,0 +1,46 @@
+# Régression linéaire simple
+
+{{< include simple/ex_10points_reglinsimple.qmd >}}
+
+{{< include simple/ex_estimateurs_moindres_carres.qmd >}}
+
+{{< include simple/ex_estimateurs_moindres_carres_origine.qmd >}}
+
+{{< include simple/ex_sexe_esperance_vie.qmd >}}
+
+{{< include simple/ex_emc_blue.qmd >}}
+
+{{< include simple/ex_ic_beta1.qmd >}}
+
+{{< include simple/ex_prix_gaz_naturel.qmd >}}
+
+{{< include simple/ex_ic_reglinsimple_origine.qmd >}}
+
+{{< include simple/ex_massemonetaire_pib.qmd >}}
+
+{{< include simple/ex_demonstrations_mse_msr.qmd >}}
+
+{{< include simple/ex_effet_temperature_procede_chimique.qmd >}}
+
+{{< include simple/ex_ligne_de_vie.qmd >}}
+
+{{< include simple/ex_demo_y_espilon.qmd >}}
+
+{{< include simple/ex_covariance_residus.qmd >}}
+
+{{< include simple/ex_anova_table.qmd >}}
+
+{{< include simple/ex_poids_femmes30_39_ans.qmd >}}
+
+{{< include simple/ex_transfos_lineaires_estimateurs.qmd >}}
+
+{{< include simple/ex_ajout_point_reg_lin_simple_origine.qmd >}}
+
+{{< include simple/ex_boston_housing.qmd >}}
+
+{{< include simple/ex_consommation_carburant.qmd >}}
+
+{{< include simple/ex_transfo_heteroscedasticite.qmd >}}
+
+{{< include simple/ex_bacteroes.qmd >}}
+

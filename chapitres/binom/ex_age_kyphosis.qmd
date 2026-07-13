@@ -1,0 +1,32 @@
+## Effet de l'âge sur la kyphosis {#sec-binom-age_kyphosis}
+
+Une étude sur une condition de la colonne vertébrale (kyphosis) survenant après une opération a été réalisée par Hastie et Tibshirani (1990). On s'intéresse à l'effet de la variable explicative \texttt{age} (en mois) au moment de l'opération, sur la probabilité d'avoir cette mauvaise condition. Les données peuvent être programmées en \textsf{R} avec les deux commandes suivantes:
+```{r}
+
+age <- c(12,15,42,52,59,73,82,91,96,105,114,120,121,128,130,139,139,157,
+1,1,2,8,11,18,22,31,37,61,72,81,97,112,118,127,131,140,151,159,177,206)
+kyp <- c(rep(1,18),rep(0,22))
+```
+
+**a)** Ajuster un modèle de régression logistique sur ces données Bernoulli. Effectuer un test de Wald sur l'effet de l'âge et interpréter.
+
+**b)** Tracer le graphique des données. Que remarquez-vous?
+
+**c)** Ajouter le carré de l'âge comme variable explicative dans le modèle. Est-ce que l'âge a un impact significatif sur la probabilité d'avoir le "kyphosis" après l'opération?
+
+**d)** Tracer les courbes des modèles ajustés. Interpréter.
+
+**e)** Utiliser le critère AIC pour comparer les deux modèles.
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+**a)** Le modèle de régression logistique est $\log\left(\frac{\pi_i}{1-\pi_i}\right)=\eta_i=\beta_0+\beta_1 \times {\mathrm age}$. On trouve les estimations des paramètres en \textsf{R}. Les hypothèses du test de Wald sont $$ H_0: \beta_1=0 \text{ versus } H_1: \beta_1\ne0. $$ La statistique est 0.734 et le seuil observé du test est 46.3\
+
+**b)** On trace le graphique des données: \texttt{plot(age,kyp,pch=16)}. Le résultat est montré dans la Figure @sec-binom-age_kyphosis. 
+
+**c)** Le modèle est maintenant  $\log\left(\frac{\pi_i}{1-\pi_i}\right)=\eta_i=\beta_0+\beta_1 age+\beta_2 age^2$. On trouve les estimations des paramètres en \textsf{R}. Les tests de Wald pour $\beta_1$ et $\beta_2$ sont tous deux significatifs à 5\
+
+**d)** On trace le graphique des données et on ajoute les courbes de probabilités ajustées. Le résultat est montré dans la Figure @sec-binom-age_kyphosis. On ne voit pas grand chose d'intéressant, sauf que le modèle en a) semble parfaitement inutile. On peut grouper les données par catégorie d'âge plutôt que de laisser les données individuelles pour mieux voir l'ajustement. Le graphique des données groupées est montré dans la Figure @sec-binom-age_kyphosis. On observe que le modèle quadratique s'ajuste beaucoup mieux aux données. 
+
+**e)** Le critère AIC est donné dans la sortie \textsf{R}. Le critère AIC pour le modèle c) est 54.228 et est inférieur à celui pour le modèle a), ce qui soutient encore une fois que le modèle avec le terme $age^2$ est préférable.
+:::
+

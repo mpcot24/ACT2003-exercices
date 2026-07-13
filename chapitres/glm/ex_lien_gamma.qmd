@@ -1,0 +1,12 @@
+## Fonctions de lien avec une loi gamma {#sec-glm-lien_gamma}
+
+Quel est le lien canonique pour la loi gamma? Est-ce que ce lien est toujours approprié?
+
+::: {.callout-note collapse="true" title="Éléments de réponse"}
+$\eta=1/\mu$
+:::
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+Le lien canonique pour la loi Gamma est le lien inverse $\eta=1/\mu$. Comme la moyenne d'une loi Gamma est toujours positive, ce lien n'est pas toujours approprié parce qu'il ne restreint pas le domaine de $\mu$ aux réels positifs. Le lien log serait plus approprié dans certains cas.
+:::
+

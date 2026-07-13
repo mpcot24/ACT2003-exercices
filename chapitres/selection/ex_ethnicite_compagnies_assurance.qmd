@@ -1,0 +1,108 @@
+## Utilisation de l'ethnicité par les compagnies d'assurance {#sec-selection-ethnicite_compagnies_assurance}
+
+Est-ce que les compagnies d'assurance utilisent l'ethnicité comme un facteur déterminant dans leur décision de rendre de l'assurance disponible? Fienberg (1985) a rassemblé des données d'un rapport de la *U.S. Commission on Civil Rights* sur le nombre de polices d'assurance habitation émises à Chicago entre Décembre 1977 et Février 1978. Les polices d'assurance étaient placées dans 2 catégories:
+**a)** [$\bullet$] polices émises dans le marché standard, volontaire
+
+**b)** [$\bullet$] polices émises dans le marché sous-standard, involontaire
+
+Les polices du marché sous-standard sont émises selon un programme gouvernemental d'accès à l'assurance. Les personnes qui contractent ce type d'assurance se sont vues refuser une police d'assurance sur le marché volontaire. On s'intéresse à l'accessibilité à l'assurance selon l'ethnicité et on utilise le nombre de polices émises (ou renouvellées) sur le marché sous-standard comme mesure de ``non-accessibilité''.
+
+La ville de Chicago a été divisée en 45 régions (selon le code postal). Pour chaque région, on a les informations suivantes:
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+Variable & Description\\
+\hline
+\texttt{race} & pourcentage de la population de la région provenant d'une minorité raciale\\
+\texttt{fire}& Nombre d'incendies par millier de maisons\\
+\texttt{theft}& Nombre de vols par millier de maisons\\
+\texttt{age} & Pourcentage des maisons construites avant 1940\\
+\texttt{involact} & Nouvelles polices et renouvellements dans le marché sous-standard,\\;
+& par centaine de maisons\\
+\texttt{income}& Revenu familial moyen\\ \hline
+\end{tabular}
+\end{center}
+On s'intéresse majoritairement à l'effet de la variable explicative \texttt{race}, mais on veut aussi tenir compte des autres facteurs qui pourraient être en cause, et des interactions entre ces facteurs. Les modèles considérés sont:
+\begin{description}
+\item[Modèle A:] \texttt{involact}$\sim$\texttt{race}
+\item[Modèle B:] \texttt{involact}$\sim$\texttt{race+I(log(income))}
+\item[Modèle C:] \texttt{involact}$\sim$\texttt{race+fire+age}
+\item[Modèle D:] \texttt{involact}$\sim$\texttt{race+fire+theft+age}
+\item[Modèle E:] \texttt{involact}$\sim$\texttt{race+I(log(income))+fire+theft+age}
+\item[Modèle F:] \texttt{involact}$\sim$\texttt{race+I(log(income))*age+fire+theft}
+\item[Modèle G:] \texttt{involact}$\sim$\texttt{I(log(income))*(age+race)+fire+theft}
+\item[Modèle H:] \texttt{involact}$\sim$\texttt{I(log(income))*age+race*(fire+theft+I(log(income)))}
+\end{description}
+Note: \texttt{A*B} représente \texttt{A+B+A:B}, c'est-à-dire les effets principaux et les interactions entre les variables explicatives \texttt{A} et \texttt{B}.
+
+On a les informations suivantes sur les modèles A à H:
+
+\begin{center}
+\begin{tabular}{|c|ccccccc|}
+\hline
+Modèle &     $p'$ &   PRESS    &   $R^2_p$ &    $C_p$ de Mallows &        AIC   &    BIC   &    $R^2_a$ \\ \hline
+A&     2 &9.6344 &0.4735 &63.24 &-69.86 &-66.25 &0.5126\\
+B      &3 &8.8248& 0.5177 &49.55&  -75.20& -69.78& 0.5761\\
+C   &   4& 5.2083 &0.7154 & 8.58 &-103.09&-95.87 &0.7765\\
+D    &  5 &4.5727&0.7501&  7.97& -103.75& -94.71& 0.7840\\
+E     & 6& 4.8985 &0.7323  &9.88 &-101.84 &-91.00 &0.7790\\
+F      &7& 4.8999& 0.7322& 9.64& -102.25& -89.61& 0.7850\\
+G     & 8 &4.7528 &0.7403& 8.46&-103.92 &-89.47 &0.7964\\
+H     &10& 5.4817& 0.7004& 10.00 &-102.98& -84.91&0.7989\\ \hline
+\end{tabular}
+\end{center}
+
+Les facteurs d'inflation de la variance pour ces modèles sont présentés dans le tableau suivant:
+
+\begin{center}
+\begin{tabular}{|l|rrrrrr|}
+\hline
+ &  C& D& E & F&G&H\\\hline
+\texttt{race}& 1.73&1.81&3.81&3.83&2191&5449\\
+\texttt{fire}& 2.03&2.03&2.16 &2.48&2.50&19\\
+\texttt{age}& 1.25 &  1.39 &2.08 &4070 &5247&6316\\
+\texttt{theft}&& 1.23&1.63&1.64 &1.68&4.05\\
+\texttt{I(log(income))}& & & 4.66&21 &21&22\\
+\texttt{I(log(income)):age}& & & &3793 &4932 &5919 \\
+\texttt{I(log(income)):race}&&&&&2064&5155 \\
+\texttt{race:theft}&&&&&&24\\
+\texttt{race:fire} &&&&&&40\\\hline
+\end{tabular}
+\end{center}
+
+On sait également que les postulats de la régression linéaire multiple sont vérifiés.
+
+**a)** le critère PRESS?
+
+**b)** le critère du coefficient de détermination de prévision $R^2_p$?
+
+**c)** le $C_p$ de Mallows?
+
+**d)** le critère d'information d'Akaike?
+
+**e)** le critère d'information de Bayes?
+
+**f)** le coefficient de détermination ajusté $R^2_a$?
+
+\item Que peut-on remarquer en regardant les facteurs d'inflation de la variance pour les modèles C à H?
+
+\item Selon vous, quel serait le meilleur modèle à utiliser pour ces données? Pourquoi?
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+**a)** modèle D
+
+**b)** modèle D
+
+**c)** modèle G (On ne peut pas choisir le modèle $H$ sur la base du $C_p$. Comme ce modèle est le plus complexe, c'est celui qui a été utilisé pour calculer $\hat\sigma^2$ et sa valeur de $C_p$ sera forcément exactement $p'$.)
+
+**d)** modèle G
+
+**e)** modèle C
+
+**f)** modèle H
+
+\item Il y a un très gros problème de multicolinéarité pour les modèle F, G et H, car certains VIFs sont beaucoup plus grands que 10. Ce problème augmente inutilement la variance des paramètres estimés.
+
+\item On évite les modèles F G et H pour ne pas avoir de problème de multicolinéarité. Le modèle D est préférable selon les critères PRESS et $R^2_p$. De plus, ses critères AIC et BIC sont les deuxièmes plus petits. Le $C_p$ est 8, donc 8-5=3. Ce n'est pas parfait, mais ce n'est pas si mal, etc.
+:::
+

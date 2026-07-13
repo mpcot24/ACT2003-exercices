@@ -1,0 +1,14 @@
+# Modélisation de données de comptage
+
+{{< include comptage/ex_glm_poisson_r.qmd >}}
+
+{{< include comptage/ex_demo_nb.qmd >}}
+
+{{< include comptage/ex_glm_poisson_groupes.qmd >}}
+
+{{< include comptage/ex_taux_imperfection.qmd >}}
+
+{{< include comptage/ex_berkeley_admission.qmd >}}
+
+{{< include comptage/ex_deces_cancer_poumon.qmd >}}
+

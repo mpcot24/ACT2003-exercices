@@ -1,0 +1,33 @@
+## Matrice d'incidence diagonale {#sec-selection-matrice_incidence_diagonale}
+
+Cet exercice est inspiré de James et al. (2013). Considérons le cas simplifié où $n=p$ et la matrice d'incidence $\Xmat$ est diagonale, avec des 1 sur la diagonale et des 0 pour tous les éléments hors-diagonale.
+
+On ajuste une régression linéaire multiple passant par l'origine avec de telles données, c'est-à-dire que $\beta_0=0$ est connu et on ne l'estime pas.
+
+Sous ces hypothèses,
+**a)** Trouver les estimateurs des moindres carrés $\hat\beta_1,\ldots,\hat\beta_p$.
+
+**b)** Écrire l'expression à minimiser pour trouver les estimateurs sous la régression ridge.
+
+**c)** Trouver l'expression de l'estimateur ridge.
+
+**d)** Écrire l'expression à minimiser pour trouver les estimateurs sous la régression lasso.
+
+**e)** Démontrer que l'estimateur lasso a la forme $$ \hat\beta_j^{\mathrm{lasso}}=\left\{\begin{array}{ll} y_j-\lambda/2, & \text{ si } Y_j> \lambda/2\\ y_j+\lambda/2, & \text{ si } Y_j < -\lambda/2\\ 0, & \text{ si } |Y_j| < \lambda/2. \end{array}\right. $$
+
+**f)** Interpréter les effets des pénalités ridge et lasso à la lumière de vos réponses aux sous-questions précédentes.
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+**a)** Puisque $n=p$, $\beta_0=0$ et que la matrice d'incidence est diagonale, on a $\hat{Y}_i = \hat\beta_i$ pour $i=1,\ldots,n$. On minimise $S(\beta)=\sum_{i=1}^n (Y_i-\beta_i)^2$ et on trouve pour $i\in \{1,\ldots,n\}$, $$ \left.\frac{\partial}{\partial\beta_i}S(\beta)\right|_{\hat\beta_i}= -2 (Y_i-\hat\beta_i) =0 \quad \Rightarrow \quad \hat\beta_i =  Y_i. $$
+
+**b)** On minimise, pour une valeur $\lambda>0$, $$ S^{\mathrm{ridge}}(\betavec)=\sum_{i=1}^n (Y_i-\beta_i)^2 +\lambda \sum_{i=1}^n \beta_i^2. $$
+
+**c)** On a $$ \frac{\partial}{\partial\beta_i}S^{\mathrm{ridge}}(\betavec)=-2(Y_i-\beta_i) +2 \lambda  \beta_i. $$ On pose égal à 0 et on trouve $$ Y_i-\hat \beta_i^{\mathrm{ridge}} = \lambda  \hat\beta_i^{\mathrm{ridge}} \quad \Rightarrow \quad \hat\beta_i^{\mathrm{ridge}} =  \frac{Y_i}{1+\lambda}. $$
+
+**d)** On minimise, pour une valeur $\lambda>0$, $$ S^{\mathrm{lasso}}(\betavec)=\sum_{i=1}^n (Y_i-\beta_i)^2 +\lambda \sum_{i=1}^n |\beta_i|. $$
+
+**e)** On a $$ \frac{\partial}{\partial\beta_i}S^{\mathrm{lasso}}(\betavec)=-2(Y_i-\beta_i) + \lambda  \mathrm{signe}(\beta_i) . $$ On utilise les EMV trouvés en a) pour définir le signe. Supposons d'abord que $\hat\beta_i = Y_i>0$. Alors, on a aussi $\hat\beta_i^{\mathrm{lasso}}>0$ (sinon, changer le signe donnera une valeur plus petite de l'équation à minimiser). On pose la dérivée égale à 0 et on trouve $$ 2(Y_i-\hat \beta_i^{\mathrm{lasso}}) = \lambda  \quad \Rightarrow \quad \hat\beta_i^{\mathrm{lasso}} =  Y_i- \lambda/2, $$ ce qui tient seulement si $\hat\beta_i^{\mathrm{lasso}}>0$, alors on a $\hat\beta_i^{\mathrm{lasso}} =  \max(0,Y_i- \lambda/2)$. Supposons ensuite que $\hat \beta_i = Y_i <0$. Alors, on a aussi $\hat\beta_i^{\mathrm{lasso}}<0$. On pose la dérivée égale à 0 et on trouve $$ 2(Y_i-\hat \beta_i^{\mathrm{lasso}}) = -\lambda  \quad \Rightarrow \quad \hat\beta_i^{\mathrm{lasso}} =  Y_i+ \lambda/2, $$ sous la contrainte que ce soit négatif, donc dans ce cas, $\hat\beta_i^{\mathrm{lasso}} =  \min(0,Y_i+\lambda/2)$. On combine les deux cas et on obtient l'équation donnée.
+
+**f)** On peut voir que la façon de rapetisser les paramètres est bien différente pour les deux méthodes. Avec ridge, chaque coefficient des moindres carrés est réduit par la même proportion. Avec lasso, chaque coefficient des moindres carrés est réduit vers 0 d'un montant constant $\lambda/2$; ceux qui sont plus petits que $\lambda/2$ en valeur absolue sont mis exactement égaux à 0. C'est de cette façon que le lasso permet de faire la sélection des variables explicatives.
+:::
+

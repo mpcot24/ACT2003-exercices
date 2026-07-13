@@ -1,0 +1,44 @@
+## Population bactérienne {#sec-simple-bacteroes}
+
+Les données suivantes présentent le nombre moyen de bactéries vivantes dans une boîte de conserve de nourriture et le temps (en minutes) d'exposition à une chaleur de $300^{o}$F. \footnote{Source: D. Montgomery, E.A. Peck et G.G. Vining (2012). Introduction to Linear Regression Analysis. Fifth Edition. Wiley.}
+
+\begin{center}
+\begin{tabular}{cc}
+\hline
+Nombre de bactéries & Temps d'exposition (min) \\ \hline
+175&1\\
+108&2\\
+95&3\\
+82&4\\
+71&5\\
+50&6\\
+49&7\\
+31&8\\
+28&9\\
+17&10\\
+16&11\\
+11&12\\ \hline
+\end{tabular}
+\end{center}
+
+**a)** Tracer un nuage de points des données. Est-ce qu'un modèle de régression linéaire semble adéquat?
+
+**b)** Ajuster aux données un modèle de régression linéaire. Calculer les statistiques sommaires et produire les graphiques de résidus. Interpréter les résultats. Quelles sont vos conclusions par rapport à la validité du modèle de régression?
+
+**c)** Identifier une transformation pour ces données afin d'utiliser adéquatement les méthodes de régression. Ajuster ce nouveau modèle et tester la validité de la régression.
+
+```{r echo}
+#| echo: false
+
+bact <- c(175, 108, 95, 82, 71, 50, 49, 31, 28, 17, 16, 11)
+min <- 1:12
+```
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+**a)** Figure @sec-simple-bacteroes shows a scatter plot of the number of bacteria versus the minutes of exposure. The plot shows a straight line would be a reasonable model, but an even better model would capture the curvature. In fact, the plot shows that when the canned food is exposed to $300^{o}$ F for a long time, there is ultimately no bacteria left. This suggests a model that would capture the asymptotic behavior of the number of bacteria when the number of minutes of exposure increases. A linear model would continue to drive down the number of bacteria, eventually leading to negative values, which is nonsensical in this context. 
+
+**b)** A simple linear model is fitted to the data using \textsf{R}. Here is a summary of the model: ```{r} fit1 <- lm(bact min) summary(fit1) ``` The fitted model is $$\hat{y}=142.20-12.48x,$$ where the parameters of the model are estimated by the best linear unbiased estimators. The ANOVA table is obtained using \textsf{R}: ```{r} anova(fit1) ``` In order to test for the significance of regression, we use the F-statistic. The F-statistic is 66.512, and it has 1 and 10 degrees of freedom, so the $p$-value is $$P[F_{(1,10)}>66.512]=9.944\times10^{-6} .$$ Since the $p$-value is much smaller than 1\
+
+**c)** The Box-Cox method is used to determine which transformation is optimal. Figure @sec-simple-bacteroes shows the plot of the log-likelihood function in terms of $\lambda$, for two different ranges of $\lambda$. It was obtained with the \textsf{R} commands: ```{r eval} #| eval: false boxcox(bact min, lambda = seq(-2, 2, len = 20), plotit = TRUE) boxcox(bact min, lambda = seq(-0.2, 0.5, len = 20), plotit = TRUE) ```
+:::
+

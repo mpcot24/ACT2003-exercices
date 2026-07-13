@@ -1,0 +1,20 @@
+# Modèles linéaires généralisés (GLM)
+
+{{< include glm/ex_famille_expo_lineaire.qmd >}}
+
+{{< include glm/ex_lien_poisson.qmd >}}
+
+{{< include glm/ex_lien_gamma.qmd >}}
+
+{{< include glm/ex_glm_poisson_univarie.qmd >}}
+
+{{< include glm/ex_deviance_binomiale.qmd >}}
+
+{{< include glm/ex_residus_gamma.qmd >}}
+
+{{< include glm/ex_tests_resistance.qmd >}}
+
+{{< include glm/ex_sinistres_auto_royaume_uni.qmd >}}
+
+{{< include glm/ex_turbines_fissurees.qmd >}}
+

@@ -1,0 +1,43 @@
+## Régression Ridge à la main {#sec-selection-ridge_main}
+
+On considère un modèle de régression linéaire
+$$
+Y_i = \beta_0+\beta_1 x_i+\varepsilon_i,
+$$
+avec $\varepsilon_i\sim \Norm(0,\sigma^2)$ pour $i=1,\ldots,8$ pour la base de données suivante :
+
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+$i$ & $x_i$ & $y_i$ \\ \midrule
+1 & $-2$ & 35\\
+2 & $-1$ & 40\\
+3 & $-1$ & 36\\
+4 & $-1$ & 38\\
+5 & $0$ & 40\\
+6 & $1$ & 43\\
+7 & $2$ & 45\\
+8 & $2$ & 43\\ \bottomrule
+\end{tabular}
+\end{center}
+
+**a)** En utilisant la régression Ridge avec $\lambda=0$, estimer les paramètres $\beta_0$ et $\beta_1$.
+
+**b)** En utilisant la régression Ridge avec $\lambda=4$, calculer l'erreur quadratique moyenne.
+
+::: {.callout-note collapse="true" title="Éléments de réponse"}
+**a)** $40$ et $2.1875$
+
+**b)** $1.8125$
+:::
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+**a)** Avec un paramètre de régularisation de $\lambda=0$, il s'agit d'une régression linéaire simple. On a alors, puisque $\bar{x}=0$, $$
+\begin{aligned} \hat\beta_1 &= \frac{\sum_{i=1}^8 x_i Y_i}{\sum_{i=1}^8 x_i^2}= \frac{35}{16} = \Sexpr{round(35/16,4)}\\ \hat\beta_0 &= \bar Y = \Sexpr{mean(c(35,40,36,38,40,43,45,43))}. \end{aligned}
+$$
+
+**b)** Pour la régression Ridge, on a vu que l'ordonnée à l'origine n'est pas affectée par la pénalité alors $\hat\beta_0=40$. La solution générale pour $p$ variables explicatives est $$ \betavec_\lambda^{\mathrm{ridge}} = (\Xmat^\top\Xmat+\lambda \mathbf{I}_p)^{-1}\Xmat^\top \yvec. $$ En dimension $p=1$, cela se réduit à $$ \hat\beta_1 = \frac{\sum_{i=1}^8 x_i Y_i}{\sum_{i=1}^8 x_i^2 +\lambda} = \frac{35}{16+\lambda}. $$ Pour $\lambda=4$, on obtient $\hat\beta_1=1.75$. Cette valeur est, comme prévu, plus près de 0 que celle obtenue en a). L'équation du modèle est alors $$ \hat{Y} = 40+ 1.75x. $$ Par la suite, on obtient les prévisions $$
+\begin{aligned} \hat Y_1 & = 40+1.75\times-2 = 36.5\\ \hat Y_2 & =\hat Y_3=\hat Y_4 = 38.25\\ \hat Y_5&=40\\ \hat Y_6&=41.75\\ \hat Y_7 & =\hat Y_8= 43.50. \end{aligned}
+$$ et on calcule l'erreur quadratique moyenne $$ \MSE = \frac{\sum_{i=1}^8 (Y_i - \hat{Y}_i)^2}{8} = 1.8125. $$
+:::
+

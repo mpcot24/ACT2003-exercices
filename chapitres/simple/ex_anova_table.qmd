@@ -1,0 +1,60 @@
+## Analyse de variance avec un tableau de données {#sec-simple-anova_table}
+
+On vous donne les observations ci-dessous.
+  \begin{center}
+    \begin{minipage}[t]{0.3\textwidth}
+      \text{} \\
+      \begin{tabular}{ccc}
+        \toprule
+        $i$ & $x_i$ & $Y_i$ \\
+        \midrule
+        1 & 2 & 6 \\
+        2 & 3 & 4 \\
+        3 & 5 & 6 \\
+        4 & 7 & 3 \\
+        5 & 4 & 6 \\
+        6 & 4 & 4 \\
+        7 & 1 & 7 \\
+        8 & 6 & 4 \\
+        \bottomrule
+      \end{tabular}
+    \end{minipage}
+    \begin{minipage}[t]{0.4\textwidth}
+      \text{} \\[-1cm]
+      $$
+\begin{aligned}
+        \sum_{i=1}^8 x_i &= 32 &
+        \sum_{i=1}^8 x_i^2 &= 156 \\
+        \sum_{i=1}^8 Y_i &= 40 &
+        \sum_{i=1}^8 Y_i^2 &= 214 \\
+        \sum_{i=1}^8 x_i  Y_i &= 146 \\
+      \end{aligned}
+$$
+    \end{minipage}
+  \end{center}
+**a)** Calculer les coefficients de la régression $Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$, avec $\var{\varepsilon_i} = \sigma^2$.
+
+**b)** Construire le tableau d'analyse de variance de la régression en a) et calculer le coefficient de détermination $R^2$. Interpréter les résultats.
+
+::: {.callout-note collapse="true" title="Éléments de réponse"}
+**a)** $\hat{\beta}_0=7$ et $\hat{\beta}_1=-0,5$
+
+**b)** SST = 14, SSR = 7, SSE = 7, MSR = 7, MSE = 7/6, $F$ = 6, $R^2$ = 0,5
+:::
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+**a)** Nous avons le modèle de régression usuel. Les coefficients de la régression sont $$
+\begin{aligned} \hat{\beta}_1 &=\frac{\sum_{i=1}^8 x_iY_i-n\bar{x}\bar{Y}}{\sum_{i=1}^8 x_i^2-n\bar{x}^2} \\ &=\frac{146-(8)(32/8)(40/8)}{156-(8)(32/8)^2}  \\ &=-0,5 \\ \end{aligned}
+$$
+
+et
+
+$$
+\begin{aligned} \hat{\beta}_0 &=\bar{Y}-\hat{\beta}_1\bar{x} \\ &=(40/8)-(-0,5)(32/8) \\ &=7. \end{aligned}
+$$
+
+**b)** Les sommes de carrés sont $$
+\begin{aligned} \SST &=\sum_{i=1}^8(Y_i-\bar{Y})^2 \\ &=\sum_{i=1}^8Y_i^2-n\bar{Y}^2 \\ &=214-(8)(40/8)^2 \\ &=14, \\ \SSR &=\sum_{i=1}^8(\hat{Y}_i-\bar{Y})^2 \\ &=\sum_{i=1}^8\hat{\beta}_1^2(x_i-\bar{x})^2 \\ &=\hat{\beta}_1^2(\sum_{i=1}^8x_i^2-n\bar{x}^2) \\ &=(-1/2)^2(156-(8)(32/8)^2) \\ &=7. \end{aligned}
+$$ et $\SSE = \SST - \SSR = 14 - 7 = 7$. Par conséquent, $R^2 = SSR/SST = 7/14 = 0,5$, donc la régression explique 50 \
+:::
+

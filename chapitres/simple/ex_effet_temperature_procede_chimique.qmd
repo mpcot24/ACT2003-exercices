@@ -1,0 +1,55 @@
+## Effet de la température sur un procédé chimique {#sec-simple-effet_temperature_procede_chimique}
+
+Le tableau ci-dessous présente les résultats de l'effet de la
+  température sur le rendement d'un procédé chimique.
+  \begin{center}
+    \begin{tabular}{rr}
+      \toprule
+      $x$ & $Y$ \\
+      \midrule
+      $-5$ &  1 \\
+      $-4$ &  5 \\
+      $-3$ &  4 \\
+      $-2$ &  7 \\
+      $-1$ & 10 \\
+        0  &  8 \\
+        1  &  9 \\
+        2  & 13 \\
+        3  & 14 \\
+        4  & 13 \\
+        5  & 18 \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+**a)** On suppose une relation linéaire simple entre la température et le rendement. Calculer les estimateurs des moindres carrés de l'ordonnée à l'origine et de la pente de cette relation.
+
+**b)** Établir le tableau d'analyse de variance et tester si la pente est significativement différente de zéro avec un niveau de confiance de \nombre{0,95}.
+
+**c)** Quelles sont les limites de l'intervalle de confiance à 95 \
+
+**d)** Y a-t-il quelque indication qu'un meilleur modèle devrait être employé?
+
+::: {.callout-note collapse="true" title="Éléments de réponse"}
+**a)** $\hat{\beta}_0 = 9,273$, $\hat{\beta}_1 = 1,436$
+
+**b)** $t = 9,809$
+
+**c)** $(1,105, 1,768)$
+:::
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+**a)** On trouve aisément les estimateurs de la pente et de l'ordonnée à l'origine de la droite de régression: $$
+\begin{aligned} \hat{\beta}_1 &= \frac{\sum_{i=1}^n x_i Y_i - n \bar{x}\bar{Y}}{
+$$
+
+**b)** Les sommes de carrés sont $$
+\begin{aligned} \SST &= \sum_{i=1}^n Y_i^2 - n \bar{Y}^2 \\ &= 1194 - 11 (9,273)^2 \\ &= 248,18 \\ \SSR &= \hat{\beta}_1^2 \left( \sum_{i=1}^n x_i^2 - n \bar{x}^2 \right) \\ &= (1,436)^2 (110 - 11 (0)) \\ &= 226,95 \end{aligned}
+$$ et $\SSE = \SST - \SSR = 21,23$. Le tableau d'analyse de variance est donc le suivant: \begin{center} \begin{tabular}{lrrrc} \toprule Source & \multicolumn{1}{c}{SS} & \multicolumn{1}{c}{d.l.} & \multicolumn{1}{c}{MS} & Ratio F \\ \midrule Régression & 226,95 &   1  & 226,95 & 96,21 \\ Erreur     &  21,23 &   9  &   2,36 &  \\ \midrule Total      & 248,18 &  10  &        & \\ \bottomrule \end{tabular} \end{center} Or, puisque $t = \sqrt{F} = 9,809 > t_{\alpha/2}(n-2) = t_{0,025}(9) = 2,26$, on rejette l'hypothèse $H_0: \beta_1 = 0$ soit, autrement dit, la pente est significativement différente de zéro.
+
+**c)** Puisque la variance $\sigma^2$ est inconnue, on l'estime par $s^2 = \MSE = 2,36$. On a alors $$
+\begin{aligned} \beta_1 &\in \hat{\beta}_1 \pm t_{\alpha/2}(n-2) \sqrt{\widehat{\mathrm{Var}}[\hat{\beta}_1]} \\ &\in 1,436 \pm 2,26 \sqrt{\frac{2,36}{110}} \\ &\in (1,105, 1,768). \end{aligned}
+$$
+
+**d)** Le coefficient de détermination de la régression est $R^2 = \SSR/\SST = 226,95/248,18 = 0,914$, ce qui indique que l'ajustement du modèle aux données est très bon. En outre, suite au test effectué à la partie b), on conclut que la régression est globalement significative.  Toutes ces informations portent à conclure qu'il n'y a pas lieu d'utiliser un autre modèle.
+:::
+

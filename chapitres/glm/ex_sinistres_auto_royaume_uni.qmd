@@ -1,0 +1,66 @@
+## Sinistres automobiles au Royaume-Uni {#sec-glm-sinistres_auto_royaume_uni}
+
+```{r echo}
+#| echo: false
+
+Bcar <- read.table("data/BritishCar.csv",header=TRUE,sep=";")
+```
+
+Les données pour cet exercice sot contenues dans le fichier \texttt{BritishCar.csv (sep='';'')} disponible sur le site du cours. On y trouve les montants de réclamations moyens pour les dommages causés au véhicule du détenteur de la police pour les véhicules assurés au Royaume-Uni en 1975. Les moyennes sont en livres sterling ajustées pour l'inflation.
+
+\begin{center}
+\begin{tabular}{l|l}
+\hline
+Variable & Description\\ \hline
+\texttt{OwnerAge} & Âge du détenteur de la police (8 catégories) \\
+\texttt{Model} & Type de voiture (4 groupes) \\
+\texttt{CarAge} & Âge du véhicule, en années (4 catégories) \\
+\texttt{NClaims} & Nombre de réclamations\\
+\texttt{AvCost} & Coût moyen par réclamation, en livres sterling\\ \hline
+\end{tabular}
+\end{center}
+
+On s'intéresse à la modélisation du coût moyen par réclamation.
+
+**a)** Ajuster un modèle de régression Gamma avec lien inverse pour la variable endogène \texttt{AvCost}. Inclure les effets principaux \texttt{OwnerAge}, \texttt{Model} et \texttt{CarAge}.
+
+**b)** Quelle est l'espérance du coût moyen de la réclamation pour un détenteur de police âgé entre 17 et 20 ans, avec une auto de type A âgée de moins de 3 ans ?
+
+**c)** Interpréter brièvement les coefficients pour la variable exogène \texttt{OwnerAge}.
+
+**d)** Interpréter brièvement les coefficients pour la variable exogène \texttt{Model}.
+
+**e)** Interpréter brièvement les coefficients pour la variable exogène \texttt{CarAge}.
+
+**f)** Pour quelle combinaison de variables exogènes l'espérance du coût de réclamation est-elle la plus élevée? Calculer sa valeur.
+
+**g)** Pour quelle combinaison de variables exogènes l'espérance du coût de réclamation est-elle la plus faible? Calculer sa valeur.
+
+**h)** Quelle est la déviance pour ce modèle? Est-ce que le modèle semble adéquat?
+
+**i)** Tracer le graphique des résidus de Pearson en fonction des valeurs prédites, des résidus d'Ascombe en fonction des valeurs prédites et des résidus de déviance en fonction des valeurs prédites.
+
+**j)** Obtient-on les mêmes conclusions aux sous-questions a) à h) si on utilise un lien logarithmique plutôt que le lien inverse?
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+**a)** En \textsf{R}, on obtient ```{r} modinv <- glm(AvCost OwnerAge+Model+CarAge,family=Gamma,data=Bcar) summary(modinv) ```
+
+**b)** On a utilisé un lien inverse, alors $\esp{Y_i}=\frac{1}{\eta_i}.$ Puisque les variables explicatives prennent toutes leur niveau de base, on a que $\hat{\eta}_i=\hat{\beta}_0=0.0033233$ et $$\widehat{\esp{Y_i}}=0.0033233^{-1}=300.91.$$
+
+**c)** Puisqu'on a utilisé un lien inverse, un coefficient plus élevé implique une diminution de l'espérance du coût de la réclamation, alors qu'un coefficient négatif signifie une augmentation de cette espérance. Ici on observe que les sept coefficients sont positifs, alors la catégorie d'âge ayant une espérance de coût la plus élevée est la catégorie de base, 17-20 ans. Le coût moyen semble ensuite relativement élevé pour les jeunes entre 21 et 29 ans. La catégorie d'âge avec coût de réclamation minimal est 35-39 ans, puis la moyenne semble relativement stable pour les détenteurs de police plus âgés.
+
+**d)** Les trois coefficients pour la variable modèle sont négatifs, ce qui signifie que les réclamations pour les véhicules de type A (niveau de base) sont moins élevées en moyenne que celles pour les autres types de véhicule. Les réclamations pour les véhicules du modèle D semblent particulièrement coûteuse car le coefficient est beaucoup plus grand en valeur absolue que les autres.
+
+**e)** De la même façon, on observe que d'augmenter l'âge du véhicule diminue le coût moyen des réclamations.
+
+**f)** Pour un détenteur de police entre 17 et 20 ans, avec un véhicule de type D âgé de un à 3 ans, on trouve que $$\widehat{\esp{Y_i}}=\frac{1}{\hat{\beta}_0+\hat{\beta}^{MODEL}_D}=\frac{1}{0.0033233-0.0018235}=666.76.$$
+
+**g)** Pour un détenteur de police entre 35 et 39 ans, avec un véhicule de type A âgé de plus de 10 ans, on trouve que $$\widehat{\esp{Y_i}}=\frac{1}{\hat{\beta}_0+\hat{\beta}^{OWNERAGE}_{35-39}+\hat{\beta}^{CARAGE}_{10+}}=\frac{1}{0.0033233+0.0016372+0.0033776}=119.93.$$
+
+**h)** La déviance $D(y,\hat{\mu})=11.511$ est donnée dans la sortie \textsf{R} pour la sous-question a). On a que $$\frac{D(y,\hat{\mu})}{\hat{\phi}}=\frac{11.511}{0.1074529}=107.126,$$ ce qui est très près de $n-p'=109$. Le modèle semble donc adéquat.
+
+**i)** Les résidus sont calculés avec les formules trouvées à la question 6. Il faut d'abord enlever les données manquantes du vecteur contenant les coûts moyens. On obtient les graphiques de la Figure @sec-glm-sinistres_auto_royaume_uni. 
+
+**j)** a. Le modèle avec le lien logarithmique est ```{r} modlog <- glm(AvCost OwnerAge+Model+CarAge,family=Gamma(link=log),data=Bcar) summary(modlog) ``` b. Avec ce modèle $\esp{Y_i}=e^{\eta_i}.$ Puisque les variables explicatives prennent toutes leur niveau de base, on a que $\hat{\eta}_i=\hat{\beta}_0=5.711739$ et $$\widehat{\esp{Y_i}}=e^{5.711739}=302.39.$$ Cela ne diffère pas beaucoup du résultat trouvé en b). c-d-e. Puisqu'on a utilisé un lien logarithmique, on a un modèle multiplicatif. Si $e^\beta>1$, alors l'espérance du coût augmente, alors que si $e^\beta<1$ alors l'espérance du coût diminue. On peut donc tirer des conclusions similaires à celles en c), d) et e). f. Pour un détenteur de police entre 25 et 29 ans, avec un véhicule de type D âgé de un à 3 ans, on trouve que $$\widehat{\esp{Y_i}}=\exp\left(\hat{\beta}_0+\hat{\beta}^{OWNERAGE}_{25-29}+\hat{\beta}^{MODEL}_D \right)=\exp(5.711739+0.005223+0.472290)=\Sexpr{round(exp(5.711739+0.005223+0.472290),2)}.$$ On note que cette valeur est beaucoup moins élevée que celle obtenue en f). g. Pour un détenteur de police entre 35 et 39 ans, avec un véhicule de type A âgé de plus de 10 ans, on trouve que $$\widehat{\esp{Y_i}}=\exp\left(\hat{\beta}_0+\hat{\beta}^{OWNERAGE}_{35-39}+\hat{\beta}^{CARAGE}_{10+}\right)=\exp(5.711739-0.331420-0.735513)=104.04.$$ h. La déviance $D(y,\hat{\mu})=11.263$ est donnée dans la sortie \textsf{R} pour la sous-question a). On a que $$\frac{D(y,\hat{\mu})}{\hat{\phi}}=\frac{11.263}{0.0910768}=123.66,$$ ce qui est moins près de $n-p'=109$ que pour le modèle avec le lien inverse. Le modèle semble donc moins adéquat.
+:::
+

@@ -1,0 +1,75 @@
+## Relation entre la consommation de gaz naturel et le prix {#sec-simple-prix_gaz_naturel}
+
+Vous analysez la relation entre la consommation de gaz naturel
+  *per capita* et le prix du gaz naturel. Vous avez colligé les
+  données de 20 grandes villes et proposé le modèle
+  $$
+    Y = \beta_0 + \beta_1 x + \varepsilon,
+  $$
+  où $Y$ représente la consommation de gaz *per capita*, $x$ le
+  prix et $\varepsilon$ est le terme d'erreur aléatoire distribué
+  selon une loi normale. Vous avez obtenu les résultats suivants:
+  $$
+\begin{aligned}
+    \hat{\beta}_0 &= 138,581 &
+      \sum_{i=1}^{20} (x_i - \bar{x})^2 &= \nombre{10668} \\
+    \hat{\beta}_1 &= -1,104 &
+      \sum_{i=1}^{20} (Y_i - \bar{Y})^2 &= \nombre{20838} \\
+    \sum_{i=1}^{20} x_i^2 &= \nombre{90048} &
+      \sum_{i=1}^{20} \hat{\varepsilon}_i^2 &= \nombre{7832}. \\
+    \sum_{i=1}^{20} Y_i^2 &= \nombre{116058}
+  \end{aligned}
+$$
+  Trouver le plus petit intervalle de confiance à 95 \
+  paramètre $\beta_1$.
+
+::: {.callout-note collapse="true" title="Éléments de réponse"}
+$(-1,5, -0,7)$
+:::
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+L'intervalle de confiance pour $\beta_1$ est
+    $$
+\begin{aligned}
+      \beta_1
+      &\in \hat{\beta}_1 \pm t_{\alpha/2}(n - 2)
+      \sqrt{\frac{\hat{\sigma}^2}{S_{xx}}} \\
+      &\in \hat{\beta}_1 \pm t_{0,025}(20 - 2) \sqrt{\frac{MSE}{S_{xx}}}.
+     \end{aligned}
+$$
+     On nous donne $\SST = S_{yy} = \nombre{20838}$ et $S_{xx} =
+     \nombre{10668}$. Par conséquent,
+     $$
+\begin{aligned}
+       \SSR
+       &= \hat{\beta}_1^2 \sum_{i=1}^{20} (x_i - \bar{x})^2 \\
+       &= (-1,104)^2(\nombre{10668}) \\
+       &= \nombre{13002,33} \\
+       \SSE
+       &= \SST - \SSR \\
+       &= \nombre{7835,67} \\
+       \end{aligned}
+$$
+
+et
+
+$$
+\begin{aligned}
+       \MSE
+       &= \frac{\SSE}{18} \\
+       &= 435,315.
+     \end{aligned}
+$$
+     De plus, on trouve dans une table de quantiles de la loi de
+     Student (ou à l'aide de la fonction \texttt{qt} dans \textsf{R})
+     que $t_{0,025}(18) = 2,101$. L'intervalle de confiance recherché
+     est donc
+     $$
+\begin{aligned}
+       \beta_1
+       &\in -1,104 \pm 2,101 \sqrt{\frac{435,315}{\nombre{10668}}} \\
+       &\in (-1,528, -0,680).
+     \end{aligned}
+$$
+:::
+

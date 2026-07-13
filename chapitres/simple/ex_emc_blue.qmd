@@ -1,0 +1,87 @@
+## Démonstration que l'EMC est le BLUE {#sec-simple-emc_blue}
+
+Démontrer que l'estimateur des moindres carrés $\hat{\beta}$ trouvé à
+  l'exercice @simple.@sec-simple-estimateurs_moindres_carres_origine est
+  l'estimateur sans biais à variance (uniformément) minimale du
+  paramètre $\beta$.  En termes mathématiques: soit
+  $$
+    \beta^* = \sum_{i=1}^n c_i Y_i
+  $$
+  un estimateur linéaire du paramètre $\beta$. Démontrer qu'en
+  déterminant les coefficients $c_1, \dots, c_n$ de façon à minimiser
+  $$
+    \var{\beta^*} = \Var{\sum_{i=1}^n c_i Y_i}
+  $$
+  sous la contrainte que
+  $$
+    \esp{\beta^*} = \Esp{\sum_{i=1}^n c_i Y_i} = \beta,
+  $$
+  on obtient $\beta^* = \hat{\beta}$. *Indice: le lagrangien permet de faire l'optimisation sous contrainte, voir l'annexe D des notes de cours.*
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+On veut trouver les coefficients $c_1, \dots, c_n$ tels que
+    $\esp{\beta^*} = \beta$ et $\var{\beta^*}$ est minimale. On
+    cherche donc à minimiser la fonction
+    $$
+\begin{aligned}
+      f(c_1, \dots, c_n)
+      &= \var{\beta^*} \\
+      &= \sum_{i=1}^n c_i^2 \var{Y_i} \\
+      &= \sigma^2 \sum_{i=1}^n c_i^2
+    \end{aligned}
+$$
+    sous la contrainte $\esp{\beta^*} = \sum_{i=1}^nc_i\esp{Y_i} =
+    \sum_{i=1}^nc_i\beta x_i = \beta\sum_{i=1}^nc_ix_i = \beta$, soit
+    $\sum_{i=1}^n c_i x_i = 1$ ou $g(c_1, \dots, c_n) = 0$ avec
+    $$
+      g(c_1, \dots, c_n) = \sum_{i=1}^n c_i x_i - 1.
+    $$
+    Pour utiliser la méthode des multiplicateurs de Lagrange, on pose
+    $$
+\begin{aligned}
+      \mathcal{L}(c_1, \dots, c_n,\lambda)
+      &= f(c_1, \dots, c_n) - \lambda g(c_1, \dots, c_n), \\
+      &= \sigma^2 \sum_{i=1}^n c_i^2 - \lambda
+      \left(
+        \sum_{i=1}^n c_i x_i - 1
+      \right),
+    \end{aligned}
+$$
+    puis on dérive la fonction $\mathcal{L}$ par rapport à chacune des
+    variables $c_1, \dots, c_n$ et $\lambda$. On trouve alors
+    $$
+\begin{aligned}
+      \frac{\partial \mathcal{L}}{\partial c_u}
+      & = 2 \sigma^2 c_u - \lambda x_u, \quad u = 1, \dots, n \\
+      \frac{\partial \mathcal{L}}{\partial \lambda}
+      & = - \sum_{i=1}^n c_i x_i + 1.
+    \end{aligned}
+$$
+    En posant les $n$ premières dérivées égales à zéro, on obtient
+    $$
+      c_i = \frac{\lambda x_i}{2 \sigma^2}.
+    $$
+    Or, de la contrainte,
+    $$
+      \sum_{i=1}^n c_i x_i =
+      \frac{\lambda}{2\sigma^2} \sum_{i=1}^n x_i^2 = 1,
+    $$
+    d'où
+    $$
+      \frac{\lambda}{2 \sigma^2} = \frac{1}{\sum_{i=1}^n x_i^2}
+    $$
+    et, donc,
+    $$
+      c_i = \frac{x_i}{\sum_{i=1}^n x_i^2}.
+    $$
+    Finalement,
+    $$
+\begin{aligned}
+      \beta^*
+      & = \sum_{i=1}^n c_i Y_i \\
+      & = \frac{\sum_{i=1}^n x_i Y_i}{\sum_{i=1}^n x_i^2} \\
+      & = \hat{\beta}.
+    \end{aligned}
+$$
+:::
+

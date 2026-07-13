@@ -1,0 +1,8 @@
+## Transformation pour régler un problème d'hétéroscedasticité {#sec-simple-transfo_heteroscedasticite}
+
+Dans un graphiques des résidus en fonction des valeurs prédites, on observe de l'hétéroscédasticité. Après une analyse plus poussée, on note que la variance de $\hat{\varepsilon}_i$ est approximativement proportionnelle à $E[Y_i]^4$ . Proposer une transformation $g$ de la variable réponse qui permettra de stabiliser la variance.
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+Utiliser l'approximation de Taylor de premier ordre pour montrer que la variance de $g(Y)=1/Y$ est approximativement constante.
+:::
+

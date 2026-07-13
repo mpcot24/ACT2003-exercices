@@ -1,0 +1,49 @@
+## Ajustement d'un GLM Poisson en R {#sec-comptage-glm_poisson_r}
+
+Ajuster un modèle de Poisson avec lien logarithmique au données \texttt{esoph} du package \texttt{datasets} en \textsf{R}. À partir du modèle avec effets principaux et les interactions de second ordre
+
+\texttt{agegp+alcgp+tobgp+agegp:alcgp+agegp:tobgp+alcgp:tobg}, faire une analyse de déviance pour trouver le modèle le plus approprié. Y a-t-il une interaction qui est significative dans le modèle? Expliquer.
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+On ajuste d'abord le modèle avec les effets principaux et les interactions.
+```{r}
+
+library(datasets)
+fit1 <- glm(ncases factor(agegp)*(factor(alcgp)+factor(tobgp))
+           +factor(alcgp):factor(tobgp), family=poisson, data=esoph)
+anova(fit1)
+qchisq(0.95,9) ## rejette alcgp:tobgp
+qchisq(0.95,15) ## rejette agegp:tobgp mais conserve agegp:alcgp
+```
+
+On trouve donc que l'interaction entre la consommation d'alcool et de tabac n'est pas significative parce que
+$$
+\begin{aligned}
+\Delta Deviance = 7.658 < \chi^{2}_{(9;0.95)}=16.92.
+\end{aligned}
+$$
+Cela signifie que le modèle \texttt{agegp*(alcgp+tobgp)} est une simplification adéquate du modèle
+\texttt{agegp+alcgp+tobgp+agegp.alcgp+agegp.tobgp+alcgp.tobgp}. De plus, on peut enlever l'interaction entre l'âge et la consommation de tabac:
+$$
+\begin{aligned}
+\Delta Deviance = 18.109 < \chi^{2}_{(15;0.95)}=25.
+\end{aligned}
+$$
+Cela signifie que le modèle \texttt{agegp*alcgp+tobgp} est une simplification adéquate du modèle
+\texttt{agegp*(alcgp+tobgp)}. Toutefois, on ne peut pas enlever l'autre terme d'interaction car
+$$
+\begin{aligned}
+\Delta Deviance = 32.417 > \chi^{2}_{(15;0.95)}=25.
+\end{aligned}
+$$
+Si on tente de remettre l'interaction entre la consommation d'alcool et de tabac dans le modèle, on trouve qu'elle n'est toujours pas significative:
+```{r}
+
+fit2 <- glm(ncases   agegp * alcgp + tobgp,family=poisson,data=esoph)
+fit3 <- update(fit1, .-factor(agegp):factor(tobgp))
+anova(fit2,fit3)
+```
+
+Par conséquent, le modèle final est \texttt{agegp*alcgp+tobgp}. Cela signifie que l'effet de consommer de l'alcool sur l'occurence du cancer de l'oesophage est différent pour chaque groupe d'âge.
+:::
+

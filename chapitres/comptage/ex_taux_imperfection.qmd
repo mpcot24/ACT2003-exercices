@@ -1,0 +1,40 @@
+## Taux d'imperfection {#sec-comptage-taux_imperfection}
+
+Dans une expérience, on s'intéresse au taux d'imperfection pour deux procédés utilisés pour fabriquer des plaquettes de silicium dans des puces électroniques. Le traitement A a été appliqué pour dix plaquettes et les nombres d'imperfections sont
+$$
+8, 7, 6, 6, 3, 4, 7, 2, 3, 4.
+$$
+Le traitement B a été appliqué sur dix autres plaquettes et les nombres d'imperfections sont
+$$
+9, 9, 8, 14, 8, 13, 11, 5, 7, 6.
+$$
+On traite les données de comptage comme des variables Poisson indépendantes, avec moyennes $\mu_A$ et $\mu_B$.\footnote{Cet exercice est tiré de Agresti (2013).}
+
+**a)** Ajuster le modèle $$\log(\mu_i)=\beta_0+\beta_1 x_i,$$ où $$x_i=\left\{\begin{array}{ll} 0, & \text{ si traitement A},\\ 1, & \text{ si traitement B}.\\ \end{array}\right. $$ Montrer que $\exp(\beta_1)=\mu_B/\mu_A$ et interpréter la valeur de l'estimateur du paramètre.
+
+**b)** Tester $H_0: \mu_A = \mu_B$ avec le test de Wald. Iterpréter.
+
+**c)** Construire un intervalle de confiance à 95\
+
+**d)** Y a-t-il présence de surdispersion? Expliquer.
+
+**e)** Ajuster le modèle Binomiale Négative avec lien logarithmique. Que peut-on remarquer?
+
+**f)** Ajuster les modèles Poisson et Binomiale Négative aux 20 données sans inclure la variable explicative $x$. Comparer les résultats et comparer les intervalles de confiance pour la moyenne de la variable réponse. Commenter.
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+**a)** Avec ce modèle, on a que $$
+\begin{aligned} \mu_A &= \exp(\beta_0)\\ \mu_B &= \exp(\beta_0+\beta_1)=\mu_A \exp(\beta_1), \end{aligned}
+$$ ce qui implique que $\exp(\beta_1)=\mu_B/\mu_A$. On ajuste le modèle en \texttt{R}, et on vérifie que cela est bien vrai: ```{r} y <- c( 8,7,6,6,3,4,7,2,3,4,9,9,8,14,8,13,11,5,7,6) x <- rep(0:1,each=10) fit1 <- glm(y x,family=poisson) summary(fit1) log(mean(y[which(x==1)])/mean(y[which(x==0)])) ```
+
+**b)** Puisque $\exp(\beta_1)=\mu_B/\mu_A$, alors si $H_0: \mu_A=\mu_B$ est vraie, $\beta_1=0$. On peut utiliser la statistique de Wald directement, on trouve que le seuil observé du test est 0.000861. On rejette donc l'hypothèse nulle à un niveau de confiance de 99\
+
+**c)** Un I.C. à 95\
+
+**d)** Il n'y a pas d'indications de surdispersion, puisque la déviance est 16.26 sur 18 degrés de liberté, et $16.26/18<1$.
+
+**e)** Quand on ajuste une binomiale négative à ces données, on trouve que $\theta_z$ tend vers l'infini, donc le modèle Poisson est une simplification adéquate du modèle NB. En fait, les estimations des paramètres $\beta_0$ et $\beta_1$ sont exactement les mêmes que celles obtenues dans le modèle Poisson. ```{r} library(MASS) fit2 <- glm.nb(y x) summary(fit2) ```
+
+**f)** Dans ce cas, on remarque que, bien que l'estimation du paramètre est égale pour les deux modèles, l'écart-type diffère. Aussi, le modèle de Poisson ne semble plus adéquat, car $Deviance/dl=27.857/19>1$, alors que le modèle NB s'ajuste bien aux données. Cela montre que lorsqu'une variable explicative importante n'est pas observée, le modèle de Poisson peut perdre sa validité pour des données de comptage. La variable explicative manquante introduit de la sur-dispersion dans les données, ce qui est capturé efficacement avec la loi NB. ```{r} fit3 <- glm(y 1,family=poisson) fit4 <- glm.nb(y 1) summary(fit3) summary(fit4) exp(fit3$coef[1]+c(-1,1)*qnorm(0.975)*summary(fit3)$coefficients[1,2]) exp(fit4$coef[1]+c(-1,1)*qnorm(0.975)*summary(fit4)$coefficients[1,2]) ```
+:::
+

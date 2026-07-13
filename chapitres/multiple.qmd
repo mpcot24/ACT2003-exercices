@@ -1,0 +1,42 @@
+# Régression linéaire multiple
+
+{{< include multiple/ex_demo_emc_multiple.qmd >}}
+
+{{< include multiple/ex_matrice_incidence.qmd >}}
+
+{{< include multiple/ex_cas_particulier_simple.qmd >}}
+
+{{< include multiple/ex_relations_multiples.qmd >}}
+
+{{< include multiple/ex_pivot_coefficient_estime.qmd >}}
+
+{{< include multiple/ex_intervalle_de_confiance.qmd >}}
+
+{{< include multiple/ex_test_validite_globale.qmd >}}
+
+{{< include multiple/ex_estimation_main.qmd >}}
+
+{{< include multiple/ex_carburant_multiple.qmd >}}
+
+{{< include multiple/ex_sinistres_auto.qmd >}}
+
+{{< include multiple/ex_demande_biere.qmd >}}
+
+{{< include multiple/ex_statistique_test.qmd >}}
+
+{{< include multiple/ex_anova_trois_variables.qmd >}}
+
+{{< include multiple/ex_flotte_taxis.qmd >}}
+
+{{< include multiple/ex_postulats.qmd >}}
+
+{{< include multiple/ex_modele_tabulaires.qmd >}}
+
+{{< include multiple/ex_regression_ponderee.qmd >}}
+
+{{< include multiple/ex_blue_beta_residus.qmd >}}
+
+{{< include multiple/ex_calcul_ponderee.qmd >}}
+
+{{< include multiple/ex_outlier.qmd >}}
+

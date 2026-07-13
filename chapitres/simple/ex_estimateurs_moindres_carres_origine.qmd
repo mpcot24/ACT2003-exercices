@@ -1,0 +1,28 @@
+## Estimateurs des moindres carrés pour la régression linéaire passant par l'origine {#sec-simple-estimateurs_moindres_carres_origine}
+
+**a)** Trouver l'estimateur des moindres carrés du paramètre $\beta$ dans le modèle de régression linéaire passant par l'origine $Y_i = \beta x_i + \varepsilon_i$, $i = 1, \dots, n$, sous les postulats $\esp{\varepsilon_i} = 0$, et $\cov{\varepsilon_i, \varepsilon_j} = \mathbf{1}(i=j) \sigma^2$.
+
+**b)** Démontrer que l'estimateur en a) est sans biais.
+
+**c)** Calculer la variance de l'estimateur en a).
+
+::: {.callout-note collapse="true" title="Éléments de réponse"}
+**a)** $\hat{\beta}= \sum_{i = 1}^n x_i Y_i/\sum_{i = 1}^n x_i^2$ \stepcounter{enumi}
+
+**b)** $\var{\hat{\beta}} = \sigma^2/\sum_{i = 1}^n x_i^2$
+:::
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+**a)** L'estimateur des moindres carrés du paramètre $\beta$ est la valeur $\hat{\beta}$ minimisant la somme de carrés $$
+\begin{aligned} S(\beta) &=\sum_{i = 1}^n \varepsilon_i^2 \\ &=\sum_{i = 1}^n (Y_i - \beta x_i)^2. \end{aligned}
+$$ Or, $$ \frac{d}{d \beta}  S(\beta) = -2 \sum_{i = 1}^n (Y_i - \hat{\beta} x_i) x_i, $$ d'où l'unique équation normale de ce modèle est $$ \sum_{i = 1}^n x_i Y_i - \hat{\beta} \sum_{i=1}^n x_i^2 = 0. $$ L'estimateur des moindres carrés de $\beta$ est donc $$ \hat{\beta} = \frac{\sum_{i=1}^n x_i Y_i}{\sum_{i=1}^n x_i^2}. $$
+
+**b)** On doit démontrer que $\esp{\hat{\beta}} = \beta$. On a $$
+\begin{aligned} \esp{\hat{\beta}} &= \Esp{\frac{\sum_{i=1}^n x_i Y_i}{\sum_{i=1}^n x_i^2}} \\ &= \frac{1}{\sum_{i=1}^n x_i^2} \sum_{i=1}^n x_i \esp{Y_i} \\ &= \frac{1}{\sum_{i=1}^nx_i^2} \sum_{i=1}^n x_i \beta x_i \\ &= \beta  \frac{\sum_{i=1}^n x_i^2}{\sum_{i=1}^n x_i^2} \\ &= \beta. \end{aligned}
+$$
+
+**c)** Des hypothèses du modèle, on a $$
+\begin{aligned} \var{\hat{\beta}} &= \Var{\frac{\sum_{i=1}^n x_i Y_i}{\sum_{i=1}^n x_i^2}} \\ &= \frac{1}{(\sum_{i=1}^n x_i^2)^2} \sum_{i=1}^n x_i^2 \var{Y_i} \\ &= \frac{\sigma^2}{(\sum_{i=1}^n x_i^2)^2} \sum_{i=1}^n x_i^2 \\ &= \frac{\sigma^2}{\sum_{i=1}^n x_i^2}. \end{aligned}
+$$
+:::
+

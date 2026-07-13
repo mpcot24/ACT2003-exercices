@@ -1,0 +1,60 @@
+## GLM Poisson avec deux groupes {#sec-comptage-glm_poisson_groupes}
+
+On suppose que $Y_i$ suit une Poisson avec $g(\mu_i)=\beta_0+\beta_1x_i,$ où $x_i=1,$ pour $i=1,\ldots,n_A$ (groupe A) et $x_i=0,$ pour $i=n_A+1,\ldots,n_A+n_B$ (groupe B). Montrer que, pour toute fonction de lien $g$ continue, l'estimation du GLM par maximum de vraisemblance implique que les moyennes ajustées $\hat{\mu}_A$ et $\hat{\mu}_B$ sont égales aux moyennes empiriques dans l'échantillon.
+
+*Indice:* La dérivée de la réciproque d'une fonction continue $g$ est $\frac{1}{g'\circ g^{-1}}$.
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+On note $n=n_A+n_B$. La vraisemblance pour ce GLM est
+$$
+\begin{aligned}
+\mathcal{L}(\beta_0,\beta_1)&=\prod_{i=1}^n \exp(y_i\log(\mu_i)-\mu_i+\text{cte})\\
+&=\prod_{i=1}^n \exp(y_i\log(g^{-1}(\eta_i))-g^{-1}(\eta_i)+\text{cte}).
+\end{aligned}
+$$
+La log-vraisemblance est donc:
+$$
+\begin{aligned}
+\ell(\beta_0,\beta_1)&=\sum_{i=1}^n (y_i\log(g^{-1}(\eta_i))-g^{-1}(\eta_i)+\text{cte}).
+\end{aligned}
+$$
+On dérive par rapport à $\beta_0$ et $\beta_1$:
+$$
+\begin{aligned}
+\frac{\partial \ell(\beta_0,\beta_1)}{\partial\beta_0}&=\sum_{i=1}^n (y_i\frac{1}{g^{-1}(\eta_i)g'(g^{-1}(\eta_i))}-\frac{1}{g'(g^{-1}(\eta_i))})\\
+&=\sum_{i=1}^n \frac{(y_i-g^{-1}(\eta_i))}{g^{-1}(\eta_i)g'(g^{-1}(\eta_i))}\\
+\frac{\partial \ell(\beta_0,\beta_1)}{\partial\beta_1}&=\sum_{i=1}^n (y_i\frac{x_i}{g^{-1}(\eta_i)g'(g^{-1}(\eta_i))}-\frac{x_i}{g'(g^{-1}(\eta_i))})\\
+&=\sum_{i=1}^n \frac{ x_i(y_i-g^{-1}(\eta_i))}{g^{-1}(\eta_i)g'(g^{-1}(\eta_i))}.
+\end{aligned}
+$$
+On égalise à 0 pour obtenir le système d'équations à résoudre.
+$$
+\begin{aligned}
+0&=\sum_{i=1}^n \frac{(y_i-g^{-1}(\hat{\eta}_i))}{g^{-1}(\hat{\eta}_i)g'(g^{-1}(\hat{\eta}_i))}\\
+0&=\sum_{i=1}^n \frac{ x_i(y_i-g^{-1}(\hat{\eta}_i))}{g^{-1}(\hat{\eta}_i)g'(g^{-1}(\hat{\eta}_i))}
+\end{aligned}
+$$
+On utilise que $x_i=0 \forall i \in (n_A+1,...,n_A+n_B)$:
+$$
+\begin{aligned}
+0&=\sum_{i=1}^{n_A+n_B} \frac{(y_i-g^{-1}(\hat{\eta}_i))}{g^{-1}(\hat{\eta}_i)g'(g^{-1}(\hat{\eta}_i))}\\
+0&=\sum_{i=1}^{n_A} \frac{ (y_i-g^{-1}(\hat{\eta}_i))}{g^{-1}(\hat{\eta}_i)g'(g^{-1}(\hat{\eta}_i))}\\
+\Rightarrow 0&= \sum_{i=n_A+1}^{n_A+n_B} \frac{ (y_i-g^{-1}(\hat{\eta}_i))}{g^{-1}(\hat{\eta}_i)g'(g^{-1}(\hat{\eta}_i))}.
+\end{aligned}
+$$
+Aussi, $\forall i \in (1,...,n_A), \hat{\eta}_i=\hat{\beta}_0+\hat{\beta}_1$, ce qui ne dépend pas de $i$. Le dénominateur ne dépend pas de $i$ et peut sortir de la somme et s'annuler. De même, $\forall i \in (n_A+1,...,n_A+n_B), \hat{\eta}_i=\hat{\beta}_0$, ce qui ne dépend pas de $i$. Le dénominateur ne dépend pas de $i$ et peut sortir de la somme et s'annuler. On obtient donc les équations:
+$$
+\begin{aligned}
+0&=\sum_{i=1}^{n_A} (y_i-g^{-1}(\hat{\eta}_i))\\
+0&= \sum_{i=n_A+1}^{n_A+n_B}  (y_i-g^{-1}(\hat{\eta}_i)).
+\end{aligned}
+$$
+Finalement, $g^{-1}(\hat{\eta}_i)=\hat{\mu}_i$ par définition. Alors
+$$
+\begin{aligned}
+0&=\sum_{i=1}^{n_A} (y_i-\hat{\mu}_A) \Rightarrow \sum_{i=1}^{n_A}y_i =n_A\hat{\mu}_A \Rightarrow \frac{\sum_{i=1}^{n_A}y_i}{n_A} =\hat{\mu}_A\\
+0&= \sum_{i=n_A+1}^{n_A+n_B}  (y_i-\hat{\mu}_B) \Rightarrow \sum_{i=n_A+1}^{n_A+n_B}y_i =n_B\hat{\mu}_B \Rightarrow \frac{\sum_{i=n_A+1}^{n_A+n_B}y_i}{n_B} =\hat{\mu}_B.
+\end{aligned}
+$$
+:::
+

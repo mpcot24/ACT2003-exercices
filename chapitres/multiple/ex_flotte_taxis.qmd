@@ -1,0 +1,63 @@
+## Flotte de taxis {#sec-multiple-flotte_taxis}
+
+Une coopérative de taxi new-yorkaise s'intéresse à la consommation
+  de carburant des douze véhicules de sa flotte en fonction de leur
+  âge.  Hormis leur âge, les véhicules sont identiques et utilisent
+  tous le même type d'essence. La seule chose autre différence notable
+  d'un véhicule à l'autre est le sexe du conducteur: la coopérative
+  emploie en effet des hommes et des femmes. La coopérative a
+  recueilli les données suivantes afin d'établir un modèle de
+  régression pour la consommation de carburant:
+  \begin{center}
+    \begin{tabular}{ccc}
+      \toprule
+      Consommation (mpg) & Âge du véhicule & Sexe du conducteur \\
+      \midrule
+      12,3 & 3 & M \\
+      12,0 & 4 & F \\
+      13,7 & 3 & F \\
+      14,2 & 2 & M \\
+      15,5 & 1 & F \\
+      11,1 & 5 & M \\
+      10,6 & 4 & M \\
+      14,0 & 1 & M \\
+      16,0 & 1 & F \\
+      13,1 & 2 & M \\
+      14,8 & 2 & F \\
+      10,2 & 5 & M \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+**a)** En plaçant les points sur un graphique de la consommation de carburant en fonction de l'âge du véhicule, identifier s'il existe ou non une différence entre la consommation de carburant des femmes et celle des hommes. *Astuce*: utiliser un symbole (\texttt{pch}) différent pour chaque groupe.
+
+**b)** Établir un modèle de régression pour la consommation de carburant. Afin de pouvoir intégrer la variable qualitative «sexe du conducteur» dans le modèle, utiliser une variable indicatrice du type $$ x_{i2} = \begin{cases} 1, & \text{si le conducteur est un homme} \\ 0, & \text{si le conducteur est une femme}. \end{cases} $$
+
+**c)** Quelle est, selon le modèle établi en b), la consommation moyenne d'une voiture taxi de quatre ans conduite par une femme? Fournir un intervalle de confiance à 90 \
+
+```{r echo}
+#| echo: false
+
+donnees <- read.table("data/exercice_3.18.dat", header = TRUE)
+fit <- lm(mpg   age + sexe, data = donnees)
+b <- round(coef(fit), 3)
+pred <- predict(fit, newdata = data.frame(age = 4, sexe = "F"),
+        interval = "confidence", level = 0.90)
+pred <- round(pred, 2)
+```
+
+::: {.callout-note collapse="true" title="Éléments de réponse"}
+\stepcounter{enumi}
+
+**a)** $\text{mpg} = 
+
+**b)** $\Sexpr{format(pred[1], dec = ",")} \pm \Sexpr{format(diff(pred[c(1, 3)]), dec = ",")} \text{ mpg}$
+:::
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+**a)** Voir la figure @sec-multiple-flotte_taxis pour le graphique. Il y a effectivement une différence entre la consommation de carburant des hommes et des femmes: ces dernières font plus de milles avec un gallon d'essence. 
+
+**b)** Remarquer que la variable \texttt{sexe} est un facteur et peut être utilisée telle quelle dans \texttt{lm}: ```{r} (fit <- lm(mpg   age + sexe, data = donnees)) ```
+
+**c)** Calcul d'une prévision pour la valeur moyenne de la variable \texttt{mpg}: ```{r} predict(fit, newdata = data.frame(age = 4, sexe = "F"), interval = "confidence", level = 0.90) ```
+:::
+

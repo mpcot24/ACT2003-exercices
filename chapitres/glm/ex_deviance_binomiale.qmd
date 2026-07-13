@@ -1,0 +1,31 @@
+## Déviance du modèle binomial {#sec-glm-deviance_binomiale}
+
+Montrer que la déviance pour le modèle binomial est $$D(y,\hat{\mu})=2\sum_{i=1}^n m_i \left[y_i\ln\left(\frac{y_i}{\hat{\mu}_i}\right)+(1-y_i)\ln\left(\frac{1-y_i}{1-\hat{\mu}_i}\right)\right].$$
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+La déviance est $$D(y;\hat{\mu})=2(\ell_n(\tilde{\theta})-\ell_n(\hat{\theta})).$$ Pour le modèle Binomial, on a que
+$$
+\begin{aligned}
+\ell_n(\theta)&=\sum_{i=1}^n\frac{Y_i\ln\left(\frac{\mu_i}{1-\mu_i}\right)+\ln(1-\mu_i)}{1/m_i}.
+\end{aligned}
+$$ Alors, dans le modèle complet, $\mu_i=Y_i$ et on trouve
+$$
+\begin{aligned}
+\ell_n(\tilde{\theta})&=\sum_{i=1}^n\frac{Y_i\ln\left(\frac{Y_i}{1-Y_i}\right)+\ln(1-Y_i)}{1/m_i}.
+\end{aligned}
+$$
+Dans le modèle développé avec le lien log, $\mu_i=\hat{\mu}_i$ et on trouve
+$$
+\begin{aligned}
+\ell_n(\hat{\theta})&=\sum_{i=1}^n\frac{Y_i\ln\left(\frac{\hat{\mu}_i}{1-\hat{\mu}_i}\right)+\ln(1-\hat{\mu}_i)}{1/m_i}.
+\end{aligned}
+$$
+Finalement, la déviance est
+$$
+\begin{aligned}
+D(y;\hat{\mu})&=\sum_{i=1}^n\frac{Y_i\ln\left(\frac{Y_i}{1-Y_i}\right)+\ln(1-Y_i)}{1/m_i}-\frac{Y_i\ln\left(\frac{\hat{\mu}_i}{1-\hat{\mu}_i}\right)+\ln(1-\hat{\mu}_i)}{1/m_i}\\
+&=\sum_{i=1}^n m_i\left[Y_i\ln\left(\frac{Y_i}{\hat{\mu}_i}\right)+(1-Y_i)\ln\left(\frac{1-Y_i}{1-\hat{\mu}_i}\right)\right].
+\end{aligned}
+$$
+:::
+

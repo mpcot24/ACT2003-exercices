@@ -1,0 +1,61 @@
+## Sinistres annuels moyens par véhicule {#sec-multiple-sinistres_auto}
+
+Dans un exemple du chapitre @simple des notes de cours,
+  nous avons tâché d'expliquer les sinistres annuels moyens par
+  véhicule pour différents types de véhicules uniquement par la
+  puissance du moteur (en chevaux-vapeur).  Notre conclusion était à
+  l'effet que la régression était significative --- rejet de $H_0$
+  dans les tests *t* et *F* --- mais l'ajustement mauvais
+  --- $R^2$ petit.
+
+  Examiner les autres variables fournies dans le fichier
+  \texttt{auto-price.dat} et choisir deux autres caractéristiques
+  susceptibles d'expliquer les niveaux de sinistres. Par exemple,
+  peut-on distinguer une voiture sport d'une minifourgonnette?
+
+  Une fois les variables additionnelles choisies, calculer les
+  différentes statistiques propres à une régression en ajoutant
+  d'abord une, puis deux variables au modèle de base.  Quelles sont
+  vos conclusions?
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+Il y a plusieurs réponses possibles pour cet exercice. Si l'on
+    cherche, tel que suggéré dans l'énoncé, à distinguer les voitures
+    sport des minifourgonnettes (en supposant que ces dernières ont
+    moins d'accidents que les premières), alors on pourrait
+    s'intéresser, en premier lieu, à la variable \texttt{peak.rpm}. Il
+    s'agit du régime moteur maximal, qui est en général beaucoup plus
+    élevé sur les voitures sport. Puisque l'on souhaite expliquer le
+    montant total des sinistres de différents types de voitures, il
+    devient assez naturel de sélectionner également la variable
+    \texttt{price}, soit le prix du véhicule. Un véhicule plus luxueux
+    coûte en général plus cher à faire réparer à dommages égaux.
+    Voyons l'effet de l'ajout, pas à pas, de ces deux variables au
+    modèle précédent ne comportant que la variable
+    \texttt{horsepower}:
+```{r}
+
+autoprice <- read.table("data/auto-price.dat", header = TRUE)
+fit1 <- lm(losses   horsepower + peak.rpm, data = autoprice)
+summary(fit1)
+anova(fit1)
+```
+
+    La variable \texttt{peak.rpm} est significative, mais le $R^2$
+    demeure faible. Ajoutons maintenant la variable \texttt{price} au modèle:
+```{r}
+
+fit2 <- lm(losses   horsepower + peak.rpm + price, data = autoprice)
+summary(fit2)
+anova(fit2)
+```
+
+    Du moins avec les variables \texttt{horsepower} et
+    \texttt{peak.rpm}, la variable \texttt{price} n'est pas
+    significative. D'ailleurs, l'augmentation du $R^2$ suite à l'ajout
+    de cette variable est minime. À ce stade de l'analyse, il vaudrait
+    sans doute mieux reprendre tout depuis le début avec d'autres
+    variables. Des méthodes de sélection des variables seront étudiées
+    dans les chapitres suivants.
+:::
+

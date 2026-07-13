@@ -1,0 +1,47 @@
+## Poids moyen des femmes américaines de 30 à 39 ans {#sec-simple-poids_femmes30_39_ans}
+
+Le jeu de données \texttt{women.dat}, inclus dans \textsf{R}, contient les tailles
+  et les poids moyens de femmes américaines âgées de 30 à 39 ans.
+  Importer les données dans \textsf{R} avec \texttt{data(women)}, puis répondre aux
+  questions suivantes.
+**a)** Établir graphiquement une relation entre la taille (*height*) et le poids (*weight*) des femmes.
+
+**b)** À la lumière du graphique en a), proposer un modèle de régression approprié et en estimer les paramètres.
+
+**c)** Ajouter la droite de régression calculée en b) au graphique. Juger visuellement de l'ajustement du modèle.
+
+**d)** Obtenir, à l'aide de la fonction \texttt{summary} la valeur du coefficient de détermination $R^2$. La valeur est-elle conforme à la conclusion faite en c)?
+
+**e)** Calculer les statistiques $\SST$, $\SSR$ et $\SSE$, puis vérifier que $\SST = \SSR + \SSE$.  Calculer ensuite la valeur de $R^2$ et la comparer à celle obtenue en d).
+
+```{r echo}
+#| echo: false
+
+data(women)
+fit <- lm(weight   height, data = women)
+b <- coef(fit)
+ss <- anova(fit)[[2]]
+```
+
+::: {.callout-note collapse="true" title="Éléments de réponse"}
+\stepcounter{enumi}
+
+**a)**  $\hat{\beta}_0 = \Sexpr{format(round(b[1], 4), dec =  ",")}$ et $\hat{\beta}_1 = \Sexpr{format(round(b[2], 4), dec =  ",")}$ \stepcounter{enumi}
+
+**b)** $R^2 = \Sexpr{format(round(summary(fit)$r.squared, 4), dec =  ",")}$
+
+**c)**  $\SSR = \Sexpr{format(round(ss[1], 2), dec =  ",")}$ $\SSE = \Sexpr{format(round(ss[2], 2), dec =  ",")}$ et $\SST = \Sexpr{format(round(sum(ss), 2), dec = ",")}$
+:::
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+**a)** Voir la figure @sec-simple-poids_femmes30_39_ans. 
+
+**b)** Le graphique montre qu'un modèle linéaire serait excellent. On estime les paramètres de ce modèle avec \texttt{lm}: ```{r} (fit <- lm(weight   height, data = women)) ```
+
+**c)** Voir la figure @sec-simple-poids_femmes30_39_ans. 
+
+**d)** Le résultat de la fonction \texttt{summary} appliquée au modèle \texttt{fit} est le suivant: ```{r} summary(fit) ``` Le coefficient de détermination est donc $R^2 = \Sexpr{format(round(summary(fit)$r.squared, 4), dec = ",")}$, 
+
+**e)** On a ```{r} attach(women) SST <- sum((weight - mean(weight))^2) SSR <- sum((fitted(fit) - mean(weight))^2) SSE <- sum((weight - fitted(fit))^2) all.equal(SST, SSR + SSE) all.equal(summary(fit)$r.squared, SSR/SST) ```
+:::
+

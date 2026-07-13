@@ -1,0 +1,27 @@
+## Biais de l'estimateur du modèle Ridge {#sec-selection-ridge_biais}
+
+Sachant que l'estimateur des moindres carrés $\betavec = (\Xmat^\top\Xmat)^{-1}\Xmat^\top\yvec$ est sans biais pour $\betavec$, vérifier que, si $\lambda\ne 0$, l'estimateur du modèle ridge
+$$
+\betavec_\lambda^{\mathrm{ridge}} = (\Xmat^\top\Xmat+\lambda \mathbf{I}_p)^{-1}\Xmat^\top\yvec
+$$
+est biaisé.
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+On a
+$$
+\begin{aligned}
+\betavec_\lambda^{\mathrm{ridge}} &= (\Xmat^\top\Xmat+\lambda \mathbf{I}_p)^{-1}\Xmat^{\top}\yvec\\
+&=(\Xmat^\top\Xmat+\lambda \mathbf{I}_p)^{-1}(\Xmat^\top\Xmat)(\Xmat^\top\Xmat)^{-1}\Xmat^{\top}\yvec\\
+&=(\Xmat^\top\Xmat+\lambda \mathbf{I}_p)^{-1}(\Xmat^\top\Xmat)\betavec.
+\end{aligned}
+$$
+Si $\lambda=0$, on a
+$$
+\Esp{\betavec_\lambda^{\mathrm{ridge}}} = \esp{\betavec} = \betavec.
+$$
+Sinon, on a
+$$
+\Esp{\betavec_\lambda^{\mathrm{ridge}}} = \Esp{(\Xmat^\top\Xmat+\lambda \mathbf{I}_p)^{-1}(\Xmat^\top\Xmat)\betavec} = (\Xmat^\top\Xmat+\lambda \mathbf{I}_p)^{-1}(\Xmat^\top\Xmat)\betavec \ne \betavec.
+$$
+:::
+

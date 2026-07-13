@@ -1,0 +1,54 @@
+## Consommation de carburant d'une automobile {#sec-simple-consommation_carburant}
+
+On veut prévoir la consommation de carburant d'une automobile à
+  partir de ses différentes caractéristiques physiques, notamment le
+  type du moteur. Le fichier \texttt{carburant.dat} contient des
+  données tirées de *Consumer Reports* pour 38 automobiles des
+  années modèle 1978 et 1979. Les caractéristiques fournies sont
+**a)** \texttt{mpg}: consommation de carburant en milles au gallon;
+
+**b)** \texttt{nbcyl}: nombre de cylindres (remarquer la forte représentation des 8 cylindres!);
+
+**c)** \texttt{cylindree}: cylindrée du moteur, en pouces cubes;
+
+**d)** \texttt{cv}: puissance en chevaux vapeurs;
+
+**e)** \texttt{poids}: poids de la voiture en milliers de livres.
+
+  Utiliser \textsf{R} pour faire l'analyse ci-dessous.
+**a)** Convertir les données du fichier en unités métriques, le cas échéant. Par exemple, la consommation de carburant s'exprime en $\ell$/100 km.  Or, un gallon américain correspond à 3,785 litres et 1 mille à 1,6093 kilomètre. La consommation en litres aux 100 km s'obtient donc en divisant 235,1954 par la consommation en milles au gallon.  De plus, 1 livre correspond à 0,45455 kilogramme.
+
+**b)** Établir une relation entre la consommation de carburant d'une voiture et son poids. Vérifier la qualité de l'ajustement du modèle et si le modèle est significatif.
+
+**c)** Trouver un intervalle de confiance à 95 \
+
+```{r echo}
+#| echo: false
+
+carburant <- read.table("data/carburant.dat", header = TRUE)
+consommation <- 235.1954/carburant$mpg
+poids <- carburant$poids * 0.45455 * 1000
+fit <- lm(consommation   poids)
+b <- coef(fit)
+s <- summary(fit)$sigma
+R2 <- summary(fit)$r.squared
+f <- summary(fit)$fstatistic[1]
+pred.pi <- predict(fit, newdata = data.frame(poids = 1350), interval = "prediction")
+```
+
+::: {.callout-note collapse="true" title="Éléments de réponse"}
+\stepcounter{enumi}
+
+**a)** $R^2 = \Sexpr{format(signif(R2, 4), dec = ",")}$ et $F = \Sexpr{format(signif(f, 4), dec = ",")}$
+
+**b)** $\Sexpr{format(signif(pred.pi[1], 4), dec = ",")} \pm \Sexpr{format(signif(diff(pred.pi[c(1, 3)]), 3), dec = ",")}$
+:::
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+**a)** On importe les données dans \textsf{R}, puis on effectue les conversions demandées. La variable \texttt{consommation} contient la consommation des voitures en $\ell$/100 km et la variable \texttt{poids} le poids en kilogrammes. ```{r eval} #| eval: false carburant <- read.table("carburant.dat", header = TRUE) consommation <- 235.1954/carburant$mpg poids <- carburant$poids * 0.45455 * 1000 ```
+
+**b)** La fonction \texttt{summary} fournit l'information essentielle pour juger de la validité et de la qualité du modèle: ```{r} fit <- lm(consommation   poids) summary(fit) ``` Le modèle est donc le suivant: $Y_i = \Sexpr{format(signif(b[1], 4), dec = ",")} + \Sexpr{format(signif(b[2], 4), dec = ",")} x_i + \varepsilon_i$, $\varepsilon_i \sim N(0, \Sexpr{format(signif(s, 4), dec = ",")}^2)$, où $Y_i$ est la consommation en litres aux 100 kilomètres et $x_i$ le poids en kilogrammes. La faible valeur $p$ du test $F$ indique une régression très significative. De plus, le $R^2$ de \Sexpr{format(signif(R2, 4), dec = ",")} 
+
+**c)** On veut calculer un intervalle de confiance pour la consommation en carburant prévue d'une voiture de \nombre{1350} kg. On obtient, avec la fonction \texttt{predict}: ```{r} predict(fit, newdata = data.frame(poids = 1350), interval = "prediction") ```
+:::
+

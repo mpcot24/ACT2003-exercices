@@ -1,0 +1,22 @@
+## Cas de cancer de la peau parmi des femmes à St-Paul {#sec-binom-cancer_peau_st_paul}
+
+Les données contenues dans le fichier \texttt{skin.txt} montrent le nombre de cas de cancer de la peau parmi des femmes à St-Paul, Minnesota et à Forth Worth, Texas. On s'attend normalement à ce que l'exposition au soleil soit plus forte au Texas qu'au Minnesota. Dans les données, la variable \texttt{town} vaut 0 pour St-Paul et 1 pour Forth Worth. On a également la population et le groupe d'âge.
+
+**a)** Ajuster un modèle de régression logistique \texttt{town+age} pour ces données. Est-ce que les variables sont significatives?
+
+**b)** A-t-on une indication dans ces données que l'exposition au soleil augmente la probabilité d'être atteinte du cancer de la peau?
+
+**c)** Comparer les probabilités ajustées (et écarts-types) pour des femmes de 45 ans vivant à St-Paul versus vivant à Fort Worth.
+
+**d)** Utiliser un modèle de Poisson avec lien canonique, de façon appropriée, pour modéliser ces données. Arrive-t-on aux mêmes conclusions?
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+**a)** Le modèle de régression logistique est $\log\left(\frac{\pi_i}{1-\pi_i}\right)=\eta_i=\beta_0+\beta^{town}+\beta^{age}$. On y va: ```{r} skin <- read.table("data/Skin.txt",header=TRUE) mod1 <- glm(cbind(Cases,Population-Cases) Town+Age,family=binomial,data=skin) summary(mod1) ``` Selon les tests de Wald, tous les paramètres sont hautement significatifs.
+
+**b)** Oui, le coefficient lié à la variable \texttt{Town} est positif. Cela signifie que d'être à Fort Worth augmente $\eta_i$, et puisque $\pi_i=\frac{e^{\eta_i}}{1+e^{\eta_i}}$, cela augmente aussi la probabilité d'avoir le cancer de la peau.
+
+**c)** Pour la femme vivant à St-Paul, on a $$\hat{\pi}=\frac{\exp(-11.69364+4.595	38)}{1+\exp(-11.69364+4.59538)}=0.00082586.$$ Pour la femme vivant à Fort Worth, on a $$\hat{\pi}=\frac{\exp(-11.69364+0.85492+4.59538)}{1+\exp(-11.69364+0.85492+4.59538)}=0.0019396.$$ On trouve donc que la deuxième probabilité est plus élevée que la première. En \textsf{R}, on peut utiliser la fonction \texttt{predict}: ```{r} predict(mod1,data.frame(Town=c(0,1),Age=rep("45-54",2)),type="response",se.fit=TRUE) ```
+
+**d)** On peut utiliser un modèle de Poisson avec un terme offset égal au logarithme de la population. On obtient les mêmes conclusions quant à l'effet de la ville sur la probabilité d'être atteinte du cancer de la peau. Le modèle de Poisson semble adéquat si on se base sur la déviance. Dans ce cas, les populations sont très élevées, alors le modèle de Poisson est une excellente approximation pour le modèle Binomial. ```{r} mod2 <- glm(Cases Town+Age+offset(log(Population)),family=poisson,data=skin) summary(mod2) predict(mod2,data.frame(Town=c(0,1),Age=rep("45-54",2),Population=rep(1,2)),type="response",se.fit=TRUE) ```
+:::
+

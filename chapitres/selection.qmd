@@ -1,0 +1,10 @@
+# Sélection de modèle et régression régularisée
+
+{{< include selection/ex_ethnicite_compagnies_assurance.qmd >}}
+
+{{< include selection/ex_matrice_incidence_diagonale.qmd >}}
+
+{{< include selection/ex_ridge_main.qmd >}}
+
+{{< include selection/ex_ridge_biais.qmd >}}
+

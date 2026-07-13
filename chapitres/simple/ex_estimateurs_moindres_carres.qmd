@@ -1,0 +1,55 @@
+## Estimateurs des moindres carrés pour la régression linéaire simple {#sec-simple-estimateurs_moindres_carres}
+
+Considérer le modèle de régression linéaire par rapport au temps
+  $Y_t = \beta_0 + \beta_1 t + \varepsilon_t$, pour $t = 1, \dots, n$. Écrire
+  les équations de score et obtenir les estimateurs des moindres
+  carrés des paramètres $\beta_0$ et $\beta_1$. *Note*:
+  $\sum_{i=1}^n i^2 = n(n + 1)(2n + 1)/6$.
+
+::: {.callout-note collapse="true" title="Éléments de réponse"}
+$\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 (n + 1)/2$, et
+    $\hat{\beta}_1 = \{12 \sum_{t = 1}^n t Y_t - 6 n (n + 1)
+    \bar{Y}\}/\{n (n^2 - 1)\}$
+:::
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+On a un modèle de régression linéaire simple usuel avec $x_t =
+    t$. Les estimateurs des moindres carrés des paramètres $\beta_0$ et
+    $\beta_1$ sont donc
+    $$
+\begin{aligned}
+      \hat{\beta}_0
+      &= \bar{Y} - \hat{\beta}_1  \frac{\sum_{t = 1}^n t}{n} \\
+      \end{aligned}
+$$
+
+et
+
+$$
+\begin{aligned}
+      \hat{\beta}_1
+      &= \frac{\sum_{t = 1}^n t Y_t - \bar{Y} \sum_{t = 1}^n t}{\sum_{t
+          = 1}^n t^2 - n^{-1} (\sum_{t = 1}^n t)^2}.
+    \end{aligned}
+$$
+    Or, puisque $\sum_{t = 1}^n t = n(n + 1)/2$ et $\sum_{t = 1}^n t^2
+    = n(n + 1)(2n + 1)/6$, les expressions ci-dessus se simplifient en
+    $$
+\begin{aligned}
+      \hat{\beta}_0
+      & = \bar{Y} - \hat{\beta}_1  \frac{n + 1}{2} \\
+      \end{aligned}
+$$
+
+et
+
+$$
+\begin{aligned}
+      \hat{\beta}_1
+      & = \frac{\sum_{t=1}^n t Y_t - n(n + 1) \bar{Y}/2}{n(n + 1)(2n +
+        1)/6 - n(n + 1)^2/4} \\
+      & = \frac{12 \sum_{t=1}^n t Y_t - 6 n (n + 1) \bar{Y}}{n (n^2 - 1)}.
+    \end{aligned}
+$$
+:::
+

@@ -1,0 +1,12 @@
+## Fonctions de lien avec une loi de Poisson {#sec-glm-lien_poisson}
+
+Quelles fonctions de lien peut-on utiliser pour un GLM avec une loi de Poisson?
+
+::: {.callout-note collapse="true" title="Éléments de réponse"}
+$\eta=\ln(\mu)$
+:::
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+Le lien canonique est le lien log: $\eta=\ln(\mu)$. On pourrait aussi utiliser d'autres fonctions de lien, telle que le lien identité $\eta=\mu$, le lien inverse $\eta=\frac{1}{\mu}$, mais le lien log est le plus approprié parce que son utilisation garantit une moyenne $\mu$ positive, ce qui est nécessaire pour la loi de Poisson.
+:::
+

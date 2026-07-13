@@ -1,0 +1,29 @@
+## Démonstration {#sec-simple-demo_y_espilon}
+
+Dans le contexte de la régression linéaire simple, démontrer que
+  $$
+    \sum_{i=1}^n (\hat{Y}_i - \bar{Y}) \hat{\varepsilon}_i = 0.
+  $$
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+Puisque $\hat{Y}_i = (\bar{Y} - \hat{\beta}_1 \bar{x}) +
+    \hat{\beta}_1 x_i = \bar{Y} + \hat{\beta}_1 (x_i - \bar{x})$ et
+    que $\hat{\varepsilon}_i = Y_i - \hat{Y}_i = (Y_i - \bar{Y}) - \hat{\beta}_1 (x_i
+    - \bar{x})$, alors
+    $$
+\begin{aligned}
+      \sum_{i = 1}^n (\hat{Y}_i - \bar{Y}) \hat{\varepsilon}_i
+      &= \hat{\beta}_1
+      \left(
+        \sum_{i=1}^n (x_i - \bar{x})(Y_i - \bar{Y}) -
+        \hat{\beta}_1 \sum_{i = 1}^n (x_i - \bar{x})^2
+      \right) \\
+      & = \hat{\beta}_1
+      \left(
+        S_{xy} - \frac{S_{xy}}{S_{xx}}  S_{xx}
+      \right) \\
+      & = 0.
+    \end{aligned}
+$$
+:::
+

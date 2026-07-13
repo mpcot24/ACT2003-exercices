@@ -1,0 +1,33 @@
+## Matrice d'incidence et EMC {#sec-multiple-matrice_incidence}
+
+Pour chacun des modèles de régression ci-dessous, spécifier la
+  matrice d'incidence $\Xmat$ dans la représentation $\yvec =
+  \Xmat \betavec + \epsvec$ du modèle, puis obtenir, si possible, les
+  formules explicites des estimateurs des moindres carrés des
+  paramètres.
+**a)** $Y_i = \beta_0 + \varepsilon_i$
+
+**b)** $Y_i = \beta_1 x_i + \varepsilon_i$
+
+**c)** $Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \varepsilon_i$
+
+::: {.callout-note collapse="true" title="Éléments de réponse"}
+**a)** $\hat{\beta}_0 = \bar{Y}$
+
+**b)** $\hat{\beta}_1 = (\sum_{i=1}^n x_i Y_i)/(\sum_{i=1}^n x_i^2)$
+:::
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+**a)** On a un modèle sans variable explicative. Intuitivement, la meilleure prévision de $Y_i$ sera alors $\bar{Y}$. En effet, pour ce modèle, $$ \Xmat = \begin{bmatrix} 1 \\ \vdots \\ 1 \end{bmatrix}_{n \times 1} $$ et $$
+\begin{aligned} \hatbetavec &=\left(\Xmat^\top \Xmat \right)^{-1} \Xmat^\top \yvec \\ &= \left( \begin{bmatrix} 1 & \cdots & 1 \end{bmatrix} \begin{bmatrix} 1 \\ \vdots \\ 1 \end{bmatrix} \right)^{-1} \begin{bmatrix} 1 & \cdots & 1 \end{bmatrix} \begin{bmatrix} Y_1 \\ \vdots \\ Y_n \end{bmatrix}\\ &= n^{-1} \sum_{i=1}^n Y_i \\ &= \bar{Y}. \end{aligned}
+$$
+
+**b)** Il s'agit du modèle de régression linéaire simple passant par l'origine, pour lequel la matrice d'incidence est $$ \Xmat = \begin{bmatrix} x_1 \\ \vdots \\ x_n \end{bmatrix}_{n \times 1}. $$ Par conséquent, $$
+\begin{aligned} \hatbetavec &= \left( \begin{bmatrix} x_1 & \cdots & x_n \end{bmatrix} \begin{bmatrix} x_1 \\ \vdots \\ x_n \end{bmatrix} \right)^{-1} \begin{bmatrix} x_1 & \cdots & x_n \end{bmatrix} \begin{bmatrix} Y_1 \\ \vdots \\ Y_n \end{bmatrix} \\ &= \left( \sum_{i=1}^n x_i^2 \right)^{-1} \sum_{i=1}^n x_iY_i \\ &= \frac{\sum_{i=1}^n x_i Y_i}{\sum_{i=1}^n x_i^2}, \end{aligned}
+$$ tel qu'obtenu à l'exercice @simple.@sec-simple-estimateurs_moindres_carres_origine.
+
+**c)** On est ici en présence d'un modèle de régression multiple ne passant pas par l'origine et ayant deux variables explicatives. La matrice d'incidence est alors $$ \Xmat = \begin{bmatrix} 1      & x_{11}  & x_{12} \\ \vdots & \vdots & \vdots \\ 1      & x_{n1}  & x_{n2} \end{bmatrix}_{n \times 3}. $$ Par conséquent, $$
+\begin{aligned} \hatbetavec &= \left( \begin{bmatrix} 1     & \cdots & 1      \\ x_{11} & \cdots & x_{n1} \\ x_{12} & \cdots & x_{n2} \end{bmatrix} \begin{bmatrix} 1      & x_{11}  & x_{12} \\ \vdots & \vdots & \vdots \\ 1      & x_{n1}  & x_{n2} \end{bmatrix} \right)^{-1} \begin{bmatrix} 1     & \cdots & 1      \\ x_{11} & \cdots & x_{n1} \\ x_{12} & \cdots & x_{n2} \end{bmatrix} \begin{bmatrix} Y_1 \\ \vdots \\ Y_n \end{bmatrix} \\ & = \begin{bmatrix} n           & n \bar{x}_1             & n \bar{x}_2 \\ n \bar{x}_1 & \sum_{i=1}^n x_{i1}^2    & \sum_{i=1}^n x_{i1}x_{i2} \\ n \bar{x}_2 & \sum_{i=1}^n x_{i1}x_{i2} & \sum_{i=1}^n x_{i2}^2 \end{bmatrix}^{-1} \begin{bmatrix} \sum_{i=1}^n Y_i \\ \sum_{i=1}^n x_{i1}Y_i \\ \sum_{i=1}^n x_{i2}Y_i \end{bmatrix}. \end{aligned}
+$$ L'inversion de la première matrice et le produit par la seconde sont laissés aux bons soins du lecteur plus patient que les rédacteurs de ces solutions.
+:::
+

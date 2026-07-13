@@ -1,0 +1,12 @@
+# Modélisation de données binomiales
+
+{{< include binom/ex_contributions_etoiles_nba.qmd >}}
+
+{{< include binom/ex_groupement_binomiales.qmd >}}
+
+{{< include binom/ex_age_kyphosis.qmd >}}
+
+{{< include binom/ex_cancer_peau_st_paul.qmd >}}
+
+{{< include binom/ex_pearson_statistique.qmd >}}
+

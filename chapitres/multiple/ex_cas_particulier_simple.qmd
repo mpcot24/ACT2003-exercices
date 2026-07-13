@@ -1,0 +1,73 @@
+## Cas particulier de la régression linéaire simple {#sec-multiple-cas_particulier_simple}
+
+Vérifier, pour le modèle de régression linéaire simple, que les
+  valeurs trouvées dans la matrice de variance-covariance
+  $\var{\hatbetavec} = \sigma^2 (\Xmat^\top \Xmat)^{-1}$
+  correspondent à celles calculées au chapitre @simple.
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+Dans le modèle de régression linéaire simple, la matrice schéma est
+    $$
+      \Xmat =
+      \begin{bmatrix}
+        1      & x_1    \\
+        \vdots & \vdots \\
+        1      & x_n
+      \end{bmatrix}.
+    $$
+    Par conséquent,
+    $$
+\begin{aligned}
+      \var{\hatbetavec}
+      &= \sigma^2 (\Xmat^\top \Xmat)^{-1} \\
+      &= \sigma^2
+      \left(
+        \begin{bmatrix}
+          1   & \cdots & 1  \\
+          x_1 & \cdots & x_n
+        \end{bmatrix}
+        \begin{bmatrix}
+          1      & x_1    \\
+          \vdots & \vdots \\
+          1      & x_n
+        \end{bmatrix}
+      \right)^{-1} \\
+      &= \sigma^2
+      \begin{bmatrix}
+        n         & n \bar{x}        \\
+        n \bar{x} & \sum_{i=1}^n x_i^2
+      \end{bmatrix}^{-1}\\
+      &= \frac{\sigma^2}{n \sum_{i=1}^n x_i^2 - n^2 \bar{x}^2}
+      \begin{bmatrix}
+        \sum_{i=1}^n x_i^2 & -n \bar{x} \\
+        -n \bar{x}        & n
+      \end{bmatrix} \\
+      &= \frac{\sigma^2}{\sum_{i=1}^n (x_i - \bar{x}^2)}
+      \begin{bmatrix}
+        n^{-1} \sum_{i=1}^n x_i^2 & -\bar{x} \\
+        -\bar{x}                 & 1
+      \end{bmatrix},
+    \end{aligned}
+$$
+    d'où
+    $$
+\begin{aligned}
+      \var{\hat{\beta}_0}
+      &= \sigma^2  \frac{\sum_{i=1}^n x_i^2}{
+        n \sum_{i=1}^n (x_i - \bar{x})^2} \\
+      &= \sigma^2  \frac{\sum_{x=1}^n (x_i - \bar{x}^2) + n \bar{x}^2}{
+        n \sum_{i=1}^n (x_i - \bar{x})^2} \\
+      \end{aligned}
+$$
+
+et
+
+$$
+\begin{aligned}
+      \var{\hat{\beta}_1}
+      &= \frac{\sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2}.
+    \end{aligned}
+$$
+    Ceci correspond aux résultats antérieurs.
+:::
+

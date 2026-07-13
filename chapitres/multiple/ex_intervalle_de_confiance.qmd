@@ -1,0 +1,28 @@
+## Intervalles de confiance pour la valeur moyenne et la variable réponse {#sec-multiple-intervalle_de_confiance}
+
+Considérer le modèle de régression linéaire multiple présenté à
+  l'exercice @multiple.@sec-multiple-demo_emc_multiple. Soit
+  $\hat{Y}_0$ la prévision de la variable dépendante correspondant aux
+  valeurs du vecteur colonne $\xvec_0^\top = (1, x_{01}, \dots, x_{0p})$
+  des $p$ variables indépendantes. On a donc
+  $$
+    \hat{Y}_0 = \xvec_0^\top \hatbetavec.
+  $$
+**a)** Démontrer que $\esp{\hat{Y}_0} = \esp{Y_0}$.
+
+**b)** Démontrer que l'erreur dans la prévision de la valeur moyenne de $Y_0$ est $$ \esp{(\hat{Y}_0 - \esp{Y_0})^2} = \sigma^2  \xvec_0^\top (\Xmat^\top \Xmat)^{-1} \xvec_0. $$ Construire un intervalle de confiance de niveau $1 - \alpha$ pour $\esp{Y_0}$.
+
+**c)** Démontrer que l'erreur dans la prévision de $Y_0$ est $$ \esp{(Y_0 - \hat{Y}_0)^2} = \sigma^2  (1 + \xvec_0^\top (\Xmat^\top \Xmat)^{-1} \xvec_0). $$ Construire un intervalle de confiance de niveau $1 - \alpha$ pour $Y_0$.
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+**a)** Premièrement, $Y_0 = \xvec_0^\top \betavec + \varepsilon_0$ avec $\esp{\varepsilon_0} = 0$. Par conséquent, $\esp{Y_0} = \esp{\xvec_0^\top \betavec + \varepsilon_0} = \xvec_0^\top \betavec$. Deuxièmement, $\esp{\hat{Y}_0} = \esp{\xvec_0^\top \hatbetavec} = \xvec_0^\top \esp{\hatbetavec} = \xvec_0^\top \betavec$ puisque l'estimateur des moindres carrés de $\betavec$ est sans biais. Ceci complète la preuve.
+
+**b)** Tout d'abord, $\esp{(\hat{Y}_0 - \esp{Y_0})^2} = \varmat{\hat{Y}_0} = \var{\hat{Y}_0}$ puisque la matrice de variance-covariance du vecteur aléatoire $\hat{Y}_0$ ne contient, ici, qu'une seule valeur. Or, par le théorème de la section **[réf:sec:elements:moments]**, la variance est $$
+\begin{aligned} \var{\hat{Y}_0} &= \varmat{\xvec_0^\top \hatbetavec} \\ &= \xvec_0^\top \varmat{\hatbetavec} \xvec_0 \\ &= \sigma^2 \xvec_0^\top (\Xmat^\top \Xmat)^{-1} \xvec_0. \end{aligned}
+$$ Afin de construire un intervalle de confiance pour $\esp{Y_0}$, on ajoute au modèle l'hypothèse $\epsvec \sim \Norm(\mat{0}, \sigma^2 \mat{I})$. Par linéarité de l'estimateur des moindres carrés, on a alors $\hat{Y}_0 \sim \Norm(\esp{Y_0}, \var{\hat{Y}_0})$. Par conséquent, $$ \Pr \left[ -z_{\alpha/2} \leq \frac{\hat{Y} - \esp{\hat{Y}_0}}{\sqrt{\var{\hat{Y}_0}}} \leq z_{\alpha/2} \right] = 1 - \alpha $$ d'où un intervalle de confiance de niveau $1 - \alpha$ pour $\esp{Y_0}$ est $$ \esp{Y_0} \in \hat{Y}_0 \pm z_{\alpha/2}  \sigma  \sqrt{\xvec_0^\top (\Xmat^\top \Xmat)^{-1} \xvec_0}. $$ Si la variance $\sigma^2$ est inconnue et estimée par $s^2$, alors la distribution normale est remplacée par une distribution de Student avec $n - p - 1$ degrés de liberté. L'intervalle de confiance devient alors $$ \esp{Y_0} \in \hat{Y}_0 \pm t_{\alpha/2}(n - p - 1)  s  \sqrt{\xvec_0^\top (\Xmat^\top \Xmat)^{-1} \xvec_0}. $$
+
+**c)** Par le résultat obtenu en a) et en supposant que $\cov{\varepsilon_0, \varepsilon_i} = 0$ pour tout $i = 1, \dots, n$, on a $$
+\begin{aligned} \esp{(Y_0 - \hat{Y}_0)^2} &= \var{Y_0 - \hat{Y}_0} \\ &= \var{Y_0} + \var{\hat{Y}_0} \\ &= \sigma^2 (1 + \xvec_0^\top (\Xmat^\top \Xmat)^{-1} \xvec_0). \end{aligned}
+$$ Ainsi, avec l'hypothèse sur le terme d'erreur énoncée en b), $Y_0 - \hat{Y}_0 \sim \Norm(0, \var{Y_0 - \hat{Y}_0})$. En suivant le même cheminement qu'en b), on détermine qu'un intervalle de confiance de niveau $1 - \alpha$ pour $Y_0$ est $$ Y_0 \in \hat{Y}_0 \pm z_{\alpha/2}  \sigma  \sqrt{1 + \xvec_0^\top (\Xmat^\top \Xmat)^{-1} \xvec_0}. $$ ou, si la variance $\sigma^2$ est inconnue et estimée par $s^2$, $$ Y_0 \in \hat{Y}_0 \pm t_{\alpha/2}(n - p - 1)  s  \sqrt{1 + \xvec_0^\top (\Xmat^\top \Xmat)^{-1} \xvec_0}. $$
+:::
+

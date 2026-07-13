@@ -1,0 +1,27 @@
+## GLM Poisson univarié {#sec-glm-glm_poisson_univarie}
+
+On suppose que $Y_1,...,Y_n$ sont des v.a.s indépendantes et $Y_i\sim Poisson(\mu_i)$. Pour chaque observation, on a une seule variable explicative $x_i$.
+**a)** Quel est le lien canonique?
+
+**b)** Trouver les fonctions de score (à résoudre pour l'estimation des paramètres par maximum de vraisemblance)
+
+::: {.callout-note collapse="true" title="Éléments de réponse"}
+**a)** $\eta=g(\mu)=\ln(\mu)$
+
+**b)** $\sum_{i=1}^n y_i-e^{\beta_0+\beta_1x_i}=0 \text{ et } \sum_{i=1}^n x_i(y_i-e^{\beta_0+\beta_1x_i})=0$
+:::
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+**a)** $\eta=g(\mu)=\ln(\mu)$
+
+**b)** On a $$\ln(\mu_i)=\eta_i=\beta_0+\beta_1x_i.$$ La densité de la loi Poisson est $$
+\begin{aligned} f_{Y_i}(y_i;\mu_i)&=\exp\left(y_i\ln\mu_i-\mu_i-\ln y_i!\right)\\ f_{Y_i}(y_i;\beta_0,\beta_1)&=\exp\left(y_i(\beta_0+\beta_1x_i)-e^{\beta_0+\beta_1x_i}-\ln y_i!\right). \end{aligned}
+$$ La fonction de vraisemblance et la log-vraisemblance sont donc: $$
+\begin{aligned} \mathcal{L}(\beta_0,\beta_1)&=\prod_{i=1}^n f_{Y_i}(y_i;\beta_0,\beta_1)=\prod_{i=1}^n\exp\left(y_i(\beta_0+\beta_1x_i)-e^{\beta_0+\beta_1x_i}-\ln y_i!\right)\\ \ell(\beta_0,\beta_1)&=\sum_{i=1}^n y_i(\beta_0+\beta_1x_i)-e^{\beta_0+\beta_1x_i}+\text{constante}. \end{aligned}
+$$ On maximise la log-vraisemblance: $$
+\begin{aligned} \frac{\partial}{\partial\beta_0}\ell(\beta_0,\beta_1)&=\sum_{i=1}^n y_i-e^{\beta_0+\beta_1x_i}\\ \frac{\partial}{\partial\beta_1}\ell(\beta_0,\beta_1)&=\sum_{i=1}^n y_ix_i-x_i e^{\beta_0+\beta_1x_i}\\ \end{aligned}
+$$ Donc, les équations à résoudre sont $$
+\begin{aligned} \sum_{i=1}^n y_i-e^{\beta_0+\beta_1x_i}&=0\\ \sum_{i=1}^n x_i(y_i-e^{\beta_0+\beta_1x_i})&=0.\\ \end{aligned}
+$$
+:::
+

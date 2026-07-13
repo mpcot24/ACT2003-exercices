@@ -1,0 +1,87 @@
+## BLUE et variance pour $\beta$ selon divers postulats résiduels {#sec-multiple-blue_beta_residus}
+
+Considérer le modèle de régression linéaire simple passant par
+  l'origine $Y_i = \beta x_i + \varepsilon_i$. Trouver l'estimateur
+  linéaire sans biais à variance minimale du paramètre $\beta$, ainsi
+  que sa variance, sous chacune des hypothèses suivantes.
+**a)** $\var{\varepsilon_i} = \sigma^2$
+
+**b)** $\var{\varepsilon_i} = \sigma^2/w_i$
+
+**c)** $\var{\varepsilon_i} = \sigma^2 x_i$
+
+**d)** $\var{\varepsilon_i} = \sigma^2 x_i^2$
+
+::: {.callout-note collapse="true" title="Éléments de réponse"}
+**a)** $\hat{\beta}^* = \sum_{i=1}^n x_i Y_i/\sum_{i=1}^n x_i^2$, $\var{\hat{\beta}^*} = \sigma^2/\sum_{i=1}^n x_i^2$
+
+**b)** $\hat{\beta}^* = \sum_{i=1}^n w_i x_i Y_i/\sum_{i=1}^n w_i x_i^2$, $\var{\hat{\beta}^*} = \sigma^2/\sum_{i=1}^n w_i x_i^2$
+
+**c)** $\hat{\beta}^* = \bar{Y}/\bar{x}$, $\var{\hat{\beta}^*} = \sigma^2/(n \bar{x})$
+
+**d)** $\hat{\beta}^* = \sum_{i=1}^n Y_i/x_i$, $\var{\hat{\beta}^*} = \sigma^2/n$
+:::
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+De manière tout à fait générale, l'estimateur linéaire sans biais
+    à variance minimale dans le modèle de régression linéaire $\yvec
+    = \Xmat \betavec + \epsvec$, $\var{\epsvec} = \sigma^2 
+    \mat{W}^{-1}$ est
+    $$
+      \hatbetavec^* = (\Xmat^\top \mat{W} \Xmat)^{-1} \Xmat^\top
+      \mat{W} \yvec
+    $$
+    et sa variance est, par le théorème de la section **[réf:sec:elements:moments]**,
+    $$
+\begin{aligned}
+      \varmat{\hatbetavec^*}
+      &= (\Xmat^\top \mat{W} \Xmat)^{-1} \Xmat^\top \mat{W}
+      \varmat{\yvec}
+      \mat{W}^\top \Xmat (\Xmat^\top \mat{W} \Xmat)^{-1} \\
+      &= \sigma^2
+      (\Xmat^\top \mat{W} \Xmat)^{-1} \Xmat^\top \mat{W}
+      \mat{W}^{-1}
+      \mat{W} \Xmat (\Xmat^\top \mat{W} \Xmat)^{-1} \\
+      &= \sigma^2 (\Xmat^\top \mat{W} \Xmat)^{-1}
+    \end{aligned}
+$$
+    puisque les matrices $\mat{W}$ et $\Xmat^\top \mat{W} \Xmat$
+    sont symétriques. Dans le cas de la régression linéaire simple
+    passant par l'origine et en supposant que $\mat{W} = \diag(w_1,
+    \dots, w_n)$, ces formules se réduisent en
+    $$
+\begin{aligned}
+      \hat{\beta}^*
+      &= \frac{\sum_{i=1}^n w_i x_i Y_i}{\sum_{i=1}^n w_i x_i^2} \\
+      \end{aligned}
+$$
+
+et
+
+$$
+\begin{aligned}
+      \var{\hat{\beta}^*}
+      &= \frac{\sigma^2}{\sum_{i=1}^n w_i x_i^2}.
+    \end{aligned}
+$$
+**a)** Cas déjà traité à l'exercice @simple.@sec-simple-estimateurs_moindres_carres_origine où $\mat{W} = \mat{I}$ et, donc, $$
+\begin{aligned} \hat{\beta}^* &= \frac{\sum_{i=1}^n x_i Y_i}{\sum_{i=1}^n x_i^2} \\ \end{aligned}
+$$
+
+et
+
+$$
+\begin{aligned} \var{\hat{\beta}^*} &= \frac{\sigma^2}{\sum_{i=1}^n w_i x_i^2}. \end{aligned}
+$$
+
+**b)** Cas général traité ci-dessus.
+
+**c)** Si $\var{\varepsilon_i} = \sigma^2 x_i$, alors $w_i = x_i^{-1}$. Le cas général se simplifie donc en $$
+\begin{aligned} \hat{\beta}^* &= \frac{\sum_{i=1}^n Y_i}{\sum_{i=1}^n x_i} \\ &= \frac{\bar{Y}}{\bar{x}}, \\ \var{\hat{\beta}^*} &= \frac{\sigma^2}{\sum_{i=1}^n x_i} \\ &= \frac{\sigma^2}{n \bar{x}}. \end{aligned}
+$$
+
+**d)** Si $\var{\varepsilon_i} = \sigma^2 x_i^2$, alors $w_i = x_i^{-2}$. On a donc $$
+\begin{aligned} \hat{\beta}^* &= \frac{1}{n} \sum_{i=1}^n \frac{Y_i}{x_i} \\ \var{\hat{\beta}^*} &= \frac{\sigma^2}{n}. \end{aligned}
+$$
+:::
+

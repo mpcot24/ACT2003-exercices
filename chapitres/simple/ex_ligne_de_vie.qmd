@@ -1,0 +1,77 @@
+## Relation entre l'espérance de vie et la longueur de la ligne de vie {#sec-simple-ligne_de_vie}
+
+Y a-t-il une relation entre l'espérance de vie et la longueur de la
+  «ligne de vie» dans la main? Dans un article de 1974 publié dans le
+  *Journal of the American Medical Association*, Mather et Wilson
+  dévoilent les 50 observations contenues dans le fichier
+  \texttt{lifeline.dat}. À la lumière de ces données, y a-t-il, selon
+  vous, une relation entre la «ligne de vie» et l'espérance de vie?
+  Vous pouvez utiliser l'information partielle suivante:
+  $$
+\begin{aligned}
+    \sum_{i=1}^{50} x_i &= \nombre{3333} &
+    \sum_{i=1}^{50} x_i^2 &= \nombre{231933} &
+    \sum_{i=1}^{50} x_i Y_i &= \nombre{30549,75} \\
+    \sum_{i=1}^{50} Y_i &= \nombre{459,9} &
+    \sum_{i=1}^{50} Y_i^2 &= \nombre{4308,57}.
+  \end{aligned}
+$$
+
+::: {.callout-note collapse="true" title="Éléments de réponse"}
+$F = 0,73$, valeur $p$: $0,397$
+:::
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+On doit déterminer si la régression est significative, ce qui peut
+    se faire à l'aide de la statistique $F$. Or, à partir de
+    l'information donnée dans l'énoncé, on peut calculer
+    $$
+\begin{aligned}
+      \hat{\beta}_1
+      &= \frac{\sum_{i=1}^{50} x_i Y_i - 50 \bar{x} \bar{Y}}{
+        \sum_{i=1}^{50} x_i^2 - 50 \bar{x})^2} \\
+      &= -0,0110 \\
+      \SST
+      &= \sum_{i=1}^{50} Y_i^2 - 50 \bar{Y}^2 \\
+      &= 78,4098 \\
+      \SSR
+      &= \hat{\beta}_1^2 \sum_{i=1}^{50} (x_i - \bar{x})^2 \\
+      &= 1,1804 \\
+      \SSE
+      &= \SST - \SSR \\
+      &= 77,2294 \\
+      \end{aligned}
+$$
+
+d'où
+
+$$
+\begin{aligned}
+      \MSR
+      &= 1,1804 \\
+      \MSE
+      &= \frac{\SSE}{50 - 2} \\
+      &= 1,6089 \\
+      \end{aligned}
+$$
+
+et, enfin,
+
+$$
+\begin{aligned}
+      F
+      &= \frac{\MSR}{\MSE} \\
+      &= 0,7337.
+    \end{aligned}
+$$
+    Soit $F$ une variable aléatoire ayant une distribution de Fisher
+    avec 1 et 48 degrés de liberté, soit la même distribution que la
+    statistique $F$ sous l'hypothèse $H_0: \beta_1 = 0$. On a que
+    $\Pr[F > 0,7337] = 0,3959$, donc la valeur $p$ du test $H_0:
+    \beta_1 = 0$ est $0,3959$. Une telle valeur $p$ est généralement
+    considérée trop élevée pour rejeter l'hypothèse $H_0$. On ne peut
+    donc considérer la relation entre la ligne de vie et l'espérance
+    de vie comme significative. (Ou on ne la considère significative
+    qu'avec un niveau de confiance de $1 - p = 60,41$ \
+:::
+

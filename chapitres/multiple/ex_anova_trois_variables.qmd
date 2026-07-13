@@ -1,0 +1,96 @@
+## ANOVA avec trois variables {#sec-multiple-anova_trois_variables}
+
+Au cours d'une analyse de régression, on a colligé les valeurs
+  de trois variables explicatives $x_1$, $x_2$ et $x_3$ ainsi que
+  celles d'une variable dépendante $Y$. Les résultats suivants ont par
+  la suite été obtenus avec \textsf{R}.
+ \begin{verbatim}
+> anova(lm(Y   X1, data = foo))
+  \end{verbatim}
+  \begin{verbatim}
+Analysis of Variance Table
+
+Response: Y
+
+          Df Sum of Sq  Mean Sq  F Value    Pr(>F)
+       X1  1  45.59240 45.59240 44.8001 0.000000791 ***
+Residuals 23   18.2234  0.79232
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+  \end{verbatim}
+
+  \begin{verbatim}
+> anova(lm(Y   X2 + X3, data = foo))
+  \end{verbatim}
+  \begin{verbatim}
+Analysis of Variance Table
+
+Response: Y
+
+          Df Sum of Sq  Mean Sq  F Value       Pr(>F)
+       X2  1  45.59085 45.59085 106.0095 0.0000000007 ***
+       X3  1   8.76355  8.76355  20.3773 0.0001718416 ***
+Residuals 22   9.46140  0.43006
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+  \end{verbatim}
+  \begin{verbatim}
+> anova(lm(Y   X1 + X2 + X3, data = foo))
+  \end{verbatim}
+  \begin{verbatim}
+Analysis of Variance Table
+
+Response: Y
+
+          Df Sum of Sq  Mean Sq  F Value    Pr(>F)
+       X1  1  45.59240 45.59240 101.6681 0.0000000 ***
+       X2  1   0.01842  0.01842   0.0411 0.8413279
+       X3  1   8.78766  8.78766  19.5959 0.0002342 ***
+Residuals 21   9.41731  0.44844
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+  \end{verbatim}
+
+**a)** $H_0: \beta_1 = \beta_2 = \beta_3 = 0$
+
+**b)** $H_0: \beta_1 = 0$
+
+**c)** $H_0: \beta_2 = \beta_3 = 0$
+
+  \item À la lumière des résultats en a), quelle(s) variable(s)
+    devrait-on inclure dans la régression? Justifier votre réponse.
+
+::: {.callout-note collapse="true" title="Éléments de réponse"}
+**a)** 40,44, 3 et 21 degrés de liberté
+
+**b)** 0,098, 1 et 21 degrés de liberté
+
+**c)** 9,82, 2 et 21 degrés de liberté
+
+    \item $x_1$ et $x_3$, ou $x_2$ et $x_3$
+:::
+
+::: {.callout-tip collapse="true" title="Solution complète"}
+**a)** Le test d'hypothèse $H_0: \beta_1 = \beta_2 = \beta_3 = 0$ est le test global de validité du modèle. La statistique $F$ pour ce test est $$
+\begin{aligned} F &= \frac{\SSR(X_1, X_2, X_3)/3}{\MSE} \\ &= \frac{(45,5924 + 0,01842 + 8,78766)/3}{0,44844} \\ &= 40,44. \end{aligned}
+$$ Puisque la statistique $\MSE$ a 21 degrés de liberté, la statistique $F$ en a 3 et 21.
+
+**b)** Pour tester cette hypothèse, il faut utiliser un test $F$ partiel. On teste si la variable $X_1$ est significative dans la régression globale. La statistique du test est alors $$
+\begin{aligned} F^* &= \frac{\{\SSR(X_1,X_2,X_3)-\SSR(X_2,X_3)\}/1}{\MSE} \\ &= \frac{54,39848 - 45,59085 - 8,76355}{0,44844} \\ &= 0,098, \end{aligned}
+$$ avec 1 et 21 degrés de liberté.
+
+**c)** Cette fois, on teste si les variables $X_2$ et $X_3$ (les deux ensemble) sont significatives dans la régression globale. On effectue donc encore un test $F$ partiel avec la statistique $$
+\begin{aligned} F^* &= \frac{\{\SSR(X_2, X_3,X_1)-\SSR(X_1)\}/2}{\MSE} \\ &= \frac{(54,39848 - 45,5924)/2}{0,44844} \\ &= 9,819, \end{aligned}
+$$ avec 2 et 21 degrés de liberté.
+
+    \item À la lecture du deuxième tableau d'analyse de variance,
+      tant les variables $x_2$ que $x_3$ sont significatives dans le
+      modèle. Par contre, comme on le voit dans le troisième tableau, la
+      variable $x_2$ devient non significative dès lors que la
+      variable $x_1$ est ajoutée au modèle. (L'impact de la variable
+      $x_3$ demeure, lui, inchangé.) Cela signifie que les variables
+      $x_1$ et $x_2$ sont redondantes et qu'il faut choisir l'une ou
+      l'autre, mais pas les deux. Par conséquent, les choix de modèle
+      possibles sont $x_1$ et $x_3$, ou $x_2$ et $x_3$.
+:::
+
