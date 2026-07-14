@@ -1,4 +1,4 @@
-# Régression linéaire simple
+# Régression linéaire simple {#sec-simple}
 
 {{< include simple/ex_10points_reglinsimple.qmd >}}
 
@@ -43,4 +43,3 @@
 {{< include simple/ex_transfo_heteroscedasticite.qmd >}}
 
 {{< include simple/ex_bacteroes.qmd >}}
-

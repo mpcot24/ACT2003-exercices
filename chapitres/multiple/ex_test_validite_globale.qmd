@@ -1,16 +1,16 @@
 ## Test global de validité du modèle {#sec-multiple-test_validite_globale}
 
 En ajustant le modèle
-  $$
-    Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_3 x_{i3} +
+$$
+Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_3 x_{i3} +
     \varepsilon_i
-  $$
-  à un ensemble de données, on a obtenu les statistiques suivantes:
-  $$
+$$
+  à un ensemble de données, on a obtenu les statistiques suivantes :
+$$
 \begin{aligned}
     R^2 &= 0,521 \\
     F   &= 5,438.
-  \end{aligned}
+\end{aligned}
 $$
   Déterminer le seuil approximatif du test global de validité du
   modèle.
@@ -22,28 +22,27 @@ $p \approx 0,01$
 ::: {.callout-tip collapse="true" title="Solution complète"}
 On a la relation suivante liant la statistique $F$ et le
     coefficient de détermination $R^2$:
-    $$
-      F = \frac{R^2}{1 - R^2}  \frac{n - p - 1}{p}
-    $$
-    La principale inconnue dans le problème est $n$, le nombre de
+$$
+      F = \frac{R^2}{1 - R^2} \frac{n - p - 1}{p}
+$$
+La principale inconnue dans le problème est $n$, le nombre de
     données. Or,
-    $$
+$$
 \begin{aligned}
       n
       &= p F \left( \frac{1 - R^2}{R^2} \right) + p + 1 \\
       &= 3 (5,438) \left( \frac{1 - 0,521}{0,521} \right) + 3 + 1 \\
       &= 19.
-    \end{aligned}
+\end{aligned}
 $$
-    Soit $F$ une variable aléatoire dont la distribution est une loi
+Soit $F$ une variable aléatoire dont la distribution est une loi
     de Fisher avec $3$ et $19 - 3 - 1 = 15$ degrés de liberté, soit la
     même distribution que la statistique $F$ du modèle. On obtient le seuil observé du test global de validité du modèle dans un tableau de
-    quantiles de la distribution $F$ ou avec la fonction \texttt{pf}
-    dans \textsf{R}:
-    $$
+    quantiles de la distribution $F$ ou avec la fonction `pf`  dans R :
+$$
 \begin{aligned}
       \Pr[F > 5,438] = 0,0099
-    \end{aligned}
+\end{aligned}
 $$
 :::
 

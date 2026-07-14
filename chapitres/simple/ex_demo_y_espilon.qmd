@@ -6,11 +6,9 @@ Dans le contexte de la régression linéaire simple, démontrer que
   $$
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
-Puisque $\hat{Y}_i = (\bar{Y} - \hat{\beta}_1 \bar{x}) +
-    \hat{\beta}_1 x_i = \bar{Y} + \hat{\beta}_1 (x_i - \bar{x})$ et
-    que $\hat{\varepsilon}_i = Y_i - \hat{Y}_i = (Y_i - \bar{Y}) - \hat{\beta}_1 (x_i
-    - \bar{x})$, alors
-    $$
+Puisque $\hat{Y}_i = (\bar{Y} - \hat{\beta}_1 \bar{x}) + \hat{\beta}_1 x_i = \bar{Y} + \hat{\beta}_1 (x_i - \bar{x})$ et que $\hat{\varepsilon}_i = Y_i - \hat{Y}_i = (Y_i - \bar{Y}) - \hat{\beta}_1 (x_i - \bar{x})$, alors
+
+$$
 \begin{aligned}
       \sum_{i = 1}^n (\hat{Y}_i - \bar{Y}) \hat{\varepsilon}_i
       &= \hat{\beta}_1

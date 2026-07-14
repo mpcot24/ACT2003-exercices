@@ -2,17 +2,29 @@
 
 Considérer les données suivantes et le modèle de régression
   linéaire $Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$:
-  \begin{center}
-      \begin{tabular}{l*{10}{c}}
-        \toprule
-        $i$ & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
-        \midrule
-        $x_i$ & 65 & 43 & 44 & 59 & 60 & 50 & 52 & 38 & 42 & 40 \\
-        $Y_i$ & 12 & 32 & 36 & 18 & 17 & 20 & 21 & 40 & 30 & 24 \\
-        \bottomrule
-    \end{tabular}
-  \end{center}
-  
+
+```{r}
+#| echo: false 
+knitr::kable(
+  data.frame(
+    i = c("x", "Y"),
+    `1` = c(65, 12),
+    `2` = c(43, 32),
+    `3` = c(44, 36),
+    `4` = c(59, 18),
+    `5` = c(60, 17),
+    `6` = c(50, 20),
+    `7` = c(52, 21),
+    `8` = c(38, 40),
+    `9` = c(42, 30),
+    `10` = c(40, 24)
+  ),
+  col.names = c("", 1:10)
+)
+
+```
+
+
 **a)** Placer les points ci-dessus sur un graphique.
 
 **b)** Calculer les équations de score.
@@ -32,11 +44,21 @@ Considérer les données suivantes et le modèle de régression
 :::
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
-**a)** Voir la figure @sec-simple-10points_reglinsimple. Remarquer que l'on peut, dans la fonction \texttt{plot}, utiliser une formule pour exprimer la relation entre les variables. 
+**a)** Voir la figure [-@fig-simple-base]. Remarquer que l'on peut, dans la fonction `plot`, utiliser une formule pour exprimer la relation entre les variables. 
 
-**b)** Les équations normales sont les équations à résoudre pour trouver les estimateurs de $\beta_0$ et $\beta_1$ minimisant la somme des carrés $$
+```{r}
+#| fig-cap: "Relation entre les données de l'exercice"
+#| label: fig-simple-base
+x<-c(65, 43, 44, 59, 60, 50, 52, 38, 42, 40)
+y<-c(12, 32, 36, 18, 17, 20, 21, 40, 30, 24)
+plot(y ~ x, pch = 16)
+```
+
+**b)** Les équations normales sont les équations à résoudre pour trouver les estimateurs de $\beta_0$ et $\beta_1$ minimisant la somme des carrés 
+$$
 \begin{aligned} S(\beta_0, \beta_1) &=\sum_{i = 1}^n \varepsilon^2_i \\ &=\sum_{i = 1}^n \left(Y_i-\beta_0-\beta_1x_i\right)^2. \end{aligned}
-$$ Or, $$
+$$ Or, 
+$$
 \begin{aligned} \frac{\partial S}{\partial \beta_0} &= -2 \sum_{i=1}^n (Y_i - \beta_0 - \beta_1 x_i) \\ \frac{\partial S}{\partial \beta_1} &= -2 \sum_{i=1}^n (Y_i - \beta_0 - \beta_1 x_i) x_i, \end{aligned}
 $$ d'où les équations normales sont 
 $$
@@ -78,7 +100,24 @@ fit <- lm(y ~ x)
 fitted(fit) 
 ``` 
 
-Pour ajouter la droite de régression au graphique de la figure [-@sec-simple-10points_reglinsimple], il suffit d'utiliser la fonction `abline` avec en argument l'objet créé avec `lm`. L'ordonnée à l'origine et la pente de la droite seront extraites automatiquement. Voir la figure [-@sec-simple-10points_reglinsimple]. 
+Pour ajouter la droite de régression au graphique de la figure [-@fig-simple-base], il suffit d'utiliser la fonction `abline` avec en argument l'objet créé avec `lm`. L'ordonnée à l'origine et la pente de la droite seront extraites automatiquement. Voir la figure [-@fig-simple-base2]. 
+
+```{r}
+#| eval: false
+
+abline(fit)
+```
+
+```{r}
+#| echo: false
+#| label: fig-simple-base2
+#| fig-cap: "Relation entre les données de l'exercice et la droite de régression"
+
+
+plot(y ~ x, pch = 16)
+abline(fit)
+```
+
 
 **e)** Les résidus de la régression sont $\hat{\varepsilon}_i = Y_i - \hat{Y}_i$, $i = 1, \dots, 10$. Dans R, la fonction `residuals` extrait les résidus du modèle : 
 ```{r} 

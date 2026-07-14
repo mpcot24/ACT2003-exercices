@@ -1,33 +1,40 @@
 ## Calculs de la régression pondérée {#sec-multiple-calcul_ponderee}
 
-On vous donne les 23 données dans le tableau ci-dessous.
-  \begin{center}
-    \begin{tabular}{rcc@{\qquad}rcc@{\qquad}rcc}
-      \toprule
-      $i$ & $Y_i$ & $x_i$ & $i$ & $Y_i$ & $x_i$ & $i$ & $Y_i$ & $x_i$ \\
-      \midrule
-      12 & 2,3 & 1,3 & 19 & 1,7 & 3,7 &  6 & 2,8 & 5,3 \\
-      23 & 1,8 & 1,3 & 20 & 2,8 & 4,0 & 10 & 2,1 & 5,3 \\
-      7 & 2,8 & 2,0 &  5 & 2,8 & 4,0 &  4 & 3,4 & 5,7 \\
-      8 & 1,5 & 2,0 &  2 & 2,2 & 4,0 &  9 & 3,2 & 6,0 \\
-      17 & 2,2 & 2,7 & 21 & 3,2 & 4,7 & 13 & 3,0 & 6,0 \\
-      22 & 3,8 & 3,3 & 15 & 1,9 & 4,7 & 14 & 3,0 & 6,3 \\
-      1 & 1,8 & 3,3 & 18 & 1,8 & 5,0 & 16 & 5,9 & 6,7 \\
-      11 & 3,7 & 3,7 &  3 & 3,5 & 5,3 \\
-      \bottomrule
-    \end{tabular}
-  \end{center}
+```{r}
+#| echo: false
+
+dat <- data.frame(
+  i = c(12, 23, 7, 8, 17, 22, 1, 11,
+        19, 20, 5, 2, 21, 15, 18, 3,
+        6, 10, 4, 9, 13, 14, 16),
+  Y = c(2.3, 1.8, 2.8, 1.5, 2.2, 3.8, 1.8, 3.7,
+        1.7, 2.8, 2.8, 2.2, 3.2, 1.9, 1.8, 3.5,
+        2.8, 2.1, 3.4, 3.2, 3.0, 3.0, 5.9),
+  x = c(1.3, 1.3, 2.0, 2.0, 2.7, 3.3, 3.3, 3.7,
+        3.7, 4.0, 4.0, 4.0, 4.7, 4.7, 5.0, 5.3,
+        5.3, 5.3, 5.7, 6.0, 6.0, 6.3, 6.7)
+)
+
+kable(
+  dat,
+  col.names = c("$i$", "$Y$", "$x$"),
+  align = "rcc"
+)
+
+```
+  
+  
 **a)** Calculer l'estimateur des moindres carrés ordinaires $\hatbetavec$.
 
 **b)** Supposons que la variance de $Y_{16}$ est $4 \sigma^2$ plutôt que $\sigma^2$. Recalculer la régression en a) en utilisant cette fois les moindres carrés pondérés.
 
 **c)** Refaire la partie b) en supposant maintenant que la variance de l'observation $Y_{16}$ est $16 \sigma^2$. Quelles différences note-t-on?
 
-```{r echo}
+```{r}
 #| echo: false
 
 donnees <- read.table("data/exercice_3.17.dat", header = TRUE)
-fit1 <- lm(Y   X, data = donnees)
+fit1 <- lm(Y ~ X, data = donnees)
 b1 <- round(coef(fit1), 4)
 w <- rep(1, nrow(donnees))
 w[16] <- 0.25
@@ -39,33 +46,58 @@ b3 <- round(coef(fit3), 4)
 ```
 
 ::: {.callout-note collapse="true" title="Éléments de réponse"}
-**a)** $\hatbetavec = (
+**a)** $\hatbetavec = (`r format(b1[1], dec = ",")`, `r format(b1[2], dec = ",")`)$
 
-**b)** $\hatbetavec^* = (
+**b)** $\hatbetavec^* = (`r format(b2[1], dec = ",")`, `r format(b2[2], dec = ",")`)$
 
-**c)** $\hatbetavec^* = (
+**c)** $\hatbetavec^* = (`r format(b3[1], dec = ",")`, `r format(b3[2], dec = ",")`)$
 :::
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
-Comme on peut le constater à la figure @sec-multiple-calcul_ponderee,
+Comme on peut le constater à la figure [-@fig-multiple-pondere],
     le point $(X_{16}, Y_{16})$ est plus éloigné des autres. En b) et
     c), on diminue son poids dans la régression.
     
-```{r multiple-pondere}
-
-plot(Y   X, data = donnees)
+```{r}
+#| fig-cap: "Graphique des données de l'exercice. Le cercle plein représente la donnée $(X_{16, Y_{16})$."
+#| label: fig-multiple-pondere
+plot(Y ~ X, data = donnees)
 points(donnees$X[16], donnees$Y[16], pch = 16)
 ```
 
-      : Graphique des données de l'exercice
-        @multiple.@sec-multiple-calcul_ponderee. Le cercle plein
-        représente la donnée $(X_{16, Y_{16})$.}
-      
     
-**a)** On calcule d'abord l'estimateur des moindres carrés ordinaires: ```{r} (fit1 <- lm(Y   X, data = donnees)) ```
+**a)** On calcule d'abord l'estimateur des moindres carrés ordinaires : 
+```{r} 
+(fit1 <- lm(Y ~ X, data = donnees)) 
+```
 
-**b)** Si l'on suppose que la variance de la données $(X_{16}, Y_{16})$ est quatre fois plus élevée que la variance des autres données, alors il convient d'accorder un point quatre fois moins grand à cette donnée dans la régression. Cela requiert les moindres carrés pondérés. Pour calculer les estimateurs avec \texttt{lm} dans \textsf{R}, on utilise l'argument \texttt{weights}: ```{r} w <- rep(1, nrow(donnees)) w[16] <- 0.25 (fit2 <- update(fit1, weights = w)) ```
+**b)** Si l'on suppose que la variance de la données $(X_{16}, Y_{16})$ est quatre fois plus élevée que la variance des autres données, alors il convient d'accorder un point quatre fois moins grand à cette donnée dans la régression. Cela requiert les moindres carrés pondérés. Pour calculer les estimateurs avec `lm` dans R, on utilise l'argument `weights` : 
 
-**c)** On répète la procédure en b) avec un poids de encore plus petit pour la donnée $(X_{16}, Y_{16})$: ```{r} w[16] <- 0.0625 (fit3 <- update(fit1, weights = w)) ``` Plus le poids accordé à la donnée $(X_{16}, Y_{16})$ est faible, moins la droite de régression est attirée vers ce point (voir la figure @sec-multiple-calcul_ponderee).
+```{r} 
+w <- rep(1, nrow(donnees)) 
+w[16] <- 0.25 
+(fit2 <- update(fit1, weights = w)) 
+```
+
+**c)** On répète la procédure en b) avec un poids de encore plus petit pour la donnée $(X_{16}, Y_{16})$ : 
+```{r} 
+w[16] <- 0.0625 
+(fit3 <- update(fit1, weights = w)) 
+``` 
+
+Plus le poids accordé à la donnée $(X_{16}, Y_{16})$ est faible, moins la droite de régression est attirée vers ce point (voir la figure [-@fig-multiple-pondere-droite]).
+
+```{r}
+#| label: fig-multiple-pondere-droite
+#| fig-cap: "Graphique des données de l'exercice avec les droites de régression obtenues à l'aide des moindres carrés."
+plot(Y ~ X, data = donnees)
+points(donnees$X[16], donnees$Y[16], pch = 16)
+abline(fit1, lwd = 2, lty = 1)
+abline(fit2, lwd = 2, lty = 2)
+abline(fit3, lwd = 2, lty = 3)
+legend(1.2, 6, legend = c("Modèle a)", "Modèle b)", "Modèle c)"),
+       lwd = 2, lty = 1:3)
+
+```
 :::
 

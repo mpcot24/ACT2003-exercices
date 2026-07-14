@@ -1,76 +1,62 @@
 ## Intervalle de confiance pour la régression linéaire passant par l'origine {#sec-simple-ic_reglinsimple_origine}
 
 Considérer le modèle de régression linéaire passant par l'origine
-  présenté à l'exercice @simple.@sec-simple-estimateurs_moindres_carres_origine.
+  présenté à l'exercice [-@sec-simple-estimateurs_moindres_carres_origine].
   Soit $x_0$ une valeur de la variable indépendante, $Y_0$ la vraie
   valeur de la variable indépendante correspondant à $x_0$ et
   $\hat{Y}_0$ la prévision (ou estimation) de $Y_0$. En supposant que
-**a)** $\varepsilon_i \sim N(0, \sigma^2)$;
+  
+i) $\varepsilon_i \sim N(0, \sigma^2)$;
 
-**b)** $\cov{\varepsilon_0, \varepsilon_i} = 0$ pour tout $i = 1, \dots, n$;
+ii) $\cov{\varepsilon_0, \varepsilon_i} = 0$ pour tout $i = 1, \dots, n$;
 
-**c)** $\var{\varepsilon_i} = \sigma^2$ est estimé par $s^2$,
+iii) $\var{\varepsilon_i} = \sigma^2$ est estimé par $s^2$,
 
-  construire un intervalle de confiance de niveau $1 - \alpha$ pour
-  $Y_0$. Faire tous les calculs intermédiaires.
+construire un intervalle de confiance de niveau $1 - \alpha$ pour $Y_0$. Faire tous les calculs intermédiaires.
 
 ::: {.callout-note collapse="true" title="Éléments de réponse"}
-$\hat{Y}_0 \pm t_{\alpha/2}(n - 1)  s 
-    \sqrt{1 + x_0^2/\sum_{i=1}^n x_i^2}$
+$\hat{Y}_0 \pm t_{\alpha/2}(n - 1) s\sqrt{1 + x_0^2/\sum_{i=1}^n x_i^2}$
 :::
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
-Premièrement, selon le modèle de régression passant par l'origine,
-    $Y_0 = \beta x_0 + \varepsilon_0$ et $\hat{Y}_0 = \hat{\beta}
-    x_0$. Considérons, pour la suite, la variable aléatoire $Y_0 -
-    \hat{Y}_0$. On voit facilement que $\esp{\hat{\beta}} = \beta$,
-    d'où $\esp{Y_0 - \hat{Y}_0} = \esp{\beta x_0 + \varepsilon_0 -
-      \hat{\beta} x_0} = \beta x_0 - \beta x_0 = 0$ et
-    $$
-      \var{Y_0 - \hat{Y}_0} = \var{Y_0} + \var{\hat{Y}_0} - 2 
-      \cov{Y_0, \hat{Y}_0}.
-    $$
-    Or, $\cov{Y_0, \hat{Y}_0} = 0$ par l'hypothèse ii) de l'énoncé,
-    $\var{Y_0} = \sigma^2$ et $\var{\hat{Y}_0} = x_0^2 
-    \var{\hat{\beta}}$. De plus,
-    $$
+Premièrement, selon le modèle de régression passant par l'origine, $Y_0 = \beta x_0 + \varepsilon_0$ et $\hat{Y}_0 = \hat{\beta} x_0$. Considérons, pour la suite, la variable aléatoire $Y_0 - \hat{Y}_0$. On voit facilement que $\esp{\hat{\beta}} = \beta$, d'où $\esp{Y_0 - \hat{Y}_0} = \esp{\beta x_0 + \varepsilon_0 - \hat{\beta} x_0} = \beta x_0 - \beta x_0 = 0$ et
+
+$$
+\var{Y_0 - \hat{Y}_0} = \var{Y_0} + \var{\hat{Y}_0} - 2\cov{Y_0, \hat{Y}_0}.
+$$
+Or, $\cov{Y_0, \hat{Y}_0} = 0$ par l'hypothèse ii) de l'énoncé, $\var{Y_0} = \sigma^2$ et $\var{\hat{Y}_0} =x_0^2\var{\hat{\beta}}$. De plus,
+
+$$
 \begin{aligned}
       \var{\hat{\beta}}
       &= \frac{1}{(\sum_{i=1}^n x_i^2)^2} \sum_{i=1}^n x_i^2 
       \var{Y_i} \\
       &= \frac{\sigma^2}{\sum_{i=1}^n x_i^2}
-    \end{aligned}
+\end{aligned}
 $$
-    d'où, finalement,
-    $$
-      \var{Y_0 - \hat{Y}_0} =
-      \sigma^2 \left( 1 + \frac{x_0^2}{\sum_{i=1}^n x_i^2} \right).
-    $$
-    Par l'hypothèse de normalité et puisque $\hat{\beta}$ est une
-    combinaison linéaire de variables aléatoires normales,
-    $$
-      Y_0 - \hat{Y}_0 \sim N
-      \left(
-        0, \sigma^2 \left( 1 + \frac{x_0^2}{\sum_{i=1}^n x_i^2} \right)
-      \right)
-    $$
-    ou, de manière équivalente,
-    $$
-      \frac{Y_0 - \hat{Y}_0}{\sigma \sqrt{1 + x_0^2/\sum_{i=1}^n x_i^2}}
-      \sim N(0, 1).
-    $$
-    Lorsque la variance $\sigma^2$ est estimée par $s^2$, alors
-    $$
-      \frac{Y_0 - \hat{Y}_0}{s \sqrt{1 + x_0^2/\sum_{i=1}^n x_i^2}}
-      \sim t(n - 1).
-    $$
-    La loi de Student a $n - 1$ degrés de liberté puisque le modèle
-    passant par l'origine ne compte qu'un seul paramètre. Les bornes
-    de l'intervalle de confiance pour la vraie valeur de $Y_0$ sont
-    donc
-    $$
-      \hat{Y}_0 \pm t_{\alpha/2}(n - 1)  s  \sqrt{1 +
-        \frac{x_0^2}{\sum_{i=1}^n x_i^2}}.
-    $$
+d'où, finalement,
+$$
+\var{Y_0 - \hat{Y}_0} =\sigma^2 \left( 1 + \frac{x_0^2}{\sum_{i=1}^n x_i^2} \right).
+$$
+    
+Par l'hypothèse de normalité et puisque $\hat{\beta}$ est une combinaison linéaire de variables aléatoires normales,
+
+$$
+Y_0 - \hat{Y}_0 \sim N \left(0, \sigma^2 \left( 1 + \frac{x_0^2}{\sum_{i=1}^n x_i^2} \right)\right)
+$$
+ou, de manière équivalente,
+$$
+\frac{Y_0 - \hat{Y}_0}{\sigma \sqrt{1 + x_0^2/\sum_{i=1}^n x_i^2}} \sim N(0, 1).
+$$
+
+Lorsque la variance $\sigma^2$ est estimée par $s^2$, alors
+$$
+\frac{Y_0 - \hat{Y}_0}{s \sqrt{1 + x_0^2/\sum_{i=1}^n x_i^2}} \sim t(n - 1).
+$$
+    
+La loi de Student a $n - 1$ degrés de liberté puisque le modèle passant par l'origine ne compte qu'un seul paramètre. Les bornes de l'intervalle de confiance pour la vraie valeur de $Y_0$ sont donc
+$$
+\hat{Y}_0 \pm t_{\alpha/2}(n - 1) s \sqrt{1 + \frac{x_0^2}{\sum_{i=1}^n x_i^2}}.
+$$
 :::
 

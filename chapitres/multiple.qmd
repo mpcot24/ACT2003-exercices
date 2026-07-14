@@ -1,4 +1,10 @@
-# Régression linéaire multiple
+# Régression linéaire multiple {#sec-multiple}
+
+```{r}
+#| message: false
+#| warning: false
+library(knitr)
+```
 
 {{< include multiple/ex_demo_emc_multiple.qmd >}}
 

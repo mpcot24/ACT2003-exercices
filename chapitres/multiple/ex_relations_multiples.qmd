@@ -1,8 +1,7 @@
 ## Relations importantes avec la régression linéaire multiple {#sec-multiple-relations_multiples}
 
-Démontrer les relations ci-dessous dans le contexte de la régression
-  linéaire multiple et trouver leur équivalent en régression linéaire
-  simple. Utiliser $\hatepsvec = \yvec - \hat\yvec$.
+Démontrer les relations ci-dessous dans le contexte de la régression linéaire multiple et trouver leur équivalent en régression linéaire simple. Utiliser $\hatepsvec = \yvec - \hat\yvec$.
+
 **a)** $\Xmat^\top \hatepsvec = 0$
 
 **b)** $\hat\yvec^\top \hatepsvec = 0$
@@ -10,27 +9,43 @@ Démontrer les relations ci-dessous dans le contexte de la régression
 **c)** $\hat\yvec^\top \hat\yvec = \hatbetavec^\top \Xmat^\top \yvec$
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
-Dans les démonstrations qui suivent, trois relations de base
-    seront utilisées:
-    $\hatepsvec = \yvec - \hat\yvec$,
-    $\hat\yvec = \Xmat \hatbetavec$ et
-    $\hatbetavec = (\Xmat^\top \Xmat)^{-1} \Xmat^\top \yvec$.
-**a)** On a $$
+Dans les démonstrations qui suivent, trois relations de base seront utilisées :
+$\hatepsvec = \yvec - \hat\yvec$, $\hat\yvec = \Xmat \hatbetavec$ et $\hatbetavec = (\Xmat^\top \Xmat)^{-1} \Xmat^\top \yvec$.
+
+**a)** On a 
+$$
 \begin{aligned} \Xmat^\top \hatepsvec &= \Xmat^\top (\yvec - \hat\yvec) \\ &= \Xmat^\top (\yvec - \Xmat \hatbetavec) \\ &= \Xmat^\top \yvec - (\Xmat^\top \Xmat) \hatbetavec \\ &= \Xmat^\top \yvec - (\Xmat^\top \Xmat) (\Xmat^\top \Xmat)^{-1} \Xmat^\top \yvec \\ &= \Xmat^\top \yvec - \Xmat^\top \yvec \\ &= \mat{0}. \end{aligned}
-$$ En régression linéaire simple, cela donne $$
+$$ 
+
+En régression linéaire simple, cela donne 
+$$
 \begin{aligned} \Xmat^\top \hatepsvec &= \begin{bmatrix} 1   & \cdots & 1  \\ x_1 & \cdots & x_n \end{bmatrix} \begin{bmatrix} \hat\varepsilon_1 \\ \vdots \\ \hat\varepsilon_n \end{bmatrix} \\ &= \begin{bmatrix} \sum_{i=1}^n \hat\varepsilon_i \\ \sum_{i=1}^n x_i \hat\varepsilon_i \end{bmatrix}. \end{aligned}
-$$ Par conséquent, $\Xmat^\top \hatepsvec = \mat{0}$ se simplifie en $\sum_{i=1}^n \hat\varepsilon_i = 0$ et $\sum_{i=1}^n x_i \hat\varepsilon_i = 0$ soit, respectivement, la condition pour que l'estimateur des moindres carrés soit sans biais et la seconde équation normale obtenue à la partie @sec-simple-10points_reglinsimple) de l'exercice @simple.@sec-simple-10points_reglinsimple.
+$$ 
 
-**b)** On a $$
+Par conséquent, $\Xmat^\top \hatepsvec = \mat{0}$ se simplifie en $\sum_{i=1}^n \hat\varepsilon_i = 0$ et $\sum_{i=1}^n x_i \hat\varepsilon_i = 0$ soit, respectivement, la condition pour que l'estimateur des moindres carrés soit sans biais et la seconde équation normale obtenue à l'exercice [-@sec-simple-10points_reglinsimple].
+
+**b)** On a 
+$$
 \begin{aligned} \hat{\yvec}^\top \hatepsvec &= (\Xmat\hatbetavec)^\top (\yvec - \hat\yvec) \\ &= \hatbetavec^\top \Xmat^\top (\yvec - \Xmat\hatbetavec) \\ &= \hatbetavec^\top \Xmat^\top \yvec - \hatbetavec^\top (\Xmat^\top \Xmat) \hatbetavec \\ &= \hatbetavec^\top \Xmat^\top \yvec - \hatbetavec^\top (\Xmat^\top \Xmat) (\Xmat^\top \Xmat)^{-1} \Xmat^\top \yvec \\ &= \hatbetavec^\top \Xmat^\top \yvec - \hatbetavec^\top \Xmat^\top \yvec \\ &= 0. \end{aligned}
-$$ Pour tout modèle de régression cette équation peut aussi s'écrire sous la forme plus conventionnelle $\sum_{i=1}^n \hat{Y}_i \hat\varepsilon_i = 0$. Cela signifie que le produit scalaire entre le vecteur des prévisions et celui des erreurs doit être nul ou, autrement dit, que les vecteurs doivent être orthogonaux. C'est là une condition essentielle pour que l'erreur quadratique moyenne entre les vecteurs $\yvec$ et $\hat\yvec$ soit minimale. \textcolor{red}{(Pour de plus amples détails sur l'interprétation géométrique du modèle de régression, consulter {\shorthandoff{:} \citet[chapitres 20 et 21]{Draper:regression:1998}}.)} D'ailleurs, on constate que $\hat{\yvec}^\top \hatepsvec = \hatbetavec^\top \Xmat^\top \hatepsvec$ et donc, en supposant sans perte de généralité que $\hatbetavec \ne \mat{0}$, que $\hat{\yvec}^\top \hatepsvec = 0$ et $\Xmat^\top \hatepsvec = \mat{0}$ sont des conditions en tous points équivalentes.
+$$ 
 
-**c)** On a $$
+Pour tout modèle de régression cette équation peut aussi s'écrire sous la forme plus conventionnelle $\sum_{i=1}^n \hat{Y}_i \hat\varepsilon_i = 0$. Cela signifie que le produit scalaire entre le vecteur des prévisions et celui des erreurs doit être nul ou, autrement dit, que les vecteurs doivent être orthogonaux. C'est là une condition essentielle pour que l'erreur quadratique moyenne entre les vecteurs $\yvec$ et $\hat\yvec$ soit minimale.  D'ailleurs, on constate que $\hat{\yvec}^\top \hatepsvec = \hatbetavec^\top \Xmat^\top \hatepsvec$ et donc, en supposant sans perte de généralité que $\hatbetavec \ne \mat{0}$, que $\hat{\yvec}^\top \hatepsvec = 0$ et $\Xmat^\top \hatepsvec = \mat{0}$ sont des conditions en tous points équivalentes.
+
+**c)** On a 
+$$
 \begin{aligned} \hat\yvec^\top \hat\yvec &= (\Xmat \hatbetavec)^\top \Xmat \hatbetavec \\ &= \hatbetavec^\top (\Xmat^\top \Xmat) \hatbetavec \\ &= \hatbetavec^\top (\Xmat^\top \Xmat) (\Xmat^\top \Xmat)^{-1} \Xmat^\top \yvec \\ &= \hatbetavec^\top \Xmat^\top \yvec. \end{aligned}
-$$ Cette équation est l'équivalent matriciel de l'identité $$
+$$ 
+
+Cette équation est l'équivalent matriciel de l'identité 
+$$
 \begin{aligned} \SSR &= \hat{\beta}_1^2 \sum_{i = 1}^n (x_i - \bar{x})^2 \\ &= \frac{S_{xy}^2}{S_{xx}} \end{aligned}
-$$ utilisée à plusieurs reprises dans les solutions du chapitre @simple.  En effet, en régression linéaire simple, $\hat\yvec^\top \hat\yvec = \sum_{i = 1}^n \hat{Y}_i^2 = \sum_{i = 1}^n (\hat{Y} - \bar{Y})^2 + n \bar{Y}^2 = \SSR + n \bar{Y}^2$ et $$
+$$ 
+
+utilisée à plusieurs reprises dans les solutions du chapitre [-@sec-simple].  En effet, en régression linéaire simple, $\hat\yvec^\top \hat\yvec = \sum_{i = 1}^n \hat{Y}_i^2 = \sum_{i = 1}^n (\hat{Y} - \bar{Y})^2 + n \bar{Y}^2 = \SSR + n \bar{Y}^2$ et 
+$$
 \begin{aligned} \hatbetavec^\top \Xmat^\top \yvec &= \hat{\beta}_0 n \bar{Y} + \hat{\beta}_1 \sum_{i = 1}^n x_i Y_i \\ &= (\bar{Y} - \hat{\beta}_1 \bar{x}) n \bar{Y} + \hat{\beta}_1 \sum_{i = 1}^n x_i Y_i \\ &= \hat{\beta}_1 \sum_{i = 1}^n (x_i - \bar{x})(Y_i - \bar{Y}) + n \bar{Y}^2 \\ &= \frac{S_{xy}^2}{S_{xx}} + n \bar{Y}^2, \end{aligned}
-$$ d'où $\SSR = S_{xy}^2/S_{xx}$.
+$$ 
+
+d'où $\SSR = S_{xy}^2/S_{xx}$.
 :::
 

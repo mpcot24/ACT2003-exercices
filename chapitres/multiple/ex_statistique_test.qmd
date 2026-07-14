@@ -1,21 +1,23 @@
 ## Statistique pour un test {#sec-multiple-statistique_test}
 
 Dans une régression multiple avec quatre variables explicatives et
-  506 données, on a obtenu:
-  $$
+  506 données, on a obtenu :
+
+$$
 \begin{aligned}
-    \SSR(x_1,x_4) &= \nombre{24016} \\
-    \SSR(x_4) &= \nombre{2668} \\
+    \SSR(x_1,x_4) &= 24016 \\
+    \SSR(x_4) &= 2668 \\
     R^2 &= 0,6903 \\
     s^2 &= 26,41,
-  \end{aligned}
+\end{aligned}
 $$
-  où $\SSR(x)$ est la somme des carrés de la régression pour le modèle incluant la variable $x$. Calculer la statistique appropriée pour le test
-  $$
+
+où $\SSR(x)$ est la somme des carrés de la régression pour le modèle incluant la variable $x$. Calculer la statistique appropriée pour le test
+$$
 \begin{aligned}
     H_0 &: \beta_2 = \beta_3 = 0 \\
     H_1 &: \beta_2 \ne 0 \text{ ou } \beta_3 \ne 0.
-  \end{aligned}
+ \end{aligned}
 $$
 
 ::: {.callout-note collapse="true" title="Éléments de réponse"}
@@ -24,20 +26,20 @@ $103,67$
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
 La statistique à utiliser pour faire ce test $F$ partiel est
-    $$
+$$
 \begin{aligned}
       F^*
       &= \frac{\{\SSR(X_1, X_2, X_3, X_4) - \SSR(X_1, X_4)\}/2}{ \MSE} \\
       &= \frac{\SSR - \SSR(X_1,X_4)}{2 s^2}
-    \end{aligned}
+\end{aligned}
 $$
-    où $\SSR = \SSR(X_1,X_2,X_3,X_4)$. Or,
-    $$
+où $\SSR = \SSR(X_1,X_2,X_3,X_4)$. Or,
+$$
 \begin{aligned}
       R^2
       &= \frac{\SSR}{\SST} \\
       &= \frac{\SSR}{\SSR + \SSE}, \\
-      \end{aligned}
+\end{aligned}
 $$
 
 d'où
@@ -45,20 +47,20 @@ d'où
 $$
 \begin{aligned}
       \SSR
-      &= \frac{R^2}{1 - R^2}  \SSE \\
-      &= \frac{R^2}{1 - R^2}  \MSE (n - p - 1) \\
-      &= \frac{0,6903}{1 - 0,6903}  (26,41) (506 - 4 - 1) \\
-      &= \nombre{29492}.
-    \end{aligned}
+      &= \frac{R^2}{1 - R^2} \SSE \\
+      &= \frac{R^2}{1 - R^2} \MSE (n - p - 1) \\
+      &= \frac{0,6903}{1 - 0,6903} (26,41) (506 - 4 - 1) \\
+      &= 29492.
+\end{aligned}
 $$
-    Par conséquent,
-    $$
+Par conséquent,
+$$
 \begin{aligned}
       F^*
-      &= \frac{\nombre{29492} - \nombre{24016}}{
+      &= \frac{29492 - 24016}{
         (2) (26,41)} \\
       &= 103,67.
-    \end{aligned}
+\end{aligned}
 $$
 :::
 

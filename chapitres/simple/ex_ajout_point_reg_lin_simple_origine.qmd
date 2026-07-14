@@ -82,10 +82,10 @@ $$
     Interprétation : en ajoutant un point bien spécifique à n'importe
     quel ensemble de données, on peut s'assurer que la pente de la
     droite de régression sera la même que celle d'un modèle passant
-    par l'origine. Voir la figure [-@sec-simple-ajout_point_reg_lin_simple_origine] pour
+    par l'origine. Voir la figure [-@fig-ajout-point] pour
     une illustration du phénomène.
     
-```{r echo}
+```{r}
 #| echo: false
 
 data(anscombe)
@@ -98,9 +98,10 @@ yp <- c(y, m * mean(y))
 ```
 
     
-```{r simple-pointmagique}
+```{r}
 #| echo: false
 #| fig-cap: "Illustration de l'effet de l'ajout d'un point spécial à un ensemble de données. À gauche, la droite de régression usuelle. À droite, le même ensemble de points avec le point spécial ajouté (cercle plein), la droite de régression avec ce nouveau point (ligne pleine) et la droite de régression passant par l'origine (ligne pointillée). Les deux droites sont parallèles."
+#| label: fig-ajout-point
 
 plot(y ~ x, xlim = c(0, max(xp)), ylim = c(0, max(yp)))
 abline(lm(y ~ x), lwd = 2)

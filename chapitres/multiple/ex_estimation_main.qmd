@@ -1,25 +1,33 @@
 ## Estimation à la main {#sec-multiple-estimation_main}
 
-On vous donne les observations suivantes:
-  \begin{center}
-    \begin{tabular}{rrr}
-      \toprule
-      $Y$ & $x_1$ & $x_2$ \\
-      \midrule
-      17 & 4 &  9 \\
-      12 & 3 & 10 \\
-      14 & 3 & 11 \\
-      13 & 3 & 11 \\
-      \bottomrule
-    \end{tabular}
-  \end{center}
-  De plus, si $\Xmat$ est la matrice d'incidence du modèle
-  $$
-    Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \varepsilon_i,
-    \quad i = 1, 2, 3, 4,
-  $$
-  où $\varepsilon_i \sim \Norm(0, \sigma^2)$, alors
-  $$
+On vous donne les observations suivantes :
+
+```{r}
+#| echo: false
+
+
+dat <- data.frame(
+  Y  = c(17, 12, 14, 13),
+  x1 = c(4, 3, 3, 3),
+  x2 = c(9, 10, 11, 11)
+)
+
+kable(
+  dat,
+  col.names = c("$Y$", "$x_1$", "$x_2$"),
+  align = "rrr"
+)
+
+```
+ 
+ De plus, si $\Xmat$ est la matrice d'incidence du modèle
+$$
+Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \varepsilon_i,
+\quad i = 1, 2, 3, 4,
+$$
+  
+ où $\varepsilon_i \sim \Norm(0, \sigma^2)$, alors
+$$
 \begin{aligned}
     (\Xmat^\top \Xmat)^{-1}
     &= \frac{1}{2}
@@ -48,13 +56,15 @@ $$
     \right]
   \end{aligned}
 $$
+
 **a)** Trouver, par la méthode des moindres carrés, les estimateurs des paramètres du modèle mentionné ci-dessus.
 
 **b)** Construire le tableau d'analyse de variance du modèle obtenu en a) et calculer le coefficient de détermination.
 
 **c)** Vérifier si la variable $x_1$ est significative dans le modèle. Refaire pour la variable $x_2$.
 
-**d)** Trouver un intervalle de confiance à 95 \
+**d)** Trouver un intervalle de confiance à 95 % pour la valeur de
+    $Y$ lorsque $x_1 = 3,5$ et $x_2 = 9$.
 
 ::: {.callout-note collapse="true" title="Éléments de réponse"}
 **a)** $\hatbetavec = (-22,5,\; 6,5,\; 1,5)$
@@ -67,24 +77,75 @@ $$
 :::
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
-**a)** On a $$
+**a)** On a 
+$$
 \begin{aligned} \hatbetavec &= (\Xmat^\top \Xmat)^{-1} \Xmat^\top \yvec \\ &= \frac{1}{2} \left[ \begin{array}{rrrr} -6 & 34 & -13 & -13 \\ 2 & -4 &   1 &   1 \\ 0 & -2 & 1 & 1 \end{array} \right] \begin{bmatrix} 17 \\ 12 \\ 14 \\ 13 \end{bmatrix} \\ &= \frac{1}{2} \left[ \begin{array}{r} -45 \\ 13 \\ 3 \end{array} \right] = \left[ \begin{array}{r} -22,5 \\ 6,5 \\ 1,5 \end{array} \right] \end{aligned}
 $$
 
-**b)** Avec les résultats de la partie a), on a $$
+
+**b)** Avec les résultats de la partie a), on a 
+$$
 \begin{aligned} \hat\yvec &= \Xmat \hatbetavec = \begin{bmatrix} 17 \\ 12 \\ 13,5 \\ 13,5 \end{bmatrix}, \\ \hatepsvec &= \yvec - \hat\yvec = \left[ \begin{array}{r} 0 \\ 0 \\ 0,5 \\ -0,5 \end{array} \right] \end{aligned}
-$$ et $\bar{Y} = 14$. Par conséquent, $$
+$$ 
+
+et $\bar{Y} = 14$. Par conséquent, 
+
+$$
 \begin{aligned} \SST &= \yvec^\top \yvec - n \bar{Y}^2 = 14 \\ \SSE &= \hatepsvec^\top \hatepsvec = 0,5 \\ \SSR &= \SST - \SSR = 13,5, \end{aligned}
-$$ d'où le tableau d'analyse de variance est le suivant: \begin{center} \begin{tabular}{lrrrr} \toprule Source & SS & d.l. & MS & $F$ \\ \midrule Régression & $13,5$ & 2 & $6,75$ &  $13,5$ \\ Erreur     &  $0,5$ & 1 &  $0,5$ \\ \midrule Total      &   $14$ & \\ \bottomrule \end{tabular} \end{center} Le coefficient de détermination est $$ R^2 = 1 - \frac{\SSE}{\SST} = 0,9643. $$
+$$ 
 
-**c)** On sait que $\var{\hat{\beta}_i} = \sigma^2 c_{ii}$, où $c_{ii}$ est l'élément en position $(i+1, i+1)$ de la matrice $(\Xmat^\top \Xmat)^{-1}$. Or, $\hat{\sigma}^2 = s^2 = \MSE = 0,5$, tel que calculé en b). Par conséquent, la statistique $t$ du test $H_0: \beta_1 = 0$ est $$ t = \frac{\hat{\beta}_1}{s \sqrt{c_{11}}} = \frac{6,5}{\sqrt{0,5 (\frac{11}{2})}} = 3,920, $$ alors que celle du test $H_0: \beta_2 = 0$ est $$ t = \frac{\hat{\beta}_2}{s \sqrt{c_{22}}} = \frac{1,5}{\sqrt{0,5 (\frac{3}{2})}} = 1,732. $$ À un niveau de signification de 5 \
+d'où le tableau d'analyse de variance suivant : 
 
-**d)** Soit $\xvec_0^\top = \begin{bmatrix} 1 & 3,5 & 9 \end{bmatrix}$ et $Y_0$ la valeur de la variable dépendante correspondant à $x_0$. La prévision de $Y_0$ donnée par le modèle trouvé en a) est $$
+```{r}
+#| echo: false
+anova_tab <- data.frame(
+  Source = c("Régression", "Erreur", "Total"),
+  SS     = c(13.5, 0.5, 14),
+  `d.l.` = c(2, 1, NA),
+  MS     = c(6.75, 0.5, NA),
+  F      = c(13.5, NA, NA)
+)
+
+kable(
+  anova_tab,
+  escape = FALSE,
+  align = c("l", "r", "r", "r", "r")
+)
+
+```
+
+Le coefficient de détermination est $$ R^2 = 1 - \frac{\SSE}{\SST} = 0,9643. $$
+
+**c)** On sait que $\var{\hat{\beta}_i} = \sigma^2 c_{ii}$, où $c_{ii}$ est l'élément en position $(i+1, i+1)$ de la matrice $(\Xmat^\top \Xmat)^{-1}$. Or, $\hat{\sigma}^2 = s^2 = \MSE = 0,5$, tel que calculé en b). Par conséquent, la statistique $t$ du test $H_0: \beta_1 = 0$ est 
+
+$$ 
+t = \frac{\hat{\beta}_1}{s \sqrt{c_{11}}} = \frac{6,5}{\sqrt{0,5 (\frac{11}{2})}} = 3,920, 
+$$ 
+
+alors que celle du test $H_0: \beta_2 = 0$ est 
+
+$$ 
+t = \frac{\hat{\beta}_2}{s \sqrt{c_{22}}} = \frac{1,5}{\sqrt{0,5 (\frac{3}{2})}} = 1,732. 
+$$ 
+
+À un niveau de signification de 5 %, la valeur critique de ces tests est $t_{0,025}(1) = 12,706$. Dans les deux cas, on ne rejette donc pas $H_0$, les variables $x_1$ et $x_2$ ne sont pas significatives dans le modèle.
+
+**d)** Soit $\xvec_0^\top = \begin{bmatrix} 1 & 3,5 & 9 \end{bmatrix}$ et $Y_0$ la valeur de la variable dépendante correspondant à $x_0$. La prévision de $Y_0$ donnée par le modèle trouvé en a) est 
+
+$$
 \begin{aligned} \hat{Y}_0 &= \xvec_0^\top \hatbetavec \\ &= -22,5 + 6,5(3,5) + 1,5(9) \\ &= 13,75. \end{aligned}
-$$ D'autre part, $$
-\begin{aligned} \widehat{\text{var}}(Y_0 - \hat{Y}_0) &= s^2 (1 + \xvec_0^\top (\Xmat^\top \Xmat)^{-1} \xvec_0) \\ &= 1,1875. \end{aligned}
-$$ Par conséquent, un intervalle de confiance à 95 \
-\begin{aligned} Y_0 &\in \hat{Y}_0 \pm t_{0,025}(1) s \sqrt{1 + \xvec_0^\top (\Xmat^\top \Xmat)^{-1} \xvec_0} \\ &\in 13,75 \pm 12,706 \sqrt{1,1875} \\ &\in (-0,096,  27,596). \end{aligned}
+$$ 
+
+D'autre part, 
+$$
+\begin{aligned} \widehat{\text{var}}(Y_0 - \hat{Y}_0) &= s^2 (1 + \xvec_0^\top (\Xmat^\top \Xmat)^{-1} \xvec_0) \\ &= 1,1875. 
+\end{aligned}
+$$ 
+
+Par conséquent, un intervalle de confiance à 95 % pour $Y_0$
+$$
+\begin{aligned} 
+Y_0 &\in \hat{Y}_0 \pm t_{0,025}(1) s \sqrt{1 + \xvec_0^\top (\Xmat^\top \Xmat)^{-1} \xvec_0} \\ &\in 13,75 \pm 12,706 \sqrt{1,1875} \\ &\in (-0,096, 27,596). \end{aligned}
 $$
 :::
 

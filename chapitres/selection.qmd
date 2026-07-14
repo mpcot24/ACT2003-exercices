@@ -1,5 +1,12 @@
 # Sélection de modèle et régression régularisée
 
+```{r}
+#| message: false
+#| warning: false
+library(knitr)
+```
+
+
 {{< include selection/ex_ethnicite_compagnies_assurance.qmd >}}
 
 {{< include selection/ex_matrice_incidence_diagonale.qmd >}}

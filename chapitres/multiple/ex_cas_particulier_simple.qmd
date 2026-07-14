@@ -3,20 +3,20 @@
 Vérifier, pour le modèle de régression linéaire simple, que les
   valeurs trouvées dans la matrice de variance-covariance
   $\var{\hatbetavec} = \sigma^2 (\Xmat^\top \Xmat)^{-1}$
-  correspondent à celles calculées au chapitre @simple.
+  correspondent à celles calculées au chapitre [-@sec-simple].
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
 Dans le modèle de régression linéaire simple, la matrice schéma est
-    $$
+$$
       \Xmat =
       \begin{bmatrix}
         1      & x_1    \\
         \vdots & \vdots \\
         1      & x_n
       \end{bmatrix}.
-    $$
-    Par conséquent,
-    $$
+$$
+Par conséquent,
+$$
 \begin{aligned}
       \var{\hatbetavec}
       &= \sigma^2 (\Xmat^\top \Xmat)^{-1} \\
@@ -49,13 +49,14 @@ Dans le modèle de régression linéaire simple, la matrice schéma est
       \end{bmatrix},
     \end{aligned}
 $$
-    d'où
-    $$
+d'où
+
+$$
 \begin{aligned}
       \var{\hat{\beta}_0}
-      &= \sigma^2  \frac{\sum_{i=1}^n x_i^2}{
+      &= \sigma^2 \frac{\sum_{i=1}^n x_i^2}{
         n \sum_{i=1}^n (x_i - \bar{x})^2} \\
-      &= \sigma^2  \frac{\sum_{x=1}^n (x_i - \bar{x}^2) + n \bar{x}^2}{
+      &= \sigma^2 \frac{\sum_{x=1}^n (x_i - \bar{x}^2) + n \bar{x}^2}{
         n \sum_{i=1}^n (x_i - \bar{x})^2} \\
       \end{aligned}
 $$
@@ -66,8 +67,8 @@ $$
 \begin{aligned}
       \var{\hat{\beta}_1}
       &= \frac{\sigma^2}{\sum_{i=1}^n (x_i - \bar{x})^2}.
-    \end{aligned}
+\end{aligned}
 $$
-    Ceci correspond aux résultats antérieurs.
+Ceci correspond aux résultats antérieurs.
 :::
 

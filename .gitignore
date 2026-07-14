@@ -13,3 +13,5 @@ exercices_modeles_lineaires/solutions-*
 exercices_modeles_lineaires/reponses-*
 /.quarto/
 **/*.quarto_ipynb
+/_book
+_label_map.rds

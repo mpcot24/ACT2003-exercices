@@ -4,104 +4,103 @@ Proposer, à partir des données ci-dessous, un modèle de
   régression complet (incluant la distribution du terme d'erreur)
   pouvant expliquer le comportement de la variable $Y$ en fonction de
   celui de $x$.
-  \begin{center}
-    \begin{tabular}{rr}
-      \toprule
-      \multicolumn{1}{c}{$Y$} & $x$ \\
-      \midrule
-      32,83 & 25 \\
-       9,70 &  3 \\
-      29,25 & 24 \\
-      15,35 & 11 \\
-      13,25 & 10 \\
-      24,19 & 20 \\
-       8,59 &  6 \\
-      25,79 & 21 \\
-      24,78 & 19 \\
-      10,23 &  9 \\
-       8,34 &  4 \\
-      22,10 & 18 \\
-      10,00 &  7 \\
-      18,64 & 16 \\
-      18,82 & 15 \\
-      \bottomrule
-    \end{tabular}
-  \end{center}
-```{r echo}
+  
+```{r}
+#| echo: false
+
+
+dat <- data.frame(
+  Y = c(32.83,  9.70, 29.25, 15.35, 13.25,
+        24.19,  8.59, 25.79, 24.78, 10.23,
+         8.34, 22.10, 10.00, 18.64, 18.82),
+  x = c(25, 3, 24, 11, 10,
+        20, 6, 21, 19, 9,
+         4, 18, 7, 16, 15)
+)
+
+kable(
+  dat,
+  col.names = c("$Y$", "$x$"),
+  align = "rr",
+  escape = FALSE
+)
+
+```
+
+
+```{r}
 #| echo: false
 
 donnees <- read.table("data/exercice_3.16.dat", header = TRUE)
-fit <- lm(Y    X + I(X^2), data = donnees)
+fit <- lm(Y ~  X + I(X^2), data = donnees)
 b <- signif(coef(fit), 4)
 s2 <- signif(summary(fit)$sigma^2, 4)
 ```
 
 ::: {.callout-note collapse="true" title="Éléments de réponse"}
-$Y_i = \Sexpr{format(b[1], dec = ",")} +
-    \Sexpr{format(b[2], dec = ",")} x_i +
-    \Sexpr{format(b[3], dec = ",")} x_i^2 + \varepsilon_i$,
-    $\varepsilon_i \sim \Norm(0, \Sexpr{format(s2, dec = ",")})$
+$Y_i = `r format(b[1], dec = ",")` +
+    `r format(b[2], dec = ",")` x_i +
+    `r format(b[3], dec = ",")` x_i^2 + \varepsilon_i$,
+    $\varepsilon_i \sim \Norm(0, `r format(s2, dec = ",")`)$
 :::
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
 Le graphique des valeurs de $Y$ en fonction de celles de $x$, à la
-    figure @sec-multiple-modele_tabulaires, montre clairement une
+    figure [-@fig-multiple-quadratique], montre clairement une
     relation quadratique. On postule donc le modèle
-    $$
+$$
       Y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \varepsilon_i, \quad
       \varepsilon_i \sim \Norm(0, \sigma^2).
-    $$
+$$
     
-```{r multiple-quadratique}
-
-plot(Y   X, data = donnees)
+```{r}
+#| echo: false
+#| label: fig-multiple-quadratique
+#| fig-cap: "Graphique des données de l'exercice"
+plot(Y ~ X, data = donnees)
 ```
 
-      : Graphique des données de l'exercice
-        @multiple.@sec-multiple-modele_tabulaires
-      
     
-    Par la suite, on peut estimer les paramètres de ce modèle avec la
-    fonction \texttt{lm} de \textsf{R}:
+Par la suite, on peut estimer les paramètres de ce modèle avec la fonction `lm` de R :
+    
 ```{r}
-
-fit <- lm(Y   X + I(X^2), data = donnees)
+fit <- lm(Y ~ X + I(X^2), data = donnees)
 summary(fit)
 anova(fit)
 ```
 
-    Tant le test $F$ global que les tests $t$ individuels sont
-    concluants, le coefficient de détermination est élevé et l'on peut
-    constater à la figure @sec-multiple-modele_tabulaires que
+
+Tant le test $F$ global que les tests $t$ individuels sont
+concluants, le coefficient de détermination est élevé et l'on peut
+    constater à la figure [-@fig-multiple-2] que
     l'ajustement du modèle est bon. On conclut donc qu'un modèle
     adéquat pour cet ensemble de données est
-    $$
-      Y_i = \Sexpr{format(b[1], dec = ",")} +
-      \Sexpr{format(b[2], dec = ",")} x_i +
-      \Sexpr{format(b[3], dec = ",")} x_i^2 + \varepsilon_i, \quad
-      \varepsilon_i \sim \Norm(0, \Sexpr{format(s2, dec = ",")}).
-    $$
+$$
+      Y_i = `r format(b[1], dec = ",")` +
+      `r format(b[2], dec = ",")` x_i +
+      `r format(b[3], dec = ",")` x_i^2 + \varepsilon_i, \quad
+      \varepsilon_i \sim \Norm(0, `r format(s2, dec = ",")`).
+$$
     
-```{r multiple-quadratique2}
+```{r}
+#| echo: false
+#| label: fig-multiple-2
 
-plot(Y   X, data = donnees)
+
+plot(Y ~ X, data = donnees)
 x <- seq(min(donnees$X), max(donnees$X), length = 200)
 lines(x, predict(fit, data.frame(X = x), lwd = 2))
 ```
 
-      : Graphique des données de l'exercice
-        @multiple.@sec-multiple-modele_tabulaires et courbe
-        obtenue par régression
       
-    
-
-    On note que l'utilisation d'une régression linéaire simple ici mènerait à un problème de non-linéarité, tel que montré dans le graphique des résidus standardisés en fonction de $x$, dans la Figure @sec-multiple-modele_tabulaires.
+On note que l'utilisation d'une régression linéaire simple ici mènerait à un problème de non-linéarité, tel que montré dans le graphique des résidus standardisés en fonction de $x$, dans la figure [-@fig-multiple-residus-stand].
         
-```{r multiple-lineaire-residus}
+```{r}
+#| echo: false
+#| label: fig-multiple-residus-stand
+#| fig-cap: "Graphique des résidus de la régression linéaire simple en fonction de la variable explicative"
 
-plot(rstandard(lm(Y   X, data = donnees)) X, data = donnees)
+plot(rstandard(lm(Y ~ X, data = donnees)) ~ X, data = donnees)
 ```
-
-      : Graphique des résidus de la régression linéaire simple en fonction de la variable explicative dans  l'exercice @multiple.@sec-multiple-modele_tabulaires
 :::
 

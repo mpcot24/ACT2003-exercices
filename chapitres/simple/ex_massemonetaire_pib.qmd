@@ -1,9 +1,7 @@
-## Relation entre la masse monétaire et le PIB {#sec-simple-massemonetaire_pib}
+## Relation entre la masse monétaire et le PNB {#sec-simple-massemonetaire_pib}
 
-La masse monétaire et le produit national brut (en millions de
-  *snouks*) de la Fictinie (Asie postérieure) sont reproduits dans le
-  tableau ci-dessous.
-  \begin{center}
+La masse monétaire et le produit national brut (en millions de *snouks*) de la Fictinie (Asie postérieure) sont reproduits dans le tableau ci-dessous.
+\begin{center}
     \begin{tabular}{ccr}
       \toprule
       Année & Masse monétaire & \multicolumn{1}{c}{PNB} \\
@@ -19,17 +17,19 @@ La masse monétaire et le produit national brut (en millions de
       1995 & 4,8 & 9,7 \\
       1996 & 5,0 & 10,0 \\
       \bottomrule
-    \end{tabular}
-  \end{center}
+\end{tabular}
+\end{center}
+
 **a)** Établir une relation linéaire dans laquelle la masse monétaire explique le produit national brut (PNB).
 
 **b)** Construire des intervalles de confiance pour l'ordonnée à l'origine et la pente estimées en a). Peut-on rejeter l'hypothèse que la pente est nulle? Égale à 1?
 
 **c)** Si, en tant que ministre des Finances de la Fictinie, vous souhaitez que le PNB soit de 12,0 en 1997, à combien fixeriez-vous la masse monétaire?
 
-**d)** Pour une masse monétaire telle que fixée en c), déterminer les bornes inférieure et supérieure à l'intérieur desquelles devrait, avec une probabilité de 95 \
+**d)** Pour une masse monétaire telle que fixée en c), déterminer les bornes inférieure et supérieure à l'intérieur desquelles devrait, avec une probabilité de 95 %, se trouver le PNB moyen. Répéter pour la valeur du PNB de l'année 1997.
 
 ::: {.callout-note collapse="true" title="Éléments de réponse"}
+
 **a)** $\text{PNB} = 1,168 + 1,716 \text{ MM}$
 
 **b)** $\beta_0 \in (0,060, 2,276)$, $\beta_1 \in (1,427, 2,005)$
@@ -40,26 +40,55 @@ La masse monétaire et le produit national brut (en millions de
 :::
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
-**a)** Soit $x_1, \dots, x_{10}$ les valeurs de la masse monétaire et $Y_1, \dots, Y_{10}$ celles du PNB. On a $\bar{x} = 3,72$, $\bar{Y} = 7,55$, $\sum_{i = 1}^{10} x_i^2 = 147,18$, $\sum_{t = 1}^{10} Y_i^2 = 597,03$ et $\sum_{i = 1}^{10} x_i Y_i = 295,95$. Par conséquent, $$
-\begin{aligned} \hat{\beta}_1 &= \frac{\sum_{i=1}^{10} x_i Y_i - 10 \bar{x} \bar{Y}}{
-$$
 
-et
+**a)** Soit $x_1, \dots, x_{10}$ les valeurs de la masse monétaire et $Y_1, \dots, Y_{10}$ celles du PNB. On a $\bar{x} = 3,72$, $\bar{Y} = 7,55$, $\sum_{i = 1}^{10} x_i^2 = 147,18$, $\sum_{t = 1}^{10} Y_i^2 = 597,03$ et $\sum_{i = 1}^{10} x_i Y_i = 295,95$. Par conséquent, 
 
 $$
-\begin{aligned} \hat{\beta}_0 &= \bar{Y} - \hat{\beta}_1 \bar{x} \\ &= 1,168. \end{aligned}
-$$ On a donc la relation linéaire $\text{PNB} = 1,168 + 1,716 \text{ MM}$.
-
-**b)** Tout d'abord, on doit calculer l'estimateur $s^2$ de la variance car cette quantité entre dans le calcul des intervalles de confiance demandés. Pour les calculs à la main, on peut éviter de calculer les valeurs de $\hat{Y}_1, \dots, \hat{Y}_{10}$ en procédant ainsi: $$
-\begin{aligned} \SST &= \sum_{i=1}^{10} Y_i^2 - 10 \bar{Y}^2 \\ &= 27,005 \\ \SSR &= \hat{\beta}_1^2 \left( \sum_{i=1}^{10} x_i^2 - 10 \bar{x}^2 \right) \\ &= 25,901, \end{aligned}
-$$ puis $\SSE = \SST - \SSR = 1,104$ et $s^2 = \MSE = \SSE/(10 - 2) = 0,1380$.  On peut maintenant construire les intervalles de confiance: $$
-\begin{aligned} \beta_0 &\in \hat{\beta}_0 \pm t_{\alpha/2}(n - 2)  s  \sqrt{\frac{1}{n} + \frac{\bar{x}^2}{S_{xx}}} \\ &\in 1,168 \pm (2,306) (0,3715) \sqrt{\frac{1}{10} + \frac{3,72^2}{8,796}} \\ &\in (0,060, 2,276) \\ \beta_1 &\in \hat{\beta}_1 \pm t_{\alpha/2}(n - 2)  s  \sqrt{\frac{1}{S_{xx}}} \\ &\in 1,716 \pm (2,306) (0,3715) \sqrt{\frac{1}{8,796}} \\ &\in (1,427, 2,005). \end{aligned}
-$$ Puisque l'intervalle de confiance pour la pente $\beta_1$ ne contient ni la valeur 0, ni la valeur 1, on peut rejeter, avec un niveau de confiance de 95 \
-
-**c)** Par l'équation obtenue en a) liant le PNB à la masse monétaire (MM), un PNB de 12,0 correspond à une masse monétaire de $$
-\begin{aligned} \text{MM} &= \frac{12,0 - 1,168}{1,716} \\ &= 6,31. \end{aligned}
+\begin{align*}
+        \hat{\beta}_1
+        &= \frac{\sum_{i=1}^{10} x_i Y_i - 10 \bar{x} \bar{Y}}{%
+          \sum_{i=1}^{10} x_i^2 - 10 \bar{x}^2} \\
+        &= 1,716 \quad \text{et}\\
+        \hat{\beta}_0
+        &= \bar{Y} - \hat{\beta}_1 \bar{x} \\
+        &= 1,168.
+      \end{align*}
 $$
 
-**d)** On cherche un intervalle de confiance pour la droite de régression en $\text{MM}_{1997} = 6,31$ ainsi qu'un intervalle de confiance pour la prévision $\text{PNB} = 12,0$ associée à cette même valeur de la masse monétaire.  Avec une probabilité de $\alpha = 95 \
+On a donc la relation linéaire $\text{PNB} = 1,168 + 1,716 \text{MM}$.
+
+**b)** Tout d'abord, on doit calculer l'estimateur $s^2$ de la variance car cette quantité entre dans le calcul des intervalles de confiance demandés. Pour les calculs à la main, on peut éviter de calculer les valeurs de $\hat{Y}_1, \dots, \hat{Y}_{10}$ en procédant ainsi: 
+
+$$
+\begin{aligned} 
+\SST &= \sum_{i=1}^{10} Y_i^2 - 10 \bar{Y}^2 \\ &= 27,005 \\ \SSR &= \hat{\beta}_1^2 \left( \sum_{i=1}^{10} x_i^2 - 10 \bar{x}^2 \right) \\ &= 25,901, 
+\end{aligned}
+$$ 
+puis $\SSE = \SST - \SSR = 1,104$ et $s^2 = \MSE = \SSE/(10 - 2) = 0,1380$.  
+
+On peut maintenant construire les intervalles de confiance: 
+$$
+\begin{aligned} \beta_0 &\in \hat{\beta}_0 \pm t_{\alpha/2}(n - 2) s\sqrt{\frac{1}{n} + \frac{\bar{x}^2}{S_{xx}}} \\ &\in 1,168 \pm (2,306) (0,3715) \sqrt{\frac{1}{10} + \frac{3,72^2}{8,796}} \\ &\in (0,060, 2,276) \\ \beta_1 &\in \hat{\beta}_1 \pm t_{\alpha/2}(n - 2) s \sqrt{\frac{1}{S_{xx}}} \\ &\in 1,716 \pm (2,306) (0,3715) \sqrt{\frac{1}{8,796}} \\ &\in (1,427, 2,005). 
+\end{aligned}
+$$ 
+
+Puisque l'intervalle de confiance pour la pente $\beta_1$ ne contient ni la valeur 0, ni la valeur 1, on peut rejeter, avec un niveau de confiance de 95 %, les hypothèses $H_0~: \beta_1 =0$ et $H_0~: \beta_1 = 1$.
+
+**c)** Par l'équation obtenue en a) liant le PNB à la masse monétaire (MM), un PNB de 12,0 correspond à une masse monétaire de 
+$$
+\begin{aligned} 
+\text{MM} &= \frac{12,0 - 1,168}{1,716} \\ &= 6,31. 
+\end{aligned}
+$$
+
+**d)** On cherche un intervalle de confiance pour la droite de régression en $\text{MM}_{1997} = 6,31$ ainsi qu'un intervalle de confiance pour la prévision $\text{PNB} = 12,0$ associée à cette même valeur de la masse monétaire. Avec une probabilité de $\alpha = 95~\%$, le PNB moyen se trouve dans l'intervalle
+$$
+12,0 \pm t_{\alpha/2}(n - 2)\, s\, \sqrt{\frac{1}{n} + \frac{(6,31 - \bar{x})^2}{S_{xx}}} = (11,20; 12,80),
+$$
+
+alors que la vraie valeur du PNB se trouve dans l'intervalle
+$$
+12,0 \pm t_{\alpha/2}(n - 2)\, s\, \sqrt{1 + \frac{1}{n} + \frac{(6,31 - \bar{x})^2}{S_{xx}}} = (10,83; 13,17).
+$$
 :::
 

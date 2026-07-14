@@ -1,3 +1,8 @@
+---
+header-includes:
+  - \input{commandes}
+---
+
 # Introduction {.unnumbered}
 
 Ce document contient les exercices proposés par Marie-Pier Côté pour le cours ACT-2003 Modèles linéaires en actuariat, donné à l'École d'actuariat de l'Université Laval. Le recueil a été mis en forme par Vincent Mercier, auxiliaire d'enseignement, à l'aide du soutien financier de la Chaire de leadership en enseignement en analyse de données massives pour l'actuariat --- Intact. 

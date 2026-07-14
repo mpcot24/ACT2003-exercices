@@ -1,28 +1,49 @@
 ## Effet du sexe sur l'espérance de vie {#sec-simple-sexe_esperance_vie}
 
 On s'intéresse à l'effet du sexe sur l'espérance de vie. On connaît les durées de vie de $n_{F}=300$ femmes et $n_H=200$ hommes. On choisit d'utiliser la variable indicatrice
-$$x_{i}=\left\{ \begin{array}{ll}
+
+$$
+x_{i}=\left\{ \begin{array}{ll}
 0 & \text{, si \texttt{SEXE}}_i=\texttt{H}\\
 1 & \text{, si \texttt{SEXE}}_i=\texttt{F}\\
-\end{array}\right. .$$
+\end{array}\right. .
+$$
+
 On note $\bar{Y}_F$ la moyenne des durées de vie des femmes et $\bar{Y}_H$ la moyenne des durées de vie des hommes.
 
-**a)** Montrer que l'estimateur des moindres carrés $\hat{\beta}_1$ (lié à la variable explicative $x$) est égal à $\bar{Y}_F-\bar{Y}_H$. *Indice: On peut exprimer $\bar{Y*$ en termes de $\bar{Y}_F$ et $\bar{Y}_H$.}
+**a)** Montrer que l'estimateur des moindres carrés $\hat{\beta}_1$ (lié à la variable explicative $x$) est égal à $\bar{Y}_F-\bar{Y}_H$. 
+
+*Indice* : On peut exprimer $\bar{Y*}$ en termes de $\bar{Y}_F$ et $\bar{Y}_H$.
 
 **b)** Ce résultat permet-il d'interpréter le coefficient relié à une variable catégorique binaire? Expliquer.
 
 **c)** Que représente $\hat{\beta}_0$ dans ce cas?
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
-**a)** On a $$\bar{Y}=\frac{\sum_{i=1}^{500}Y_i}{500}=\frac{300\bar{Y}_F+200\bar{Y}_H}{500}.$$ Aussi, $$\hat{\beta}_1=\frac{S_{xy}}{S_{xx}}=\frac{\sum_{i=1}^{500}x_iY_i-500\bar{x}\bar{Y}}{\sum_{i=1}^{500}x_i^2-500\bar{x}^2}.$$  Or, $$
+**a)** On a 
+
+$$
+\bar{Y}=\frac{\sum_{i=1}^{500}Y_i}{500}=\frac{300\bar{Y}_F+200\bar{Y}_H}{500}.
+$$ 
+
+Aussi, 
+
+$$
+\hat{\beta}_1=\frac{S_{xy}}{S_{xx}}=\frac{\sum_{i=1}^{500}x_iY_i-500\bar{x}\bar{Y}}{\sum_{i=1}^{500}x_i^2-500\bar{x}^2}.
+$$  
+Or, 
+$$
 \begin{aligned} \bar{x}&=\frac{\sum_{i=1}^{500}x_i}{500}=\frac{300}{500},\\ \sum_{i=1}^{500}x_i^2&=300,\\ \sum_{i=1}^{500}x_i Y_i&=300\bar{Y}_F \end{aligned}
-$$ Donc, $$
+$$
+Donc, 
+$$
 \begin{aligned} \hat{\beta}_1&=\frac{300\bar{Y}_F-500\times\frac{300}{500}\times\frac{300\bar{Y}_F+200\bar{Y}_H}{500}}{300-500\left(\frac{300}{500}\right)^2}\\ &=\frac{500\bar{Y}_F-300\bar{Y}_F-200\bar{Y}_H}{500-300}\\ &=\bar{Y}_F-\bar{Y}_H. \end{aligned}
 $$
 
 **b)** Oui, le coefficient relié à la variable indicatrice qui vaut 1 si le sexe est F représente la différence etre la moyenne de l'espérance de vie pour les femmes et la moyenne de l'espérace de vie pour les hommes.
 
-**c)**  $$
+**c)**  
+$$
 \begin{aligned} \hat{\beta}_0&=\bar{Y}-\hat{\beta}_1\bar{x}=\bar{Y}-(\bar{Y}_F-\bar{Y}_H)\frac{300}{500}=\bar{Y}_H. \end{aligned}
 $$ $\Rightarrow \hat{\beta}_0$ est la moyenne de l'espérance de vie pour les hommes.
 :::

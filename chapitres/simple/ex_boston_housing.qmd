@@ -1,28 +1,103 @@
 ## Marché immobilier dans la région métropolitaine de Boston {#sec-simple-boston_housing}
 
-Le fichier \texttt{house.dat} contient diverses données relatives à
-  la valeur des maisons dans la région métropolitaine de Boston. La
-  signification des différentes variables se trouve dans le fichier.
-  Comme l'ensemble de données est plutôt grand (506 observations pour
-  chacune des 13 variables), répondre aux questions suivantes à l'aide
-  de \textsf{R}.
-**a)** Déterminer à l'aide de graphiques à laquelle des variables suivantes le prix médian des maisons (\texttt{medv}) est le plus susceptible d'être lié par une relation linéaire: le nombre moyen de pièces par immeuble (\texttt{rm}), la proportion d'immeubles construits avant 1940 (\texttt{age}), le taux de taxe foncière par \nombre{10000} \$ d'évaluation (\texttt{tax}) ou le pourcentage de population sous le seuil de la pauvreté (\texttt{lstat}). *Astuce*: en supposant que les données se trouvent dans le *data frame* \texttt{house}, essayer les commandes suivantes: ```{r eval} #| eval: false plot(house) attach(house) plot(data.frame(rm, age, lstat, tax, medv)) detach(house) plot(medv   rm + age + lstat + tax, data = house) ```
+Le fichier `house.dat` contient diverses données relatives à la valeur des maisons dans la région métropolitaine de Boston. La signification des différentes variables se trouve dans le fichier. Comme l'ensemble de données est plutôt grand (506 observations pour chacune des 13 variables), répondre aux questions suivantes à l'aide de R.
+
+**a)** Déterminer à l'aide de graphiques à laquelle des variables suivantes le prix médian des maisons (`medv`) est le plus susceptible d'être lié par une relation linéaire: le nombre moyen de pièces par immeuble (`rm`), la proportion d'immeubles construits avant 1940 (`age`), le taux de taxe foncière par 10000 $ d'évaluation (`tax`) ou le pourcentage de population sous le seuil de la pauvreté (`lstat`). 
+
+*Astuce* : en supposant que les données se trouvent dans le *data frame* `house`, essayer les commandes suivantes : 
+
+```{r} 
+#| eval: false 
+
+plot(house) 
+attach(house) 
+plot(data.frame(rm, age, lstat, tax, medv)) 
+detach(house) 
+plot(medv ~ rm + age + lstat + tax, data = house) 
+```
 
 **b)** Faire l'analyse complète de la régression entre le prix médian des maisons et la variable choisie en a), c'est-à-dire: calcul de la droite de régression, tests d'hypothèses sur les paramètres afin de savoir si la régression est significative, mesure de la qualité de l'ajustement et calcul de l'intervalle de confiance de la régression.
 
 **c)** Répéter l'exercice en b) en utilisant une variable ayant été rejetée en a). Observer les différences dans les résultats.
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
-```{r echo}
+```{r}
 #| echo: false
 
 house <- read.table("data/house.dat", header = TRUE)
 ```
 
-**a)** Les données du fichier \texttt{house.dat} sont importées dans \textsf{R} avec la commande ```{r eval} #| eval: false house <- read.table("house.dat", header = TRUE) ``` La figure @sec-simple-boston_housing contient les graphiques de \texttt{medv} en fonction de chacune des variables \texttt{rm}, \texttt{age}, \texttt{lstat} et \texttt{tax}. Le meilleur choix de variable explicative pour le prix médian semble être le nombre moyen de pièces par immeuble, \texttt{rm}. 
+**a)** Les données du fichier `house.dat` sont importées dans R avec la commande 
 
-**b)** Les résultats ci-dessous ont été obtenus avec \textsf{R}. ```{r} fit1 <- lm(medv   rm, data = house) summary(fit1) ``` On peut voir que tant l'ordonnée à l'origine que la pente sont très significativement différentes de zéro. La régression est donc elle-même significative. Cependant, le coefficient de détermination n'est que de $R^2 = \Sexpr{formatC(summary(fit1)$r.squared, digits = 4, format = "f", dec = ",")}$, 
+```{r} 
+#| eval: false 
+house <- read.table("house.dat", header = TRUE) 
+``` 
 
-**c)** On reprend la même démarche, mais cette fois avec la variable \texttt{age}: ```{r} fit2 <- lm(medv   age, data = house) summary(fit2) pred.ci <- predict(fit2, interval = "confidence", level = 0.95) ``` La régression est encore une fois très significative. Cependant, le $R^2$ est encore plus faible qu'avec la variable \texttt{rm}. Les variables \texttt{rm} et \texttt{age} contribuent donc chacune à expliquer les variations de la variable \texttt{medv} (et \texttt{rm} mieux que \texttt{age}), mais aucune ne sait le faire seule de manière satisfaisante. La droite de régression et l'intervalle de confiance de celle-ci sont reproduits à la figure @sec-simple-boston_housing. On constate que l'intervalle de confiance est plus large qu'en b).
+Les figures suivantes contiennent les graphiques de `medv` en fonction de chacune des variables `rm`, `age`, `lstat` et `tax`. Le meilleur choix de variable explicative pour le prix médian semble être le nombre moyen de pièces par immeuble, `rm`. 
+
+```{r}
+#| echo: false
+#| fig-cap: "Relation entre la variable medv et les variables rm, age, lstat et tax des données house.dat"
+#| label: fig-simple-house
+
+
+plot(medv ~ rm + age + lstat + tax, data = house, ask = FALSE)
+```
+
+
+**b)** Les résultats ci-dessous ont été obtenus avec R. 
+```{r} 
+fit1 <- lm(medv ~ rm, data = house) 
+summary(fit1) 
+``` 
+
+```{r}
+#| echo: false
+
+r2 <- round(summary(fit1)$r.squared, 4)
+```
+On peut voir que tant l'ordonnée à l'origine que la pente sont très significativement différentes de zéro. La régression est donc elle-même significative. Cependant, le coefficient de détermination n'est que de $R^2 = `r r2`$, ce qui indique que d'autres facteurs pourraient expliquer la variation dans `medv`.
+
+On calcule les bornes de l'intervalle de confiance de la régression avec la fonction `predict` :
+
+```{r}
+pred.ci <- predict(fit1, interval = "confidence", level = 0.95)
+```
+
+La droite de régression et ses bornes d'intervalle de confiance inférieure et supérieure sont illustrée à la figure [-@fig-simple-house2].
+      
+```{r}
+#| fig-cap: "Résultat de la régression de la variable rm sur la variable medv des données house.dat"
+#| label: fig-simple-house2
+
+ord <- order(house$rm)
+plot(medv ~ rm, data = house, ylim = range(pred.ci))
+matplot(house$rm[ord], pred.ci[ord,],
+        type = "l", lty = c(1, 2, 2), lwd= 2,
+        col = "black", add = TRUE)
+```
+
+
+**c)** On reprend la même démarche, mais cette fois avec la variable `age` : 
+
+```{r} 
+fit2 <- lm(medv ~ age, data = house) 
+summary(fit2) 
+pred.ci <- predict(fit2, interval = "confidence", level = 0.95) 
+``` 
+
+La régression est encore une fois très significative. Cependant, le $R^2$ est encore plus faible qu'avec la variable `rm`. Les variables `rm` et `age` contribuent donc chacune à expliquer les variations de la variable `medv` (et `rm` mieux que `age`), mais aucune ne sait le faire seule de manière satisfaisante. La droite de régression et l'intervalle de confiance de celle-ci sont reproduits à la figure [-@fig-simple-house3]. On constate que l'intervalle de confiance est plus large qu'en b).
+
+```{r}
+#| fig-cap: "Résultat de la régression de la variable age sur la variable medv dans les données house.dat"
+#| label: fig-simple-house3
+
+ord <- order(house$age)
+plot(medv ~ age, data = house, ylim = range(pred.ci))
+matplot(house$age[ord], pred.ci[ord,],
+        type = "l", lty = c(1, 2, 2), lwd = 2,
+        col = "black", add = TRUE)
+```
 :::
 

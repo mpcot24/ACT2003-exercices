@@ -1,10 +1,8 @@
 ## Démonstration avec la régression pondérée {#sec-multiple-regression_ponderee}
 
-Considérer le modèle de régression linéaire $\yvec = \Xmat
-  \betavec + \epsvec$, où $\Xmat$ est une matrice $n \times (p+1)$,
-  $\var{\epsvec} = \sigma^2  \mat{W}^{-1}$ et $\mat{W} = \diag(w_1,
-  \dots, w_n)$.  Démontrer, en dérivant
-  $$
+Considérer le modèle de régression linéaire $\yvec = \Xmat \betavec + \epsvec$, où $\Xmat$ est une matrice $n \times (p+1)$,  $\var{\epsvec} = \sigma^2 \mat{W}^{-1}$ et $\mat{W} = \diag(w_1, \dots, w_n)$.  Démontrer, en dérivant
+  
+$$
 \begin{aligned}
     S(\betavec)
     &= \sum_{i=1}^n w_i (Y_i - \xvec_i^\top \betavec)^2 \\
@@ -12,20 +10,22 @@ Considérer le modèle de régression linéaire $\yvec = \Xmat
        \Xmat \betavec)
   \end{aligned}
 $$
-  par rapport à $\betavec$, que les équations normales à résoudre pour
+par rapport à $\betavec$, que les équations normales à résoudre pour
   obtenir l'estimateur des moindres carrés pondérés de $\betavec$ sont,
   sous forme matricielle,
-  $$
-    (\Xmat^\top  \mat{W}  \Xmat) \hatbetavec^* = \Xmat^\top 
-    \mat{W}   \yvec,
-  $$
-  puis en déduire cet estimateur.  *Astuce*: cette preuve est
-  simple si l'on utilise le théorème **Dérivée d'une fonction** de la section **[réf:sec:elements:derivees]**
-  avec $\mat{A} = \mat{W}$ et $f(\betavec) = \yvec - \Xmat \betavec$.
+ 
+$$
+(\Xmat^\top \mat{W} \Xmat) \hatbetavec^* = \Xmat^\top
+    \mat{W}  \yvec,
+$$
+puis en déduire cet estimateur.  
+
+
+*Astuce*: cette preuve est simple si l'on utilise le théorème **Dérivée d'une fonction** de l'annexe avec $\mat{A} = \mat{W}$ et $f(\betavec) = \yvec - \Xmat \betavec$.
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
 En suivant les indications données dans l'énoncé, on obtient aisément
-    $$
+$$
 \begin{aligned}
       \frac{d}{d\betavec} S(\betavec)
       &= 2 \left(\frac{d}{d\betavec}(\yvec - \Xmat
@@ -35,16 +35,12 @@ En suivant les indications données dans l'énoncé, on obtient aisément
         \betavec) \\
       &= -2 (\Xmat^\top \mat{W} \yvec - \Xmat^\top \mat{W}
       \Xmat \betavec).
-    \end{aligned}
+\end{aligned}
 $$
-    Par conséquent, les équations normales à résoudre pour trouver
-    l'estimateur $\hatbetavec^*$ minimisant la somme de carrés pondérés
-    $S(\betavec)$ sont $(\Xmat^\top  \mat{W}  \Xmat) \hatbetavec^* =
-    \Xmat^\top  \mat{W}  \yvec$ et l'estimateur des moindres
-    carrés pondérés est
-    $$
-      \hatbetavec^* = (\Xmat^\top \mat{W} \Xmat)^{-1} \Xmat^\top
-      \mat{W} \yvec.
-    $$
+
+Par conséquent, les équations normales à résoudre pour trouver l'estimateur $\hatbetavec^*$ minimisant la somme de carrés pondérés $S(\betavec)$ sont $(\Xmat^\top \mat{W} \Xmat) \hatbetavec^* = \Xmat^\top \mat{W} \yvec$ et l'estimateur des moindres carrés pondérés est
+$$
+\hatbetavec^* = (\Xmat^\top \mat{W} \Xmat)^{-1} \Xmat^\top \mat{W} \yvec.
+$$
 :::
 

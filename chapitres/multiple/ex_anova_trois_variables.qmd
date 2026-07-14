@@ -3,11 +3,10 @@
 Au cours d'une analyse de régression, on a colligé les valeurs
   de trois variables explicatives $x_1$, $x_2$ et $x_3$ ainsi que
   celles d'une variable dépendante $Y$. Les résultats suivants ont par
-  la suite été obtenus avec \textsf{R}.
- \begin{verbatim}
-> anova(lm(Y   X1, data = foo))
-  \end{verbatim}
-  \begin{verbatim}
+  la suite été obtenus avec R.
+```{text}
+> anova(lm(Y ~ X1, data = foo))
+
 Analysis of Variance Table
 
 Response: Y
@@ -17,12 +16,9 @@ Response: Y
 Residuals 23   18.2234  0.79232
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-  \end{verbatim}
 
-  \begin{verbatim}
-> anova(lm(Y   X2 + X3, data = foo))
-  \end{verbatim}
-  \begin{verbatim}
+> anova(lm(Y ~ X2 + X3, data = foo))
+
 Analysis of Variance Table
 
 Response: Y
@@ -33,9 +29,8 @@ Response: Y
 Residuals 22   9.46140  0.43006
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-  \end{verbatim}
-  \begin{verbatim}
-> anova(lm(Y   X1 + X2 + X3, data = foo))
+
+> anova(lm(Y ~ X1 + X2 + X3, data = foo))
   \end{verbatim}
   \begin{verbatim}
 Analysis of Variance Table
@@ -49,41 +44,85 @@ Response: Y
 Residuals 21   9.41731  0.44844
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-  \end{verbatim}
+```
 
-**a)** $H_0: \beta_1 = \beta_2 = \beta_3 = 0$
+**a)** On considère le modèle complet $Y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \varepsilon$. À partir de l'information ci-dessus, calculer la statistique appropriée pour compléter chacun des tests suivants. Indiquer également le nombre de degrés de liberté de cette statistique, Dans tous les cas, la contre-hypothèse $\mathcal{H}_1$ est la négation de l'hypothèse $\mathcal{H}_0$. 
 
-**b)** $H_0: \beta_1 = 0$
+i) $\mathcal{H}_0~: \beta_1 = \beta_2 = \beta_3 = 0$
 
-**c)** $H_0: \beta_2 = \beta_3 = 0$
+ii) $\mathcal{H}_0~: \beta_1 = 0$
 
-  \item À la lumière des résultats en a), quelle(s) variable(s)
+iii) $\mathcal{H}_0~: \beta_2 = \beta_3 = 0$
+
+**b)** À la lumière des résultats en a), quelle(s) variable(s)
     devrait-on inclure dans la régression? Justifier votre réponse.
 
 ::: {.callout-note collapse="true" title="Éléments de réponse"}
-**a)** 40,44, 3 et 21 degrés de liberté
+**a)** 
 
-**b)** 0,098, 1 et 21 degrés de liberté
+i) 40,44, 3 et 21 degrés de liberté
 
-**c)** 9,82, 2 et 21 degrés de liberté
+ii) 0,098, 1 et 21 degrés de liberté
 
-    \item $x_1$ et $x_3$, ou $x_2$ et $x_3$
+iii) 9,82, 2 et 21 degrés de liberté
+
+**b)**  $x_1$ et $x_3$, ou $x_2$ et $x_3$
 :::
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
-**a)** Le test d'hypothèse $H_0: \beta_1 = \beta_2 = \beta_3 = 0$ est le test global de validité du modèle. La statistique $F$ pour ce test est $$
-\begin{aligned} F &= \frac{\SSR(X_1, X_2, X_3)/3}{\MSE} \\ &= \frac{(45,5924 + 0,01842 + 8,78766)/3}{0,44844} \\ &= 40,44. \end{aligned}
-$$ Puisque la statistique $\MSE$ a 21 degrés de liberté, la statistique $F$ en a 3 et 21.
+**a)** L'information demandée doit évidemment être extraite des tableaux d'analyse de variance fournis dans l'énoncé. Le résultat de la fonction `anova` de R est un tableau d'analyse de variance séquentiel, où chaque ligne identifiée par le nom d'une variable correspond au test $F$ partiel résultant de l'ajout de cette variable au modèle. Ainsi, du deuxième tableau on obtient les sommes de carrés
+\begin{align*}
+        \SSR(X_2)          &= 45,59085 \\
+        \SSR(X_3,X_2)-\SSR(X_2)      &= 8,76355 \\
+        \text{alors que du troisième tableau on a} &\\
+        \SSR(X_1)          &= 45,59240 \\
+        \SSR(X_2,X_1)-\SSR(X_1)      &= 0,01842 \\
+        \SSR(X_3,X_1, X_2)-\SSR(X_1,X_2) &= 8,78766,
+\end{align*}
+      
+ainsi que
+\begin{align*}
+        \MSE
+        &= \frac{SSE(X_1, X_2, X_3)}{n - p - 1} \\
+        &= 0,44844.
+\end{align*}
 
-**b)** Pour tester cette hypothèse, il faut utiliser un test $F$ partiel. On teste si la variable $X_1$ est significative dans la régression globale. La statistique du test est alors $$
-\begin{aligned} F^* &= \frac{\{\SSR(X_1,X_2,X_3)-\SSR(X_2,X_3)\}/1}{\MSE} \\ &= \frac{54,39848 - 45,59085 - 8,76355}{0,44844} \\ &= 0,098, \end{aligned}
-$$ avec 1 et 21 degrés de liberté.
+i) Le test d'hypothèse $H_0: \beta_1 = \beta_2 = \beta_3 = 0$
+        est le test global de validité du modèle. La statistique $F$
+        pour ce test est
+        \begin{align*}
+          F
+          &= \frac{\SSR(X_1, X_2, X_3)/3}{\MSE} \\
+          &= \frac{(45,5924 + 0,01842 + 8,78766)/3}{0,44844} \\
+          &= 40,44.
+        \end{align*}
+        Puisque la statistique $\MSE$ a 21 degrés de liberté, la
+        statistique $F$ en a 3 et 21.
+ 
+ii) Pour tester cette hypothèse, il faut utiliser un test $F$
+        partiel. On teste si la variable $X_1$ est significative dans
+        la régression globale. La statistique du test est alors
+        \begin{align*}
+          F^*
+          &= \frac{\{\SSR(X_1,X_2,X_3)-\SSR(X_2,X_3)\}/1}{\MSE} \\
+          &= \frac{54,39848 - 45,59085 - 8,76355}{0,44844} \\
+          &= 0,098,
+        \end{align*}
+        avec 1 et 21 degrés de liberté.
 
-**c)** Cette fois, on teste si les variables $X_2$ et $X_3$ (les deux ensemble) sont significatives dans la régression globale. On effectue donc encore un test $F$ partiel avec la statistique $$
-\begin{aligned} F^* &= \frac{\{\SSR(X_2, X_3,X_1)-\SSR(X_1)\}/2}{\MSE} \\ &= \frac{(54,39848 - 45,5924)/2}{0,44844} \\ &= 9,819, \end{aligned}
-$$ avec 2 et 21 degrés de liberté.
+iii) Cette fois, on teste si les variables $X_2$ et $X_3$ (les
+        deux ensemble) sont significatives dans la régression globale.
+        On effectue donc encore un test $F$ partiel avec la
+        statistique
+        \begin{align*}
+          F^*
+          &= \frac{\{\SSR(X_2, X_3,X_1)-\SSR(X_1)\}/2}{\MSE} \\
+          &= \frac{(54,39848 - 45,5924)/2}{0,44844} \\
+          &= 9,819,
+        \end{align*}
+        avec 2 et 21 degrés de liberté.
 
-    \item À la lecture du deuxième tableau d'analyse de variance,
+**b)** À la lecture du deuxième tableau d'analyse de variance,
       tant les variables $x_2$ que $x_3$ sont significatives dans le
       modèle. Par contre, comme on le voit dans le troisième tableau, la
       variable $x_2$ devient non significative dès lors que la

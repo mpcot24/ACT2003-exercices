@@ -5,20 +5,21 @@ En bon étudiant(e), vous vous intéressez à la relation liant la
   prix de celle-ci), $x_2$ (le revenu disponible) et $x_3$ (la demande
   de l'année précédente). Un total de 20 observations sont
   disponibles.  Vous postulez le modèle
-  $$
+$$
     Y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_3 x_{i3} +
     \varepsilon_i,
-  $$
-  où $\esp{\varepsilon_i} = 0$ et $\cov{\varepsilon_i, \varepsilon_j}
-  = \delta_{ij} \sigma^2$. Les résultats de cette régression, tels que
-  calculés dans \textsf{R}, sont fournis ci-dessous.
+$$
+  
+ où $\esp{\varepsilon_i} = 0$ et $\cov{\varepsilon_i, \varepsilon_j}= \delta_{ij} \sigma^2$. Les résultats de cette régression, tels que calculés dans R, sont fournis ci-dessous.
 
-\begin{verbatim}
-> fit <- lm(Y   X1 + X2 + X3, data = biere)
-> summary(fit)
-\end{verbatim}
-\begin{verbatim}
-Call: lm(formula = Y   X1 + X2 + X3, data = biere)
+```{r}
+#| eval: false
+fit <- lm(Y ~ X1 + X2 + X3, data = biere)
+summary(fit)
+```
+
+```{text}
+Call: lm(formula = Y ~ X1 + X2 + X3, data = biere)
 Residuals:
       Min.    1st Qu.     Median    3rd Qu.       Max.
 -1.014e+04 -5.193e-03 -2.595e-03  4.367e-03  2.311e-02
@@ -34,13 +35,13 @@ Residual standard error: 0.0098 on 16 degrees of freedom
 Multiple R-Squared: 0.9810      Adjusted R-squared: 0.9774
 F-statistic: 275.49 on 3 and 16 degrees of freedom,
 the p-value is 7.160e-14
-\end{verbatim}
+```
 
 **a)** Indiquer les dimensions des matrices et vecteurs dans la représentation matricielle $\yvec = \Xmat \betavec + \epsvec$ du modèle.
 
 **b)** La régression est-elle significative? Expliquer.
 
-**c)** On porte une attention plus particulière au paramètre $\beta_2$. Est-il significativement différent de zéro? Quelle est l'interprétation du test $H_0: \beta_2 = 0$ versus $H_1: \beta_2 \ne 0$?
+**c)** On porte une attention plus particulière au paramètre $\beta_2$. Est-il significativement différent de zéro? Quelle est l'interprétation du test $H_0~: \beta_2 = 0$ versus $H_1~: \beta_2 \ne 0$?
 
 **d)** Quelle est la valeur et l'interprétation de $R^2$, le coefficient de détermination? De manière générale, est-il envisageable d'obtenir un $R^2$ élevé et, simultanément, toutes les statistiques $t$ pour les tests $H_0: \beta_1 = 0$, $H_0: \beta_2 = 0$ et $H_0: \beta_3 = 0$ non significatives?  Expliquer brièvement.
 
@@ -53,8 +54,17 @@ the p-value is 7.160e-14
 
 **b)** Le seuil observé associé à la statistique $F$ est, à toute fin pratique, nulle. Cela permet de rejeter facilement l'hypothèse nulle selon laquelle la régression n'est pas significative.
 
-**c)** On doit se fier ici au résultat du test $t$ associé à la variable $x_2$. Dans les résultats obtenus avec \textsf{R}, on voit que le seuil observé du test $t$ sur le paramètre $\beta_2$ est $0,0916$. Cela signifie que jusqu'à un seuil de signification de 9,16 \
+**c)** On doit se fier ici au résultat du test $t$ associé à la variable $x_2$. Dans les résultats obtenus avec R, on voit que le seuil observé du test $t$ sur le paramètre $\beta_2$ est $0,0916$. Cela signifie que jusqu'à un seuil de signification de 9,16 % (ou un niveau de confiance supérieur à 90,84 %), on ne peut rejeter l'hypothèse $H_0: \beta_2 = 0$ en faveur de $H_1: \beta_2 \ne 0$. Il s'agit néanmoins d'un cas limite et il est alors du ressort de l'analyste de décider d'inclure ou non le revenu disponible dans le modèle.
 
-**d)** Le coefficient de détermination est de $R^2 = 0,981$. Cela signifie que le prix de la bière, le revenu disponible et la demande de l'année précédente expliquent plus de 98 \
+**d)** Le coefficient de détermination est de $R^2 = 0,981$. Cela signifie que le prix de la bière, le revenu disponible et la demande de l'année précédente expliquent plus de 98 % de la
+      variation de la demande en bière. L'ajustement du modèle aux
+      données est donc particulièrement bon. Il est tout à fait
+      possible d'obtenir un $R^2$ élevé et, simultanément, toutes les
+      statistiques $t$ non significatives: comme chaque test $t$
+      mesure l'impact d'une variable sur la régression étant donné la
+      présence des autres variables, il suffit d'avoir une bonne
+      variable dans un modèle pour obtenir un $R^2$ élevé et une ou
+      plusieurs autres variables redondantes avec la première pour
+      rendre les tests $t$ non significatifs.
 :::
 

@@ -7,38 +7,41 @@ Une coopérative de taxi new-yorkaise s'intéresse à la consommation
   d'un véhicule à l'autre est le sexe du conducteur: la coopérative
   emploie en effet des hommes et des femmes. La coopérative a
   recueilli les données suivantes afin d'établir un modèle de
-  régression pour la consommation de carburant:
-  \begin{center}
-    \begin{tabular}{ccc}
-      \toprule
-      Consommation (mpg) & Âge du véhicule & Sexe du conducteur \\
-      \midrule
-      12,3 & 3 & M \\
-      12,0 & 4 & F \\
-      13,7 & 3 & F \\
-      14,2 & 2 & M \\
-      15,5 & 1 & F \\
-      11,1 & 5 & M \\
-      10,6 & 4 & M \\
-      14,0 & 1 & M \\
-      16,0 & 1 & F \\
-      13,1 & 2 & M \\
-      14,8 & 2 & F \\
-      10,2 & 5 & M \\
-      \bottomrule
-    \end{tabular}
-  \end{center}
-**a)** En plaçant les points sur un graphique de la consommation de carburant en fonction de l'âge du véhicule, identifier s'il existe ou non une différence entre la consommation de carburant des femmes et celle des hommes. *Astuce*: utiliser un symbole (\texttt{pch}) différent pour chaque groupe.
+  régression pour la consommation de carburant :
 
-**b)** Établir un modèle de régression pour la consommation de carburant. Afin de pouvoir intégrer la variable qualitative «sexe du conducteur» dans le modèle, utiliser une variable indicatrice du type $$ x_{i2} = \begin{cases} 1, & \text{si le conducteur est un homme} \\ 0, & \text{si le conducteur est une femme}. \end{cases} $$
+```{r}
+#| echo: false
+dat <- data.frame(
+  `Consommation (mpg)` = c(12.3, 12.0, 13.7, 14.2, 15.5, 11.1,
+                           10.6, 14.0, 16.0, 13.1, 14.8, 10.2),
+  `Âge du véhicule` = c(3, 4, 3, 2, 1, 5, 4, 1, 1, 2, 2, 5),
+  `Sexe du conducteur` = c("M", "F", "F", "M", "F", "M",
+                           "M", "M", "F", "M", "F", "M")
+)
 
-**c)** Quelle est, selon le modèle établi en b), la consommation moyenne d'une voiture taxi de quatre ans conduite par une femme? Fournir un intervalle de confiance à 90 \
+kable(
+  dat,
+  align = c("c", "c", "c")
+)
 
-```{r echo}
+```
+
+**a)** En plaçant les points sur un graphique de la consommation de carburant en fonction de l'âge du véhicule, identifier s'il existe ou non une différence entre la consommation de carburant des femmes et celle des hommes. 
+
+*Astuce*: utiliser un symbole (`pch`) différent pour chaque groupe.
+
+**b)** Établir un modèle de régression pour la consommation de carburant. Afin de pouvoir intégrer la variable qualitative «sexe du conducteur» dans le modèle, utiliser une variable indicatrice du type 
+$$ 
+x_{i2} = \begin{cases} 1, & \text{si le conducteur est un homme} \\ 0, & \text{si le conducteur est une femme}. \end{cases} 
+$$
+
+**c)** Quelle est, selon le modèle établi en b), la consommation moyenne d'une voiture taxi de quatre ans conduite par une femme? Fournir un intervalle de confiance à 90 % pour cette prévision.
+
+```{r}
 #| echo: false
 
 donnees <- read.table("data/exercice_3.18.dat", header = TRUE)
-fit <- lm(mpg   age + sexe, data = donnees)
+fit <- lm(mpg ~ age + sexe, data = donnees)
 b <- round(coef(fit), 3)
 pred <- predict(fit, newdata = data.frame(age = 4, sexe = "F"),
         interval = "confidence", level = 0.90)
@@ -48,16 +51,41 @@ pred <- round(pred, 2)
 ::: {.callout-note collapse="true" title="Éléments de réponse"}
 \stepcounter{enumi}
 
-**a)** $\text{mpg} = 
+**a)** 
 
-**b)** $\Sexpr{format(pred[1], dec = ",")} \pm \Sexpr{format(diff(pred[c(1, 3)]), dec = ",")} \text{ mpg}$
+$\text{mpg} = `r format(b[1], dec = ",")` `r format(b[2], dec = ",")` \text{ age} `r format(b[3], dec = ",")` \text{ sexe}$
+
+**b)** 
+
+$`r format(pred[1], dec = ",")` \pm `r format(diff(pred[c(1, 3)]), dec = ",")` \text{ mpg}$
 :::
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
-**a)** Voir la figure @sec-multiple-flotte_taxis pour le graphique. Il y a effectivement une différence entre la consommation de carburant des hommes et des femmes: ces dernières font plus de milles avec un gallon d'essence. 
+**a)** Voir la figure [-@fig-multiple-flotte-taxi] pour le graphique. Il y a effectivement une différence entre la consommation de carburant des hommes et des femmes: ces dernières font plus de milles avec un gallon d'essence. 
 
-**b)** Remarquer que la variable \texttt{sexe} est un facteur et peut être utilisée telle quelle dans \texttt{lm}: ```{r} (fit <- lm(mpg   age + sexe, data = donnees)) ```
+```{r}
+#| fig-cap: "Graphique des données de l'exercice"
+#| label: fig-multiple-flotte-taxi
 
-**c)** Calcul d'une prévision pour la valeur moyenne de la variable \texttt{mpg}: ```{r} predict(fit, newdata = data.frame(age = 4, sexe = "F"), interval = "confidence", level = 0.90) ```
+
+hommes <- subset(donnees, sexe == "M")
+femmes <- subset(donnees, sexe == "F")
+plot(mpg ~ age, data = hommes,
+     xlim = range(donnees$age), ylim = range(donnees$mpg))
+points(mpg ~ age, data = femmes, pch = 16)
+legend(4, 16, legend = c("Hommes", "Femmes"), pch = c(1, 16))
+```
+
+**b)** Remarquer que la variable `sexe` est un facteur et peut être utilisée telle quelle dans `lm` : 
+
+```{r} 
+(fit <- lm(mpg ~ age + sexe, data = donnees)) 
+```
+
+**c)** Calcul d'une prévision pour la valeur moyenne de la variable `mpg` : 
+
+```{r} 
+predict(fit, newdata = data.frame(age = 4, sexe = "F"), interval = "confidence", level = 0.90) 
+```
 :::
 

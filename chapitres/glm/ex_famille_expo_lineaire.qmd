@@ -19,21 +19,23 @@ Est-ce que les distributions suivantes font partie de la famille exponentielle l
 **h)** Binomiale négative$(r,\pi)$ avec $r$ connu (On considère $Y^*=Y/r$).
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
-**a)** [$\bullet$] Paramètre canonique: $\theta=\mu$
+**a)** 
 
-**b)** [$\bullet$] Paramètre de dispersion: $\phi=\sigma^2$
+- Paramètre canonique: $\theta=\mu$
 
-**c)** [$\bullet$] $b(\theta)=\frac{\theta^2}{2}$
+- Paramètre de dispersion: $\phi=\sigma^2$
 
-**d)** [$\bullet$] $\esp{Y}=\dot{b}(\theta)=\frac{\partial}{\partial\theta}\frac{\theta^2}{2}=\theta=\mu$
+- $b(\theta)=\frac{\theta^2}{2}$
 
-**e)** [$\bullet$] $\var{Y}=\phi\ddot{b}(\theta)=\sigma^2\frac{\partial}{\partial\theta}\theta=\sigma^2$
+- $\esp{Y}=\dot{b}(\theta)=\frac{\partial}{\partial\theta}\frac{\theta^2}{2}=\theta=\mu$
 
-**f)** [$\bullet$] $V(\mu)=1$.
+- $\var{Y}=\phi\ddot{b}(\theta)=\sigma^2\frac{\partial}{\partial\theta}\theta=\sigma^2$
 
-\item Uniforme$(0,\beta)$: non. Le domaine dépend du paramètre $\beta$.
+- $V(\mu)=1$.
 
-\item Poisson$(\lambda)$:
+**b)**  Uniforme$(0,\beta)$: non. Le domaine dépend du paramètre $\beta$.
+
+**c)**  Poisson$(\lambda)$ :
 $$
 \begin{aligned}
 f_{Y}(y;\lambda)&=\frac{\lambda^{y}e^{-\lambda}}{y!} \text{, pour }y\in \mathbb{N}^{+}\\
@@ -41,38 +43,38 @@ f_{Y}(y;\lambda)&=\frac{\lambda^{y}e^{-\lambda}}{y!} \text{, pour }y\in \mathbb{
 f_{Y}(y;\theta,\phi)&=\exp\left\{\frac{y\theta - e^{\theta}}{\phi} - \ln y!\right\}.
 \end{aligned}
 $$
-**a)** [$\bullet$] Paramètre canonique: $\theta=\ln \lambda$
+- Paramètre canonique: $\theta=\ln \lambda$
 
-**b)** [$\bullet$] Paramètre de dispersion: $\phi=1$
+- Paramètre de dispersion: $\phi=1$
 
-**c)** [$\bullet$] $b(\theta)=e^{\theta}$
+- $b(\theta)=e^{\theta}$
 
-**d)** [$\bullet$] $\esp{Y}=\dot{b}(\theta)=\frac{\partial}{\partial\theta}e^{\theta}=e^{\theta}=\lambda$
+- $\esp{Y}=\dot{b}(\theta)=\frac{\partial}{\partial\theta}e^{\theta}=e^{\theta}=\lambda$
 
-**e)** [$\bullet$] $\var{Y}=\phi\ddot{b}(\theta)=\frac{\partial}{\partial\theta}e^{\theta}=e^{\theta}=\lambda$
+- $\var{Y}=\phi\ddot{b}(\theta)=\frac{\partial}{\partial\theta}e^{\theta}=e^{\theta}=\lambda$
 
-**f)** [$\bullet$] $V(\mu)=\mu$.
+- $V(\mu)=\mu$.
 
-\item Bernoulli$(\pi)$
+**d)**  Bernoulli$(\pi)$
 $$
 \begin{aligned}
 f_{Y}(y;\pi)&=\pi^{y}(1-\pi)^{1-y}1(y \in \{0,1\})\\
 &=\exp\left\{y\ln\left(\frac{\pi}{1-\pi}\right)+\ln(1-\pi)\right\}1(y \in \{0,1\}).\\
 \end{aligned}
 $$
-**a)** [$\bullet$] Paramètre canonique: $\theta=\ln\left(\frac{\pi}{1-\pi}\right)$
+- Paramètre canonique: $\theta=\ln\left(\frac{\pi}{1-\pi}\right)$
 
-**b)** [$\bullet$] Paramètre de dispersion:  $\phi=1$
+- Paramètre de dispersion:  $\phi=1$
 
-**c)** [$\bullet$] $b(\theta)=\ln(1+e^{\theta})$
+- $b(\theta)=\ln(1+e^{\theta})$
 
-**d)** [$\bullet$] $\esp{Y}=\dot{b}(\theta)=\frac{\partial}{\partial\theta}\ln(1+e^{\theta})=\frac{e^{\theta}}{1+e^\theta}=\pi$
+- $\esp{Y}=\dot{b}(\theta)=\frac{\partial}{\partial\theta}\ln(1+e^{\theta})=\frac{e^{\theta}}{1+e^\theta}=\pi$
 
-**e)** [$\bullet$] $\var{Y}=\phi\ddot{b}(\theta)=\frac{\partial}{\partial\theta}\frac{e^{\theta}}{1+e^\theta}=\frac{e^\theta}{(1+e^\theta)^2}=\pi(1-\pi)$
+- $\var{Y}=\phi\ddot{b}(\theta)=\frac{\partial}{\partial\theta}\frac{e^{\theta}}{1+e^\theta}=\frac{e^\theta}{(1+e^\theta)^2}=\pi(1-\pi)$
 
-**f)** [$\bullet$] $V(\mu)=\mu(1-\mu)$.
+- $V(\mu)=\mu(1-\mu)$.
 
-\item Binomiale$(m, \pi)$, $m>0$ est un entier et est connu.
+**e)** Binomiale$(m, \pi)$, $m>0$ est un entier et est connu.
 $$
 \begin{aligned}
 f_{Y}(y;\pi)&=\begin{pmatrix} m\\y\end{pmatrix}\pi^{y}(1-\pi)^{m-y}1(y \in \{0,1,...,m\})\\
@@ -86,41 +88,59 @@ f_{Y^{*}}(y;\pi)&=\exp\left\{my\ln\left(\frac{\pi}{1-\pi}\right)+m\ln(1-\pi)+\ln
 &=\exp\left\{\frac{y\ln\left(\frac{\pi}{1-\pi}\right)+\ln(1-\pi)}{1/m}+\ln\begin{pmatrix} m\\my\end{pmatrix}\right\},  y \in \{0,1/m,...,1\}.\\
 \end{aligned}
 $$
-**a)** [$\bullet$] Paramètre canonique: $\theta=\ln\left(\frac{\pi}{1-\pi}\right)$
+- Paramètre canonique : $\theta=\ln\left(\frac{\pi}{1-\pi}\right)$
 
-**b)** [$\bullet$] Paramètre de dispersion:  $\phi=1/m$
+- Paramètre de dispersion:  $\phi=1/m$
 
-**c)** [$\bullet$] $b(\theta)=\ln(1+e^{\theta})$
+- $b(\theta)=\ln(1+e^{\theta})$
 
-**d)** [$\bullet$] $\esp{Y^*}=\dot{b}(\theta)=\frac{\partial}{\partial\theta}\ln(1+e^{\theta})=\frac{e^{\theta}}{1+e^\theta}=\pi$
+- $\esp{Y^*}=\dot{b}(\theta)=\frac{\partial}{\partial\theta}\ln(1+e^{\theta})=\frac{e^{\theta}}{1+e^\theta}=\pi$
 
-**e)** [$\bullet$] $\var{Y^*}=\phi\ddot{b}(\theta)=\frac{1}{m}\frac{\partial}{\partial\theta}\frac{e^{\theta}}{1+e^\theta}=\frac{e^\theta}{m(1+e^\theta)^2}=\frac{\pi(1-\pi)}{m}$
+- $\var{Y^*}=\phi\ddot{b}(\theta)=\frac{1}{m}\frac{\partial}{\partial\theta}\frac{e^{\theta}}{1+e^\theta}=\frac{e^\theta}{m(1+e^\theta)^2}=\frac{\pi(1-\pi)}{m}$
 
-**f)** [$\bullet$] $V(\mu)=\mu(1-\mu)$.
+- $V(\mu)=\mu(1-\mu)$.
 
-\item Pareto$(\alpha,\lambda)$: non.
+**f)** Pareto$(\alpha,\lambda)$: non.
 
-\item Gamma$(\alpha,\beta)$
+**g)** Gamma$(\alpha,\beta)$
 Soit $Y\sim Gamma(\alpha,\beta)$. Alors, avec un peu de travail, la densité peut être écrite sous la forme exponentielle linéaire.
-$$f_{Y}(y;\alpha,\beta)=\frac{\beta^{\alpha}}{\Gamma(\alpha)}y^{\alpha-1}e^{-\beta y},$$ pour $y>0$. On reparamétrise: $\mu=\alpha/\beta=\esp{Y}$ et $\alpha$, on a donc $\beta=\alpha/\mu$ et $$f_{Y}(y;\alpha,\mu)=\frac{1}{y\Gamma(\alpha)}\left(\frac{\alpha y}{\mu}\right)^{\alpha}\exp\left\{-\frac{\alpha y}{\mu}\right\}.$$ Posons $\theta=-1/\mu$, et $a(\phi)=1/\alpha$, alors on trouve $$f_{Y}(y;\theta,\phi)=\exp\left\{\frac{y\theta +\ln(-\theta)}{\phi} +\alpha\ln\alpha+(\alpha-1)\ln y -\ln\Gamma(\alpha)\right\}.$$ Donc, $b(\theta)=-\ln(-\theta)$ et $a(\phi)=1/\alpha \Rightarrow \dot{b}(\theta)=\frac{-1}{\theta}=\mu$ et $\ddot{b}(\theta)=\frac{1}{\theta^{2}}=\mu^{2}$. Finalement, $$\esp{Y}=\frac{-1}{\theta}=\mu \text{ et } \var{Y}=\frac{1}{\alpha}\mu^{2}.$$
 
-\item Binomiale négative$(r,\pi)$ avec $r$ connu. On considère $Y^*=Y/r$:
+$$
+f_{Y}(y;\alpha,\beta)=\frac{\beta^{\alpha}}{\Gamma(\alpha)}y^{\alpha-1}e^{-\beta y},
+$$ pour $y>0$. On reparamétrise: $\mu=\alpha/\beta=\esp{Y}$ et $\alpha$, on a donc $\beta=\alpha/\mu$ et 
+
+$$
+f_{Y}(y;\alpha,\mu)=\frac{1}{y\Gamma(\alpha)}\left(\frac{\alpha y}{\mu}\right)^{\alpha}\exp\left\{-\frac{\alpha y}{\mu}\right\}.
+$$ 
+
+Posons $\theta=-1/\mu$, et $a(\phi)=1/\alpha$, alors on trouve 
+
+$$
+f_{Y}(y;\theta,\phi)=\exp\left\{\frac{y\theta +\ln(-\theta)}{\phi} +\alpha\ln\alpha+(\alpha-1)\ln y -\ln\Gamma(\alpha)\right\}.
+$$ 
+
+Donc, $b(\theta)=-\ln(-\theta)$ et $a(\phi)=1/\alpha \Rightarrow \dot{b}(\theta)=\frac{-1}{\theta}=\mu$ et $\ddot{b}(\theta)=\frac{1}{\theta^{2}}=\mu^{2}$. Finalement, 
+$$
+\esp{Y}=\frac{-1}{\theta}=\mu \text{ et } \var{Y}=\frac{1}{\alpha}\mu^{2}.
+$$
+
+**h)** Binomiale négative$(r,\pi)$ avec $r$ connu. On considère $Y^*=Y/r$:
 $$
 \begin{aligned}
 f_Y^*(y)&=\begin{pmatrix} r+ry-1\\ry\end{pmatrix}\pi^r(1-\pi)^{ry}, \text{ pour } y\in \{0,\frac{1}{r},\frac{2}{r},...\}\\
 &=\exp\left(ry\ln(1-\pi)+r\ln\pi+\ln\begin{pmatrix} r+ry-1\\ry\end{pmatrix}\right).
 \end{aligned}
 $$
-**a)** [$\bullet$] Paramètre canonique: $\theta=\ln(1-\pi)$
+- Paramètre canonique: $\theta=\ln(1-\pi)$
 
-**b)** [$\bullet$] Paramètre de dispersion:  $\phi=1/r$
+- Paramètre de dispersion:  $\phi=1/r$
 
-**c)** [$\bullet$] $b(\theta)=-\ln(1-e^\theta)$
+- $b(\theta)=-\ln(1-e^\theta)$
 
-**d)** [$\bullet$] $\esp{Y^*}=\dot{b}(\theta)=\frac{\partial}{\partial\theta}-\ln(1-e^\theta)=\frac{e^{\theta}}{1-e^\theta}=\frac{1-\pi}{\pi}$
+- $\esp{Y^*}=\dot{b}(\theta)=\frac{\partial}{\partial\theta}-\ln(1-e^\theta)=\frac{e^{\theta}}{1-e^\theta}=\frac{1-\pi}{\pi}$
 
-**e)** [$\bullet$] $\var{Y^*}=\phi\ddot{b}(\theta)=\frac{1}{r}\frac{\partial}{\partial\theta}\frac{e^{\theta}}{1-e^\theta}=\frac{e^\theta}{r(1-e^\theta)^2}=\frac{(1-\pi)}{r\pi^2}$
+- $\var{Y^*}=\phi\ddot{b}(\theta)=\frac{1}{r}\frac{\partial}{\partial\theta}\frac{e^{\theta}}{1-e^\theta}=\frac{e^\theta}{r(1-e^\theta)^2}=\frac{(1-\pi)}{r\pi^2}$
 
-**f)** [$\bullet$] $V(\mu)=\mu(\mu+1)$.
+- $V(\mu)=\mu(\mu+1)$.
 :::
 

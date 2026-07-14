@@ -1,10 +1,31 @@
 ## Vérification des postulats {#sec-multiple-postulats}
 
-Le modèle de régression linéaire multiple $$Y_i=\beta_0+\beta_1 x_{i1}+\beta_2 x_{i2}+\beta_3 x_{i3}+\varepsilon_i, \text{ pour }i=1,...,n$$ a été ajusté à des données avec la méthode des moindres carrés.
+Le modèle de régression linéaire multiple 
+$$
+Y_i=\beta_0+\beta_1 x_{i1}+\beta_2 x_{i2}+\beta_3 x_{i3}+\varepsilon_i, \text{ pour }i=1,...,n
+$$ 
 
-**a)** La figure @sec-multiple-postulats montre le QQ-plot des résidus studentisés. À la lumière de ce graphique, y a-t-il un postulat du modèle qui n'est pas vérifié? Si oui, lequel et pourquoi? S'il y a lieu, expliquer l'impact de la violation de ce postulat. 
+a été ajusté à des données avec la méthode des moindres carrés.
 
-**b)** La figure @sec-multiple-postulats montre les résidus studentisés en fonction de chacune des variables exogènes et en fonction des valeurs prédites. Utiliser ces graphiques pour commenter sur la validité des postulats du modèle. Y en a-t-il qui ne sont pas respectés? S'il y a lieu, expliquer l'impact de la violation de ce ou ces postulats.
+**a)** La figure suivante montre le QQ-plot des résidus studentisés. À la lumière de ce graphique, y a-t-il un postulat du modèle qui n'est pas vérifié? Si oui, lequel et pourquoi? S'il y a lieu, expliquer l'impact de la violation de ce postulat. 
+
+
+\begin{figure}[h]
+\centering
+\centerline{\includegraphics[width=0.49\textwidth]{figure/QQPlotLifeExp-c.pdf}}
+\caption{QQ-Plot des résidus studentisés}\label{fig:multiple:postulat1}
+\end{figure}
+
+
+**b)** La figure suivante montre les résidus studentisés en fonction de chacune des variables exogènes et en fonction des valeurs prédites. Utiliser ces graphiques pour commenter sur la validité des postulats du modèle. Y en a-t-il qui ne sont pas respectés? S'il y a lieu, expliquer l'impact de la violation de ce ou ces postulats.
+
+
+\begin{figure}[t]
+\centering
+\centerline{\includegraphics[width=0.8\textwidth]{figure/ResPlots.pdf}}
+\caption{Nuage de points des résidus studentisés en fonction de chacune des variables exogènes et en fonction de la variable prédite}\label{fig:multiple:postulat2}
+\end{figure}
+
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
 **a)** Le postulat de normalité semble violé. La distribution des résidus a une queue inférieure plus épaisse que la loi normale, ce que l'on voit à gauche du Q-Q plot, puisque les poits ne sont pas alignés. Le postulat de normalité n'est pas critique, parce que les estimateurs des moindres carrés ont un sens quand même. Toutefois, les tests d'hypothèses et les intervalles de confiance ne sont pas valides.

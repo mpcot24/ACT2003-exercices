@@ -27,7 +27,7 @@ Nombre de bactéries & Temps d'exposition (min) \\ \hline
 
 **c)** Identifier une transformation pour ces données afin d'utiliser adéquatement les méthodes de régression. Ajuster ce nouveau modèle et tester la validité de la régression.
 
-```{r echo}
+```{r}
 #| echo: false
 
 bact <- c(175, 108, 95, 82, 71, 50, 49, 31, 28, 17, 16, 11)
@@ -35,7 +35,17 @@ min <- 1:12
 ```
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
-**a)** La figure [-@sec-simple-bacteroes] montre le nuage de points du nombre de bactéries en fonction du temps d'exposition en minutes. Le graphique montre qu'une ligne droite pourrait être un modèle raisonnable, mais un meilleur modèle pourrait capter la courbe. En fait, le graphique montre que, lorsque la nourriture en canne est exposée à une température de $300^{o}$ F pour une longue période, il n'y a pas de bactérie restante. Cela suggère qu'un modèle qui capture le comportement asymptotique du nombre de bactéries quand le nombre de minutes d'exposition augmente serait meilleur. Un modèle linéaire continuerait de faire diminuer le nombre de bactéries, menant éventuellement à des valeurs négatives (ce qui n'a pas de sens dans le contexte).
+**a)** La figure [-@fig-simple-bact] montre le nuage de points du nombre de bactéries en fonction du temps d'exposition en minutes. Le graphique montre qu'une ligne droite pourrait être un modèle raisonnable, mais un meilleur modèle pourrait capter la courbe. En fait, le graphique montre que, lorsque la nourriture en canne est exposée à une température de $300^{o}$ F pour une longue période, il n'y a pas de bactérie restante. Cela suggère qu'un modèle qui capture le comportement asymptotique du nombre de bactéries quand le nombre de minutes d'exposition augmente serait meilleur. Un modèle linéaire continuerait de faire diminuer le nombre de bactéries, menant éventuellement à des valeurs négatives (ce qui n'a pas de sens dans le contexte).
+
+```{r}
+#| echo: false
+#| fig-cap: "Nuage de points du nombre de bactéries en fonction du temps d'exposition en minutes"
+#| label: fig-simple-bact
+
+
+plot(min, bact, pch = 16, xlab = "Temps d'exposition (min)", ylab = "Nombre de bactéries")
+```
+
 
 **b)** On ajuste un modèle linéaire simple avec les données en R. Le sommaire du modèle est le suivant :
 ```{r} 
@@ -61,7 +71,7 @@ Comme le seuil observé est plus petit que  1 %, le modèle de régression liné
 
 La valeur du $R^2$ est 0.8693. Cela est un coefficient de détermination élevé, ce qui signifie qu'environ 87 % de la variation dans le nombre de bactéries dans la nourriture en cannes est expliquée par les minutes d'exposition à plus de $300^{o}$F. Ce modèle semble bien performé.
 
-Le diagramme quantile-quantile des résidus studentiszés est présenté à la figure @fig-simple-bact2. La ligne représente le moment où les quantiles empiriques sont égaux aux quantiles normaux standards. Le postulat de normalité est sérieusement violé parce que les points ne font clairement pas une ligne droite. Cela signifie qu'il y a de nombreux problèmes dans le modèle, incluant le fait que les tests d'hypothèse ne seront pas vrais.
+Le diagramme quantile-quantile des résidus studentiszés est présenté à la figure [-@fig-simple-bact2]. La ligne représente le moment où les quantiles empiriques sont égaux aux quantiles normaux standards. Le postulat de normalité est sérieusement violé parce que les points ne font clairement pas une ligne droite. Cela signifie qu'il y a de nombreux problèmes dans le modèle, incluant le fait que les tests d'hypothèse ne seront pas vrais.
 
 ```{r}
 #| echo: false
@@ -83,12 +93,12 @@ plot(fitted(fit1), rstandard(fit1), pch = 16, ylab = "Résidus studentizés", xl
 abline(h = 0)
 ```
 
-La figure @fig-simple-bact3 montre le nuage de points des résidus studentisés en fonction des valeurs ajustées. Le nuage de points suggère une courbe, ce qui est un indicateur de non-linéarité. Cela rejoint les commentaires précédents.
+La figure [-@fig-simple-bact3] montre le nuage de points des résidus studentisés en fonction des valeurs ajustées. Le nuage de points suggère une courbe, ce qui est un indicateur de non-linéarité. Cela rejoint les commentaires précédents.
 
 Finalement, le modèle n'est pas adéquat et la variable réponse doit être transformée.
 
 
-**c)** On utilise la méthode Box-Cox pour déterminer la transformation optimale. La figure @fig-simple-bact4 montre le graphique de la log-vraisemblance en fonction de $\lambda$ pour deux différents intervalles :
+**c)** On utilise la méthode Box-Cox pour déterminer la transformation optimale. La figure [-@fig-simple-bact4] montre le graphique de la log-vraisemblance en fonction de $\lambda$ pour deux différents intervalles :
 
 ```{r}
 #| eval: false
@@ -120,7 +130,7 @@ Le modèle ajusté est
 $$
 \hat{y}^{*}=5.33878-0.23617x,
 $$
-où les paramètres du modèle sont estimés avec les BLUE. La figure @fig-simple-bact5 est un nuage de points de la variable réponse transformée en fonction de la variable explicative. La relation est beaucoup plus linéaire.
+où les paramètres du modèle sont estimés avec les BLUE. La figure [-@fig-simple-bact5] est un nuage de points de la variable réponse transformée en fonction de la variable explicative. La relation est beaucoup plus linéaire.
 
 ```{r}
 #| echo: false
@@ -146,9 +156,9 @@ Comme le seuil observé est beaucoup plus petit que 1 %, il y a assez de preuves
 
 La valeur de $R^2$ est très élevée à 0.9822. Cela signifie que 98 % de la variance dans le logarithme du nombre de bactéries est expliquée par le temps d'exposition à la haute température. Le modèle semble bien performer contrairement à avant.
 
-Le diagramme quantile-quantile des résidus standardizés est à la figure @fig-simple-bact6. Les points sont bien alignés avec les quantiles normaux et le postulat de normalité semble approprié.
+Le diagramme quantile-quantile des résidus standardizés est à la figure [-@fig-simple-bact6]. Les points sont bien alignés avec les quantiles normaux et le postulat de normalité semble approprié.
 
-La figure @fig-simple-bact7 montre un nuage de points des résidus studentizés en fonction des valeurs ajustées. Les points sont contenus dans des bandes horizontales et semblent uniformément distribués. 
+La figure [-@fig-simple-bact7] montre un nuage de points des résidus studentizés en fonction des valeurs ajustées. Les points sont contenus dans des bandes horizontales et semblent uniformément distribués. 
 
 Finalement, le modèle est adéquat et la transformation de la variable réponse a réglé les problèmes.
 

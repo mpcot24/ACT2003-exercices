@@ -1,5 +1,11 @@
 # Modèles linéaires généralisés (GLM)
 
+```{r}
+#| message: false
+#| warning: false
+library(knitr)
+```
+
 {{< include glm/ex_famille_expo_lineaire.qmd >}}
 
 {{< include glm/ex_lien_poisson.qmd >}}

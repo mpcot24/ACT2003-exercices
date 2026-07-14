@@ -1,49 +1,39 @@
 ## Intervalle de confiance pour $\beta_1$ {#sec-simple-ic_beta1}
 
 Soit le modèle de régression linéaire simple
-  $$
-    Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i, \quad
+$$
+Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i, \quad
     \varepsilon_i \sim N(0, \sigma^2).
-  $$
-  Construire un intervalle de confiance de niveau $1 - \alpha$ pour le
+$$
+  
+ Construire un intervalle de confiance de niveau $1 - \alpha$ pour le
   paramètre $\beta_1$ si la variance $\sigma^2$ est connue.
 
 ::: {.callout-note collapse="true" title="Éléments de réponse"}
-$\beta_1 \in \hat{\beta}_1 \pm z_{\alpha/2} \sigma
-    \left\{ \sum_{i=1}^n (x_i - \bar{x})^2 \right\}^{-1/2}$
+$\beta_1 \in \hat{\beta}_1 \pm z_{\alpha/2} \sigma \left\{ \sum_{i=1}^n (x_i - \bar{x})^2 \right\}^{-1/2}$
 :::
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
-Puisque, selon le modèle, $\varepsilon_i \sim N(0, \sigma^2)$ et
-    que $Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$, alors $Y_i \sim
-    N(\beta_0 + \beta_1 x_i, \sigma^2)$. De plus, on sait que
-    $$
+Puisque, selon le modèle, $\varepsilon_i \sim N(0, \sigma^2)$ et que $Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$, alors $Y_i \sim N(\beta_0 + \beta_1 x_i, \sigma^2)$. De plus, on sait que
+
+$$
 \begin{aligned}
       \hat{\beta}_1
       &= \frac{\sum_{i=1}^n (x_i - \bar{x})(Y_i - \bar{Y})}{
         \sum_{i=1}^n (x_i - \bar{x})^2} \\
       &= \frac{\sum_{i=1}^n (x_i - \bar{x}) Y_i}{
         \sum_{i=1}^n (x_i - \bar{x})^2},
-    \end{aligned}
+\end{aligned}
 $$
-    donc l'estimateur $\hat{\beta}_1$ est une combinaison linéaire des
-    variables aléatoires $Y_1, \dots, Y_n$. Par conséquent,
-    $\hat{\beta}_1 \sim N(\esp{\hat{\beta}_1}, \var{\hat{\beta}_1})$,
-    où $\esp{\hat{\beta}_1} = \beta_1$ et $\var{\hat{\beta}_1} =
-    \sigma^2/S_{xx}$ et, donc,
-    $$
-      \Pr
-      \left[
-        -z_{\alpha/2} <
-        \frac{\hat{\beta}_1 - \beta_1}{\sigma/\sqrt{S_{xx}}} <
-        z_{\alpha/2}
-      \right] = 1 - \alpha.
-    $$
-    Un intervalle de confiance de niveau $1 - \alpha$ pour le
-    paramètre $\beta_1$ lorsque la variance $\sigma^2$ est connue est donc
-    $$
-      \beta_1 \in \hat{\beta}_1 \pm z_{\alpha/2}
-      \frac{\sigma}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}.
-    $$
+donc l'estimateur $\hat{\beta}_1$ est une combinaison linéaire des variables aléatoires $Y_1, \dots, Y_n$. Par conséquent, $\hat{\beta}_1 \sim N(\esp{\hat{\beta}_1}, \var{\hat{\beta}_1})$, où $\esp{\hat{\beta}_1} = \beta_1$ et $\var{\hat{\beta}_1} = \sigma^2/S_{xx}$ et, donc,
+$$
+\Pr\left[ -z_{\alpha/2} < \frac{\hat{\beta}_1 - \beta_1}{\sigma/\sqrt{S_{xx}}} <z_{\alpha/2}\right] = 1 - \alpha.
+$$
+
+Un intervalle de confiance de niveau $1 - \alpha$ pour le paramètre $\beta_1$ lorsque la variance $\sigma^2$ est connue est donc
+$$
+\beta_1 \in \hat{\beta}_1 \pm z_{\alpha/2}
+\frac{\sigma}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}.
+$$
 :::
 

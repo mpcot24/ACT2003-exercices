@@ -2,8 +2,8 @@
 
 Supposons que les observations $(x_1, Y_1), \dots, (x_n, Y_n)$
   sont soumises à une transformation linéaire, c'est-à-dire que $Y_i$
-  devient $Y_i^\prime = a + b Y_i$ et que $x_i$ devient $x_i^\prime =
-  c + d x_i$, $i = 1, \dots, n$.
+  devient $Y_i^\prime = a + b Y_i$ et que $x_i$ devient $x_i^\prime = c + d x_i$, $i = 1, \dots, n$.
+
 **a)** Trouver quel sera l'effet sur les estimateurs des moindres carrés des paramètres $\beta_0$ et $\beta_1$ dans le modèle de régression linéaire $Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$.
 
 **b)** Démontrer que le coefficient de détermination $R^2$ n'est pas affecté par la transformation linéaire.
@@ -13,24 +13,45 @@ Supposons que les observations $(x_1, Y_1), \dots, (x_n, Y_n)$
 :::
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
-**a)** Il faut exprimer $\hat{\beta}_0^\prime$ et $\hat{\beta}_1^\prime$ en fonction de $\hat{\beta}_0$ et $\hat{\beta}_1$. Pour ce faire, on trouve d'abord une expression pour chacun des éléments qui entrent dans la définition de $\hat{\beta}_1^\prime$. Tout d'abord, $$
-\begin{aligned} \bar{x}^\prime &= \frac{1}{n} \sum_{i=1}^n x_i^\prime \\ &= \frac{1}{n} \sum_{i=1}^n (c + d x_i) \\ &= c + d \bar{x}, \end{aligned}
-$$ et, de manière similaire, $\bar{Y}^\prime = a + b \bar{Y}$. Ensuite, $$
+**a)** Il faut exprimer $\hat{\beta}_0^\prime$ et $\hat{\beta}_1^\prime$ en fonction de $\hat{\beta}_0$ et $\hat{\beta}_1$. Pour ce faire, on trouve d'abord une expression pour chacun des éléments qui entrent dans la définition de $\hat{\beta}_1^\prime$. Tout d'abord, 
+
+$$
+\begin{aligned} \bar{x}^\prime &= \frac{1}{n} \sum_{i=1}^n x_i^\prime \\ &= \frac{1}{n} \sum_{i=1}^n (c + d x_i) \\ &= c + d \bar{x}, 
+\end{aligned}
+$$ 
+
+et, de manière similaire, $\bar{Y}^\prime = a + b \bar{Y}$. 
+
+Ensuite, 
+
+$$
 \begin{aligned} S_{xx}^\prime &= \sum_{i=1}^n (x_i^\prime - \bar{x}^\prime)^2 \\ &= \sum_{i=1}^n (c + d x_i - c - d \bar{x})^2 \\ &= d^2 S_{xx} \end{aligned}
-$$ et $S_{yy}^\prime = b^2 S_{yy}$, $S_{xy}^\prime = bd S_{xy}$. Par conséquent, $$
-\begin{aligned} \hat{\beta}_1^\prime &= \frac{S_{xy}^\prime}{S_{xx}^\prime} \\ &= \frac{bd S_{xy}}{d^2 S_{xx}} \\ &= \frac{b}{d}  \hat{\beta}_1 \\ \end{aligned}
+$$ 
+
+et $S_{yy}^\prime = b^2 S_{yy}$, $S_{xy}^\prime = bd S_{xy}$. 
+
+
+Par conséquent, 
+$$
+\begin{aligned} \hat{\beta}_1^\prime &= \frac{S_{xy}^\prime}{S_{xx}^\prime} \\ &= \frac{bd S_{xy}}{d^2 S_{xx}} \\ &= \frac{b}{d} \hat{\beta}_1 \\ \end{aligned}
 $$
 
 et
 
 $$
-\begin{aligned} \hat{\beta}_0^\prime &= \bar{Y}^\prime - \hat{\beta}_1^\prime \bar{x}^\prime \\ &= a + b \bar{Y} - \frac{b}{d}  \hat{\beta}_1 (c + d \bar{x}) \\ &= a - \frac{bc}{d}  \hat{\beta}_1 + b (\bar{Y} - \hat{\beta}_1 \bar{x}) \\ &= a - \frac{bc}{d}  \hat{\beta}_1 + b \hat{\beta}_0. \end{aligned}
+\begin{aligned} \hat{\beta}_0^\prime &= \bar{Y}^\prime - \hat{\beta}_1^\prime \bar{x}^\prime \\ &= a + b \bar{Y} - \frac{b}{d}  \hat{\beta}_1 (c + d \bar{x}) \\ &= a - \frac{bc}{d}  \hat{\beta}_1 + b (\bar{Y} - \hat{\beta}_1 \bar{x}) \\ &= a - \frac{bc}{d}  \hat{\beta}_1 + b \hat{\beta}_0. 
+\end{aligned}
 $$
 
-**b)** Tout d'abord, on établit que $$
-\begin{aligned} R^2 &= \frac{\SSR}{\SST} \\ &= \frac{\sum_{i=1}^n (\hat{Y_i} - \bar{Y})^2}{\sum_{i=1}^n (Y_i - \bar{Y})^2} \\ &= \hat{\beta}_1^2  \frac{\sum_{i=1}^n (x_i - \bar{x})^2}{\sum_{i=1}^n (Y_i - \bar{Y})^2} \\ &= \hat{\beta}_1^2  \frac{S_{xx}}{S_{yy}}. \end{aligned}
-$$ Maintenant, avec les résultats obtenus en a), on démontre directement que $$
-\begin{aligned} (R^2)^\prime &= (\hat{\beta}_1^\prime)^2 \frac{S_{xx}^\prime}{S_{yy}^\prime} \\ &= \left( \frac{b}{d} \right)^2  \hat{\beta}_1^2  \frac{d^2 S_{xx}}{b^2 S_{yy}} \\ &= \hat{\beta}_1^2  \frac{S_{xx}}{S_{yy}} \\ &= R^2. \end{aligned}
+**b)** Tout d'abord, on établit que 
+$$
+\begin{aligned} R^2 &= \frac{\SSR}{\SST} \\ &= \frac{\sum_{i=1}^n (\hat{Y_i} - \bar{Y})^2}{\sum_{i=1}^n (Y_i - \bar{Y})^2} \\ &= \hat{\beta}_1^2  \frac{\sum_{i=1}^n (x_i - \bar{x})^2}{\sum_{i=1}^n (Y_i - \bar{Y})^2} \\ &= \hat{\beta}_1^2  \frac{S_{xx}}{S_{yy}}. 
+\end{aligned}
+$$ 
+Maintenant, avec les résultats obtenus en a), on démontre directement que 
+$$
+\begin{aligned} (R^2)^\prime &= (\hat{\beta}_1^\prime)^2 \frac{S_{xx}^\prime}{S_{yy}^\prime} \\ &= \left( \frac{b}{d} \right)^2  \hat{\beta}_1^2  \frac{d^2 S_{xx}}{b^2 S_{yy}} \\ &= \hat{\beta}_1^2  \frac{S_{xx}}{S_{yy}} \\ &= R^2. 
+\end{aligned}
 $$
 :::
 

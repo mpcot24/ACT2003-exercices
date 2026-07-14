@@ -13,8 +13,6 @@ book:
         - chapitres/multiple.qmd
         - chapitres/selection.qmd
         - chapitres/glm.qmd
-        - chapitres/comptage.qmd
-        - chapitres/binom.qmd
 
   search: true
   sidebar:
@@ -40,9 +38,26 @@ format:
               vr:     "\\mathrm{Var}",
               prob:   "\\Pr",
               Prob:   "\\Pr",
+              cov:    ["\\mathrm{Cov}\\!\\left(#1\\right)",1],
               Cov:    "\\mathrm{Cov}",
+              SST:    "\\mathrm{SST}",
+              SSR:    "\\mathrm{SSR}",
+              SSE:    "\\mathrm{SSE}",
+              MSE:    "\\mathrm{MSE}",
+              MSR:    "\\mathrm{MSR}",
               d:      "\\mathrm{d}",
-              bm:     ["\\boldsymbol{#1}", 1]
+              bm:     ["\\boldsymbol{#1}", 1],
+              yvec:   "\\mathbf{Y}",
+              xvec:   "\\mathbf{x}",
+              Xmat:   "\\mathbf{X}",
+              betavec: "\\boldsymbol{\\beta}",
+              epsvec: "\\boldsymbol{\\varepsilon}",
+              mat:    ["\\mathbf{#1}", 1],
+              varmat:    ["\\mathbf{V} ( #1 )", 1],
+              hatbetavec: "\\boldsymbol{\\hat{\\beta}}",
+              hatepsvec: "\\boldsymbol{\\hat{\\varepsilon}}",
+              Norm: "\\mathcal{N}",
+              diag: "\\mathrm{diag}"
             }
           }
         };

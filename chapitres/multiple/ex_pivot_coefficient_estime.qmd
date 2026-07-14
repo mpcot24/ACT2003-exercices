@@ -1,15 +1,36 @@
 ## Pivot pour les coefficients estimés {#sec-multiple-pivot_coefficient_estime}
 
-En régression linéaire multiple, on a $\hatbetavec \sim
-  \Norm(\betavec, \sigma^2 (\Xmat^\top \Xmat)^{-1})$ et
+En régression linéaire multiple, on a $\hatbetavec \sim \Norm(\betavec, \sigma^2 (\Xmat^\top \Xmat)^{-1})$ et
   $\SSE/\sigma^2 \sim \chi^2(n - p - 1)$.
-**a)** Vérifier que $$ \frac{\hat{\beta_i} - \beta_i}{s \sqrt{c_{ii}}} \sim t(n - p -  1), \quad i = 0, 1, \dots, p, $$ où $c_{ii}$ est le $(i + 1)$\ieme{} élément de la diagonale de la matrice $(\Xmat^\top \Xmat)^{-1}$ et $s^2 = \MSE$.
+  
+**a)** Vérifier que $$ \frac{\hat{\beta_i} - \beta_i}{s \sqrt{c_{ii}}} \sim t(n - p -  1), \quad i = 0, 1, \dots, p, $$ où $c_{ii}$ est le $(i + 1)$ème élément de la diagonale de la matrice $(\Xmat^\top \Xmat)^{-1}$ et $s^2 = \MSE$.
 
 **b)** Que vaut $c_{11}$ en régression linéaire simple? Adapter le résultat ci-dessus à ce modèle.
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
-**a)** Tout d'abord, si $Z \sim \Norm(0,1)$ et $V \sim \upchi^2(r)$ alors, par définition, $$ \frac{Z}{\sqrt{V/r}} \sim t(r). $$ Tel que mentionné dans l'énoncé, $\hat{\beta}_i \sim \Norm(\beta_i, \sigma^2 c_{ii})$ ou, de manière équivalente, $$ \frac{\hat{\beta}_i - \beta_i}{\sigma \sqrt{c_{ii}}} \sim N(0, 1). $$ Par conséquent, $$ \frac{\frac{\hat{\beta}_i - \beta_i}{\sigma \sqrt{c_{ii}}}}{
+**a)** Tout d'abord, si $Z \sim \Norm(0,1)$ et $V \sim \upchi^2(r)$ alors, par définition, 
+$$ 
+\frac{Z}{\sqrt{V/r}} \sim t(r). 
+$$ 
 
-**b)** En régression linéaire simple, $c_{11} = 1/\sum_{i = 1}^n (x_i - \bar{x})^2 = 1/S_{xx}$ et $\sigma^2 c_{11} = \var{\hat{\beta}_1}$. Le résultat général en a) se réduit donc, en régression linéaire simple, au résultat bien connu du test $t$ sur le paramètre $\beta_1$ $$ \frac{\hat{\beta}_1 - \beta_1}{s \sqrt{1/S_{xx}}} \sim t(n - 1 - 1). $$
+Tel que mentionné dans l'énoncé, $\hat{\beta}_i \sim \Norm(\beta_i, \sigma^2 c_{ii})$ ou, de manière équivalente, 
+$$ 
+\frac{\hat{\beta}_i - \beta_i}{\sigma \sqrt{c_{ii}}} \sim N(0, 1). 
+$$ 
+
+Par conséquent, 
+
+$$
+\frac{\frac{\hat{\beta}_i - \beta_i}{\sigma \sqrt{c_{ii}}}}{
+          \sqrt{\frac{\SSE}{\sigma^2(n - p - 1)}}}
+        = \frac{\hat{\beta}_i - \beta_i}{s \sqrt{c_{ii}}}
+        \sim t(n - p - 1).
+$$
+
+**b)** En régression linéaire simple, $c_{11} = 1/\sum_{i = 1}^n (x_i - \bar{x})^2 = 1/S_{xx}$ et $\sigma^2 c_{11} = \var{\hat{\beta}_1}$. Le résultat général en a) se réduit donc, en régression linéaire simple, au résultat bien connu du test $t$ sur le paramètre $\beta_1$ 
+
+$$ 
+\frac{\hat{\beta}_1 - \beta_1}{s \sqrt{1/S_{xx}}} \sim t(n - 1 - 1). 
+$$
 :::
 

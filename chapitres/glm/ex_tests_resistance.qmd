@@ -1,6 +1,6 @@
 ## Tests de résistance {#sec-glm-tests_resistance}
 
-```{r echo}
+```{r}
 #| echo: false
 
 stresstest <- read.csv("data/Stresstest.csv")
@@ -8,30 +8,43 @@ stresstest <- read.csv("data/Stresstest.csv")
 
 Les données suivantes représentent des données de comptage, du nombre d'échec pour trois appareils médicaux (M1, M2 et M3) lors de tests de résistance sur 1000 appareils de chaque type et pour quatre niveaux de résistance mécanique différents (I, II, III, IV).
 
-\begin{center}
-\begin{tabular}{c|cccc}
-\texttt{Device}$\backslash$ \texttt{Stress Level} & \texttt{I} & \texttt{II} & \texttt{III} & \texttt{IV}\\ \hline
-\texttt{M1} &6 &8& 18 &10\\
-\texttt{M2}& 13& 18& 29& 20\\
-\texttt{M3} &9& 8 &21& 19\\
-\end{tabular}
-\end{center}
+```{r}
+#| echo: false
+
+
+tab <- data.frame(
+  Device = c("`M1`", "`M2`", "`M3`"),
+  "`I`"   = c(6, 13, 9),
+  "`II`"  = c(8, 18, 8),
+  "`III`" = c(18, 29, 21),
+  "`IV`"  = c(10, 20, 19),
+  check.names = FALSE
+)
+
+kable(
+  tab,
+  col.names = c("`Device` \\ `Stress Level`", "`I`", "`II`", "`III`", "`IV`"),
+  escape = FALSE,
+  align = c("c", "c", "c", "c", "c"),
+  booktabs = TRUE
+)
+
+```  
 
 À l'aide de la modélisation Poisson (lien canonique), évaluer s'il y a une différence significative entre les taux d'échec des appareils.
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
-Cette solution est en anglais, vous pouvez poser vos questions sur le forum, s'il y a lieu.
 
-This is a two-factor model, «Device» takes three levels (M1, M2 and M3) and «Stress» takes 4 levels. The baseline group is M1 device at stress level I. An analysis of deviance is carried out to assess if the parameters for the devices are significant.
+Il s'agit d'un modèle à deux facteurs, avec `Device` qui prend les trois niveaux M1, M2 et M3 et `Stress` qui prend quatre niveaux. Le niveau de base pour `Device` est M1 au `Stress` I. Une analyse de déviance permet de vérifier quels paramètres sont significatifs. 
 
 ```{r}
 
-glm <- glm(Failures Level*Machine,family=poisson,data=stresstest)
+glm <- glm(Failures ~ Level*Machine,family=poisson,data=stresstest)
 anova(glm)
 qchisq(0.95, 6)
 qchisq(0.95, 2)
 ```
 
-The model $$\text{Stress+Device+Stress.Device}$$ is fitted first. The change in deviance from the simpler model $\text{Stress+Device}$ is 2.7719 on 6 degrees of freedom, which is not significant when compared to $\chi^{2}_{(6,0.95)}=12.59$. Hence, the model $\text{Stress+Device}$ is an adequate simplification of the more complex model. If we then test for the significance of the Device parameters, we find that the change in deviance from the simpler model Stress is 12.2154 on 2 degrees of freedom, which is significant because $\chi^{2}_{(2,0.95)}=5.99$. From this analysis, we can conclude that there is a significant difference between the failure rates of the different devices.
+Le modèle $$\text{Stress+Device+Stress.Device}$$ est ajusté en premier. La différence de déviance par rapport au modèle plus simple $\text{Stress+Device}$ est 2.7719 sur 6 degés de liberté, ce qui n'est pas significatif par rapport au quantile $\chi^{2}_{(6,0.95)}=12.59$. Ainsi, le modèle $\text{Stress+Device}$ est une simplification adéquate du modèle plus complexe. Si on teste la significativité des paramètres de déviance, on trouve que la différence de déviance est 12.2154 sur 2 degrés de liberté, ce qui est significatif parce que $\chi^{2}_{(2,0.95)}=5.99$. À partir de cette analyse, on conclut qu'il y a une différence significative entre le taux d'échec et les différents appareils.
 :::
 

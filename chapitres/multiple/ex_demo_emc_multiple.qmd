@@ -1,39 +1,43 @@
 ## EMC pour la régression linéaire multiple {#sec-multiple-demo_emc_multiple}
 
-Considérer le modèle de régression linéaire $\yvec = \Xmat
-  \betavec + \epsvec$, où $\Xmat$ est une matrice $n \times (p+1)$.
+Considérer le modèle de régression linéaire $\yvec = \Xmat \betavec + \epsvec$, où $\Xmat$ est une matrice $n \times (p+1)$.
   Démontrer, en dérivant
-  $$
+$$
 \begin{aligned}
     S(\betavec)
     &= \sum_{i=1}^n (Y_i - \xvec_i^\top \betavec)^2 \\
     &= (\yvec - \Xmat \betavec)^\top (\yvec - \Xmat \betavec)
   \end{aligned}
 $$
-  par rapport à $\betavec$, que les équations normales à résoudre pour
+par rapport à $\betavec$, que les équations normales à résoudre pour
   obtenir l'estimateur des moindres carrés de $\betavec$ sont, sous
   forme matricielle,
-  $$
+$$
     (\Xmat^\top \Xmat) \hatbetavec = \Xmat^\top \yvec,
-  $$
-  Déduire l'estimateur des moindres carrés de ces équations.
-  *Astuce*: utiliser le théorème **Dérivée d'une fonction**
-   de la section **[réf:sec:elements:derivees]**.
+$$
+  
+Déduire l'estimateur des moindres carrés de ces équations.
+
+
+*Astuce*: utiliser le théorème **Dérivée d'une fonction**
+   dans l'annexe.
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
 Tout d'abord, selon le théorème,
-    $$
-      \frac{d}{d \Xmat}  f(\Xmat)^\top \mat{A} f(\Xmat) =
+$$
+      \frac{d}{d \Xmat} f(\Xmat)^\top \mat{A} f(\Xmat) =
       2 \left( \frac{d}{d \Xmat} f(\Xmat) \right)^\top \mat{A} f(\Xmat).
-    $$
-    Il suffit, pour faire la démonstration, d'appliquer directement ce
+$$
+
+Il suffit, pour faire la démonstration, d'appliquer directement ce
     résultat à la forme quadratique
-    $$
+$$
       S(\betavec) = (\yvec - \Xmat \betavec)^\top (\yvec - \Xmat \betavec)
-    $$
-    avec $f(\betavec) = \yvec - \Xmat \betavec$ et $\mat{A} =
-    \mat{I}$, la matrice identité. On a alors
-    $$
+$$
+
+avec $f(\betavec) = \yvec - \Xmat \betavec$ et $\mat{A} = \mat{I}$, la matrice identité. On a alors
+
+$$
 \begin{aligned}
       \frac{d}{d\betavec} S(\betavec)
       &= 2
@@ -45,17 +49,18 @@ Tout d'abord, selon le théorème,
       &= -2 \Xmat^\top (\yvec - \Xmat \betavec).
     \end{aligned}
 $$
-    En posant ces dérivées exprimées sous forme matricielle
+
+En posant ces dérivées exprimées sous forme matricielle
     simultanément égales à zéro, on obtient les équations normales à
     résoudre pour calculer l'estimateur des moindres carrés du vecteur
     $\betavec$, soit
-    $$
-      \Xmat^\top \Xmat \hatbetavec = \Xmat^\top \yvec.
-    $$
-    En isolant $\hatbetavec$ dans l'équation ci-dessus, on obtient,
+$$
+\Xmat^\top \Xmat \hatbetavec = \Xmat^\top \yvec.
+$$
+En isolant $\hatbetavec$ dans l'équation ci-dessus, on obtient,
     finalement, l'estimateur des moindres carrés:
-    $$
-      \hatbetavec = (\Xmat^\top \Xmat)^{-1} \Xmat^\top \yvec.
-    $$
+$$
+\hatbetavec = (\Xmat^\top \Xmat)^{-1} \Xmat^\top \yvec.
+$$
 :::
 
