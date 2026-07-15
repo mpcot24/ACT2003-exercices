@@ -10,21 +10,15 @@ a été ajusté à des données avec la méthode des moindres carrés.
 **a)** La figure suivante montre le QQ-plot des résidus studentisés. À la lumière de ce graphique, y a-t-il un postulat du modèle qui n'est pas vérifié? Si oui, lequel et pourquoi? S'il y a lieu, expliquer l'impact de la violation de ce postulat. 
 
 
-\begin{figure}[h]
-\centering
-\centerline{\includegraphics[width=0.49\textwidth]{figure/QQPlotLifeExp-c.pdf}}
-\caption{QQ-Plot des résidus studentisés}\label{fig:multiple:postulat1}
-\end{figure}
+
+<embed src="figure/QQPlotLifeExp-c.pdf" type="application/pdf" width="100%" height="600px" />
+
 
 
 **b)** La figure suivante montre les résidus studentisés en fonction de chacune des variables exogènes et en fonction des valeurs prédites. Utiliser ces graphiques pour commenter sur la validité des postulats du modèle. Y en a-t-il qui ne sont pas respectés? S'il y a lieu, expliquer l'impact de la violation de ce ou ces postulats.
 
 
-\begin{figure}[t]
-\centering
-\centerline{\includegraphics[width=0.8\textwidth]{figure/ResPlots.pdf}}
-\caption{Nuage de points des résidus studentisés en fonction de chacune des variables exogènes et en fonction de la variable prédite}\label{fig:multiple:postulat2}
-\end{figure}
+<embed src="figure/ResPlots.pdf" type="application/pdf" width="100%" height="600px" />
 
 
 ::: {.callout-tip collapse="true" title="Solution complète"}

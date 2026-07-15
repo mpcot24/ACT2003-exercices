@@ -1,0 +1,93 @@
+\chapter{Révision de certains concepts de statistique et tables}
+\label{chap:tables}
+
+\section{Quelques distributions bien connues}
+
+\begin{description}
+\item[Loi Normale:] Si $Y\sim \mathcal{N}(\mu, \sigma^2)$ avec $\mu \in\mathbb{R}$ et $\sigma^2>0$, alors sa densité est donnée, pour tout $y\in\mathbb{R}$, par
+$$
+f_{Y}(y)=\frac{1}{\sqrt{2\pi}\sigma}\exp\left\{-\frac{(y-\mu)^2}{2\sigma^2}\right\}.
+$$ 
+Dans ce cas, $Z=(Y-\mu)/\sigma$ suit une loi normale centrée réduite, notée $\mathcal{N}(0,1)$ ou $N(0,1)$. 
+
+\bigskip
+
+\item[Loi Khi-Carrée:] Si $X\sim \chi^{2}_{(\nu)}$ avec $\nu>0$, sa densité est donnée, pour tout $x \in (0,\infty)$, par
+$$
+f_{X}(x)=\frac{x^{\nu/2-1}e^{-x/2}}{2^{\nu/2}\Gamma(\nu/2)}.
+$$
+On note que $\esp{X}=\nu$. Les distributions normale et Khi-carrée sont reliées:
+
+\begin{itemize}
+\item [-]
+Si $Z\sim \N(0,1)$, alors $Z^2\sim \chi^{2}_{(1)}$. 
+
+\item[-]
+Si $Z_1,\ldots,Z_n$ sont mutuellement indépendantes et distribuées selon une loi $\mathcal{N}(0,1)$, alors 
+$$
+\sum_{i=1}^{n}Z_i^2\sim \chi^2_{(n)}.
+$$
+
+\end{itemize}
+
+\bigskip
+\item[Loi Student $t$:] Si $T\sim t_{(\nu)}$ avec $\nu>0$, sa densité est donnée, pour tout $t\in\mathbb{R}$, par
+$$
+f_T(t)=\frac{\Gamma\left(\frac{\nu+1}{2}\right)}{\sqrt{\nu\pi}\Gamma\left(\frac{\nu}{2}\right)}\left(1+\frac{x^2}{\nu}\right)^{-\frac{\nu+1}{2}}.
+$$ 
+Quand $\nu\rightarrow\infty$, la loi $t$ tend vers la loi normale centrée réduite. Aussi, si $Z\sim \N(0,1)$ et $X\sim \chi^{2}_{(\nu)}$ sont indépendantes, alors on a la représentation stochastique suivante~:
+$$
+\frac{Z}{\sqrt{X/\nu}}\sim t_{(\nu)}.
+$$
+
+\bigskip
+\item[Loi de Fisher:] Si $X_1\sim \chi^{2}_{(\nu_1)}$ et $X_2\sim \chi^{2}_{(\nu_2)}$ sont indépendantes et $\nu_1,\nu_2>0$, alors 
+$$
+\frac{X_1/\nu_1}{X_2/\nu_2}\sim F(\nu_1,\nu_2).
+$$ 
+Aussi, on peut facilement montrer avec les relations précédentes que si $T\sim t_{(\nu)}$, alors $T^{2}\sim F(1, \nu).$ La densité de la loi de Fisher est complexe et rarement utilisée. Cette distribution a un support positif.
+\end{description}
+
+\section{Maximum de vraisemblance}
+
+Soient les observations $y_1,\ldots,y_n$, provenant de variables aléatoires indépendantes avec densités $f_{Y_i}(y_i;\theta),$ pour $i=1,\ldots,n$. La fonction de vraisemblance est 
+$$
+L(\theta;y_1,\ldots,y_n)=\prod_{i=1}^{n}f_{Y_i}(y_i;\theta).
+$$ 
+La fonction de log-vraisemblance est 
+$$
+\ell(\theta;y_1,\ldots,y_n)=\ln L(\theta;y_1,\ldots,y_n)=\sum_{i=1}^{n}\ln f_{Y_i}(y_i;\theta).
+$$ 
+La méthode du maximum de vraisemblance permet de trouver l'estimateur $\hat{\theta}_n$ qui maximise $L(\theta;y_1,\ldots,y_n)$, et par conséquent $\ell(\theta;y_1,\ldots,y_n)$. On travaille habituellement avec le logarithme naturel pour simplifier les calculs. La fonction de score est 
+$$
+\dot{\ell}_{\theta}(\theta;y_1,\ldots,y_n)=\frac{\partial}{\partial \theta}\ell(\theta;y_1,\ldots,y_n).
+$$ 
+L'estimateur du maximum de vraisemblance (EMV, ou MLE pour \emph{maximum likelihood estimator}) est $\hat{\theta}_n$ tel que 
+$$
+\left.\dot{\ell}_{\theta}(\theta;y_1,...,y_n)\right|_{\hat{\theta}_n}=0.
+$$ 
+
+
+\section{Estimateur sans biais}
+
+Soit un échantillon aléatoire $Y_1,\ldots,Y_n$, avec densité $f(y;\theta)$. Soit l'estimateur de $\theta$ suivant: $\hat{\theta}_n=\hat{\theta}(Y_1,...,Y_n)$. On dit de $\hat{\theta}_n$ qu'il est sans biais si $\esp{\hat{\theta}_n}=\theta.$ Dans ce cas, le biais est zéro, 
+$$
+\mbox{biais}(\hat{\theta}_n)=\esp{\hat{\theta}_n}-\theta=0,
+$$ 
+ce qui réduit l'erreur quadratique moyenne (EQM ou \emph{MSE} pour \emph{mean squared error}) de l'estimateur: 
+$$
+\mbox{EQM}(\hat{\theta}_n)=\esp{(\hat{\theta}_n-\theta)^2}=\var{\hat{\theta}_n}+\mbox{biais}(\hat{\theta}_n).
+$$
+
+
+\newpage
+\input{khi2}
+
+\newpage
+\input{t}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "exercices_analyse_statistique"
+%%% End:

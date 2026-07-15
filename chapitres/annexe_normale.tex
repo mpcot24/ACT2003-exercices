@@ -1,0 +1,138 @@
+\chapter{La loi normale multivariée}
+\label{chap:multnorm}
+
+En dimension $p=1$, on considère d'abord le cas d'une variable aléatoire $Z$ distribuée selon une loi normale centrée réduite $Z\sim\mathcal{N}(0,1)$. La densité de $Z$ s'écrit alors, pour tout $z\in\mathbb{R}$, comme
+$$
+f_Z(z) = \frac{1}{\sqrt{2\pi}} \exp(-z^2/2).
+$$
+Une variable $X$ de distribution normale avec moyenne $\mu$ et variance $\sigma^2$, noté $X \sim \mathcal{N} (\mu,\sigma^2)$, peut être écrite selon la représentation stochastique $X=\sigma Z+\mu$. La densité de $X$ est donnée, pour $x\in\mathbb{R}$, par
+$$
+f_X(x) =  \frac{1}{\sqrt{2\pi} \sigma} \exp\left\{-\frac{1}{2} \left(\frac{x- \mu}{\sigma}\right)^2\right\}.
+$$
+%
+On considère maintenant la généralisation en dimension $p\ge 1$ en supposant $(Z_1, \ldots, Z_p)$ des variables aléatoires indépendantes et identiquement distribuées suivant une loi normale centrée réduite $\N(0,1)$. On a alors que
+$$
+\mathbf{Z} = \begin{pmatrix}
+Z_1 \\
+\vdots \\
+Z_p \\
+\end{pmatrix} \sim \mathcal{N}_p (\textbf{0}, \mathbf{I}_p),
+$$
+où $p$ désigne le nombre de variables aléatoires, \textbf{0} est un vecteur de $p$ zéros et $\mathbf{I}_p$ note la matrice identité de dimension $p \times p$. La densité conjointe de $\mathbf{Z} = (Z_1, \ldots, Z_p)^\top$, peut alors s'écrire comme
+\begin{align*}
+ f(z_1, ..., z_p) &= \prod_{i=1}^p f(z_i)= \left(\frac{1}{\sqrt{2\pi}}\right)^p \exp\left(-\sum_{i=1}^p z_i^2/2\right)= \left(\frac{1}{\sqrt{2\pi}}\right)^p \exp\left(-\frac{1}{2} \mathbf{z}^\top\mathbf{z}\right),
+\end{align*}
+où $\mathbf{z} = (z_1,\ldots,z_p)^\top \in \mathbb{R}^p$.
+
+Soient $\boldsymbol{\mu} = (\mu_1,\ldots, \mu_p)^\top \in \mathbb{R}^p$ un vecteur de $p$ moyennes et $\boldsymbol{\Sigma}$ une matrice positive définie, de variance-covariance. En considérant la transformation de variables $\mathbf{X}=\boldsymbol{\mu}+ \boldsymbol{\Sigma}^{(1/2)}\mathbf{Z}$, on obtient que
+\begin{align*}
+\mathbf{X} = \begin{pmatrix}
+X_1 \\
+\vdots \\
+X_p \\
+\end{pmatrix} &\sim \mathcal{N}_p (\boldsymbol{\mu}, \boldsymbol{\Sigma}).
+\end{align*}
+
+La densité conjointe de $(X_1,\ldots,X_p)$ est alors donnée par
+\begin{align}
+f(x_1, \ldots, x_p) &= \prod_{i=1}^p f(x_i) \nonumber\\
+  &= \left(\frac{1}{\sqrt{2\pi}}\right)^p \frac{1}{\left|\boldsymbol{\Sigma}\right|^{1/2}} \exp\left\{-\frac{1}{2} (\mathbf{x}- \boldsymbol{\mu})^\top (\boldsymbol{\Sigma}^{-1/2})^\top \boldsymbol{\Sigma}^{-1/2} (\mathbf{x}- \boldsymbol{\mu})\right\}\nonumber\\
+ &= \left(\frac{1}{\sqrt{2\pi}}\right)^p \frac{1}{\left|\boldsymbol{\Sigma}\right|^{1/2}} \exp\left\{-\frac{1}{2} (\mathbf{x}- \boldsymbol{\mu})^\top \boldsymbol{\Sigma}^{-1} (\mathbf{x}- \boldsymbol{\mu})\right\},
+\label{normalemulti}
+\end{align}
+où $\boldsymbol{\mu}$ désigne le vecteur contenant la moyenne des $p$ variables, $\boldsymbol{\Sigma}$ dénote la matrice des variances-covariances de $\mathbf{X}$ (de dimension $p \times p$), $p$ est le nombre de variables. On a dans ce cas que le vecteur $\mathbf{Z} =  \boldsymbol{\Sigma}^{(-1/2)} (\mathbf{X}-\boldsymbol{\mu})$ suit une normale multivariée centrée réduite.
+
+\section{Espérance et variance}
+\label{sec:EspéranceEtVariance}
+
+On détermine ci-dessous l'espérance et la variance de $\mathbf{X}\sim\mathcal{N}_p (\boldsymbol{\mu}, \boldsymbol{\Sigma})$. On a
+$$
+\esp{\mathbf{X}} = \esp{\boldsymbol{\mu} + \boldsymbol{\Sigma}^{1/2}\mathbf{Z}}
+	 = \boldsymbol{\mu}+ \boldsymbol{\Sigma}^{1/2}\esp{\mathbf{Z}}
+	= \boldsymbol{\mu},
+$$
+et
+\begin{align*}
+	\var{\mathbf{X}} &= \var{\boldsymbol{\Sigma}^{1/2}\mathbf{Z}} \\
+	& =  (\boldsymbol{\Sigma}^{1/2})^\top \var{\mathbf{Z}} \boldsymbol{\Sigma}^{1/2} \\
+	&= (\boldsymbol{\Sigma}^{1/2})^\top \mathbf{I}_p \boldsymbol{\Sigma}^{1/2} \\
+	&= \boldsymbol{\Sigma}.
+\end{align*}
+
+\section{La matrice de variance-covariance}
+\label{sec:LaMatriceDesVariancesCovariances}
+La matrice de variance-covariance s'écrit comme
+$$ 
+\boldsymbol{\Sigma} = 
+\begin{pmatrix}
+\var{X_1} & \cov{X_1,X_2} & \cdots & \cov{X_1,X_p}\\
+\cov{X_2,X_1} & \var{X_2} & \cdots & \cov{X_2,X_p}\\
+\vdots & \vdots & \vdots & \vdots \\
+\cov{X_p,X_1} & \cov{X_p,X_2} & \cdots & \var{X_p}\\
+\end{pmatrix}
+$$
+
+Dans le cas centré-réduit, cette matrice peut s'écrire comme
+$$
+\boldsymbol{\Sigma} = \var{\mathbf{Z}} = 
+\begin{pmatrix}
+1 & 0 & \cdots & 0\\
+0 & 1 & \cdots & 0\\
+\vdots & \vdots & \vdots & \vdots \\
+0 & 0 & \cdots & 1\\
+\end{pmatrix}
+ = \mathbf{I}_p.
+$$
+
+On note $\sigma_{i,j}$ la valeur correspondant à $\cov{X_i,X_j}$. La matrice de variances-covariances possède les deux propriétés suivantes :
+
+\begin{enumerate}
+	\item Elle est symétrique: $\sigma_{i,j} = \sigma_{j,i}$
+	\item Elle est semi-définie positive :
+	
+		$$\forall \, \mathbf{a} \, \in \mathbb{R}^p, \, \mathbf{a}^\top \boldsymbol{\Sigma} \mathbf{a} \ge 0$$
+		$$\var{\mathbf{a}^\top \boldsymbol{\Sigma}} \ge 0$$
+		Elle possède donc $p$ valeurs propres.
+\end{enumerate}
+
+\noindent Donc si
+\begin{itemize}
+	\item[-] $\boldsymbol{\Sigma}$ est la matrice de variances-covariances
+	\item[-] $\boldsymbol\Lambda$ est la matrice diagonale des $p$ valeurs propres de $\boldsymbol{\Sigma}$
+	\item[-] et $\mathbf{P}$ est la matrice dont les colonnes sont les $p$ vecteurs propres de $\boldsymbol{\Sigma}$,
+\end{itemize}
+alors $\boldsymbol{\Sigma} = \mathbf{P} \boldsymbol{\Lambda} \mathbf{P}^\top$ et
+$$
+	\left|\boldsymbol{\Sigma}\right| = \left|\mathbf{P} \boldsymbol{\Lambda} \mathbf{P}^\top\right| 
+	= \left|\mathbf{P}\right| \left|\boldsymbol{\Lambda}\right| \left|\mathbf{P}^\top\right| 
+	= \left|\mathbf{P}\mathbf{P}^\top\right| \left|\boldsymbol{\Lambda}\right| 
+	= \prod_{i=1}^p \lambda_i.
+$$
+On a donc que $\left|\boldsymbol{\Sigma}\right| \ne 0$ ce qui est équivalent à $\lambda_1> \cdots > \lambda_p > 0$ et que $\boldsymbol{\Sigma}^{-1}$ existe.
+
+Considérons maintenant l'exemple du cas bivarié ($p=2$). La matrice de variances-covariances s'écrit
+$$ 
+\boldsymbol{\Sigma} = 
+\begin{pmatrix}
+\var{X_1} & \cov{X_1 , X_2} \\
+\cov{X_2 , X_1} & \var{X_2} \\
+\end{pmatrix}.
+$$
+
+Si 
+$$
+r= \corr{X_1,X_2} = \frac{\cov{X_1,X_2}}{\sqrt{\var{X_1} \var{X_2}}}
+$$ 
+et $\var{X_1}=\sigma_1^2$ et $\var{X_2}=\sigma_2^2$, alors $\cov{X_1,X_2}= r\sigma_1\sigma_2$. On a donc
+$$ 
+\boldsymbol{\Sigma}=
+\begin{pmatrix}
+\sigma_1^2 & r\sigma_1\sigma_2 \\
+r\sigma_2\sigma_1 & \sigma_2^2 \\
+\end{pmatrix},
+$$
+et son déterminant est $\left|\boldsymbol{\Sigma}\right|=\sigma_1^2 \sigma_2^2 - r^2\sigma_1^2\sigma_2^2.$
+
+\bigskip
+On remarque de l'équation précédente que $\left|\boldsymbol{\Sigma}\right| \ne 0$ si et seulement si $r \ne \pm 1$. Autrement dit, si $r= \pm 1$, $\boldsymbol{\Sigma}$ n'est pas inversible, auquel cas la loi normale multivariée (équation \ref{normalemulti}) n'a plus de sens. Ce sujet est abordé en détails dans la section sur la multicolinéarité.
+

@@ -3,7 +3,7 @@ header-includes:
   - \input{commandes}
 ---
 
-# Introduction {.unnumbered}
+# Introduction
 
 Ce document contient les exercices proposés par Marie-Pier Côté pour le cours ACT-2003 Modèles linéaires en actuariat, donné à l'École d'actuariat de l'Université Laval. Le recueil a été mis en forme par Vincent Mercier, auxiliaire d'enseignement, à l'aide du soutien financier de la Chaire de leadership en enseignement en analyse de données massives pour l'actuariat --- Intact. 
 
@@ -11,14 +11,10 @@ Plusieurs des exercices de la première partie proviennent d'une ancienne versio
 
 Le document est séparé en deux parties correspondant aux deux sujets faisant l'objet du cours : d'abord la régression linéaire (simple, multiple et régularisée), puis les modèles linéaires généralisés. L'estimation des paramètres, le calcul de prévisions et l'analyse des résultats sont toutes des procédures à forte composante numérique. Il serait tout à fait artificiel de se restreindre, dans les exercices, à de petits ensembles de données se prêtant au calcul manuel. Dans cette optique, plusieurs des exercices requièrent l'utilisation du logiciel statistique R.
 
-L'annexe \ref{chap:tables} rappelle quelques concepts de statistique de base et contient les tables de la loi khi-carrée et Student, nécessaires pour quelques exercices. L'annexe \ref{chap:multnorm} détaille la notation et les propriétés de la loi normale multivariée. L'annexe \ref{chap:elements} contient quelques résultats d'algèbre matricielle utiles pour résoudre certains exercices.
-
-Les réponses des exercices se trouvent à la fin de chacun des
-chapitres, alors que les solutions complètes sont regroupées à
-l'annexe~\ref{chap:solutions}.
+L'annexe A des notes de cours rappelle quelques concepts de statistique de base et contient les tables de la loi khi-carrée et Student, nécessaires pour quelques exercices. L'annexe B des notes de cours détaille la notation et les propriétés de la loi normale multivariée. L'annexe C contient quelques résultats d'algèbre matricielle utiles pour résoudre certains exercices.
 
 Tous les jeux de données mentionnés dans ce document sont disponibles en format électronique sur le site de cours ainsi qu'à l'adresse
-\url{https://github.com/mpcot24/ACT2003-exercices/tree/master/exercices_modeles_lineaires/data}
+<https://github.com/mpcot24/ACT2003-exercices/tree/master/exercices_modeles_lineaires/data>
   
 Ces jeux de données sont importés dans R avec une commande `scan`, `read.table` ou `read.csv`. Certains jeux de données sont également fournis avec R; la commande `data()` en fournit une liste complète.
 

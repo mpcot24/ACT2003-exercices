@@ -1,24 +1,30 @@
 ## Relation entre la masse monétaire et le PNB {#sec-simple-massemonetaire_pib}
 
 La masse monétaire et le produit national brut (en millions de *snouks*) de la Fictinie (Asie postérieure) sont reproduits dans le tableau ci-dessous.
-\begin{center}
-    \begin{tabular}{ccr}
-      \toprule
-      Année & Masse monétaire & \multicolumn{1}{c}{PNB} \\
-      \midrule
-      1987 & 2,0 & 5,0 \\
-      1988 & 2,5 & 5,5 \\
-      1989 & 3,2 & 6,0 \\
-      1990 & 3,6 & 7,0 \\
-      1991 & 3,3 & 7,2 \\
-      1992 & 4,0 & 7,7 \\
-      1993 & 4,2 & 8,4 \\
-      1994 & 4,6 & 9,0 \\
-      1995 & 4,8 & 9,7 \\
-      1996 & 5,0 & 10,0 \\
-      \bottomrule
-\end{tabular}
-\end{center}
+
+
+```{r}
+#| echo: false
+
+
+library(knitr)
+
+dat <- data.frame(
+  Annee = 1987:1996,
+  `Masse monétaire` = c(2.0, 2.5, 3.2, 3.6, 3.3,
+                        4.0, 4.2, 4.6, 4.8, 5.0),
+  PNB = c(5.0, 5.5, 6.0, 7.0, 7.2,
+          7.7, 8.4, 9.0, 9.7, 10.0)
+)
+
+kable(
+  dat,
+  col.names = c("Année", "Masse monétaire", "PNB"),
+  align = "ccr"
+)
+
+
+```
 
 **a)** Établir une relation linéaire dans laquelle la masse monétaire explique le produit national brut (PNB).
 

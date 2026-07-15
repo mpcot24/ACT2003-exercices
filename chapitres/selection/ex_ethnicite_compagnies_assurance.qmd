@@ -42,16 +42,23 @@ kable(
 ```
 
 On s'intéresse majoritairement à l'effet de la variable explicative `race`, mais on veut aussi tenir compte des autres facteurs qui pourraient être en cause, et des interactions entre ces facteurs. Les modèles considérés sont :
-\begin{description}
-\item[Modèle A:] \texttt{involact}$\sim$\texttt{race}
-\item[Modèle B:] \texttt{involact}$\sim$\texttt{race+I(log(income))}
-\item[Modèle C:] \texttt{involact}$\sim$\texttt{race+fire+age}
-\item[Modèle D:] \texttt{involact}$\sim$\texttt{race+fire+theft+age}
-\item[Modèle E:] \texttt{involact}$\sim$\texttt{race+I(log(income))+fire+theft+age}
-\item[Modèle F:] \texttt{involact}$\sim$\texttt{race+I(log(income))*age+fire+theft}
-\item[Modèle G:] \texttt{involact}$\sim$\texttt{I(log(income))*(age+race)+fire+theft}
-\item[Modèle H:] \texttt{involact}$\sim$\texttt{I(log(income))*age+race*(fire+theft+I(log(income)))}
-\end{description}
+
+- `Modèle A` : `involact`$\sim$`race`
+
+- `Modèle B` : `involact`$\sim$`race+I(log(income))`
+
+- `Modèle C` : `involact`$\sim$`race+fire+age`
+
+- `Modèle D` : `involact`$\sim$`race+fire+theft+age`
+
+- `Modèle E` : `involact`$\sim$`race+I(log(income))+fire+theft+age`
+
+- `Modèle F` : `involact`$\sim$`race+I(log(income))*age+fire+theft`
+
+- `Modèle G` : `involact`$\sim$`I(log(income))*(age+race)+fire+theft`
+
+- `Modèle H` : `involact`$\sim$`I(log(income))*age+race*(fire+theft+I(log(income)))`
+
 
 Note : `A*B` représente `A+B+A:B`, c'est-à-dire les effets principaux et les interactions entre les variables explicatives `A` et `B`.
 

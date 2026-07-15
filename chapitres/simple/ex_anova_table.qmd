@@ -1,37 +1,37 @@
 ## Analyse de variance avec un tableau de données {#sec-simple-anova_table}
 
-On vous donne les observations ci-dessous.
-  \begin{center}
-    \begin{minipage}[t]{0.3\textwidth}
-      \text{} \\
-      \begin{tabular}{ccc}
-        \toprule
-        $i$ & $x_i$ & $Y_i$ \\
-        \midrule
-        1 & 2 & 6 \\
-        2 & 3 & 4 \\
-        3 & 5 & 6 \\
-        4 & 7 & 3 \\
-        5 & 4 & 6 \\
-        6 & 4 & 4 \\
-        7 & 1 & 7 \\
-        8 & 6 & 4 \\
-        \bottomrule
-      \end{tabular}
-    \end{minipage}
-    \begin{minipage}[t]{0.4\textwidth}
-      \text{} \\[-1cm]
+On vous donne les observations et les résultats ci-dessous.
+
+```{r}
+#| echo: false
+
+
+library(knitr)
+
+dat <- data.frame(
+  i = 1:8,
+  x = c(2, 3, 5, 7, 4, 4, 1, 6),
+  Y = c(6, 4, 6, 3, 6, 4, 7, 4)
+)
+
+kable(
+  dat,
+  col.names = c("$i$", "$x_i$", "$Y_i$"),
+  align = "ccc",
+  escape = FALSE
+)
+
+```
+     
 $$
 \begin{aligned}
         \sum_{i=1}^8 x_i &= 32 &
         \sum_{i=1}^8 x_i^2 &= 156 \\
         \sum_{i=1}^8 Y_i &= 40 &
         \sum_{i=1}^8 Y_i^2 &= 214 \\
-        \sum_{i=1}^8 x_i  Y_i &= 146 \\
+        \sum_{i=1}^8 x_i Y_i &= 146 \\
       \end{aligned}
 $$
-    \end{minipage}
-  \end{center}
   
 **a)** Calculer les coefficients de la régression $Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$, avec $\var{\varepsilon_i} = \sigma^2$.
 
@@ -60,17 +60,24 @@ $$
 \begin{aligned} \SST &=\sum_{i=1}^8(Y_i-\bar{Y})^2 \\ &=\sum_{i=1}^8Y_i^2-n\bar{Y}^2 \\ &=214-(8)(40/8)^2 \\ &=14, \\ \SSR &=\sum_{i=1}^8(\hat{Y}_i-\bar{Y})^2 \\ &=\sum_{i=1}^8\hat{\beta}_1^2(x_i-\bar{x})^2 \\ &=\hat{\beta}_1^2(\sum_{i=1}^8x_i^2-n\bar{x}^2) \\ &=(-1/2)^2(156-(8)(32/8)^2) \\ &=7. \end{aligned}
 $$ 
 et $\SSE = \SST - \SSR = 14 - 7 = 7$. Par conséquent, $R^2 = SSR/SST = 7/14 = 0,5$, donc la régression explique 50 % de la variation des $Y_i$ par rapport à leur moyenne $\bar{Y}$. Le tableau ANOVA est le suivant :
-      \begin{center}
-        \begin{tabular}{lcccc}
-          \toprule
-          Source & SS & d.l. & MS & Ratio F \\
-          \midrule
-          Régression & 7 & 1 & 7   & 6 \\
-          Erreur     & 7 & 6 & 7/6 &  \\
-          \midrule
-          Total & 14 & 7 & & \\
-          \bottomrule
-        \end{tabular}
-      \end{center}
+
+```{r}
+
+library(knitr)
+
+anova_tab <- data.frame(
+  Source = c("Régression", "Erreur", "Total"),
+  SS     = c("7", "7", "14"),
+  `d.l.` = c("1", "6", "7"),
+  MS     = c("7", "7/6", ""),
+  `Ratio F` = c("6", "", "")
+)
+
+kable(
+  anova_tab,
+  align = c("l", "c", "c", "c", "c")
+)
+
+```
 :::
 

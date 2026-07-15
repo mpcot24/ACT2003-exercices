@@ -1,6 +1,7 @@
 ## Effet de l'âge sur la kyphosis {#sec-binom-age_kyphosis}
 
-Une étude sur une condition de la colonne vertébrale (kyphosis) survenant après une opération a été réalisée par Hastie et Tibshirani (1990). On s'intéresse à l'effet de la variable explicative \texttt{age} (en mois) au moment de l'opération, sur la probabilité d'avoir cette mauvaise condition. Les données peuvent être programmées en \textsf{R} avec les deux commandes suivantes:
+Une étude sur une condition de la colonne vertébrale (kyphosis) survenant après une opération a été réalisée par Hastie et Tibshirani (1990). On s'intéresse à l'effet de la variable explicative `age` (en mois) au moment de l'opération, sur la probabilité d'avoir cette mauvaise condition. Les données peuvent être programmées en R avec les deux commandes suivantes :
+
 ```{r}
 
 age <- c(12,15,42,52,59,73,82,91,96,105,114,120,121,128,130,139,139,157,
@@ -19,14 +20,75 @@ kyp <- c(rep(1,18),rep(0,22))
 **e)** Utiliser le critère AIC pour comparer les deux modèles.
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
-**a)** Le modèle de régression logistique est $\log\left(\frac{\pi_i}{1-\pi_i}\right)=\eta_i=\beta_0+\beta_1 \times {\mathrm age}$. On trouve les estimations des paramètres en \textsf{R}. Les hypothèses du test de Wald sont $$ H_0: \beta_1=0 \text{ versus } H_1: \beta_1\ne0. $$ La statistique est 0.734 et le seuil observé du test est 46.3\
+**a)** Le modèle de régression logistique est $\log\left(\frac{\pi_i}{1-\pi_i}\right)=\eta_i=\beta_0+\beta_1 \times {\mathrm age}$. On trouve les estimations des paramètres en R. Les hypothèses du test de Wald sont 
 
-**b)** On trace le graphique des données: \texttt{plot(age,kyp,pch=16)}. Le résultat est montré dans la Figure @sec-binom-age_kyphosis. 
+$$
+H_0~: \beta_1=0 \text{ versus } H_1~: \beta_1\ne0. 
+$$ 
 
-**c)** Le modèle est maintenant  $\log\left(\frac{\pi_i}{1-\pi_i}\right)=\eta_i=\beta_0+\beta_1 age+\beta_2 age^2$. On trouve les estimations des paramètres en \textsf{R}. Les tests de Wald pour $\beta_1$ et $\beta_2$ sont tous deux significatifs à 5\
+La statistique est 0.734 et le seuil observé du test est 46.3 %, ce qui n'est pas significatif. On ne peut donc pas rejeter l'hypothèse nulle que $\beta_1=0$. Cela signifie qu'il n'y a pas de preuves dans ces données que l'âge a un impact significatif sur la probabilité d'être atteint de kyphosis après une opération.
 
-**d)** On trace le graphique des données et on ajoute les courbes de probabilités ajustées. Le résultat est montré dans la Figure @sec-binom-age_kyphosis. On ne voit pas grand chose d'intéressant, sauf que le modèle en a) semble parfaitement inutile. On peut grouper les données par catégorie d'âge plutôt que de laisser les données individuelles pour mieux voir l'ajustement. Le graphique des données groupées est montré dans la Figure @sec-binom-age_kyphosis. On observe que le modèle quadratique s'ajuste beaucoup mieux aux données. 
+```{r}
+moda <- glm(kyp ~ age,family=binomial)
+summary(moda)
+```
 
-**e)** Le critère AIC est donné dans la sortie \textsf{R}. Le critère AIC pour le modèle c) est 54.228 et est inférieur à celui pour le modèle a), ce qui soutient encore une fois que le modèle avec le terme $age^2$ est préférable.
+
+**b)** On trace le graphique des données : `plot(age,kyp,pch=16)`. 
+
+Le résultat est montré dans la figure [-@fig-binom-kyp]. 
+
+
+```{r}
+#| echo: false
+#| fig-cap: "Graphique des données"
+#| label: fig-binom-kyp
+
+
+plot(age,kyp,pch=16)
+```
+
+
+**c)** Le modèle est maintenant  $\log\left(\frac{\pi_i}{1-\pi_i}\right)=\eta_i=\beta_0+\beta_1 age+\beta_2 age^2$. On trouve les estimations des paramètres en R. Les tests de Wald pour $\beta_1$ et $\beta_2$ sont tous deux significatifs à 5 %. On trouve donc que l'âge a un effet significatif sur la probabilité d'être atteint de kyphosis après l'opération.
+
+```{r}
+modb <- glm(kyp~age+I(age^2),family=binomial)
+summary(modb)
+```
+
+**d)** On trace le graphique des données et on ajoute les courbes de probabilités ajustées. Le résultat est montré dans la figure [-@fig-binom-kyp2]. On ne voit pas grand chose d'intéressant, sauf que le modèle en a) semble parfaitement inutile. On peut grouper les données par catégorie d'âge plutôt que de laisser les données individuelles pour mieux voir l'ajustement. Le graphique des données groupées est montré dans la figure [-@fig-binom-kyp3]. On observe que le modèle quadratique s'ajuste beaucoup mieux aux données. 
+
+```{r}
+#| echo: false
+#| fig-cap: "Graphique des données et probabilités ajustées. En noir: modèle a), en rouge pointillé: modèle c)."
+#| label: fig-binom-kyp2
+ilogit <- function(x) exp(x)/(1+exp(x))
+fa <- function(x) coef(moda)[1] + coef(moda)[2]*x
+fb <- function(x) coef(modb)[1] + coef(modb)[2]*x + coef(modb)[3]*x^2
+plot(age,kyp,pch=16)
+lines(ilogit(fa(0:250)))
+lines(ilogit(fb(0:250)), lty = 2, col = "red")
+```
+
+```{r}
+#| echo: false
+#| fig-cap: "Graphique des données groupées et probabilités ajustées. En noir: modèle a), en rouge pointillé: modèle c)."
+#| label: fig-binom-kyp3
+
+data <- data.frame(age, kyp)
+int <- 28
+agegroup <- c()
+kypgroup <- c()
+for(i in seq(from = 0, to = 210, by = int)){
+  agegroup[i/int+1] <- mean(data[(data[,1]>=i & data[,1]<=(i+int)),1])
+  kypgroup[i/int+1] <- mean(data[(data[,1]>=i & data[,1]<=(i+int)),2])
+}
+plot(agegroup,kypgroup,pch=16,xlab="Age moyen dans le groupe",ylab="Probabilité observée dans le groupe",xlim = c(0,200),ylim=c(0,1))
+lines(ilogit(fa(0:250)))
+lines(ilogit(fb(0:250)), lty = 2, col = "red")
+```
+
+
+**e)** Le critère AIC est donné dans la sortie R. Le critère AIC pour le modèle c) est 54.228 et est inférieur à celui pour le modèle a), ce qui soutient encore une fois que le modèle avec le terme $age^2$ est préférable.
 :::
 

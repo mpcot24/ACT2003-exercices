@@ -7,17 +7,44 @@ Soient $Y_i\sim Bin(m_i,\pi_i),$ pour $i=1,\ldots,n$ et $Y_i\bot Y_j$ pour $i \n
 **b)** Si $m_i=1$ pour $i=1,\ldots,n$, alors montrer que la statistique de Pearson est égale à $X^2=n$. Cela signifie que la statistique de Pearson n'est pas utile pour tester l'adéquation du modèle lorsque les données ne sont pas groupées.
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
-**a)** On a que la vraisemblance est $$\mathcal{L}=\prod_{i=1}^n \begin{pmatrix} m_i \\ y_i \end{pmatrix} \pi^{y_i}(1-\pi)^{m_i-y_i}.$$ La log vraisemblance est $$
+**a)** On a que la vraisemblance est 
+
+$$
+\mathcal{L}=\prod_{i=1}^n \begin{pmatrix} m_i \\ y_i \end{pmatrix} \pi^{y_i}(1-\pi)^{m_i-y_i}.
+$$ 
+
+La log-vraisemblance est 
+
+$$
 \begin{aligned} l&=\sum_{i=1}^n \log\begin{pmatrix} m_i \\ y_i \end{pmatrix}+ y_i\log(\pi)+(m_i-y_i)\log(1-\pi)\\ &=\sum_{i=1}^n \log\begin{pmatrix} m_i \\ y_i \end{pmatrix}+ y_i\log\left(\frac{\pi}{1-\pi}\right)+m_i\log(1-\pi). \end{aligned}
-$$ On dérive par rapport à $\pi$ pour maximiser: $$
+$$ 
+
+On dérive par rapport à $\pi$ pour maximiser : 
+
+$$
 \begin{aligned} \frac{\partial l}{\partial \pi}&=\sum_{i=1}^n y_i \frac{1-\pi}{\pi}\frac{1}{(1-\pi)^2}-\sum_{i=1}^n \frac{m_i}{1-\pi}.\\ &=\sum_{i=1}^n y_i \frac{1}{\pi(1-\pi)}-\sum_{i=1}^n \frac{m_i}{1-\pi}. \end{aligned}
-$$ Alors, $$
+$$ 
+
+Alors, 
+
+$$
 \begin{aligned} 0&=\sum_{i=1}^n y_i \frac{1}{\hat{\pi}(1-\hat{\pi})}-\sum_{i=1}^n \frac{m_i}{1-\hat{\pi}}\\ 0&=\sum_{i=1}^n y_i \frac{1}{\hat{\pi}}-\sum_{i=1}^n m_i\\ \hat{\pi}&=\frac{\sum_{i=1}^n y_i}{\sum_{i=1}^n m_i}. \end{aligned}
 $$
 
-**b)** Si $m_i=1\forall i$ et $\hat{\pi}_i=\hat{\pi}\forall i$, alors la statistique de Pearson est $$X^2=\sum_{i=1}^n \frac{(y_i-\hat{\pi})^2}{\hat{\pi}(1-\hat{\pi})}.$$ Or, on a que $\sum_{i=1}^n m_i=n$ et $$
+**b)** Si $m_i=1\forall i$ et $\hat{\pi}_i=\hat{\pi}\forall i$, alors la statistique de Pearson est 
+
+$$
+X^2=\sum_{i=1}^n \frac{(y_i-\hat{\pi})^2}{\hat{\pi}(1-\hat{\pi})}.
+$$ 
+
+Or, on a que $\sum_{i=1}^n m_i=n$ et 
+
+$$
 \begin{aligned} \hat{\pi}(1-\hat{\pi}) &=\frac{\sum_{i=1}^n y_i}{n} \frac{\left(n-\sum_{i=1}^n y_i\right)}{n}\\ &=\frac{\sum_{i=1}^n y_i\left(n-\sum_{i=1}^n y_i\right)}{n^2}. \end{aligned}
-$$ Donc, $$
+$$ 
+
+Donc, 
+$$
 \begin{aligned} X^2&=n^2  \frac{\sum_{i=1}^n(y_i-\hat{\pi})^2}{\sum_{i=1}^n y_i\left(n-\sum_{i=1}^n y_i\right)}\\ &=n^2  \frac{\sum_{i=1}^n y_i-2\hat{\pi}\sum_{i=1}^n y_i+n\hat{\pi}^2}{\sum_{i=1}^n y_i\left(n-\sum_{i=1}^n y_i\right)}\\ &=n^2  \frac{\sum_{i=1}^n y_i-\frac{2}{n}\left(\sum_{i=1}^n y_i\right)^2+\frac{n}{n^2}\left(\sum_{i=1}^n y_i\right)^2}{\sum_{i=1}^n y_i\left(n-\sum_{i=1}^n y_i\right)}\\ &=  n\frac{n \sum_{i=1}^n y_i-\left(\sum_{i=1}^n y_i\right)^2}{\sum_{i=1}^n y_i\left(n-\sum_{i=1}^n y_i\right)}\\ &=n. \end{aligned}
 $$
 :::

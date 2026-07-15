@@ -2,24 +2,24 @@
 
 Les données suivantes présentent le nombre moyen de bactéries vivantes dans une boîte de conserve de nourriture et le temps (en minutes) d'exposition à une chaleur de $300^{o}$F. \footnote{Source: D. Montgomery, E.A. Peck et G.G. Vining (2012). Introduction to Linear Regression Analysis. Fifth Edition. Wiley.}
 
-\begin{center}
-\begin{tabular}{cc}
-\hline
-Nombre de bactéries & Temps d'exposition (min) \\ \hline
-175&1\\
-108&2\\
-95&3\\
-82&4\\
-71&5\\
-50&6\\
-49&7\\
-31&8\\
-28&9\\
-17&10\\
-16&11\\
-11&12\\ \hline
-\end{tabular}
-\end{center}
+```{r}
+#| echo: false
+
+
+library(knitr)
+
+dat <- data.frame(
+  `Nombre de bactéries` = c(175, 108, 95, 82, 71, 50,
+                            49, 31, 28, 17, 16, 11),
+  `Temps d'exposition (min)` = 1:12
+)
+
+kable(
+  dat,
+  align = c("c", "c")
+)
+
+```
 
 **a)** Tracer un nuage de points des données. Est-ce qu'un modèle de régression linéaire semble adéquat?
 

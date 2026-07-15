@@ -2,25 +2,26 @@
 
 Le tableau ci-dessous présente les résultats de l'effet de la
   température sur le rendement d'un procédé chimique.
-  \begin{center}
-    \begin{tabular}{rr}
-      \toprule
-      $x$ & $Y$ \\
-      \midrule
-      $-5$ &  1 \\
-      $-4$ &  5 \\
-      $-3$ &  4 \\
-      $-2$ &  7 \\
-      $-1$ & 10 \\
-        0  &  8 \\
-        1  &  9 \\
-        2  & 13 \\
-        3  & 14 \\
-        4  & 13 \\
-        5  & 18 \\
-      \bottomrule
-    \end{tabular}
-  \end{center}
+
+```{r}
+#| echo: false
+
+
+library(knitr)
+
+dat <- data.frame(
+  x = -5:5,
+  Y = c(1, 5, 4, 7, 10, 8, 9, 13, 14, 13, 18)
+)
+
+kable(
+  dat,
+  col.names = c("$x$", "$Y$"),
+  align = "rr",
+  escape = FALSE
+)
+
+```
   
 **a)** On suppose une relation linéaire simple entre la température et le rendement. Calculer les estimateurs des moindres carrés de l'ordonnée à l'origine et de la pente de cette relation.
 

@@ -1,16 +1,27 @@
 ## Groupement de données binomiales {#sec-binom-groupement_binomiales}
 
-Il y a plusieurs moyens de représenter des données binomiales. Elles peuvent être groupées ou non, puisqu'une somme de $m$ variables aléatoires Bernoulli$(\pi)$ est distribuée comme une variable aléatoire Binomiale$(m,\pi)$. On considère la petite base de données fictive suivante:
+Il y a plusieurs moyens de représenter des données binomiales. Elles peuvent être groupées ou non, puisqu'une somme de $m$ variables aléatoires Bernoulli$(\pi)$ est distribuée comme une variable aléatoire Binomiale$(m,\pi)$. On considère la petite base de données fictive suivante :
 
-\begin{center}
-\begin{tabular}{ccc}
-\hline
-\texttt{x} & \texttt{Nombre d'essais} & \texttt{Nombre de réussites}\\ \hline
-0 & 4 & 1\\
-1 & 4 & 2\\
-2 & 4 & 4\\ \hline
-\end{tabular}
-\end{center}
+```{r}
+#| echo: false
+
+
+
+tab <- data.frame(
+  x = c(0, 1, 2),
+  `Nombre d'essais` = c(4, 4, 4),
+  `Nombre de réussites` = c(1, 2, 4)
+)
+
+kable(
+  tab,
+  col.names = c("`x`", "Nombre d'essais", "Nombre de réussites"),
+  align = c("c", "c", "c"),
+  booktabs = TRUE,
+  escape = FALSE
+)
+
+```
 
 **a)** Ajuster les modèles $$M_0:\mathrm{logit}(\pi)=\beta_0$$ et $$M_1:\mathrm{logit}(\pi)=\beta_0+\beta_1 x$$ en utilisant les données sous forme groupée (Binomiale).
 
@@ -23,7 +34,7 @@ Il y a plusieurs moyens de représenter des données binomiales. Elles peuvent �
 **e)** Faire une analyse de déviance pour déterminer si le modèle $M_0$ est une simplification adéquate du modèle $M_1$. Obtient-on les mêmes résultats avec les modèles en a) et en b)? Pourquoi?
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
-Les données sous forme groupées sont codées comme suit en \textsf{R}:
+Les données sous forme groupées sont codées comme suit en R :
 
 ```{r}
 
@@ -32,7 +43,7 @@ Success <- c(1,2,4)
 Trials <- rep(4,3)
 ```
 
-alors que les données individuelles sont programmées de la façon suivante:
+alors que les données individuelles sont programmées de la façon suivante :
 
 ```{r}
 
@@ -40,16 +51,38 @@ xv2 <- rep(0:2,each=4)
 Successv2 <- c(1,0,0,0,1,1,0,0,1,1,1,1)
 ```
 
-**a)** On trouve les résultats suivants: ```{r} M0 <- glm(cbind(Success,Trials-Success) 1,binomial) M1 <- glm(cbind(Success,Trials-Success) x,binomial) summary(M0) summary(M1) ```
+**a)** On trouve les résultats suivants : 
 
-**b)** On trouve les résultats suivants: ```{r} M0v2 <- glm(Successv2 1,binomial) M1v2 <- glm(Successv2 xv2,binomial) summary(M0v2) summary(M1v2) ```
+```{r} 
+M0 <- glm(cbind(Success,Trials-Success) ~ 1,binomial) 
+M1 <- glm(cbind(Success,Trials-Success) ~ x,binomial) 
+summary(M0) 
+summary(M1) 
+```
+
+**b)** On trouve les résultats suivants : 
+```{r} 
+M0v2 <- glm(Successv2 ~ 1,binomial) 
+M1v2 <- glm(Successv2 ~ xv2,binomial) 
+summary(M0v2) 
+summary(M1v2) 
+```
 
 **c)** Les estimations des coefficients sont exactement les mêmes pour les deux façons de programmer les données. Cela est attendu. Les écart-types sont également équivalents peu importe si on utilise les données groupées ou non. Par contre, les déviances sont beaucoup plus élevées dans le modèle avec les données individuelles. Cela pourrait être relié au nombre de degrés de liberté, qui est aussi supérieur dans le cas des données individuelles puisqu'on a 12 observations au lieu de 3.
 
-**d)** L'expression de la log vraisemblance pour un modèle binomial est $$
+**d)** L'expression de la log vraisemblance pour un modèle binomial est 
+$$
 \begin{aligned} l&=\sum_{i=1}^n y_i \eta_i - m_i \log(1+e^{\eta_i})+\log\begin{pmatrix} m_i\\ y_i\end{pmatrix}. \end{aligned}
-$$ On voit donc facilement que la différence entre la log-vraisemblance dans le modèle avec données groupées est le terme constant $\log\begin{pmatrix} m_i\\ y_i\end{pmatrix}$, qui n'est pas présent avec les données Bernoulli. Par conséquent, l'estimation des paramètres est la même dans les deux modèles, puisque lorsque l'on dérive la log-vraisemblance, ce terme constant ne joue aucun rôle.
+$$ 
 
-**e)** L'analyse de déviance donne exactement le même résultat dans les deux cas. Pour les données Binomiales, on a que $$ \Delta Deviance = 6.2568 - 6.2568 =5.2724 > \chi^2_{95\
+On voit donc facilement que la différence entre la log-vraisemblance dans le modèle avec données groupées est le terme constant $\log\begin{pmatrix} m_i\\ y_i\end{pmatrix}$, qui n'est pas présent avec les données Bernoulli. Par conséquent, l'estimation des paramètres est la même dans les deux modèles, puisque lorsque l'on dérive la log-vraisemblance, ce terme constant ne joue aucun rôle.
+
+**e)** L'analyse de déviance donne exactement le même résultat dans les deux cas. Pour les données Binomiales, on a que $$ \Delta Deviance = 6.2568 - 6.2568 =5.2724 > \chi^2_{95\%}(1),$$ alors on rejette l'hypothèse nulle que le modèle nul est une simplification adéquate du modèle incluant la variable exogène $x$. Pour les données Bernoulli, on a aussi que $$ \Delta Deviance = 16.301 - 11.028 =5.2724 > \chi^2_{95\%}(1).$$ Cela montre que la façon d'entrer les données a un impact seulement sur les tests d'adéquation du modèle, pour vérifier la qualité de l'ajustement. En fait, la déviance n'est pas une statistique appropriée pour évaluer la qualité de l'ajustement pour des données Bernoulli.
+
+```{r}
+anova(M0,M1)
+anova(M0v2,M1v2)
+qchisq(0.95,1)
+```
 :::
 

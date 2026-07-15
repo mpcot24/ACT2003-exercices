@@ -8,7 +8,7 @@ $$
 ::: {.callout-tip collapse="true" title="Solution complète"}
 On doit intégrer la densité conditionnelle Poisson sur $z$.
 
-On veut prouver que $Y \sim \text{BinNeg}(\mu, \theta_{z})$ avec la fonction de densité suivante:
+On veut prouver que $Y \sim \text{BinNeg}(\mu, \theta_{z})$ avec la fonction de densité suivante :
 $$
 \begin{aligned}
 	f_{Y}(y)

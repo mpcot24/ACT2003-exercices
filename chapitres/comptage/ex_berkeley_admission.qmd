@@ -1,23 +1,40 @@
 ## Admission à l'Université Berkeley {#sec-comptage-berkeley_admission}
 
-Le tableau @sec-comptage-berkeley_admission dénombre les applications aux études graduées à l'Université Berkeley en Californie, pour l'automne 1973. On y voit les décisions d'admission par sexe et par département.
-\begin{table}[h!]
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|}
-\hline
- & \multicolumn{2}{c|}{Hommes} & \multicolumn{2}{c|}{Femmes} \\
-Département & Admis & Non admis & Admis & Non admis\\ \hline
-A & 512 & 313 & 89 & 19\\
-B    &353  &     207    &      17    &        8  \\
-C   & 120  &     205    &     202    &      391  \\
-D  &  138  &     279    &     131    &      244  \\
-E &    53  &     138    &      94    &      299  \\
-F&     22  &     351    &      24    &      317  \\
-\hline
-\end{tabular}
-: Données pour l'exercice sur les admissions aux études graduées. Source: P. Bickel et al. (1975). *Science* $\mathbf{187: 398-403$.}
-\end{center}
-\end{table}
+Le tableau suivant dénombre les applications aux études graduées à l'Université Berkeley en Californie, pour l'automne 1973. On y voit les décisions d'admission par sexe et par département.
+
+```{r}
+#| echo: false
+
+
+library(knitr)
+library(kableExtra)
+
+dat <- data.frame(
+  Département = c("A", "B", "C", "D", "E", "F"),
+  Admis_H = c(512, 353, 120, 138, 53, 22),
+  Non_admis_H = c(313, 207, 205, 279, 138, 351),
+  Admis_F = c(89, 17, 202, 131, 94, 24),
+  Non_admis_F = c(19, 8, 391, 244, 299, 317)
+)
+
+kable(
+  dat,
+  col.names = c(
+    "Département",
+    "Admis", "Non admis",
+    "Admis", "Non admis"
+  ),
+  align = "ccccc",
+  caption = paste(
+    "Données pour l'exercice sur les admissions aux études graduées.",
+    "Source: P. Bickel et al. (1975). Science 187: 398-403."
+  )
+) |>
+  add_header_above(
+    c(" " = 1, "Hommes" = 2, "Femmes" = 2)
+  )
+
+```
 
 **a)** Effectuer une régression Poisson avec lien canonique sur le nombre de personnes admises, en utilisant le logarithme du nombre total de personnes qui ont appliqué comme terme offset. Si on utilise seulement le sexe comme variable explicative, est-ce que le sexe a un impact significatif sur le taux d'acceptation?
 
@@ -30,14 +47,63 @@ F&     22  &     351    &      24    &      317  \\
 **e)** Refaire les questions a) à c) en utilisant un modèle binomial avec lien logistique, en supposant que $m_i$ est le nombre total de personnes qui ont appliqué.
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
-**a)** On y va ```{r} sex <- rep(0:1,each=6) Dep <- rep(0:5,2) y <- c(512,353,120,138,53,22,89,17,202,131,94,24) no <- c(313,207,205,279,138,351,19,8,391,244,299,317) nb <- y+no fitpSex <- glm(y factor(sex)+offset(log(nb)),family=poisson) summary(fitpSex) ``` On trouve donc que la valeur-$p$ du test de Wald $H_0: \beta^{SEX}=0$ est $8.15\times10^{-14}$ ce qui est hautement significatif. Puisque le coefficient est négatif et que le niveau de base utilisé est ``hommes'', cela signifie que les femmes ont moins de chance d'être acceptées aux études graduées que les hommes.
+**a)** On y va 
 
-**b)** On ajoute le département: ```{r} fitp2 <- glm(y factor(sex)+factor(Dep)+offset(log(nb)),family=poisson) summary(fitp2) ``` Dans ce modèle, le résultat du test de Wald pour le coefficient de la variable Sexe est différent. Puisque le seuil observé du test est 34.5\
+```{r} 
+sex <- rep(0:1,each=6) 
+Dep <- rep(0:5,2) 
+y <- c(512,353,120,138,53,22,89,17,202,131,94,24) 
+no <- c(313,207,205,279,138,351,19,8,391,244,299,317) 
+nb <- y+no 
+fitpSex <- glm(y ~ factor(sex)+offset(log(nb)),family=poisson) 
+summary(fitpSex) 
+``` 
 
-**c)** À l'aide de l'analyse de la déviance, on trouve que l'interaction n'est pas significative: $$\Delta Deviance = 6.67 < \chi^2 (0.95,5) = 11.07.$$ ```{r} fitp <- glm(y factor(sex)*factor(Dep)+offset(log(nb)),family=poisson) anova(fitp) qchisq(0.95,5) ## reject interaction ```
+On trouve donc que la valeur-$p$ du test de Wald $H_0~: \beta^{SEX}=0$ est $8.15\times10^{-14}$ ce qui est hautement significatif. Puisque le coefficient est négatif et que le niveau de base utilisé est `hommes`, cela signifie que les femmes ont moins de chance d'être acceptées aux études graduées que les hommes.
 
-**d)** Le modèle final est celui avec une seule variable explicative dichotomique: le département. La déviance pour ce modèle est 7.5706, ce qui est légèrement supérieur à 6, le nombre de degrés de liberté. Toutefois, puisque $Deviance/dl\approx1.26$, cela n'est pas très alarmant, et il n'y a pas de raison de supposer que le modèle de Poisson est inadéquat. La statistique de Pearson est  8.03, ce qui est aussi une valeur attendue pour la loi chi-carrée avec 6 degrés de liberté. ```{r} fitpDep <- glm(y factor(Dep)+offset(log(nb)),family=poisson) summary(fitpDep) sum((y-fitted(fitpDep))^2/fitted(fitpDep)) pchisq(8.025236,6) ```
+**b)** On ajoute le département: 
 
-**e)** On recommence et on obtient exactement les mêmes conclusions: ```{r} fitbSex <- glm(cbind(y,nb-y) factor(sex),family=binomial) summary(fitbSex) fitb2 <- glm(cbind(y,nb-y) factor(sex)+factor(Dep),family=binomial) summary(fitb2) fitb <- glm(cbind(y,nb-y) factor(sex)*factor(Dep),family=binomial) anova(fitb) qchisq(0.95,5) ```
+```{r} 
+fitp2 <- glm(y ~ factor(sex)+factor(Dep)+offset(log(nb)),family=poisson) 
+
+summary(fitp2) 
+``` 
+
+Dans ce modèle, le résultat du test de Wald pour le coefficient de la variable Sexe est différent. Puisque le seuil observé du test est 34.5 %, on ne peut pas rejeter l'hypothèse nulle que $\beta^{SEX}=0$. Cela signifie que le sexe n'est pas un facteur qui influence le taux d'admission aux études graduées lorsqu'on prend en considération le département. Il en est ainsi car les femmes appliquent plus souvent que les hommes dans des départements où il est plus difficile d'être admis.
+
+**c)** À l'aide de l'analyse de la déviance, on trouve que l'interaction n'est pas significative : 
+$$
+\Delta Deviance = 6.67 < \chi^2 (0.95,5) = 11.07.
+$$ 
+
+```{r} 
+fitp <- glm(y ~ factor(sex)*factor(Dep)+offset(log(nb)),family=poisson) 
+anova(fitp) 
+qchisq(0.95,5)
+```
+
+**d)** Le modèle final est celui avec une seule variable explicative dichotomique: le département. La déviance pour ce modèle est 7.5706, ce qui est légèrement supérieur à 6, le nombre de degrés de liberté. Toutefois, puisque $Deviance/dl\approx1.26$, cela n'est pas très alarmant, et il n'y a pas de raison de supposer que le modèle de Poisson est inadéquat. La statistique de Pearson est  8.03, ce qui est aussi une valeur attendue pour la loi chi-carrée avec 6 degrés de liberté.
+
+```{r} 
+fitpDep <- glm(y ~ factor(Dep)+offset(log(nb)),family=poisson) 
+summary(fitpDep) 
+sum((y-fitted(fitpDep))^2/fitted(fitpDep)) 
+pchisq(8.025236,6) 
+```
+
+**e)** On recommence et on obtient exactement les mêmes conclusions: 
+
+```{r} 
+fitbSex <- glm(cbind(y,nb-y) ~ factor(sex),family=binomial) 
+summary(fitbSex) 
+
+fitb2 <- glm(cbind(y,nb-y) ~ factor(sex)+factor(Dep),family=binomial) 
+summary(fitb2) 
+
+
+fitb <- glm(cbind(y,nb-y) ~ factor(sex)*factor(Dep),family=binomial) 
+anova(fitb) 
+qchisq(0.95,5) 
+```
 :::
 

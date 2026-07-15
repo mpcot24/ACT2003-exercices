@@ -1,5 +1,11 @@
 # Modélisation de données binomiales
 
+```{r}
+#| message: false
+#| warning: false
+library(knitr)
+```
+
 {{< include binom/ex_contributions_etoiles_nba.qmd >}}
 
 {{< include binom/ex_groupement_binomiales.qmd >}}

@@ -1,12 +1,18 @@
 ## Contribution des joueurs étoiles de la NBA {#sec-binom-contributions_etoiles_nba}
 
-Jones \& Parker (2010)\footnote{M.L. Jones et R.J. Parker, (2010) *Chance*: $\mathbf{23}, 29-15$} ont écrit un article sur les contributions des joueurs étoiles de la NBA. Entre autres, ils ont donné des équations de prévision pour la probabilité $\pi$ de victoire pour un match de LeBron James dans la saison 2008-2009. Les variables exogènes sont:
-\begin{description}
-\item[$x_1$:] Points produits par centaine de possessions (note offensive).
-\item[$x_2$:] Points donnés par centaine de possessions (note défensive), plus petit signifie "meilleur" dans ce cas.
-\item[$x_3$:] Vaut 1 si la partie est discutée à domicile (0 sinon).
-\end{description}
-Les coefficients estimés sont $$\hat{\beta}_0=1.379, \quad   \hat{\beta}_1=0.119,\quad   \hat{\beta}_2=-0.139,\quad \text{ et}\quad   \hat{\beta}_3=3.393.$$
+Jones & Parker (2010)\footnote{M.L. Jones et R.J. Parker, (2010) *Chance*: $\mathbf{23}, 29-15$} ont écrit un article sur les contributions des joueurs étoiles de la NBA. Entre autres, ils ont donné des équations de prévision pour la probabilité $\pi$ de victoire pour un match de LeBron James dans la saison 2008-2009. Les variables exogènes sont :
+
+- $x_1$ : Points produits par centaine de possessions (note offensive).
+
+- $x_2$ : Points donnés par centaine de possessions (note défensive), plus petit signifie "meilleur" dans ce cas.
+
+- $x_3$ : Vaut 1 si la partie est discutée à domicile (0 sinon).
+
+Les coefficients estimés sont 
+
+$$
+\hat{\beta}_0=1.379, \quad ~ \hat{\beta}_1=0.119,\quad ~ \hat{\beta}_2=-0.139,\quad \text{ et}\quad ~ \hat{\beta}_3=3.393.
+$$
 
 **a)** On a utilisé un lien logistique. Écrire l'équation de la probabilité estimée $\hat{\pi}$ en fonction des paramètres du modèle.
 
@@ -15,10 +21,37 @@ Les coefficients estimés sont $$\hat{\beta}_0=1.379, \quad   \hat{\beta}_1=0.
 **c)** Quel est l'impact de la variable $x_3$? Utiliser les médianes $x_1=123.2$ et $x_2=99.5$.
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
-**a)**  $$ \mathrm{logit}(\hat{\pi})=1.379+0.119x_1-0.139x_2+3.393x_3 \Rightarrow \hat{\pi}=\frac{\exp(1.379+0.119x_1-0.139x_2+3.393x_3)}{1+\exp(1.379+0.119x_1-0.139x_2+3.393x_3)} $$
+**a)**  
+$$ 
+\mathrm{logit}(\hat{\pi})=1.379+0.119x_1-0.139x_2+3.393x_3 \Rightarrow \hat{\pi}=\frac{\exp(1.379+0.119x_1-0.139x_2+3.393x_3)}{1+\exp(1.379+0.119x_1-0.139x_2+3.393x_3)} 
+$$
 
-**b)** Au $75^e$ centile, on a $$\hat{\pi}=\frac{\exp(1.379+0.119\times 136.1-0.139\times 99.5)}{1+\exp(1.379+0.119\times 136.1-0.139\times 99.5)}=97.68\
+**b)** Au $75^e$ centile, on a 
 
-**c)** À l'étranger, on a $$ \hat{\pi}=\frac{\exp(1.379+0.119\times 123.2-0.139\times 99.5)}{1+\exp(1.379+0.119\times 123.2-0.139\times 99.5)}=90.1\
+$$
+\hat{\pi}=\frac{\exp(1.379+0.119\times 136.1-0.139\times 99.5)}{1+\exp(1.379+0.119\times 136.1-0.139\times 99.5)}=97.68\%.
+$$ 
+
+Puis, au $25^e$ centile, 
+
+$$
+\hat{\pi}=\frac{\exp(1.379+0.119\times 108.7-0.139\times 99.5)}{1+\exp(1.379+0.119\times 108.7-0.139\times 99.5)}=61.86\%.
+$$
+
+Cela signifie que la probabilité de gain augmente beaucoup lorsque LeBron James est en forme.
+
+**c)**
+
+À l'étranger, on a
+$$
+\hat{\pi}=\frac{\exp(1.379+0.119\times 123.2-0.139\times 99.5)}{1+\exp(1.379+0.119\times 123.2-0.139\times 99.5)}=90.1\%.
+$$
+
+À domicile, on a
+$$
+\hat{\pi}=\frac{\exp(1.379+0.119\times 123.2-0.139\times 99.5+3.393)}{1+\exp(1.379+0.119\times 123.2-0.139\times 99.5+3.393)}=99.6\%.
+$$
+L'effet de disputer le match à domicile est donc un augmentation de 10.5 % de la probabilité de gain lorsque les notes offensive et défensive de LeBron James sont égales à leur médiane.
+
 :::
 

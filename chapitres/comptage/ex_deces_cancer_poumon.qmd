@@ -1,16 +1,22 @@
 ## Décès dus au cancer du poumon {#sec-comptage-deces_cancer_poumon}
 
-Le fichier de données \texttt{MNLung.csv} (séparé avec des virgules) contient des données sur le nombre de décès dus au cancer du poumon dans 87 régions au Minnesota, pour les hommes et les femmes. L'objectif de l'étude pour laquelle les données ont été recueillies était d'examiner si l'exposition au gaz radon est relié à un changement dans le taux de morbidité standardisé. La base de données contient sept colonnes:
-\begin{description}
-\item[County:] Nom de la région;
-\item[ID:] Numéro d'identifcation de la région dans la base de données;
-\item[YM:] Nombre de décès dûs au cancer du poumon chez les hommes sur une période de 5 ans;
-\item[EM:] Espérance du nombre de cas YM, basé sur des facteurs démographiques;
-\item[YF:] Nombre de décès dûs au cancer du poumon chez les femmes sur une période de 5 ans;
-\item[EF:] Espérance du nombre de cas YF, basé sur des facteurs démographiques;
-\item[Radon:] Mesure moyenne de l'exposition au radon dans chaque région pour la période de 5 ans.
-\end{description}
-Le taux de morbidité standardisé (SMR) pour la région $i$ est défini comme $$SMR_i=\frac{Y_i}{E_i}.$$ En utilisant un modèle linéaire généralisé Poisson approprié, répondre aux question suivantes:
+Le fichier de données `MNLung.csv` (séparé avec des virgules) contient des données sur le nombre de décès dus au cancer du poumon dans 87 régions au Minnesota, pour les hommes et les femmes. L'objectif de l'étude pour laquelle les données ont été recueillies était d'examiner si l'exposition au gaz radon est relié à un changement dans le taux de morbidité standardisé. La base de données contient sept colonnes:
+
+- `County`: Nom de la région;
+
+- `ID`: Numéro d'identifcation de la région dans la base de données;
+
+- `YM`: Nombre de décès dûs au cancer du poumon chez les hommes sur une période de 5 ans;
+
+- `EM`: Espérance du nombre de cas YM, basé sur des facteurs démographiques;
+
+- `YF`: Nombre de décès dûs au cancer du poumon chez les femmes sur une période de 5 ans;
+
+- `EF`: Espérance du nombre de cas YF, basé sur des facteurs démographiques;
+
+- `Radon`: Mesure moyenne de l'exposition au radon dans chaque région pour la période de 5 ans.
+
+Le taux de morbidité standardisé (SMR) pour la région $i$ est défini comme $$SMR_i=\frac{Y_i}{E_i}.$$ En utilisant un modèle linéaire généralisé Poisson approprié, répondre aux question suivantes :
 
 **a)** Y a-t-il des preuves dans ces données que le radon est associé avec un changement dans le SMR ?
 
@@ -21,21 +27,72 @@ Le taux de morbidité standardisé (SMR) pour la région $i$ est défini comme $
 **d)** Commenter sur la validité du modèle de Poisson pour ces données.
 
 ::: {.callout-tip collapse="true" title="Solution complète"}
-```{r echo}
+```{r}
 #| echo: false
 
 dat <- read.csv("data/MNlung.csv")
 attach(dat)
 ```
 
-**a)** If $Y_{i}\sim Poisson(E_{i}\lambda_{i})$, then, using the canonical link, $$\log(\mu_{i})=log(E_{i})+log(\lambda_{i}),$$ where $\lambda_{i}$ is the mean $SMR$ for observation $i$. $\log(E_{i})$, the natural logarithm of the expected count of lung cancer based on the demographics of the county, is passed to the \texttt{glm} function as an offset factor. The data for males and females are concatenated to create a model with one covariate, Radon exposure, and one factor predictor, Sex, which takes 2 levels (0 for males and 1 for females). ```{r} Ytot <- c(YM,YF) Etot <- c(EM,EF) Sex <- c(rep(0,length(YM)),rep(1,length(YF))) ## 1 if female Radontot <- rep(Radon,2) modsex <- glm(Ytot Sex+offset(log(Etot)),family=poisson) modsexrad <- glm(Ytot Radontot+Sex+offset(log(Etot)),family=poisson) anova(modsex,modsexrad) qchisq(0.99,1) ``` As shown above, the analysis of deviance shows strong evidence that the radon exposure influences the number of lung cancer in a particular county: $$
+**a)** Si $Y_{i}\sim Poisson(E_{i}\lambda_{i})$, le lien canonique est 
+$$
+\log(\mu_{i})=log(E_{i})+log(\lambda_{i}),
+$$ 
+où $\lambda_{i}$ est la moyenne $SMR$ pour l'observation $i$. $\log(E_{i})$, le logarithme naturel du nombre espéré de cancers des poumons est basé sur les données démographiques du comté, est passé à la fonction `glm` comme un `offset`. Les données pour les hommes et les femmes sont combinées pour créer un modèle à une seule variable explicative numérique, l'exposition au radon, et une valeriable explicative catégorielle binaire, le sexe (0 pour les hommes et 1 pour les femmes).
+
+```{r} 
+Ytot <- c(YM,YF) 
+Etot <- c(EM,EF) 
+Sex <- c(rep(0,length(YM)),rep(1,length(YF))) ## 1 si femme 
+
+Radontot <- rep(Radon,2) 
+modsex <- glm(Ytot ~ Sex+offset(log(Etot)),family=poisson) 
+modsexrad <- glm(Ytot ~ Radontot+Sex+offset(log(Etot)),family=poisson)
+
+anova(modsex,modsexrad) 
+qchisq(0.99,1) 
+``` 
+
+Comme vu ci-haut, l'analyse de déviance montre que l'exposition au radon influence le nombre de cancers du poumon dans un comté particulier : 
+
+$$
 \begin{aligned} \Delta Deviance = 46.22 > \chi^{2}_{(1;0.99)}=6.6349. \end{aligned}
 $$
 
-**b)** The null model and the model including sex only are fitted. ```{r} modtot <- glm(Ytot 1+offset(log(Etot)),family=poisson) modsex <- glm(Ytot Sex+offset(log(Etot)),family=poisson) anova(modtot,modsex) qchisq(0.95,1) ``` The analysis of deviance shows that $\Delta Deviance= 0.0093398<\chi^{2}_{(1;0.95)}=3.8415$. Hence, the null model is an appropriate simplification of the model including the factor Sex, so the factor is not significant. However, below is the \texttt{R} output for the analysis of deviance when the covariate Radon (known to be significant from a) is included in the model. If we first consider the model with main effects and interactions, we see that $\Delta Deviance= 8.823>\chi^{2}_{(1;0.99)}$, meaning that the model with main effects only is not an adequate simplification of the model with main effects and interactions. Thus, the factor predictor Sex is significant in the model through its interaction with the covariate Radon. Note that even if the main effect of the Sex does not appear to be significant, it is kept in the model by convention. ```{r} modtotrad <- glm(Ytot Radontot+offset(log(Etot)),family=poisson) modsexrad <- glm(Ytot Radontot+Sex+offset(log(Etot)),family=poisson) modsexradINT <- glm(Ytot Radontot*Sex+offset(log(Etot)),family=poisson) anova(modtot,modtotrad,modsexrad,modsexradINT) ```
+**b)** Le modèle nul et le modèle avec la variable explicative sexe sont ajustés.
 
-**c)** The predictions are obtained using the command ```{r echo} #| eval: false predict(modsexradINT,data.frame(Radontot=6,Sex=0,Etot=1),type="response",se.fit=TRUE) ``` If the model Sex*Radon is used, we find $$\hat{SMR}_{Sex=0,Radon=6}=0.9708183,$$ with a standard error of 0.01415307.
+```{r} 
+modtot <- glm(Ytot ~ 1+offset(log(Etot)),family=poisson) 
+modsex <- glm(Ytot ~ Sex+offset(log(Etot)),family=poisson) 
+anova(modtot,modsex) 
+qchisq(0.95,1) 
+``` 
 
-**d)** The model Sex*Radon has a deviance of 355.23 on 170 degrees of freedom. A heuristic check for the validity of the model is to calculate the estimated dispersion parameter $$\hat{\phi}=\frac{355.23}{170}=2.089$$ and to compare it with 1, the dispersion parameter implied in the Poisson model. This check suggests the presence of overdispersion in the data as $\hat{\phi}$ is greater than 1. Fitting the quasipoisson model also leads to the same conclusion: the estimated dispersion parameter is 1.98311, closer to 2. Thus, we can conclude that the Poisson model is not adequate, we might consider fitting a Negative Binomial model to capture the overdispersion.
+
+L'analyse de déviance montre que $\Delta Deviance= 0.0093398<\chi^{2}_{(1;0.95)}=3.8415$. Alors, le modèle nul est une simplification appropriée du modèle avec le sexe, donc cette variable n'est pas significative. 
+
+Cependant, l'analyse de déviance en R est montrée ci-bas quand la variable d'exposition au Radon est incluse dans le modèle. Si on considère d'abord le modèle avec les effets principaux et les interactions, on trouve $\Delta Deviance= 8.823>\chi^{2}_{(1;0.99)}$, ce qui signifie que le modèle avec les effets principaux est seulement une simplification adéquate du modèle qui inclut aussi les interactions. Ainsi, la variable catégorielle Sex est significative sans le modèle via son interaction avec l'exposition au radon. On note que, même si l'effet principal du sexe ne semble pas significatif, il est gardé par convention.
+
+```{r} 
+modtotrad <- glm(Ytot ~ Radontot+offset(log(Etot)),family=poisson) 
+
+modsexrad <- glm(Ytot ~ Radontot+Sex+offset(log(Etot)),family=poisson) 
+
+modsexradINT <- glm(Ytot ~ Radontot*Sex+offset(log(Etot)),family=poisson) 
+
+anova(modtot,modtotrad,modsexrad,modsexradINT) 
+```
+
+**c)** Les prévisions sont obtenues avec la commande
+```{r} 
+#| eval: false 
+predict(modsexradINT,
+        data.frame(Radontot=6,Sex=0,Etot=1),
+        type="response",se.fit=TRUE) 
+``` 
+
+Si le modèle `Sex*Radon` est utilisé, on trouve $$\hat{SMR}_{Sex=0,Radon=6}=0.9708183,$$ avec écart-type 0.01415307.
+
+**d)** Le modèle `Sex*Radon` a une déviance de 355.23 sur 170 degrés de liberté. Une méthode heuristrique de valider le modèle est d'estimer son paramètre de dispersion $$\hat{\phi}=\frac{355.23}{170}=2.089$$ et de le comparer avec 1, le paramètre de dispersion implicite dans un modèle Poisson vu sa paramétrisation avec la famille exponentielle linéaire. Ce diagnostic suggère qu'il y a présence de surdispersion dans les données comme $\hat{\phi}$ est plus grand que 1. Ajuster un modèle quasi-Poisson mènrait à la même conclusion : le paramètre de dispersion estimé est 1.98311, plus près de 2. Ainsi, on peut conclure que le modèle Poisson n'est pas adéquat. On pourrait plutôt considérer un modèle binomial négatif pour capturer cette surdispersion.
 :::
 

@@ -13,6 +13,8 @@ book:
         - chapitres/multiple.qmd
         - chapitres/selection.qmd
         - chapitres/glm.qmd
+        - chapitres/comptage.qmd
+        - chapitres/binom.qmd
 
   search: true
   sidebar:

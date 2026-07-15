@@ -21,6 +21,11 @@ Est-ce que les distributions suivantes font partie de la famille exponentielle l
 ::: {.callout-tip collapse="true" title="Solution complète"}
 **a)** 
 
+\begin{align*}
+f_{Y}(y)&=\frac{1}{(2\pi\sigma^2)^1/2}\exp\left(-\frac{(y-\mu)^2}{2\sigma^2}\right),\, y\in\mathbb{R}\\
+&=\exp\left(\frac{y\mu-\mu^2/2}{\sigma^2}-\frac{y^2}{2\sigma^2}-\frac{\ln(2\pi\sigma^2)}{2}\right),\, y\in\mathbb{R}.
+\end{align*}
+
 - Paramètre canonique: $\theta=\mu$
 
 - Paramètre de dispersion: $\phi=\sigma^2$
@@ -43,6 +48,7 @@ f_{Y}(y;\lambda)&=\frac{\lambda^{y}e^{-\lambda}}{y!} \text{, pour }y\in \mathbb{
 f_{Y}(y;\theta,\phi)&=\exp\left\{\frac{y\theta - e^{\theta}}{\phi} - \ln y!\right\}.
 \end{aligned}
 $$
+
 - Paramètre canonique: $\theta=\ln \lambda$
 
 - Paramètre de dispersion: $\phi=1$
@@ -62,6 +68,7 @@ f_{Y}(y;\pi)&=\pi^{y}(1-\pi)^{1-y}1(y \in \{0,1\})\\
 &=\exp\left\{y\ln\left(\frac{\pi}{1-\pi}\right)+\ln(1-\pi)\right\}1(y \in \{0,1\}).\\
 \end{aligned}
 $$
+
 - Paramètre canonique: $\theta=\ln\left(\frac{\pi}{1-\pi}\right)$
 
 - Paramètre de dispersion:  $\phi=1$
@@ -88,6 +95,7 @@ f_{Y^{*}}(y;\pi)&=\exp\left\{my\ln\left(\frac{\pi}{1-\pi}\right)+m\ln(1-\pi)+\ln
 &=\exp\left\{\frac{y\ln\left(\frac{\pi}{1-\pi}\right)+\ln(1-\pi)}{1/m}+\ln\begin{pmatrix} m\\my\end{pmatrix}\right\},  y \in \{0,1/m,...,1\}.\\
 \end{aligned}
 $$
+
 - Paramètre canonique : $\theta=\ln\left(\frac{\pi}{1-\pi}\right)$
 
 - Paramètre de dispersion:  $\phi=1/m$
@@ -131,6 +139,7 @@ f_Y^*(y)&=\begin{pmatrix} r+ry-1\\ry\end{pmatrix}\pi^r(1-\pi)^{ry}, \text{ pour 
 &=\exp\left(ry\ln(1-\pi)+r\ln\pi+\ln\begin{pmatrix} r+ry-1\\ry\end{pmatrix}\right).
 \end{aligned}
 $$
+
 - Paramètre canonique: $\theta=\ln(1-\pi)$
 
 - Paramètre de dispersion:  $\phi=1/r$
