@@ -1,0 +1,3017 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>2&nbsp; Régression linéaire simple – ACT2003 — Recueil d'exercices</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapitres/multiple.html" rel="next">
+<link href="../index.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a522afb83bf8ae494942cf1b0ac9d4c3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Pas de résultats",
+    "search-matching-documents-text": "documents trouvés",
+    "search-copy-link-title": "Copier le lien vers la recherche",
+    "search-hide-matches-text": "Cacher les correspondances additionnelles",
+    "search-more-match-text": "correspondance de plus dans ce document",
+    "search-more-matches-text": "correspondances de plus dans ce document",
+    "search-clear-button-title": "Effacer",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Annuler",
+    "search-submit-button-title": "Envoyer",
+    "search-label": "Recherche"
+  }
+}</script>
+<script>
+window.MathJax = {
+  tex: {
+    macros: {
+      esp:    ["\\mathbb{E}\\!\\left[#1\\right]", 1],
+      Esp:    ["\\mathbb{E}\\!\\left[#1\\right]", 1],
+      ex:     "\\mathbb{E}",
+      var:    ["\\mathrm{Var}\\!\\left(#1\\right)", 1],
+      Var:    ["\\mathrm{Var}\\!\\left(#1\\right)", 1],
+      vr:     "\\mathrm{Var}",
+      prob:   "\\Pr",
+      Prob:   "\\Pr",
+      cov:    ["\\mathrm{Cov}\\!\\left(#1\\right)",1],
+      Cov:    "\\mathrm{Cov}",
+      SST:    "\\mathrm{SST}",
+      SSR:    "\\mathrm{SSR}",
+      SSE:    "\\mathrm{SSE}",
+      MSE:    "\\mathrm{MSE}",
+      MSR:    "\\mathrm{MSR}",
+      d:      "\\mathrm{d}",
+      bm:     ["\\boldsymbol{#1}", 1],
+      yvec:   "\\mathbf{Y}",
+      xvec:   "\\mathbf{x}",
+      Xmat:   "\\mathbf{X}",
+      betavec: "\\boldsymbol{\\beta}",
+      epsvec: "\\boldsymbol{\\varepsilon}",
+      mat:    ["\\mathbf{#1}", 1],
+      varmat:    ["\\mathbf{V} ( #1 )", 1],
+      hatbetavec: "\\boldsymbol{\\hat{\\beta}}",
+      hatepsvec: "\\boldsymbol{\\hat{\\varepsilon}}",
+      Norm: "\\mathcal{N}",
+      diag: "\\mathrm{diag}"
+    }
+  }
+};
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapitres/simple.html">Exercices</a></li><li class="breadcrumb-item"><a href="../chapitres/simple.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Régression linéaire simple</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Recherche" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">ACT2003 — Recueil d’exercices</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Recherche"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Exercices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Basculer la section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapitres/simple.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Régression linéaire simple</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapitres/multiple.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Régression linéaire multiple</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapitres/selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sélection de modèle et régression régularisée</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapitres/glm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modèles linéaires généralisés (GLM)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapitres/comptage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Modélisation de données de comptage</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapitres/binom.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Modélisation de données binomiales</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table des matières</h2>
+   
+  <ul>
+  <li><a href="#sec-simple-10points_reglinsimple" id="toc-sec-simple-10points_reglinsimple" class="nav-link active" data-scroll-target="#sec-simple-10points_reglinsimple"><span class="header-section-number">2.1</span> Petit jeu de données pour une régression linéaire simple</a></li>
+  <li><a href="#sec-simple-estimateurs_moindres_carres" id="toc-sec-simple-estimateurs_moindres_carres" class="nav-link" data-scroll-target="#sec-simple-estimateurs_moindres_carres"><span class="header-section-number">2.2</span> Estimateurs des moindres carrés pour la régression linéaire simple</a></li>
+  <li><a href="#sec-simple-estimateurs_moindres_carres_origine" id="toc-sec-simple-estimateurs_moindres_carres_origine" class="nav-link" data-scroll-target="#sec-simple-estimateurs_moindres_carres_origine"><span class="header-section-number">2.3</span> Estimateurs des moindres carrés pour la régression linéaire passant par l’origine</a></li>
+  <li><a href="#sec-simple-sexe_esperance_vie" id="toc-sec-simple-sexe_esperance_vie" class="nav-link" data-scroll-target="#sec-simple-sexe_esperance_vie"><span class="header-section-number">2.4</span> Effet du sexe sur l’espérance de vie</a></li>
+  <li><a href="#sec-simple-emc_blue" id="toc-sec-simple-emc_blue" class="nav-link" data-scroll-target="#sec-simple-emc_blue"><span class="header-section-number">2.5</span> Démonstration que l’EMC est le BLUE</a></li>
+  <li><a href="#sec-simple-ic_beta1" id="toc-sec-simple-ic_beta1" class="nav-link" data-scroll-target="#sec-simple-ic_beta1"><span class="header-section-number">2.6</span> Intervalle de confiance pour <span class="math inline">\(\beta_1\)</span></a></li>
+  <li><a href="#sec-simple-prix_gaz_naturel" id="toc-sec-simple-prix_gaz_naturel" class="nav-link" data-scroll-target="#sec-simple-prix_gaz_naturel"><span class="header-section-number">2.7</span> Relation entre la consommation de gaz naturel et le prix</a></li>
+  <li><a href="#sec-simple-ic_reglinsimple_origine" id="toc-sec-simple-ic_reglinsimple_origine" class="nav-link" data-scroll-target="#sec-simple-ic_reglinsimple_origine"><span class="header-section-number">2.8</span> Intervalle de confiance pour la régression linéaire passant par l’origine</a></li>
+  <li><a href="#sec-simple-massemonetaire_pib" id="toc-sec-simple-massemonetaire_pib" class="nav-link" data-scroll-target="#sec-simple-massemonetaire_pib"><span class="header-section-number">2.9</span> Relation entre la masse monétaire et le PNB</a></li>
+  <li><a href="#sec-simple-demonstrations_mse_msr" id="toc-sec-simple-demonstrations_mse_msr" class="nav-link" data-scroll-target="#sec-simple-demonstrations_mse_msr"><span class="header-section-number">2.10</span> Démonstrations avec le MSE et le MSR</a></li>
+  <li><a href="#sec-simple-effet_temperature_procede_chimique" id="toc-sec-simple-effet_temperature_procede_chimique" class="nav-link" data-scroll-target="#sec-simple-effet_temperature_procede_chimique"><span class="header-section-number">2.11</span> Effet de la température sur un procédé chimique</a></li>
+  <li><a href="#sec-simple-ligne_de_vie" id="toc-sec-simple-ligne_de_vie" class="nav-link" data-scroll-target="#sec-simple-ligne_de_vie"><span class="header-section-number">2.12</span> Relation entre l’espérance de vie et la longueur de la ligne de vie</a></li>
+  <li><a href="#sec-simple-demo_y_espilon" id="toc-sec-simple-demo_y_espilon" class="nav-link" data-scroll-target="#sec-simple-demo_y_espilon"><span class="header-section-number">2.13</span> Démonstration</a></li>
+  <li><a href="#sec-simple-covariance_residus" id="toc-sec-simple-covariance_residus" class="nav-link" data-scroll-target="#sec-simple-covariance_residus"><span class="header-section-number">2.14</span> Covariance entre deux résidus</a></li>
+  <li><a href="#sec-simple-anova_table" id="toc-sec-simple-anova_table" class="nav-link" data-scroll-target="#sec-simple-anova_table"><span class="header-section-number">2.15</span> Analyse de variance avec un tableau de données</a></li>
+  <li><a href="#sec-simple-poids_femmes30_39_ans" id="toc-sec-simple-poids_femmes30_39_ans" class="nav-link" data-scroll-target="#sec-simple-poids_femmes30_39_ans"><span class="header-section-number">2.16</span> Poids moyen des femmes américaines de 30 à 39 ans</a></li>
+  <li><a href="#sec-simple-transfos_lineaires_estimateurs" id="toc-sec-simple-transfos_lineaires_estimateurs" class="nav-link" data-scroll-target="#sec-simple-transfos_lineaires_estimateurs"><span class="header-section-number">2.17</span> Effet de transformations linéaires sur les estimateurs</a></li>
+  <li><a href="#sec-simple-ajout_point_reg_lin_simple_origine" id="toc-sec-simple-ajout_point_reg_lin_simple_origine" class="nav-link" data-scroll-target="#sec-simple-ajout_point_reg_lin_simple_origine"><span class="header-section-number">2.18</span> Ajout d’un nouveau point</a></li>
+  <li><a href="#sec-simple-boston_housing" id="toc-sec-simple-boston_housing" class="nav-link" data-scroll-target="#sec-simple-boston_housing"><span class="header-section-number">2.19</span> Marché immobilier dans la région métropolitaine de Boston</a></li>
+  <li><a href="#sec-simple-consommation_carburant" id="toc-sec-simple-consommation_carburant" class="nav-link" data-scroll-target="#sec-simple-consommation_carburant"><span class="header-section-number">2.20</span> Consommation de carburant d’une automobile</a></li>
+  <li><a href="#sec-simple-transfo_heteroscedasticite" id="toc-sec-simple-transfo_heteroscedasticite" class="nav-link" data-scroll-target="#sec-simple-transfo_heteroscedasticite"><span class="header-section-number">2.21</span> Transformation pour régler un problème d’hétéroscedasticité</a></li>
+  <li><a href="#sec-simple-bacteroes" id="toc-sec-simple-bacteroes" class="nav-link" data-scroll-target="#sec-simple-bacteroes"><span class="header-section-number">2.22</span> Population bactérienne</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapitres/simple.html">Exercices</a></li><li class="breadcrumb-item"><a href="../chapitres/simple.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Régression linéaire simple</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-simple" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Régression linéaire simple</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="sec-simple-10points_reglinsimple" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="sec-simple-10points_reglinsimple"><span class="header-section-number">2.1</span> Petit jeu de données pour une régression linéaire simple</h2>
+<p>Considérer les données suivantes et le modèle de régression linéaire <span class="math inline">\(Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i\)</span> :</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">1</th>
+<th style="text-align: right;">2</th>
+<th style="text-align: right;">3</th>
+<th style="text-align: right;">4</th>
+<th style="text-align: right;">5</th>
+<th style="text-align: right;">6</th>
+<th style="text-align: right;">7</th>
+<th style="text-align: right;">8</th>
+<th style="text-align: right;">9</th>
+<th style="text-align: right;">10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">x</td>
+<td style="text-align: right;">65</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Y</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">24</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>a)</strong> Placer les points ci-dessus sur un graphique.</p>
+<p><strong>b)</strong> Calculer les équations de score.</p>
+<p><strong>c)</strong> Calculer les estimateurs <span class="math inline">\(\hat{\beta}_0\)</span> et <span class="math inline">\(\hat{\beta}_1\)</span> en résolvant le système d’équations obtenu en b).</p>
+<p><strong>d)</strong> Calculer les prévisions <span class="math inline">\(\hat{Y}_i\)</span> correspondant à <span class="math inline">\(x_i\)</span> pour <span class="math inline">\(i = 1, \dots, n\)</span>. Ajouter la droite de régression au graphique fait en a).</p>
+<p><strong>e)</strong> Vérifier empiriquement que <span class="math inline">\(\sum_{i=1}^{10} \hat{\varepsilon}_i = 0\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Éléments de réponse">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Éléments de réponse
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p> </p>
+<p><strong>a)</strong> <span class="math inline">\(\hat{\beta}_0=66.44882\)</span> et <span class="math inline">\(\hat{\beta}_1=-0.8407468\)</span></p>
+<p><strong>b)</strong> <span class="math inline">\(\hat{Y}_1 = 11,80, \hat{Y}_2 = 30,30, \hat{Y}_3 = 29,46, \hat{Y}_4 = 16,84, \hat{Y}_5 = 16,00, \hat{Y}_6 = 24,41, \hat{Y}_7 = 22,73, \hat{Y}_8 = 34,50, \hat{Y}_9 = 31,14, \hat{Y}_{10} = 32,82\)</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution complète">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Solution complète
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a)</strong> Voir la figure <a href="#fig-simple-base" class="quarto-xref"><span>2.1</span></a>. Remarquer que l’on peut, dans la fonction <code>plot</code>, utiliser une formule pour exprimer la relation entre les variables.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">65</span>, <span class="dv">43</span>, <span class="dv">44</span>, <span class="dv">59</span>, <span class="dv">60</span>, <span class="dv">50</span>, <span class="dv">52</span>, <span class="dv">38</span>, <span class="dv">42</span>, <span class="dv">40</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>y<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">32</span>, <span class="dv">36</span>, <span class="dv">18</span>, <span class="dv">17</span>, <span class="dv">20</span>, <span class="dv">21</span>, <span class="dv">40</span>, <span class="dv">30</span>, <span class="dv">24</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-simple-base" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simple-base-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="simple_files/figure-html/fig-simple-base-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simple-base-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.1: Relation entre les données de l’exercice
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>b)</strong> Les équations normales sont les équations à résoudre pour trouver les estimateurs de <span class="math inline">\(\beta_0\)</span> et <span class="math inline">\(\beta_1\)</span> minimisant la somme des carrés <span class="math display">\[
+\begin{aligned} S(\beta_0, \beta_1) &amp;=\sum_{i = 1}^n \varepsilon^2_i \\ &amp;=\sum_{i = 1}^n \left(Y_i-\beta_0-\beta_1x_i\right)^2. \end{aligned}
+\]</span> Or, <span class="math display">\[
+\begin{aligned} \frac{\partial S}{\partial \beta_0} &amp;= -2 \sum_{i=1}^n (Y_i - \beta_0 - \beta_1 x_i) \\ \frac{\partial S}{\partial \beta_1} &amp;= -2 \sum_{i=1}^n (Y_i - \beta_0 - \beta_1 x_i) x_i, \end{aligned}
+\]</span> d’où les équations normales sont <span class="math display">\[
+\begin{aligned} \sum_{i=1}^n (Y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i) &amp;= 0 \\ \sum_{i=1}^n (Y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i) x_i &amp;= 0. \end{aligned}
+\]</span></p>
+<p><strong>c)</strong> Par la première des deux équations normales, on trouve <span class="math display">\[
+\sum_{i=1}^nY_i-n\hat{\beta}_0-\hat{\beta}_1\sum_{i=1}^nx_i = 0,
+\]</span> soit, en isolant <span class="math inline">\(\hat{\beta}_0\)</span>, <span class="math display">\[
+\hat{\beta}_0=\frac{\sum_{i=1}^nY_i-\hat{\beta}_1\sum_{i=1}^nx_i}{n}=\bar{Y}-\hat{\beta}_1\bar{x}.
+\]</span></p>
+<p>De la seconde équation normale, on obtient <span class="math display">\[
+\sum_{i=1}^n x_i Y_i - \hat{\beta}_0 \sum_{i=1}^n x_i - \hat{\beta}_1 \sum_{i=1}^n x_i^2 = 0
+\]</span> puis, en remplaçant <span class="math inline">\(\hat{\beta}_0\)</span> par la valeur obtenue ci-dessus, <span class="math display">\[
+\hat{\beta}_1 \left( \sum_{i=1}^n x_i^2 - n \bar{x}^2 \right) = \sum_{i=1}^n x_i Y_i - n \bar{x} \bar{Y}.
+\]</span> Par conséquent,</p>
+<p><span class="math display">\[
+\begin{aligned} \hat{\beta}_1 &amp;= \frac{\sum_{i=1}^n x_i Y_i - n \bar{x}\bar{Y}}{\sum_{i=1}^n x_i^2 - n \bar{x}^2} \\ &amp;= \frac{11654 - (10)(49,3)(25)}{25103 - (10)(49,3)^2} \\ &amp;= -0,8407 \\ \end{aligned}
+\]</span></p>
+<p>et</p>
+<p><span class="math display">\[
+\begin{aligned} \hat{\beta}_0 &amp;=\bar{Y}-\hat{\beta}_1\bar{x}\\ &amp;=25 - (-0,8407)(49,3)\\ &amp;=66,4488. \end{aligned}
+\]</span></p>
+<p><strong>d)</strong> On peut calculer les prévisions correspondant à <span class="math inline">\(x_1, \dots, x_{10}\)</span> — ou valeurs ajustées — à partir de la relation <span class="math inline">\(\hat{Y}_i = 66,4488 - 0,8407 x_i\)</span>, <span class="math inline">\(i = 1, 2, \dots, 10\)</span>. Avec R, on crée un objet de type modèle de régression avec <code>lm</code> et on en extrait les valeurs ajustées avec <code>fitted</code> :</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x) </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fitted</span>(fit) </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1        2        3        4        5        6        7        8 
+11.80028 30.29670 29.45596 16.84476 16.00401 24.41148 22.72998 34.50044 
+       9       10 
+31.13745 32.81894 </code></pre>
+</div>
+</div>
+<p>Pour ajouter la droite de régression au graphique de la figure <a href="#fig-simple-base" class="quarto-xref"><span>2.1</span></a>, il suffit d’utiliser la fonction <code>abline</code> avec en argument l’objet créé avec <code>lm</code>. L’ordonnée à l’origine et la pente de la droite seront extraites automatiquement. Voir la figure <a href="#fig-simple-base2" class="quarto-xref"><span>2.2</span></a>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(fit)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-simple-base2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simple-base2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="simple_files/figure-html/fig-simple-base2-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simple-base2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.2: Relation entre les données de l’exercice et la droite de régression
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>e)</strong> Les résidus de la régression sont <span class="math inline">\(\hat{\varepsilon}_i = Y_i - \hat{Y}_i\)</span>, <span class="math inline">\(i = 1, \dots, 10\)</span>. Dans R, la fonction <code>residuals</code> extrait les résidus du modèle :</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">residuals</span>(fit) </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>         1          2          3          4          5          6          7 
+ 0.1997243  1.7032953  6.5440421  1.1552437  0.9959905 -4.4114773 -1.7299837 
+         8          9         10 
+ 5.4995615 -1.1374514 -8.8189450 </code></pre>
+</div>
+</div>
+<p>On vérifie ensuite que la somme des résidus est (essentiellement) nulle :</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">residuals</span>(fit)) </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -4.440892e-16</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-simple-estimateurs_moindres_carres" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="sec-simple-estimateurs_moindres_carres"><span class="header-section-number">2.2</span> Estimateurs des moindres carrés pour la régression linéaire simple</h2>
+<p>Considérer le modèle de régression linéaire par rapport au temps <span class="math inline">\(Y_t = \beta_0 + \beta_1 t + \varepsilon_t\)</span>, pour <span class="math inline">\(t = 1, \dots, n\)</span>. Écrire les équations de score et obtenir les estimateurs des moindres carrés des paramètres <span class="math inline">\(\beta_0\)</span> et <span class="math inline">\(\beta_1\)</span>.</p>
+<p><em>Note</em> : <span class="math inline">\(\sum_{i=1}^n i^2 = n(n + 1)(2n + 1)/6\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Éléments de réponse">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Éléments de réponse
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 (n + 1)/2\)</span>, et <span class="math inline">\(\hat{\beta}_1 = \{12 \sum_{t = 1}^n t Y_t - 6 n (n + 1)
+    \bar{Y}\}/\{n (n^2 - 1)\}\)</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution complète">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Solution complète
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>On a un modèle de régression linéaire simple usuel avec <span class="math inline">\(x_t = t\)</span>. Les estimateurs des moindres carrés des paramètres <span class="math inline">\(\beta_0\)</span> et <span class="math inline">\(\beta_1\)</span> sont donc</p>
+<p><span class="math display">\[
+\begin{aligned}
+      \hat{\beta}_0
+      &amp;= \bar{Y} - \hat{\beta}_1 \frac{\sum_{t = 1}^n t}{n} \\
+      \end{aligned}
+\]</span></p>
+<p>et</p>
+<p><span class="math display">\[
+\begin{aligned}
+      \hat{\beta}_1
+      &amp;= \frac{\sum_{t = 1}^n t Y_t - \bar{Y} \sum_{t = 1}^n t}{\sum_{t
+          = 1}^n t^2 - n^{-1} (\sum_{t = 1}^n t)^2}.
+    \end{aligned}
+\]</span></p>
+<p>Or, puisque <span class="math inline">\(\sum_{t = 1}^n t = n(n + 1)/2\)</span> et <span class="math inline">\(\sum_{t = 1}^n t^2= n(n + 1)(2n + 1)/6\)</span>, les expressions ci-dessus se simplifient en <span class="math display">\[
+\begin{aligned}
+      \hat{\beta}_0
+      &amp; = \bar{Y} - \hat{\beta}_1 \frac{n + 1}{2} \\
+\end{aligned}
+\]</span></p>
+<p>et</p>
+<p><span class="math display">\[
+\begin{aligned}
+      \hat{\beta}_1
+      &amp; = \frac{\sum_{t=1}^n t Y_t - n(n + 1) \bar{Y}/2}{n(n + 1)(2n +
+        1)/6 - n(n + 1)^2/4} \\
+      &amp; = \frac{12 \sum_{t=1}^n t Y_t - 6 n (n + 1) \bar{Y}}{n (n^2 - 1)}.
+    \end{aligned}
+\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-simple-estimateurs_moindres_carres_origine" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="sec-simple-estimateurs_moindres_carres_origine"><span class="header-section-number">2.3</span> Estimateurs des moindres carrés pour la régression linéaire passant par l’origine</h2>
+<p><strong>a)</strong> Trouver l’estimateur des moindres carrés du paramètre <span class="math inline">\(\beta\)</span> dans le modèle de régression linéaire passant par l’origine <span class="math inline">\(Y_i = \beta x_i + \varepsilon_i\)</span>, <span class="math inline">\(i = 1, \dots, n\)</span>, sous les postulats <span class="math inline">\(\esp{\varepsilon_i} = 0\)</span>, et <span class="math inline">\(\cov{\varepsilon_i, \varepsilon_j} = \mathbf{1}(i=j) \sigma^2\)</span>.</p>
+<p><strong>b)</strong> Démontrer que l’estimateur en a) est sans biais.</p>
+<p><strong>c)</strong> Calculer la variance de l’estimateur en a).</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Éléments de réponse">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Éléments de réponse
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a)</strong> <span class="math inline">\(\hat{\beta}= \sum_{i = 1}^n x_i Y_i/\sum_{i = 1}^n x_i^2\)</span> </p>
+<p><strong>b)</strong> <span class="math inline">\(\var{\hat{\beta}} = \sigma^2/\sum_{i = 1}^n x_i^2\)</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution complète">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Solution complète
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a)</strong> L’estimateur des moindres carrés du paramètre <span class="math inline">\(\beta\)</span> est la valeur <span class="math inline">\(\hat{\beta}\)</span> minimisant la somme de carrés <span class="math display">\[
+\begin{aligned}
+S(\beta) &amp;=\sum_{i = 1}^n \varepsilon_i^2 \\ &amp;=\sum_{i = 1}^n (Y_i - \beta x_i)^2.
+\end{aligned}
+\]</span></p>
+<p>Or, <span class="math display">\[
+\frac{d}{d \beta} S(\beta) = -2 \sum_{i = 1}^n (Y_i - \hat{\beta} x_i) x_i,
+\]</span> d’où l’unique équation normale de ce modèle est <span class="math display">\[
+\sum_{i = 1}^n x_i Y_i - \hat{\beta} \sum_{i=1}^n x_i^2 = 0.
+\]</span></p>
+<p>L’estimateur des moindres carrés de <span class="math inline">\(\beta\)</span> est donc <span class="math display">\[
+\hat{\beta} = \frac{\sum_{i=1}^n x_i Y_i}{\sum_{i=1}^n x_i^2}.
+\]</span></p>
+<p><strong>b)</strong> On doit démontrer que <span class="math inline">\(\esp{\hat{\beta}} = \beta\)</span>. On a</p>
+<p><span class="math display">\[
+\begin{aligned}
+\esp{\hat{\beta}} &amp;= \Esp{\frac{\sum_{i=1}^n x_i Y_i}{\sum_{i=1}^n x_i^2}} \\ &amp;= \frac{1}{\sum_{i=1}^n x_i^2} \sum_{i=1}^n x_i \esp{Y_i} \\ &amp;= \frac{1}{\sum_{i=1}^nx_i^2} \sum_{i=1}^n x_i \beta x_i \\ &amp;= \beta \frac{\sum_{i=1}^n x_i^2}{\sum_{i=1}^n x_i^2} \\ &amp;= \beta.
+\end{aligned}
+\]</span></p>
+<p><strong>c)</strong> Des hypothèses du modèle, on a <span class="math display">\[
+\begin{aligned}
+\var{\hat{\beta}} &amp;= \Var{\frac{\sum_{i=1}^n x_i Y_i}{\sum_{i=1}^n x_i^2}} \\ &amp;= \frac{1}{(\sum_{i=1}^n x_i^2)^2} \sum_{i=1}^n x_i^2 \var{Y_i} \\ &amp;= \frac{\sigma^2}{(\sum_{i=1}^n x_i^2)^2} \sum_{i=1}^n x_i^2 \\ &amp;= \frac{\sigma^2}{\sum_{i=1}^n x_i^2}.
+\end{aligned}
+\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-simple-sexe_esperance_vie" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="sec-simple-sexe_esperance_vie"><span class="header-section-number">2.4</span> Effet du sexe sur l’espérance de vie</h2>
+<p>On s’intéresse à l’effet du sexe sur l’espérance de vie. On connaît les durées de vie de <span class="math inline">\(n_{F}=300\)</span> femmes et <span class="math inline">\(n_H=200\)</span> hommes. On choisit d’utiliser la variable indicatrice</p>
+<p><span class="math display">\[
+x_{i}=\left\{ \begin{array}{ll}
+0 &amp; \text{, si \texttt{SEXE}}_i=\texttt{H}\\
+1 &amp; \text{, si \texttt{SEXE}}_i=\texttt{F}\\
+\end{array}\right. .
+\]</span></p>
+<p>On note <span class="math inline">\(\bar{Y}_F\)</span> la moyenne des durées de vie des femmes et <span class="math inline">\(\bar{Y}_H\)</span> la moyenne des durées de vie des hommes.</p>
+<p><strong>a)</strong> Montrer que l’estimateur des moindres carrés <span class="math inline">\(\hat{\beta}_1\)</span> (lié à la variable explicative <span class="math inline">\(x\)</span>) est égal à <span class="math inline">\(\bar{Y}_F-\bar{Y}_H\)</span>.</p>
+<p><em>Indice</em> : On peut exprimer <span class="math inline">\(\bar{Y}\)</span> en termes de <span class="math inline">\(\bar{Y}_F\)</span> et <span class="math inline">\(\bar{Y}_H\)</span>.</p>
+<p><strong>b)</strong> Ce résultat permet-il d’interpréter le coefficient relié à une variable catégorique binaire? Expliquer.</p>
+<p><strong>c)</strong> Que représente <span class="math inline">\(\hat{\beta}_0\)</span> dans ce cas?</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution complète">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Solution complète
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a)</strong> On a</p>
+<p><span class="math display">\[
+\bar{Y}=\frac{\sum_{i=1}^{500}Y_i}{500}=\frac{300\bar{Y}_F+200\bar{Y}_H}{500}.
+\]</span></p>
+<p>Aussi,</p>
+<p><span class="math display">\[
+\hat{\beta}_1=\frac{S_{xy}}{S_{xx}}=\frac{\sum_{i=1}^{500}x_iY_i-500\bar{x}\bar{Y}}{\sum_{i=1}^{500}x_i^2-500\bar{x}^2}.
+\]</span><br>
+Or, <span class="math display">\[
+\begin{aligned} \bar{x}&amp;=\frac{\sum_{i=1}^{500}x_i}{500}=\frac{300}{500},\\ \sum_{i=1}^{500}x_i^2&amp;=300,\\ \sum_{i=1}^{500}x_i Y_i&amp;=300\bar{Y}_F \end{aligned}
+\]</span> Donc, <span class="math display">\[
+\begin{aligned} \hat{\beta}_1&amp;=\frac{300\bar{Y}_F-500\times\frac{300}{500}\times\frac{300\bar{Y}_F+200\bar{Y}_H}{500}}{300-500\left(\frac{300}{500}\right)^2}\\ &amp;=\frac{500\bar{Y}_F-300\bar{Y}_F-200\bar{Y}_H}{500-300}\\ &amp;=\bar{Y}_F-\bar{Y}_H. \end{aligned}
+\]</span></p>
+<p><strong>b)</strong> Oui, le coefficient relié à la variable indicatrice qui vaut 1 si le sexe est F représente la différence etre la moyenne de l’espérance de vie pour les femmes et la moyenne de l’espérace de vie pour les hommes.</p>
+<p><strong>c)</strong><br>
+<span class="math display">\[
+\begin{aligned} \hat{\beta}_0&amp;=\bar{Y}-\hat{\beta}_1\bar{x}=\bar{Y}-(\bar{Y}_F-\bar{Y}_H)\frac{300}{500}=\bar{Y}_H. \end{aligned}
+\]</span> <span class="math inline">\(\Rightarrow \hat{\beta}_0\)</span> est la moyenne de l’espérance de vie pour les hommes.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-simple-emc_blue" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="sec-simple-emc_blue"><span class="header-section-number">2.5</span> Démonstration que l’EMC est le BLUE</h2>
+<p>Démontrer que l’estimateur des moindres carrés <span class="math inline">\(\hat{\beta}\)</span> trouvé à l’exercice <a href="#sec-simple-estimateurs_moindres_carres_origine" class="quarto-xref"><span>2.3</span></a> est l’estimateur sans biais à variance (uniformément) minimale du paramètre <span class="math inline">\(\beta\)</span>. En termes mathématiques : <span class="math display">\[
+\beta^* = \sum_{i=1}^n c_i Y_i
+\]</span> un estimateur linéaire du paramètre <span class="math inline">\(\beta\)</span>. Démontrer qu’en déterminant les coefficients <span class="math inline">\(c_1, \dots, c_n\)</span> de façon à minimiser <span class="math display">\[
+\var{\beta^*} = \Var{\sum_{i=1}^n c_i Y_i}
+\]</span> sous la contrainte que <span class="math display">\[
+\esp{\beta^*} = \Esp{\sum_{i=1}^n c_i Y_i} = \beta,
+\]</span> on obtient <span class="math inline">\(\beta^* = \hat{\beta}\)</span>.</p>
+<p><em>Indice: le lagrangien permet de faire l’optimisation sous contrainte, voir l’annexe&nbsp;D des notes de cours.</em></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution complète">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Solution complète
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>On veut trouver les coefficients <span class="math inline">\(c_1, \dots, c_n\)</span> tels que <span class="math inline">\(\esp{\beta^*} = \beta\)</span> et <span class="math inline">\(\var{\beta^*}\)</span> est minimale. On cherche donc à minimiser la fonction</p>
+<p><span class="math display">\[
+\begin{aligned}
+      f(c_1, \dots, c_n)
+      &amp;= \var{\beta^*} \\
+      &amp;= \sum_{i=1}^n c_i^2 \var{Y_i} \\
+      &amp;= \sigma^2 \sum_{i=1}^n c_i^2
+\end{aligned}
+\]</span> sous la contrainte <span class="math inline">\(\esp{\beta^*} = \sum_{i=1}^nc_i\esp{Y_i} = \sum_{i=1}^nc_i\beta x_i = \beta\sum_{i=1}^nc_ix_i = \beta\)</span>, soit <span class="math inline">\(\sum_{i=1}^n c_i x_i = 1\)</span> ou <span class="math inline">\(g(c_1, \dots, c_n) = 0\)</span> avec <span class="math display">\[
+g(c_1, \dots, c_n) = \sum_{i=1}^n c_i x_i - 1.
+\]</span></p>
+<p>Pour utiliser la méthode des multiplicateurs de Lagrange, on pose <span class="math display">\[
+\begin{aligned}
+      \mathcal{L}(c_1, \dots, c_n,\lambda)
+      &amp;= f(c_1, \dots, c_n) - \lambda g(c_1, \dots, c_n), \\
+      &amp;= \sigma^2 \sum_{i=1}^n c_i^2 - \lambda
+      \left(
+        \sum_{i=1}^n c_i x_i - 1
+      \right),
+    \end{aligned}
+\]</span> puis on dérive la fonction <span class="math inline">\(\mathcal{L}\)</span> par rapport à chacune des variables <span class="math inline">\(c_1, \dots, c_n\)</span> et <span class="math inline">\(\lambda\)</span>. On trouve alors <span class="math display">\[
+\begin{aligned}
+      \frac{\partial \mathcal{L}}{\partial c_u}
+      &amp; = 2 \sigma^2 c_u - \lambda x_u, \quad u = 1, \dots, n \\
+      \frac{\partial \mathcal{L}}{\partial \lambda}
+      &amp; = - \sum_{i=1}^n c_i x_i + 1.
+\end{aligned}
+\]</span> En posant les <span class="math inline">\(n\)</span> premières dérivées égales à zéro, on obtient <span class="math display">\[
+c_i = \frac{\lambda x_i}{2 \sigma^2}.
+\]</span> Or, de la contrainte, <span class="math display">\[
+\sum_{i=1}^n c_i x_i =
+      \frac{\lambda}{2\sigma^2} \sum_{i=1}^n x_i^2 = 1,
+\]</span> d’où <span class="math display">\[
+\frac{\lambda}{2 \sigma^2} = \frac{1}{\sum_{i=1}^n x_i^2}
+\]</span> et, donc, <span class="math display">\[
+c_i = \frac{x_i}{\sum_{i=1}^n x_i^2}.
+\]</span> Finalement, <span class="math display">\[
+\begin{aligned}
+      \beta^*
+      &amp; = \sum_{i=1}^n c_i Y_i \\
+      &amp; = \frac{\sum_{i=1}^n x_i Y_i}{\sum_{i=1}^n x_i^2} \\
+      &amp; = \hat{\beta}.
+    \end{aligned}
+\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-simple-ic_beta1" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="sec-simple-ic_beta1"><span class="header-section-number">2.6</span> Intervalle de confiance pour <span class="math inline">\(\beta_1\)</span></h2>
+<p>Soit le modèle de régression linéaire simple <span class="math display">\[
+Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i, \quad
+    \varepsilon_i \sim N(0, \sigma^2).
+\]</span></p>
+<p>Construire un intervalle de confiance de niveau <span class="math inline">\(1 - \alpha\)</span> pour le paramètre <span class="math inline">\(\beta_1\)</span> si la variance <span class="math inline">\(\sigma^2\)</span> est connue.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Éléments de réponse">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Éléments de réponse
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(\beta_1 \in \hat{\beta}_1 \pm z_{\alpha/2} \sigma \left\{ \sum_{i=1}^n (x_i - \bar{x})^2 \right\}^{-1/2}\)</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution complète">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Solution complète
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Puisque, selon le modèle, <span class="math inline">\(\varepsilon_i \sim N(0, \sigma^2)\)</span> et que <span class="math inline">\(Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i\)</span>, alors <span class="math inline">\(Y_i \sim N(\beta_0 + \beta_1 x_i, \sigma^2)\)</span>. De plus, on sait que</p>
+<p><span class="math display">\[
+\begin{aligned}
+      \hat{\beta}_1
+      &amp;= \frac{\sum_{i=1}^n (x_i - \bar{x})(Y_i - \bar{Y})}{
+        \sum_{i=1}^n (x_i - \bar{x})^2} \\
+      &amp;= \frac{\sum_{i=1}^n (x_i - \bar{x}) Y_i}{
+        \sum_{i=1}^n (x_i - \bar{x})^2},
+\end{aligned}
+\]</span> donc l’estimateur <span class="math inline">\(\hat{\beta}_1\)</span> est une combinaison linéaire des variables aléatoires <span class="math inline">\(Y_1, \dots, Y_n\)</span>. Par conséquent, <span class="math inline">\(\hat{\beta}_1 \sim N(\esp{\hat{\beta}_1}, \var{\hat{\beta}_1})\)</span>, où <span class="math inline">\(\esp{\hat{\beta}_1} = \beta_1\)</span> et <span class="math inline">\(\var{\hat{\beta}_1} = \sigma^2/S_{xx}\)</span> et, donc, <span class="math display">\[
+\Pr\left[ -z_{\alpha/2} &lt; \frac{\hat{\beta}_1 - \beta_1}{\sigma/\sqrt{S_{xx}}} &lt;z_{\alpha/2}\right] = 1 - \alpha.
+\]</span></p>
+<p>Un intervalle de confiance de niveau <span class="math inline">\(1 - \alpha\)</span> pour le paramètre <span class="math inline">\(\beta_1\)</span> lorsque la variance <span class="math inline">\(\sigma^2\)</span> est connue est donc <span class="math display">\[
+\beta_1 \in \hat{\beta}_1 \pm z_{\alpha/2}
+\frac{\sigma}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}}.
+\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-simple-prix_gaz_naturel" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="sec-simple-prix_gaz_naturel"><span class="header-section-number">2.7</span> Relation entre la consommation de gaz naturel et le prix</h2>
+<p>Vous analysez la relation entre la consommation de gaz naturel <em>per capita</em> et le prix du gaz naturel. Vous avez colligé les données de 20 grandes villes et proposé le modèle <span class="math display">\[
+Y = \beta_0 + \beta_1 x + \varepsilon,
+\]</span> où <span class="math inline">\(Y\)</span> représente la consommation de gaz <em>per capita</em>, <span class="math inline">\(x\)</span> le prix et <span class="math inline">\(\varepsilon\)</span> est le terme d’erreur aléatoire distribué selon une loi normale. Vous avez obtenu les résultats suivants :</p>
+<p><span class="math display">\[
+\begin{aligned}
+    \hat{\beta}_0 &amp;= 138,581 &amp;
+      \sum_{i=1}^{20} (x_i - \bar{x})^2 &amp;= 10668 \\
+    \hat{\beta}_1 &amp;= -1,104 &amp;
+      \sum_{i=1}^{20} (Y_i - \bar{Y})^2 &amp;= 20838 \\
+    \sum_{i=1}^{20} x_i^2 &amp;= 90048 &amp;
+      \sum_{i=1}^{20} \hat{\varepsilon}_i^2 &amp;= 7832. \\
+    \sum_{i=1}^{20} Y_i^2 &amp;= 116058
+\end{aligned}
+\]</span> Trouver le plus petit intervalle de confiance à 95 % pour le paramètre <span class="math inline">\(\beta_1\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Éléments de réponse">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Éléments de réponse
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\((-1,5, -0,7)\)</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution complète">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Solution complète
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>L’intervalle de confiance pour <span class="math inline">\(\beta_1\)</span> est</p>
+<p><span class="math display">\[
+\begin{aligned}
+      \beta_1
+      &amp;\in \hat{\beta}_1 \pm t_{\alpha/2}(n - 2)
+      \sqrt{\frac{\hat{\sigma}^2}{S_{xx}}} \\
+      &amp;\in \hat{\beta}_1 \pm t_{0,025}(20 - 2) \sqrt{\frac{MSE}{S_{xx}}}.
+\end{aligned}
+\]</span> On nous donne <span class="math inline">\(\SST = S_{yy} = 20838\)</span> et <span class="math inline">\(S_{xx} =10668\)</span>. Par conséquent,</p>
+<p><span class="math display">\[
+\begin{aligned}
+       \SSR
+       &amp;= \hat{\beta}_1^2 \sum_{i=1}^{20} (x_i - \bar{x})^2 \\
+       &amp;= (-1,104)^2(10668) \\
+       &amp;=13002,33\\
+       \SSE
+       &amp;= \SST - \SSR \\
+       &amp;= 7835,67 \\
+       \end{aligned}
+\]</span></p>
+<p>et</p>
+<p><span class="math display">\[
+\begin{aligned}
+       \MSE
+       &amp;= \frac{\SSE}{18} \\
+       &amp;= 435,315.
+\end{aligned}
+\]</span> De plus, on trouve dans une table de quantiles de la loi de Student (ou à l’aide de la fonction <code>qt</code> dans R) que <span class="math inline">\(t_{0,025}(18) = 2,101\)</span>. L’intervalle de confiance recherché est donc <span class="math display">\[
+\begin{aligned}
+       \beta_1
+       &amp;\in -1,104 \pm 2,101 \sqrt{\frac{435,315}{10668}} \\
+       &amp;\in (-1,528, -0,680).
+     \end{aligned}
+\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-simple-ic_reglinsimple_origine" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="sec-simple-ic_reglinsimple_origine"><span class="header-section-number">2.8</span> Intervalle de confiance pour la régression linéaire passant par l’origine</h2>
+<p>Considérer le modèle de régression linéaire passant par l’origine présenté à l’exercice <a href="#sec-simple-estimateurs_moindres_carres_origine" class="quarto-xref"><span>2.3</span></a>. Soit <span class="math inline">\(x_0\)</span> une valeur de la variable indépendante, <span class="math inline">\(Y_0\)</span> la vraie valeur de la variable indépendante correspondant à <span class="math inline">\(x_0\)</span> et <span class="math inline">\(\hat{Y}_0\)</span> la prévision (ou estimation) de <span class="math inline">\(Y_0\)</span>. En supposant que</p>
+<ol type="i">
+<li><p><span class="math inline">\(\varepsilon_i \sim N(0, \sigma^2)\)</span>;</p></li>
+<li><p><span class="math inline">\(\cov{\varepsilon_0, \varepsilon_i} = 0\)</span> pour tout <span class="math inline">\(i = 1, \dots, n\)</span>;</p></li>
+<li><p><span class="math inline">\(\var{\varepsilon_i} = \sigma^2\)</span> est estimé par <span class="math inline">\(s^2\)</span>,</p></li>
+</ol>
+<p>construire un intervalle de confiance de niveau <span class="math inline">\(1 - \alpha\)</span> pour <span class="math inline">\(Y_0\)</span>. Faire tous les calculs intermédiaires.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Éléments de réponse">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Éléments de réponse
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(\hat{Y}_0 \pm t_{\alpha/2}(n - 1) s\sqrt{1 + x_0^2/\sum_{i=1}^n x_i^2}\)</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution complète">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Solution complète
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Premièrement, selon le modèle de régression passant par l’origine, <span class="math inline">\(Y_0 = \beta x_0 + \varepsilon_0\)</span> et <span class="math inline">\(\hat{Y}_0 = \hat{\beta} x_0\)</span>. Considérons, pour la suite, la variable aléatoire <span class="math inline">\(Y_0 - \hat{Y}_0\)</span>. On voit facilement que <span class="math inline">\(\esp{\hat{\beta}} = \beta\)</span>, d’où <span class="math inline">\(\esp{Y_0 - \hat{Y}_0} = \esp{\beta x_0 + \varepsilon_0 - \hat{\beta} x_0} = \beta x_0 - \beta x_0 = 0\)</span> et</p>
+<p><span class="math display">\[
+\var{Y_0 - \hat{Y}_0} = \var{Y_0} + \var{\hat{Y}_0} - 2\cov{Y_0, \hat{Y}_0}.
+\]</span> Or, <span class="math inline">\(\cov{Y_0, \hat{Y}_0} = 0\)</span> par l’hypothèse ii) de l’énoncé, <span class="math inline">\(\var{Y_0} = \sigma^2\)</span> et <span class="math inline">\(\var{\hat{Y}_0} =x_0^2\var{\hat{\beta}}\)</span>. De plus,</p>
+<p><span class="math display">\[
+\begin{aligned}
+      \var{\hat{\beta}}
+      &amp;= \frac{1}{(\sum_{i=1}^n x_i^2)^2} \sum_{i=1}^n x_i^2 
+      \var{Y_i} \\
+      &amp;= \frac{\sigma^2}{\sum_{i=1}^n x_i^2}
+\end{aligned}
+\]</span> d’où, finalement, <span class="math display">\[
+\var{Y_0 - \hat{Y}_0} =\sigma^2 \left( 1 + \frac{x_0^2}{\sum_{i=1}^n x_i^2} \right).
+\]</span></p>
+<p>Par l’hypothèse de normalité et puisque <span class="math inline">\(\hat{\beta}\)</span> est une combinaison linéaire de variables aléatoires normales,</p>
+<p><span class="math display">\[
+Y_0 - \hat{Y}_0 \sim N \left(0, \sigma^2 \left( 1 + \frac{x_0^2}{\sum_{i=1}^n x_i^2} \right)\right)
+\]</span> ou, de manière équivalente, <span class="math display">\[
+\frac{Y_0 - \hat{Y}_0}{\sigma \sqrt{1 + x_0^2/\sum_{i=1}^n x_i^2}} \sim N(0, 1).
+\]</span></p>
+<p>Lorsque la variance <span class="math inline">\(\sigma^2\)</span> est estimée par <span class="math inline">\(s^2\)</span>, alors <span class="math display">\[
+\frac{Y_0 - \hat{Y}_0}{s \sqrt{1 + x_0^2/\sum_{i=1}^n x_i^2}} \sim t(n - 1).
+\]</span></p>
+<p>La loi de Student a <span class="math inline">\(n - 1\)</span> degrés de liberté puisque le modèle passant par l’origine ne compte qu’un seul paramètre. Les bornes de l’intervalle de confiance pour la vraie valeur de <span class="math inline">\(Y_0\)</span> sont donc <span class="math display">\[
+\hat{Y}_0 \pm t_{\alpha/2}(n - 1) s \sqrt{1 + \frac{x_0^2}{\sum_{i=1}^n x_i^2}}.
+\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-simple-massemonetaire_pib" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="sec-simple-massemonetaire_pib"><span class="header-section-number">2.9</span> Relation entre la masse monétaire et le PNB</h2>
+<p>La masse monétaire et le produit national brut (en millions de <em>snouks</em>) de la Fictinie (Asie postérieure) sont reproduits dans le tableau ci-dessous.</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'knitr' was built under R version 4.5.3</code></pre>
+</div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Année</th>
+<th style="text-align: center;">Masse monétaire</th>
+<th style="text-align: right;">PNB</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1987</td>
+<td style="text-align: center;">2.0</td>
+<td style="text-align: right;">5.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1988</td>
+<td style="text-align: center;">2.5</td>
+<td style="text-align: right;">5.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">1989</td>
+<td style="text-align: center;">3.2</td>
+<td style="text-align: right;">6.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1990</td>
+<td style="text-align: center;">3.6</td>
+<td style="text-align: right;">7.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">1991</td>
+<td style="text-align: center;">3.3</td>
+<td style="text-align: right;">7.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1992</td>
+<td style="text-align: center;">4.0</td>
+<td style="text-align: right;">7.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">1993</td>
+<td style="text-align: center;">4.2</td>
+<td style="text-align: right;">8.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1994</td>
+<td style="text-align: center;">4.6</td>
+<td style="text-align: right;">9.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">1995</td>
+<td style="text-align: center;">4.8</td>
+<td style="text-align: right;">9.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1996</td>
+<td style="text-align: center;">5.0</td>
+<td style="text-align: right;">10.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>a)</strong> Établir une relation linéaire dans laquelle la masse monétaire explique le produit national brut (PNB).</p>
+<p><strong>b)</strong> Construire des intervalles de confiance pour l’ordonnée à l’origine et la pente estimées en a). Peut-on rejeter l’hypothèse que la pente est nulle? Égale à 1?</p>
+<p><strong>c)</strong> Si, en tant que ministre des Finances de la Fictinie, vous souhaitez que le PNB soit de 12,0 en 1997, à combien fixeriez-vous la masse monétaire?</p>
+<p><strong>d)</strong> Pour une masse monétaire telle que fixée en c), déterminer les bornes inférieure et supérieure à l’intérieur desquelles devrait, avec une probabilité de 95 %, se trouver le PNB moyen. Répéter pour la valeur du PNB de l’année 1997.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Éléments de réponse">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Éléments de réponse
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a)</strong> <span class="math inline">\(\text{PNB} = 1,168 + 1,716 \text{ MM}\)</span></p>
+<p><strong>b)</strong> <span class="math inline">\(\beta_0 \in (0,060, 2,276)\)</span>, <span class="math inline">\(\beta_1 \in (1,427, 2,005)\)</span></p>
+<p><strong>c)</strong> <span class="math inline">\(6,31\)</span></p>
+<p><strong>d)</strong> <span class="math inline">\((11,20, 12,80)\)</span> et <span class="math inline">\((10,83, 13,17)\)</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution complète">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Solution complète
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a)</strong> Soit <span class="math inline">\(x_1, \dots, x_{10}\)</span> les valeurs de la masse monétaire et <span class="math inline">\(Y_1, \dots, Y_{10}\)</span> celles du PNB. On a <span class="math inline">\(\bar{x} = 3,72\)</span>, <span class="math inline">\(\bar{Y} = 7,55\)</span>, <span class="math inline">\(\sum_{i = 1}^{10} x_i^2 = 147,18\)</span>, <span class="math inline">\(\sum_{t = 1}^{10} Y_i^2 = 597,03\)</span> et <span class="math inline">\(\sum_{i = 1}^{10} x_i Y_i = 295,95\)</span>. Par conséquent,</p>
+<p><span class="math display">\[
+\begin{align*}
+        \hat{\beta}_1
+        &amp;= \frac{\sum_{i=1}^{10} x_i Y_i - 10 \bar{x} \bar{Y}}{%
+          \sum_{i=1}^{10} x_i^2 - 10 \bar{x}^2} \\
+        &amp;= 1,716 \quad \text{et}\\
+        \hat{\beta}_0
+        &amp;= \bar{Y} - \hat{\beta}_1 \bar{x} \\
+        &amp;= 1,168.
+      \end{align*}
+\]</span></p>
+<p>On a donc la relation linéaire <span class="math inline">\(\text{PNB} = 1,168 + 1,716 \text{MM}\)</span>.</p>
+<p><strong>b)</strong> Tout d’abord, on doit calculer l’estimateur <span class="math inline">\(s^2\)</span> de la variance car cette quantité entre dans le calcul des intervalles de confiance demandés. Pour les calculs à la main, on peut éviter de calculer les valeurs de <span class="math inline">\(\hat{Y}_1, \dots, \hat{Y}_{10}\)</span> en procédant ainsi:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\SST &amp;= \sum_{i=1}^{10} Y_i^2 - 10 \bar{Y}^2 \\ &amp;= 27,005 \\ \SSR &amp;= \hat{\beta}_1^2 \left( \sum_{i=1}^{10} x_i^2 - 10 \bar{x}^2 \right) \\ &amp;= 25,901,
+\end{aligned}
+\]</span> puis <span class="math inline">\(\SSE = \SST - \SSR = 1,104\)</span> et <span class="math inline">\(s^2 = \MSE = \SSE/(10 - 2) = 0,1380\)</span>.</p>
+<p>On peut maintenant construire les intervalles de confiance: <span class="math display">\[
+\begin{aligned} \beta_0 &amp;\in \hat{\beta}_0 \pm t_{\alpha/2}(n - 2) s\sqrt{\frac{1}{n} + \frac{\bar{x}^2}{S_{xx}}} \\ &amp;\in 1,168 \pm (2,306) (0,3715) \sqrt{\frac{1}{10} + \frac{3,72^2}{8,796}} \\ &amp;\in (0,060, 2,276) \\ \beta_1 &amp;\in \hat{\beta}_1 \pm t_{\alpha/2}(n - 2) s \sqrt{\frac{1}{S_{xx}}} \\ &amp;\in 1,716 \pm (2,306) (0,3715) \sqrt{\frac{1}{8,796}} \\ &amp;\in (1,427, 2,005).
+\end{aligned}
+\]</span></p>
+<p>Puisque l’intervalle de confiance pour la pente <span class="math inline">\(\beta_1\)</span> ne contient ni la valeur 0, ni la valeur 1, on peut rejeter, avec un niveau de confiance de 95 %, les hypothèses <span class="math inline">\(H_0~: \beta_1 =0\)</span> et <span class="math inline">\(H_0~: \beta_1 = 1\)</span>.</p>
+<p><strong>c)</strong> Par l’équation obtenue en a) liant le PNB à la masse monétaire (MM), un PNB de 12,0 correspond à une masse monétaire de <span class="math display">\[
+\begin{aligned}
+\text{MM} &amp;= \frac{12,0 - 1,168}{1,716} \\ &amp;= 6,31.
+\end{aligned}
+\]</span></p>
+<p><strong>d)</strong> On cherche un intervalle de confiance pour la droite de régression en <span class="math inline">\(\text{MM}_{1997} = 6,31\)</span> ainsi qu’un intervalle de confiance pour la prévision <span class="math inline">\(\text{PNB} = 12,0\)</span> associée à cette même valeur de la masse monétaire. Avec une probabilité de <span class="math inline">\(\alpha = 95~\%\)</span>, le PNB moyen se trouve dans l’intervalle <span class="math display">\[
+12,0 \pm t_{\alpha/2}(n - 2)\, s\, \sqrt{\frac{1}{n} + \frac{(6,31 - \bar{x})^2}{S_{xx}}} = (11,20; 12,80),
+\]</span></p>
+<p>alors que la vraie valeur du PNB se trouve dans l’intervalle <span class="math display">\[
+12,0 \pm t_{\alpha/2}(n - 2)\, s\, \sqrt{1 + \frac{1}{n} + \frac{(6,31 - \bar{x})^2}{S_{xx}}} = (10,83; 13,17).
+\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-simple-demonstrations_mse_msr" class="level2" data-number="2.10">
+<h2 data-number="2.10" class="anchored" data-anchor-id="sec-simple-demonstrations_mse_msr"><span class="header-section-number">2.10</span> Démonstrations avec le MSE et le MSR</h2>
+<p>Dans le contexte de la régression linéaire simple, démontrer que</p>
+<p><strong>a)</strong> <span class="math inline">\(\esp{\MSE} = \sigma^2\)</span></p>
+<p><strong>b)</strong> <span class="math inline">\(\esp{\MSR} = \sigma^2 + \beta_1^2 \sum_{i=1}^n (x_i - \bar{x})^2\)</span></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution complète">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Solution complète
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a)</strong> Tout d’abord, puisque <span class="math inline">\(\MSE = \SSE/(n - 2) = \sum_{i=1}^n (Y_i - \hat{Y}_i)^2/(n - 2)\)</span> et que <span class="math inline">\(\esp{Y_i} = \esp{\hat{Y}_i}\)</span>, alors</p>
+<p><span class="math display">\[
+\begin{aligned} \esp{\MSE} &amp;= \frac{1}{n - 2} \Esp{\sum_{i=1}^n (Y_i - \hat{Y}_i)^2} \\ &amp;= \frac{1}{n - 2} \sum_{i=1}^n \esp{(Y_i - \hat{Y}_i)^2} \\ &amp;= \frac{1}{n - 2} \sum_{i=1}^n \esp{\{(Y_i - \esp{Y_i}) - (\hat{Y}_i - \esp{\hat{Y}_i})\}^2} \\ &amp;= \frac{1}{n - 2} \sum_{i=1}^n \left\{ \var{Y_i} + \var{\hat{Y}_i} - 2  \cov{Y_i, \hat{Y}_i} \right\}. \end{aligned}
+\]</span></p>
+<p>Or, on a par hypothèse du modèle que <span class="math inline">\(\cov{Y_i, Y_j} = \cov{\varepsilon_i, \varepsilon_j} = \delta_{ij} \sigma^2\)</span>, d’où <span class="math inline">\(\var{Y_i} = \sigma^2\)</span> et <span class="math inline">\(\var{\bar{Y}} = \sigma^2/n\)</span>. D’autre part,</p>
+<p><span class="math display">\[
+\begin{aligned} \var{\hat{Y}_i} &amp;= \var{\bar{Y} + \hat{\beta}_1 (x_i - \bar{x})} \\ &amp;= \var{\bar{Y}} + (x_i - \bar{x})^2 \var{\hat{\beta}_1} + 2 (x_i - \bar{x}) \cov{\bar{Y}, \hat{\beta}_1} \end{aligned}
+\]</span> et l’on sait que <span class="math display">\[
+\begin{aligned} \var{\hat{\beta}_1} &amp;= \frac{\sigma^2}{\sum_{i=1}^n(x_i-\bar{x})^2} \\
+\end{aligned}
+\]</span></p>
+<p>et que</p>
+<p><span class="math display">\[
+\begin{aligned} \cov{\bar{Y}, \hat{\beta}_1} &amp; = \Cov{ \frac{\sum_{i = 1}^n Y_i}{n}, \frac{\sum_{j = 1}^n (x_j - \bar{x}) Y_j}{\sum_{j = 1}^n (x_j - \bar{x})^2}} \\ &amp;= \frac{1}{n \sum_{j = 1}^n (x_j - \bar{x})^2} \sum_{i = 1}^n \sum_{j = 1}^n \cov{Y_i, (x_j - \bar{x}) Y_j} \\ &amp;= \frac{1}{n \sum_{j = 1}^n (x_j - \bar{x})^2} \sum_{i = 1}^n (x_j - \bar{x}) \var{Y_i} \\ &amp; = \frac{\sigma^2}{n \sum_{j = 1}^n (x_j - \bar{x})^2} \sum_{i = 1}^n (x_i - \bar{x}) \\ &amp; = 0,
+\end{aligned}
+\]</span> puisque <span class="math inline">\(\sum_{i=1}^n(x_i - \bar{x}) = 0\)</span>. Ainsi,</p>
+<p><span class="math display">\[
+\var{\hat{Y}_i} = \frac{\sigma^2}{n} + \frac{(x_i - \bar{x})^2 \sigma^2}{\sum_{j=1}^n (x_j - \bar{x})^2}.
+\]</span></p>
+<p>De manière similaire, on détermine que <span class="math display">\[
+\begin{aligned} \cov{Y_i, \hat{Y}_i} &amp;= \cov{Y_i, \bar{Y} + \hat{\beta}_1 (x_i - \bar{x})} \\ &amp;= \cov{Y_i, \bar{Y}} + (x_i - \bar{x}) \cov{Y_i, \hat{\beta}_1} \\ &amp;= \frac{\sigma^2}{n} + \frac{(x_i - \bar{x})^2 \sigma^2}{\sum_{j=1}^n (x_j - \bar{x})^2}.
+\end{aligned}
+\]</span></p>
+<p>Par conséquent, <span class="math display">\[
+\begin{aligned} \esp{(Y_i - \hat{Y}_i)^2} &amp;= \frac{n - 1}{n}  \sigma^2 - \frac{(x_i - \bar{x})^2 \sigma^2}{\sum_{j = 1}^n (x_j - \bar{x})^2} \\
+\end{aligned}
+\]</span></p>
+<p>et</p>
+<p><span class="math display">\[
+\begin{aligned} \sum_{i=1}^n \esp{(Y_i - \hat{Y}_i)^2} &amp; = (n - 2) \sigma^2,
+\end{aligned}
+\]</span> d’où <span class="math inline">\(\esp{\MSE} = \sigma^2\)</span>.</p>
+<p><strong>b)</strong> On a <span class="math display">\[
+\begin{aligned} \esp{\MSR} &amp;= \esp{\SSR} \\ &amp;= \Esp{\sum_{i=1}^n (\hat{Y}_i - \bar{Y})^2} \\ &amp;= \sum_{i=1}^n \esp{\hat{\beta}_1^2 (x_i - \bar{x})^2} \\ &amp;= \sum_{i=1}^n (x_i - \bar{x})^2 \esp{\hat{\beta}_1^2} \\ &amp;= \sum_{i=1}^n (x_i - \bar{x})^2 (\var{\hat{\beta}_1} + \esp{\hat{\beta}_1}^2) \\ &amp;= \sum_{i=1}^n (x_i - \bar{x})^2 \left( \frac{\sigma^2}{\sum_{j=1}^n (x_j - \bar{x})^2} + \beta_1^2 \right) \\ &amp;= \sigma^2 + \beta_1^2 \sum_{i=1}^n (x_i - \bar{x})^2. \end{aligned}
+\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-simple-effet_temperature_procede_chimique" class="level2" data-number="2.11">
+<h2 data-number="2.11" class="anchored" data-anchor-id="sec-simple-effet_temperature_procede_chimique"><span class="header-section-number">2.11</span> Effet de la température sur un procédé chimique</h2>
+<p>Le tableau ci-dessous présente les résultats de l’effet de la température sur le rendement d’un procédé chimique.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;"><span class="math inline">\(x\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(Y\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">-5</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-4</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-3</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-2</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-1</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">18</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>a)</strong> On suppose une relation linéaire simple entre la température et le rendement. Calculer les estimateurs des moindres carrés de l’ordonnée à l’origine et de la pente de cette relation.</p>
+<p><strong>b)</strong> Établir le tableau d’analyse de variance et tester si la pente est significativement différente de zéro avec un niveau de confiance de 0,95.</p>
+<p><strong>c)</strong> Quelles sont les limites de l’intervalle de confiance à 95 % pour la pente?</p>
+<p><strong>d)</strong> Y a-t-il quelque indication qu’un meilleur modèle devrait être employé?</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Éléments de réponse">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Éléments de réponse
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a)</strong> <span class="math inline">\(\hat{\beta}_0 = 9,273\)</span>, <span class="math inline">\(\hat{\beta}_1 = 1,436\)</span></p>
+<p><strong>b)</strong> <span class="math inline">\(t = 9,809\)</span></p>
+<p><strong>c)</strong> <span class="math inline">\((1,105, 1,768)\)</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution complète">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Solution complète
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a)</strong> On trouve aisément les estimateurs de la pente et de l’ordonnée à l’origine de la droite de régression: <span class="math display">\[\begin{align*}
+        \hat{\beta}_1
+        &amp;= \frac{\sum_{i=1}^n x_i Y_i - n \bar{x}\bar{Y}}{%
+          \sum_{i=1}^n x_i^2 - n \bar{x}^2} \\
+        &amp;= 1,436 \\
+        \hat{\beta}_0
+        &amp;= \bar{Y} - \hat{\beta}_1 \bar{x} \\
+        &amp;= 9,273.
+\end{align*}\]</span></p>
+<p><strong>b)</strong> Les sommes de carrés sont <span class="math display">\[
+\begin{aligned} \SST &amp;= \sum_{i=1}^n Y_i^2 - n \bar{Y}^2 \\ &amp;= 1194 - 11 (9,273)^2 \\ &amp;= 248,18 \\ \SSR &amp;= \hat{\beta}_1^2 \left( \sum_{i=1}^n x_i^2 - n \bar{x}^2 \right) \\ &amp;= (1,436)^2 (110 - 11 (0)) \\ &amp;= 226,95 \end{aligned}
+\]</span> et <span class="math inline">\(\SSE = \SST - \SSR = 21,23\)</span>. Le tableau d’analyse de variance est donc le suivant :</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Source</th>
+<th style="text-align: right;">SS</th>
+<th style="text-align: right;">d.l.</th>
+<th style="text-align: right;">MS</th>
+<th style="text-align: center;">Ratio.F</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Régression</td>
+<td style="text-align: right;">226,95</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">226,95</td>
+<td style="text-align: center;">96,21</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Erreur</td>
+<td style="text-align: right;">21,23</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">2,36</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">248,18</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Or, puisque <span class="math inline">\(t = \sqrt{F} = 9,809 &gt; t_{\alpha/2}(n-2) = t_{0,025}(9) = 2,26\)</span>, on rejette l’hypothèse <span class="math inline">\(H_0: \beta_1 = 0\)</span> soit, autrement dit, la pente est significativement différente de zéro.</p>
+<p><strong>c)</strong> Puisque la variance <span class="math inline">\(\sigma^2\)</span> est inconnue, on l’estime par <span class="math inline">\(s^2 = \MSE = 2,36\)</span>. On a alors <span class="math display">\[
+\begin{aligned} \beta_1 &amp;\in \hat{\beta}_1 \pm t_{\alpha/2}(n-2) \sqrt{\widehat{\mathrm{Var}}[\hat{\beta}_1]} \\ &amp;\in 1,436 \pm 2,26 \sqrt{\frac{2,36}{110}} \\ &amp;\in (1,105, 1,768).
+\end{aligned}
+\]</span></p>
+<p><strong>d)</strong> Le coefficient de détermination de la régression est <span class="math inline">\(R^2 = \SSR/\SST = 226,95/248,18 = 0,914\)</span>, ce qui indique que l’ajustement du modèle aux données est très bon. En outre, suite au test effectué à la partie b), on conclut que la régression est globalement significative. Toutes ces informations portent à conclure qu’il n’y a pas lieu d’utiliser un autre modèle.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-simple-ligne_de_vie" class="level2" data-number="2.12">
+<h2 data-number="2.12" class="anchored" data-anchor-id="sec-simple-ligne_de_vie"><span class="header-section-number">2.12</span> Relation entre l’espérance de vie et la longueur de la ligne de vie</h2>
+<p>Y a-t-il une relation entre l’espérance de vie et la longueur de la «ligne de vie» dans la main? Dans un article de 1974 publié dans le <em>Journal of the American Medical Association</em>, Mather et Wilson dévoilent les 50 observations contenues dans le fichier <code>lifeline.dat</code>. À la lumière de ces données, y a-t-il, selon vous, une relation entre la «ligne de vie» et l’espérance de vie? Vous pouvez utiliser l’information partielle suivante :</p>
+<p><span class="math display">\[
+\begin{aligned}
+    \sum_{i=1}^{50} x_i &amp;= 3333 &amp;
+    \sum_{i=1}^{50} x_i^2 &amp;= 231933 &amp;
+    \sum_{i=1}^{50} x_i Y_i &amp;= 30549,75 \\
+    \sum_{i=1}^{50} Y_i &amp;= 459,9 &amp;
+    \sum_{i=1}^{50} Y_i^2 &amp;= 4308,57.
+  \end{aligned}
+\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled" title="Éléments de réponse">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Éléments de réponse
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(F = 0,73\)</span>, valeur <span class="math inline">\(p\)</span>: <span class="math inline">\(0,397\)</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution complète">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Solution complète
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>On doit déterminer si la régression est significative, ce qui peut se faire à l’aide de la statistique <span class="math inline">\(F\)</span>. Or, à partir de l’information donnée dans l’énoncé, on peut calculer <span class="math display">\[
+\begin{aligned}
+      \hat{\beta}_1
+      &amp;= \frac{\sum_{i=1}^{50} x_i Y_i - 50 \bar{x} \bar{Y}}{
+        \sum_{i=1}^{50} x_i^2 - 50 \bar{x})^2} \\
+      &amp;= -0,0110 \\
+      \SST
+      &amp;= \sum_{i=1}^{50} Y_i^2 - 50 \bar{Y}^2 \\
+      &amp;= 78,4098 \\
+      \SSR
+      &amp;= \hat{\beta}_1^2 \sum_{i=1}^{50} (x_i - \bar{x})^2 \\
+      &amp;= 1,1804 \\
+      \SSE
+      &amp;= \SST - \SSR \\
+      &amp;= 77,2294 \\
+      \end{aligned}
+\]</span></p>
+<p>d’où</p>
+<p><span class="math display">\[
+\begin{aligned}
+      \MSR
+      &amp;= 1,1804 \\
+      \MSE
+      &amp;= \frac{\SSE}{50 - 2} \\
+      &amp;= 1,6089 \\
+      \end{aligned}
+\]</span></p>
+<p>et, enfin,</p>
+<p><span class="math display">\[
+\begin{aligned}
+      F
+      &amp;= \frac{\MSR}{\MSE} \\
+      &amp;= 0,7337.
+    \end{aligned}
+\]</span> Soit <span class="math inline">\(F\)</span> une variable aléatoire ayant une distribution de Fisher avec 1 et 48 degrés de liberté, soit la même distribution que la statistique <span class="math inline">\(F\)</span> sous l’hypothèse <span class="math inline">\(H_0: \beta_1 = 0\)</span>. On a que <span class="math inline">\(\Pr[F &gt; 0,7337] = 0,3959\)</span>, donc la valeur <span class="math inline">\(p\)</span> du test <span class="math inline">\(H_0:\beta_1 = 0\)</span> est <span class="math inline">\(0,3959\)</span>. Une telle valeur <span class="math inline">\(p\)</span> est généralement considérée trop élevée pour rejeter l’hypothèse <span class="math inline">\(H_0\)</span>. On ne peut donc considérer la relation entre la ligne de vie et l’espérance de vie comme significative. (Ou on ne la considère significative qu’avec un niveau de confiance de <span class="math inline">\(1 - p = 60,41\)</span> %.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-simple-demo_y_espilon" class="level2" data-number="2.13">
+<h2 data-number="2.13" class="anchored" data-anchor-id="sec-simple-demo_y_espilon"><span class="header-section-number">2.13</span> Démonstration</h2>
+<p>Dans le contexte de la régression linéaire simple, démontrer que <span class="math display">\[
+    \sum_{i=1}^n (\hat{Y}_i - \bar{Y}) \hat{\varepsilon}_i = 0.
+  \]</span></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution complète">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Solution complète
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Puisque <span class="math inline">\(\hat{Y}_i = (\bar{Y} - \hat{\beta}_1 \bar{x}) + \hat{\beta}_1 x_i = \bar{Y} + \hat{\beta}_1 (x_i - \bar{x})\)</span> et que <span class="math inline">\(\hat{\varepsilon}_i = Y_i - \hat{Y}_i = (Y_i - \bar{Y}) - \hat{\beta}_1 (x_i - \bar{x})\)</span>, alors</p>
+<p><span class="math display">\[
+\begin{aligned}
+      \sum_{i = 1}^n (\hat{Y}_i - \bar{Y}) \hat{\varepsilon}_i
+      &amp;= \hat{\beta}_1
+      \left(
+        \sum_{i=1}^n (x_i - \bar{x})(Y_i - \bar{Y}) -
+        \hat{\beta}_1 \sum_{i = 1}^n (x_i - \bar{x})^2
+      \right) \\
+      &amp; = \hat{\beta}_1
+      \left(
+        S_{xy} - \frac{S_{xy}}{S_{xx}}  S_{xx}
+      \right) \\
+      &amp; = 0.
+    \end{aligned}
+\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-simple-covariance_residus" class="level2" data-number="2.14">
+<h2 data-number="2.14" class="anchored" data-anchor-id="sec-simple-covariance_residus"><span class="header-section-number">2.14</span> Covariance entre deux résidus</h2>
+<p>On s’intéresse à la covariance entre deux résidus.</p>
+<p><strong>a)</strong> D’abord, trouver <span class="math inline">\(\cov{Y_i,\hat{Y}_j}\)</span>.</p>
+<p><strong>b)</strong> Puis, calculer <span class="math inline">\(\cov{\hat{Y}_i,\hat{Y}_j}\)</span>.</p>
+<p><strong>c)</strong> Déduire de a) et b) que <span class="math display">\[
+\cov{\hat{\varepsilon}_i,\hat{\varepsilon}_j}=-\sigma^2\left(\frac{1}{n}+\frac{(x_i-\bar{x})(x_j-\bar{x})}{S_{xx}}\right).
+\]</span></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution complète">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Solution complète
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-23" class="callout-23-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a)</strong><br>
+<span class="math display">\[
+\begin{aligned} \cov{Y_i,\hat{Y}_j}&amp;=\cov{Y_i,\hat{\beta}_0+\hat{\beta}_1x_j}\\ &amp;=\cov{Y_i,\bar{Y}-\hat{\beta}_1\bar{x}+\hat{\beta}_1x_j}\\ &amp;=\cov{Y_i,\bar{Y}}+(x_j-\bar{x})\cov{Y_i,\hat{\beta}_1} \text{ par indépendance des observations}\\ &amp;=\frac{\sigma^2}{n}+\frac{(x_j-\bar{x})}{S_{xx}}\sum_{l=1}^n(x_l-\bar{x})\cov{Y_i,Y_l}\\ &amp;=\frac{\sigma^2}{n}+\frac{(x_j-\bar{x})(x_i-\bar{x})}{S_{xx}}\sigma^2\text{ par indépendance des observations}.\\ \end{aligned}
+\]</span></p>
+<p><strong>b)</strong><br>
+<span class="math display">\[
+\begin{aligned} \cov{\hat{Y}_i,\hat{Y}_j}&amp;=\cov{\hat{\beta}_0+\hat{\beta}_1x_i,\hat{\beta}_0+\hat{\beta}_1x_j}\\ &amp;=\var{\hat{\beta}_0}+(x_i+x_j)\cov{\hat{\beta}_0,\hat{\beta}_1}+x_ix_j\var{\hat{\beta}_1}\\ &amp;=\sigma^2\left(\frac{1}{n}+\frac{\bar{x}^2}{S_{xx}}\right)-(x_i+x_j)\frac{\bar{x}\sigma^2}{S_{xx}}+x_ix_j\frac{\sigma^2}{S_{xx}}\\ &amp;=...\\ &amp;=\sigma^2\left(\frac{1}{n}+\frac{(x_j-\bar{x})(x_i-\bar{x})}{S_{xx}}\right). \end{aligned}
+\]</span></p>
+<p><strong>c)</strong><br>
+<span class="math display">\[
+\begin{aligned} \cov{\hat{\varepsilon}_i,\hat{\varepsilon}_j}&amp;=\cov{Y_i-\hat{Y}_i,Y_j-\hat{Y}_j}\\ &amp;=\cov{Y_i,Y_j}-\cov{Y_i,\hat{Y}_j}-\cov{\hat{Y}_i,Y_j}+\cov{\hat{Y}_i,\hat{Y}_j}\\ &amp;=0-2\sigma^2\left(\frac{1}{n}+\frac{(x_j-\bar{x})(x_i-\bar{x})}{S_{xx}}\right)+\sigma^2\left(\frac{1}{n}+\frac{(x_j-\bar{x})(x_i-\bar{x})}{S_{xx}}\right)\\ &amp;=-\sigma^2\left(\frac{1}{n}+\frac{(x_i-\bar{x})(x_j-\bar{x})}{S_{xx}}\right). \end{aligned}
+\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-simple-anova_table" class="level2" data-number="2.15">
+<h2 data-number="2.15" class="anchored" data-anchor-id="sec-simple-anova_table"><span class="header-section-number">2.15</span> Analyse de variance avec un tableau de données</h2>
+<p>On vous donne les observations et les résultats ci-dessous.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><span class="math inline">\(i\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(x_i\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(Y_i\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">4</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><span class="math display">\[
+\begin{aligned}
+        \sum_{i=1}^8 x_i &amp;= 32 &amp;
+        \sum_{i=1}^8 x_i^2 &amp;= 156 \\
+        \sum_{i=1}^8 Y_i &amp;= 40 &amp;
+        \sum_{i=1}^8 Y_i^2 &amp;= 214 \\
+        \sum_{i=1}^8 x_i Y_i &amp;= 146 \\
+      \end{aligned}
+\]</span></p>
+<p><strong>a)</strong> Calculer les coefficients de la régression <span class="math inline">\(Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i\)</span>, avec <span class="math inline">\(\var{\varepsilon_i} = \sigma^2\)</span>.</p>
+<p><strong>b)</strong> Construire le tableau d’analyse de variance de la régression en a) et calculer le coefficient de détermination <span class="math inline">\(R^2\)</span>. Interpréter les résultats.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Éléments de réponse">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Éléments de réponse
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-24" class="callout-24-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a)</strong> <span class="math inline">\(\hat{\beta}_0=7\)</span> et <span class="math inline">\(\hat{\beta}_1=-0,5\)</span></p>
+<p><strong>b)</strong> SST = 14, SSR = 7, SSE = 7, MSR = 7, MSE = 7/6, <span class="math inline">\(F\)</span> = 6, <span class="math inline">\(R^2\)</span> = 0,5</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution complète">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Solution complète
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-25" class="callout-25-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a)</strong> Nous avons le modèle de régression usuel. Les coefficients de la régression sont <span class="math display">\[
+\begin{aligned} \hat{\beta}_1 &amp;=\frac{\sum_{i=1}^8 x_iY_i-n\bar{x}\bar{Y}}{\sum_{i=1}^8 x_i^2-n\bar{x}^2} \\ &amp;=\frac{146-(8)(32/8)(40/8)}{156-(8)(32/8)^2}  \\ &amp;=-0,5 \\ \end{aligned}
+\]</span></p>
+<p>et</p>
+<p><span class="math display">\[
+\begin{aligned} \hat{\beta}_0 &amp;=\bar{Y}-\hat{\beta}_1\bar{x} \\ &amp;=(40/8)-(-0,5)(32/8) \\ &amp;=7. \end{aligned}
+\]</span></p>
+<p><strong>b)</strong> Les sommes de carrés sont <span class="math display">\[
+\begin{aligned} \SST &amp;=\sum_{i=1}^8(Y_i-\bar{Y})^2 \\ &amp;=\sum_{i=1}^8Y_i^2-n\bar{Y}^2 \\ &amp;=214-(8)(40/8)^2 \\ &amp;=14, \\ \SSR &amp;=\sum_{i=1}^8(\hat{Y}_i-\bar{Y})^2 \\ &amp;=\sum_{i=1}^8\hat{\beta}_1^2(x_i-\bar{x})^2 \\ &amp;=\hat{\beta}_1^2(\sum_{i=1}^8x_i^2-n\bar{x}^2) \\ &amp;=(-1/2)^2(156-(8)(32/8)^2) \\ &amp;=7. \end{aligned}
+\]</span> et <span class="math inline">\(\SSE = \SST - \SSR = 14 - 7 = 7\)</span>. Par conséquent, <span class="math inline">\(R^2 = SSR/SST = 7/14 = 0,5\)</span>, donc la régression explique 50 % de la variation des <span class="math inline">\(Y_i\)</span> par rapport à leur moyenne <span class="math inline">\(\bar{Y}\)</span>. Le tableau ANOVA est le suivant :</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>anova_tab <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Source =</span> <span class="fu">c</span>(<span class="st">"Régression"</span>, <span class="st">"Erreur"</span>, <span class="st">"Total"</span>),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">SS     =</span> <span class="fu">c</span>(<span class="st">"7"</span>, <span class="st">"7"</span>, <span class="st">"14"</span>),</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">d.l.</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"6"</span>, <span class="st">"7"</span>),</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">MS     =</span> <span class="fu">c</span>(<span class="st">"7"</span>, <span class="st">"7/6"</span>, <span class="st">""</span>),</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Ratio F</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"6"</span>, <span class="st">""</span>, <span class="st">""</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  anova_tab,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">align =</span> <span class="fu">c</span>(<span class="st">"l"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Source</th>
+<th style="text-align: center;">SS</th>
+<th style="text-align: center;">d.l.</th>
+<th style="text-align: center;">MS</th>
+<th style="text-align: center;">Ratio.F</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Régression</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Erreur</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">7/6</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-simple-poids_femmes30_39_ans" class="level2" data-number="2.16">
+<h2 data-number="2.16" class="anchored" data-anchor-id="sec-simple-poids_femmes30_39_ans"><span class="header-section-number">2.16</span> Poids moyen des femmes américaines de 30 à 39 ans</h2>
+<p>Le jeu de données <code>women.dat</code>, inclus dans R, contient les tailles et les poids moyens de femmes américaines âgées de 30 à 39 ans.</p>
+<p>Importer les données dans R avec <code>data(women)</code>, puis répondre aux questions suivantes.</p>
+<p><strong>a)</strong> Établir graphiquement une relation entre la taille (<em>height</em>) et le poids (<em>weight</em>) des femmes.</p>
+<p><strong>b)</strong> À la lumière du graphique en a), proposer un modèle de régression approprié et en estimer les paramètres.</p>
+<p><strong>c)</strong> Ajouter la droite de régression calculée en b) au graphique. Juger visuellement de l’ajustement du modèle.</p>
+<p><strong>d)</strong> Obtenir, à l’aide de la fonction <code>summary</code> la valeur du coefficient de détermination <span class="math inline">\(R^2\)</span>. La valeur est-elle conforme à la conclusion faite en c)?</p>
+<p><strong>e)</strong> Calculer les statistiques <span class="math inline">\(\SST\)</span>, <span class="math inline">\(\SSR\)</span> et <span class="math inline">\(\SSE\)</span>, puis vérifier que <span class="math inline">\(\SST = \SSR + \SSE\)</span>. Calculer ensuite la valeur de <span class="math inline">\(R^2\)</span> et la comparer à celle obtenue en d).</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Éléments de réponse">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-26-contents" aria-controls="callout-26" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Éléments de réponse
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-26" class="callout-26-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a)</strong> <span class="math inline">\(\hat{\beta}_0 = -87.5167\)</span> et <span class="math inline">\(\hat{\beta}_1 = 3.45\)</span></p>
+<p><strong>d)</strong> <span class="math inline">\(R^2 = 0.991\)</span></p>
+<p><strong>e)</strong> <span class="math inline">\(\SSR = 3332.7\)</span> <span class="math inline">\(\SSE = 30.23\)</span> et <span class="math inline">\(\SST = 3362.93\)</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution complète">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-27-contents" aria-controls="callout-27" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Solution complète
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-27" class="callout-27-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a)</strong> Voir la figure <a href="#fig-simple-women" class="quarto-xref"><span>2.3</span></a>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(women)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(weight <span class="sc">~</span> height, <span class="at">data =</span> women, <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-simple-women" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simple-women-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="simple_files/figure-html/fig-simple-women-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simple-women-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.3: Relation entre la taille et le poids moyen des femmes américaines âgées de 30 à 39 ans.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>b)</strong> Le graphique montre qu’un modèle linéaire serait excellent. On estime les paramètres de ce modèle avec <code>lm</code> :</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>(fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(weight <span class="sc">~</span> height, <span class="at">data =</span> women)) </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = weight ~ height, data = women)
+
+Coefficients:
+(Intercept)       height  
+     -87.52         3.45  </code></pre>
+</div>
+</div>
+<p><strong>c)</strong> Voir la figure <a href="#fig-simple-women2" class="quarto-xref"><span>2.4</span></a>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(fit)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(weight <span class="sc">~</span> height, <span class="at">data =</span> women, <span class="at">pch =</span> <span class="dv">16</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(fit)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-simple-women2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simple-women2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="simple_files/figure-html/fig-simple-women2-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simple-women2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.4: Relation entre les données women et droite de régression linéaire simple
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>On constate que l’ajustement est excellent.</p>
+<p><strong>d)</strong> Le résultat de la fonction <code>summary</code> appliquée au modèle <code>fit</code> est le suivant:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit) </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = weight ~ height, data = women)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.7333 -1.1333 -0.3833  0.7417  3.1167 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -87.51667    5.93694  -14.74 1.71e-09 ***
+height        3.45000    0.09114   37.85 1.09e-14 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.525 on 13 degrees of freedom
+Multiple R-squared:  0.991, Adjusted R-squared:  0.9903 
+F-statistic:  1433 on 1 and 13 DF,  p-value: 1.091e-14</code></pre>
+</div>
+</div>
+<p>Le coefficient de détermination est donc <span class="math inline">\(R^2 = 0.991\)</span> %, ce qui est pès de 1 et confirme donc l’excellent ajustement du modèle évoqué en c).</p>
+<p><strong>e)</strong> On a</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(women) </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>SST <span class="ot">&lt;-</span> <span class="fu">sum</span>((weight <span class="sc">-</span> <span class="fu">mean</span>(weight))<span class="sc">^</span><span class="dv">2</span>) </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>SSR <span class="ot">&lt;-</span> <span class="fu">sum</span>((<span class="fu">fitted</span>(fit) <span class="sc">-</span> <span class="fu">mean</span>(weight))<span class="sc">^</span><span class="dv">2</span>) </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>SSE <span class="ot">&lt;-</span> <span class="fu">sum</span>((weight <span class="sc">-</span> <span class="fu">fitted</span>(fit))<span class="sc">^</span><span class="dv">2</span>) </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(SST, SSR <span class="sc">+</span> SSE) </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">summary</span>(fit)<span class="sc">$</span>r.squared, SSR<span class="sc">/</span>SST) </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-simple-transfos_lineaires_estimateurs" class="level2" data-number="2.17">
+<h2 data-number="2.17" class="anchored" data-anchor-id="sec-simple-transfos_lineaires_estimateurs"><span class="header-section-number">2.17</span> Effet de transformations linéaires sur les estimateurs</h2>
+<p>Supposons que les observations <span class="math inline">\((x_1, Y_1), \dots, (x_n, Y_n)\)</span> sont soumises à une transformation linéaire, c’est-à-dire que <span class="math inline">\(Y_i\)</span> devient <span class="math inline">\(Y_i^\prime = a + b Y_i\)</span> et que <span class="math inline">\(x_i\)</span> devient <span class="math inline">\(x_i^\prime = c + d x_i\)</span>, <span class="math inline">\(i = 1, \dots, n\)</span>.</p>
+<p><strong>a)</strong> Trouver quel sera l’effet sur les estimateurs des moindres carrés des paramètres <span class="math inline">\(\beta_0\)</span> et <span class="math inline">\(\beta_1\)</span> dans le modèle de régression linéaire <span class="math inline">\(Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i\)</span>.</p>
+<p><strong>b)</strong> Démontrer que le coefficient de détermination <span class="math inline">\(R^2\)</span> n’est pas affecté par la transformation linéaire.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Éléments de réponse">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-28-contents" aria-controls="callout-28" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Éléments de réponse
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-28" class="callout-28-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a)</strong> <span class="math inline">\(\hat{\beta}_1^\prime = (b/d) \hat{\beta}_1\)</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution complète">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-29-contents" aria-controls="callout-29" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Solution complète
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-29" class="callout-29-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a)</strong> Il faut exprimer <span class="math inline">\(\hat{\beta}_0^\prime\)</span> et <span class="math inline">\(\hat{\beta}_1^\prime\)</span> en fonction de <span class="math inline">\(\hat{\beta}_0\)</span> et <span class="math inline">\(\hat{\beta}_1\)</span>. Pour ce faire, on trouve d’abord une expression pour chacun des éléments qui entrent dans la définition de <span class="math inline">\(\hat{\beta}_1^\prime\)</span>. Tout d’abord,</p>
+<p><span class="math display">\[
+\begin{aligned} \bar{x}^\prime &amp;= \frac{1}{n} \sum_{i=1}^n x_i^\prime \\ &amp;= \frac{1}{n} \sum_{i=1}^n (c + d x_i) \\ &amp;= c + d \bar{x},
+\end{aligned}
+\]</span></p>
+<p>et, de manière similaire, <span class="math inline">\(\bar{Y}^\prime = a + b \bar{Y}\)</span>.</p>
+<p>Ensuite,</p>
+<p><span class="math display">\[
+\begin{aligned} S_{xx}^\prime &amp;= \sum_{i=1}^n (x_i^\prime - \bar{x}^\prime)^2 \\ &amp;= \sum_{i=1}^n (c + d x_i - c - d \bar{x})^2 \\ &amp;= d^2 S_{xx} \end{aligned}
+\]</span></p>
+<p>et <span class="math inline">\(S_{yy}^\prime = b^2 S_{yy}\)</span>, <span class="math inline">\(S_{xy}^\prime = bd S_{xy}\)</span>.</p>
+<p>Par conséquent, <span class="math display">\[
+\begin{aligned} \hat{\beta}_1^\prime &amp;= \frac{S_{xy}^\prime}{S_{xx}^\prime} \\ &amp;= \frac{bd S_{xy}}{d^2 S_{xx}} \\ &amp;= \frac{b}{d} \hat{\beta}_1 \\ \end{aligned}
+\]</span></p>
+<p>et</p>
+<p><span class="math display">\[
+\begin{aligned} \hat{\beta}_0^\prime &amp;= \bar{Y}^\prime - \hat{\beta}_1^\prime \bar{x}^\prime \\ &amp;= a + b \bar{Y} - \frac{b}{d}  \hat{\beta}_1 (c + d \bar{x}) \\ &amp;= a - \frac{bc}{d}  \hat{\beta}_1 + b (\bar{Y} - \hat{\beta}_1 \bar{x}) \\ &amp;= a - \frac{bc}{d}  \hat{\beta}_1 + b \hat{\beta}_0.
+\end{aligned}
+\]</span></p>
+<p><strong>b)</strong> Tout d’abord, on établit que <span class="math display">\[
+\begin{aligned} R^2 &amp;= \frac{\SSR}{\SST} \\ &amp;= \frac{\sum_{i=1}^n (\hat{Y_i} - \bar{Y})^2}{\sum_{i=1}^n (Y_i - \bar{Y})^2} \\ &amp;= \hat{\beta}_1^2  \frac{\sum_{i=1}^n (x_i - \bar{x})^2}{\sum_{i=1}^n (Y_i - \bar{Y})^2} \\ &amp;= \hat{\beta}_1^2  \frac{S_{xx}}{S_{yy}}.
+\end{aligned}
+\]</span> Maintenant, avec les résultats obtenus en a), on démontre directement que <span class="math display">\[
+\begin{aligned} (R^2)^\prime &amp;= (\hat{\beta}_1^\prime)^2 \frac{S_{xx}^\prime}{S_{yy}^\prime} \\ &amp;= \left( \frac{b}{d} \right)^2  \hat{\beta}_1^2  \frac{d^2 S_{xx}}{b^2 S_{yy}} \\ &amp;= \hat{\beta}_1^2  \frac{S_{xx}}{S_{yy}} \\ &amp;= R^2.
+\end{aligned}
+\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-simple-ajout_point_reg_lin_simple_origine" class="level2" data-number="2.18">
+<h2 data-number="2.18" class="anchored" data-anchor-id="sec-simple-ajout_point_reg_lin_simple_origine"><span class="header-section-number">2.18</span> Ajout d’un nouveau point</h2>
+<p>On sait depuis l’exercice <a href="#sec-simple-estimateurs_moindres_carres_origine" class="quarto-xref"><span>2.3</span></a> que pour le modèle de régression linéaire simple passant par l’origine <span class="math inline">\(Y_i = \beta x_i + \varepsilon_i\)</span>, l’estimateur des moindres carrés de <span class="math inline">\(\beta\)</span> est</p>
+<p><span class="math display">\[
+\hat{\beta} = \frac{\sum_{i = 1}^n x_i Y_i}{\sum_{i = 1}^n x_i^2}.
+\]</span> Démontrer que l’on peut obtenir ce résultat en utilisant la formule pour <span class="math inline">\(\hat{\beta}_1\)</span> dans la régression linéaire simple usuelle (<span class="math inline">\(Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i\)</span>) en ayant d’abord soin d’ajouter aux données un <span class="math inline">\((n + 1)\)</span>ème point <span class="math inline">\((m\bar{x},  m\bar{Y})\)</span>, où <span class="math display">\[
+m = \frac{n}{\sqrt{n + 1} - 1} = \frac{n}{a}.
+\]</span></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution complète">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-30-contents" aria-controls="callout-30" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Solution complète
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-30" class="callout-30-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Considérons un modèle de régression usuel avec l’ensemble de données <span class="math inline">\((x_1, Y_1), \dots, (x_n, Y_n), (m \bar{x}, m \bar{Y})\)</span>, où <span class="math inline">\(\bar{x} = n^{-1} \sum_{i = 1}^n x_i\)</span>, <span class="math inline">\(\bar{Y} = n^{-1}
+    \sum_{i = 1}^n Y_i\)</span>, <span class="math inline">\(m = n/a\)</span> et <span class="math inline">\(a = \sqrt{n + 1} - 1\)</span>. On définit <span class="math display">\[
+\begin{aligned}
+      \bar{x}^\prime
+      &amp;= \frac{1}{n + 1} \sum_{i = 1}^{n + 1} x_i \\
+      &amp;= \frac{1}{n + 1} \sum_{i = 1}^n x_i + \frac{m}{n + 1} \bar{x} \\
+      &amp;= k \bar{x} \\
+\end{aligned}
+\]</span></p>
+<p>et, de manière similaire,</p>
+<p><span class="math display">\[
+\begin{aligned}
+      \bar{Y}^\prime
+      &amp;= k \bar{Y},
+      \end{aligned}
+\]</span></p>
+<p>où</p>
+<p><span class="math display">\[
+\begin{aligned}
+      k
+      &amp;= \frac{n + m}{n + 1} \\
+      &amp;= \frac{n (a + 1)}{a (n + 1)}.
+    \end{aligned}
+\]</span> L’expression pour l’estimateur des moindres carrés de la pente de la droite de régression pour cet ensemble de données est <span class="math display">\[
+\begin{aligned}
+      \hat{\beta}_1
+      &amp;= \frac{\sum_{i = 1}^{n + 1} x_i Y_i - (n + 1)
+        \bar{x}^\prime \bar{Y}^\prime}{
+        \sum_{i = 1}^{n + 1} x_i^2 - (n + 1) (\bar{x}^\prime)^2} \\
+      &amp;= \frac{\sum_{i = 1}^n x_i Y_i + m^2 \bar{x} \bar{Y} - (n + 1)
+        k^2 \bar{x} \bar{Y}}{
+        \sum_{i = 1}^n x_i^2 + m^2 \bar{x}^2 - (n + 1) k^2 \bar{x}^2}.
+    \end{aligned}
+\]</span> Or, <span class="math display">\[
+\begin{aligned}
+      m^2 - k^2 (n + 1)
+      &amp;= \frac{n^2}{a^2} - \frac{n^2 (a + 1)^2}{a^2 (n + 1)} \\
+      &amp;= \frac{n^2 (n + 1) - n^2 (n + 1)}{a^2 (n + 1)} \\
+      &amp;= 0.
+    \end{aligned}
+\]</span> Par conséquent, <span class="math display">\[
+\begin{aligned}
+      \hat{\beta}_1
+      &amp;= \frac{\sum_{i = 1}^n x_i Y_i}{\sum_{i = 1}^n x_i^2} \\
+      &amp;= \hat{\beta}.
+    \end{aligned}
+\]</span> Interprétation : en ajoutant un point bien spécifique à n’importe quel ensemble de données, on peut s’assurer que la pente de la droite de régression sera la même que celle d’un modèle passant par l’origine. Voir les figures suivantes pour une illustration du phénomène.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-ajout-point-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ajout-point-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="simple_files/figure-html/fig-ajout-point-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ajout-point-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.5: Illustration de l’effet de l’ajout d’un point spécial à un ensemble de données. À gauche, la droite de régression usuelle. À droite, le même ensemble de points avec le point spécial ajouté (cercle plein), la droite de régression avec ce nouveau point (ligne pleine) et la droite de régression passant par l’origine (ligne pointillée). Les deux droites sont parallèles.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-ajout-point-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ajout-point-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="simple_files/figure-html/fig-ajout-point-2.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ajout-point-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.6: Illustration de l’effet de l’ajout d’un point spécial à un ensemble de données. À gauche, la droite de régression usuelle. À droite, le même ensemble de points avec le point spécial ajouté (cercle plein), la droite de régression avec ce nouveau point (ligne pleine) et la droite de régression passant par l’origine (ligne pointillée). Les deux droites sont parallèles.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-simple-boston_housing" class="level2" data-number="2.19">
+<h2 data-number="2.19" class="anchored" data-anchor-id="sec-simple-boston_housing"><span class="header-section-number">2.19</span> Marché immobilier dans la région métropolitaine de Boston</h2>
+<p>Le fichier <code>house.dat</code> contient diverses données relatives à la valeur des maisons dans la région métropolitaine de Boston. La signification des différentes variables se trouve dans le fichier. Comme l’ensemble de données est plutôt grand (506 observations pour chacune des 13 variables), répondre aux questions suivantes à l’aide de R.</p>
+<p><strong>a)</strong> Déterminer à l’aide de graphiques à laquelle des variables suivantes le prix médian des maisons (<code>medv</code>) est le plus susceptible d’être lié par une relation linéaire: le nombre moyen de pièces par immeuble (<code>rm</code>), la proportion d’immeubles construits avant 1940 (<code>age</code>), le taux de taxe foncière par 10000 $ d’évaluation (<code>tax</code>) ou le pourcentage de population sous le seuil de la pauvreté (<code>lstat</code>).</p>
+<p><em>Astuce</em> : en supposant que les données se trouvent dans le <em>data frame</em> <code>house</code>, essayer les commandes suivantes :</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(house) </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(house) </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">data.frame</span>(rm, age, lstat, tax, medv)) </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">detach</span>(house) </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(medv <span class="sc">~</span> rm <span class="sc">+</span> age <span class="sc">+</span> lstat <span class="sc">+</span> tax, <span class="at">data =</span> house) </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p><strong>b)</strong> Faire l’analyse complète de la régression entre le prix médian des maisons et la variable choisie en a), c’est-à-dire: calcul de la droite de régression, tests d’hypothèses sur les paramètres afin de savoir si la régression est significative, mesure de la qualité de l’ajustement et calcul de l’intervalle de confiance de la régression.</p>
+<p><strong>c)</strong> Répéter l’exercice en b) en utilisant une variable ayant été rejetée en a). Observer les différences dans les résultats.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution complète">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-31-contents" aria-controls="callout-31" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Solution complète
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-31" class="callout-31-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a)</strong> Les données du fichier <code>house.dat</code> sont importées dans R avec la commande</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>house <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"house.dat"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>) </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Les figures suivantes contiennent les graphiques de <code>medv</code> en fonction de chacune des variables <code>rm</code>, <code>age</code>, <code>lstat</code> et <code>tax</code>. Le meilleur choix de variable explicative pour le prix médian semble être le nombre moyen de pièces par immeuble, <code>rm</code>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-simple-house-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simple-house-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="simple_files/figure-html/fig-simple-house-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simple-house-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.7: Relation entre la variable medv et les variables rm, age, lstat et tax des données house.dat
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-simple-house-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simple-house-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="simple_files/figure-html/fig-simple-house-2.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simple-house-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.8: Relation entre la variable medv et les variables rm, age, lstat et tax des données house.dat
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-simple-house-3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simple-house-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="simple_files/figure-html/fig-simple-house-3.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simple-house-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.9: Relation entre la variable medv et les variables rm, age, lstat et tax des données house.dat
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-simple-house-4" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simple-house-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="simple_files/figure-html/fig-simple-house-4.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simple-house-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.10: Relation entre la variable medv et les variables rm, age, lstat et tax des données house.dat
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>b)</strong> Les résultats ci-dessous ont été obtenus avec R.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(medv <span class="sc">~</span> rm, <span class="at">data =</span> house) </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit1) </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = medv ~ rm, data = house)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-23.346  -2.547   0.090   2.986  39.433 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  -34.671      2.650  -13.08   &lt;2e-16 ***
+rm             9.102      0.419   21.72   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.616 on 504 degrees of freedom
+Multiple R-squared:  0.4835,    Adjusted R-squared:  0.4825 
+F-statistic: 471.8 on 1 and 504 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>On peut voir que tant l’ordonnée à l’origine que la pente sont très significativement différentes de zéro. La régression est donc elle-même significative. Cependant, le coefficient de détermination n’est que de <span class="math inline">\(R^2 = 0.4835\)</span>, ce qui indique que d’autres facteurs pourraient expliquer la variation dans <code>medv</code>.</p>
+<p>On calcule les bornes de l’intervalle de confiance de la régression avec la fonction <code>predict</code> :</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>pred.ci <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit1, <span class="at">interval =</span> <span class="st">"confidence"</span>, <span class="at">level =</span> <span class="fl">0.95</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>La droite de régression et ses bornes d’intervalle de confiance inférieure et supérieure sont illustrée à la figure <a href="#fig-simple-house2" class="quarto-xref"><span>2.11</span></a>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>ord <span class="ot">&lt;-</span> <span class="fu">order</span>(house<span class="sc">$</span>rm)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(medv <span class="sc">~</span> rm, <span class="at">data =</span> house, <span class="at">ylim =</span> <span class="fu">range</span>(pred.ci))</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">matplot</span>(house<span class="sc">$</span>rm[ord], pred.ci[ord,],</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>), <span class="at">lwd=</span> <span class="dv">2</span>,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-simple-house2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simple-house2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="simple_files/figure-html/fig-simple-house2-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simple-house2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.11: Résultat de la régression de la variable rm sur la variable medv des données house.dat
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>c)</strong> On reprend la même démarche, mais cette fois avec la variable <code>age</code> :</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(medv <span class="sc">~</span> age, <span class="at">data =</span> house) </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2) </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = medv ~ age, data = house)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-15.097  -5.138  -1.958   2.397  31.338 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 30.97868    0.99911  31.006   &lt;2e-16 ***
+age         -0.12316    0.01348  -9.137   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 8.527 on 504 degrees of freedom
+Multiple R-squared:  0.1421,    Adjusted R-squared:  0.1404 
+F-statistic: 83.48 on 1 and 504 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>pred.ci <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit2, <span class="at">interval =</span> <span class="st">"confidence"</span>, <span class="at">level =</span> <span class="fl">0.95</span>) </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>La régression est encore une fois très significative. Cependant, le <span class="math inline">\(R^2\)</span> est encore plus faible qu’avec la variable <code>rm</code>. Les variables <code>rm</code> et <code>age</code> contribuent donc chacune à expliquer les variations de la variable <code>medv</code> (et <code>rm</code> mieux que <code>age</code>), mais aucune ne sait le faire seule de manière satisfaisante. La droite de régression et l’intervalle de confiance de celle-ci sont reproduits à la figure <a href="#fig-simple-house3" class="quarto-xref"><span>2.12</span></a>. On constate que l’intervalle de confiance est plus large qu’en b).</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>ord <span class="ot">&lt;-</span> <span class="fu">order</span>(house<span class="sc">$</span>age)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(medv <span class="sc">~</span> age, <span class="at">data =</span> house, <span class="at">ylim =</span> <span class="fu">range</span>(pred.ci))</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">matplot</span>(house<span class="sc">$</span>age[ord], pred.ci[ord,],</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>), <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-simple-house3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simple-house3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="simple_files/figure-html/fig-simple-house3-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simple-house3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.12: Résultat de la régression de la variable age sur la variable medv dans les données house.dat
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-simple-consommation_carburant" class="level2" data-number="2.20">
+<h2 data-number="2.20" class="anchored" data-anchor-id="sec-simple-consommation_carburant"><span class="header-section-number">2.20</span> Consommation de carburant d’une automobile</h2>
+<p>On veut prévoir la consommation de carburant d’une automobile à partir de ses différentes caractéristiques physiques, notamment le type du moteur. Le fichier <code>carburant.dat</code> contient des données tirées de <em>Consumer Reports</em> pour 38 automobiles des années modèle 1978 et 1979. Les caractéristiques fournies sont</p>
+<ul>
+<li><p><code>mpg</code>: consommation de carburant en milles au gallon;</p></li>
+<li><p><code>nbcyl</code>: nombre de cylindres (remarquer la forte représentation des 8 cylindres!);</p></li>
+<li><p><code>cylindree</code>: cylindrée du moteur, en pouces cubes;</p></li>
+<li><p><code>cv</code>: puissance en chevaux vapeurs;</p></li>
+<li><p><code>poids</code>: poids de la voiture en milliers de livres.</p></li>
+</ul>
+<p>Utiliser R pour faire l’analyse ci-dessous.</p>
+<p><strong>a)</strong> Convertir les données du fichier en unités métriques, le cas échéant. Par exemple, la consommation de carburant s’exprime en <span class="math inline">\(\ell/100\)</span> km. Or, un gallon américain correspond à 3,785 litres et 1 mille à 1,6093 kilomètre. La consommation en litres aux 100 km s’obtient donc en divisant 235,1954 par la consommation en milles au gallon. De plus, 1 livre correspond à 0,45455 kilogramme.</p>
+<p><strong>b)</strong> Établir une relation entre la consommation de carburant d’une voiture et son poids. Vérifier la qualité de l’ajustement du modèle et si le modèle est significatif.</p>
+<p><strong>c)</strong> Trouver un intervalle de confiance à 95 % pour la consommation de carburant d’une voiture de 1350 kg.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Éléments de réponse">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-32-contents" aria-controls="callout-32" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Éléments de réponse
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-32" class="callout-32-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>b)</strong> <span class="math inline">\(R^2 = 0.858\)</span> et <span class="math inline">\(F = 217.5093\)</span></p>
+<p><strong>c)</strong> <span class="math inline">\(10.5669  \pm 2.135\)</span></p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution complète">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-33-contents" aria-controls="callout-33" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Solution complète
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-33" class="callout-33-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a)</strong> On importe les données dans R, puis on effectue les conversions demandées. La variable <code>consommation</code> contient la consommation des voitures en <span class="math inline">\(\ell/100\)</span> km et la variable <code>poids</code> le poids en kilogrammes.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>carburant <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"carburant.dat"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>consommation <span class="ot">&lt;-</span> <span class="fl">235.1954</span><span class="sc">/</span>carburant<span class="sc">$</span>mpg </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>poids <span class="ot">&lt;-</span> carburant<span class="sc">$</span>poids <span class="sc">*</span> <span class="fl">0.45455</span> <span class="sc">*</span> <span class="dv">1000</span> </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p><strong>b)</strong> La fonction <code>summary</code> fournit l’information essentielle pour juger de la validité et de la qualité du modèle :</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(consommation <span class="sc">~</span> poids) </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit) </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = consommation ~ poids)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-2.07123 -0.68380  0.01488  0.44802  2.66234 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -0.0146530  0.7118445  -0.021    0.984    
+poids        0.0078382  0.0005315  14.748   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.039 on 36 degrees of freedom
+Multiple R-squared:  0.858, Adjusted R-squared:  0.854 
+F-statistic: 217.5 on 1 and 36 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>Le modèle est donc le suivant : <span class="math inline">\(Y_i = -0.0147 + 0.0078 x_i + \varepsilon_i\)</span>, <span class="math inline">\(\varepsilon_i \sim N(0, 1.0387^2)\)</span>, où <span class="math inline">\(Y_i\)</span> est la consommation en litres aux 100 kilomètres et <span class="math inline">\(x_i\)</span> le poids en kilogrammes. La faible valeur <span class="math inline">\(p\)</span> du test <span class="math inline">\(F\)</span> indique une régression très significative. De plus, le <span class="math inline">\(R^2\)</span> de 0.858 confirme que l’ajustement du modèle est assez bon.</p>
+<p><strong>c)</strong> On veut calculer un intervalle de confiance pour la consommation en carburant prévue d’une voiture de 1350 kg. On obtient, avec la fonction <code>predict</code> :</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">poids =</span> <span class="dv">1350</span>), <span class="at">interval =</span> <span class="st">"prediction"</span>) </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>      fit      lwr     upr
+1 10.5669 8.432089 12.7017</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-simple-transfo_heteroscedasticite" class="level2" data-number="2.21">
+<h2 data-number="2.21" class="anchored" data-anchor-id="sec-simple-transfo_heteroscedasticite"><span class="header-section-number">2.21</span> Transformation pour régler un problème d’hétéroscedasticité</h2>
+<p>Dans un graphiques des résidus en fonction des valeurs prédites, on observe de l’hétéroscédasticité. Après une analyse plus poussée, on note que la variance de <span class="math inline">\(\hat{\varepsilon}_i\)</span> est approximativement proportionnelle à <span class="math inline">\(E[Y_i]^4\)</span> . Proposer une transformation <span class="math inline">\(g\)</span> de la variable réponse qui permettra de stabiliser la variance.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution complète">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-34-contents" aria-controls="callout-34" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Solution complète
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-34" class="callout-34-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Utiliser l’approximation de Taylor de premier ordre pour montrer que la variance de <span class="math inline">\(g(Y)=1/Y\)</span> est approximativement constante.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-simple-bacteroes" class="level2" data-number="2.22">
+<h2 data-number="2.22" class="anchored" data-anchor-id="sec-simple-bacteroes"><span class="header-section-number">2.22</span> Population bactérienne</h2>
+<p>Les données suivantes présentent le nombre moyen de bactéries vivantes dans une boîte de conserve de nourriture et le temps (en minutes) d’exposition à une chaleur de <span class="math inline">\(300^{o}\)</span>F. </p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Nombre.de.bactéries</th>
+<th style="text-align: center;">Temps.d.exposition..min.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">175</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">108</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">95</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">82</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">71</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">49</td>
+<td style="text-align: center;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">31</td>
+<td style="text-align: center;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">28</td>
+<td style="text-align: center;">9</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">17</td>
+<td style="text-align: center;">10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">11</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">12</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><strong>a)</strong> Tracer un nuage de points des données. Est-ce qu’un modèle de régression linéaire semble adéquat?</p>
+<p><strong>b)</strong> Ajuster aux données un modèle de régression linéaire. Calculer les statistiques sommaires et produire les graphiques de résidus. Interpréter les résultats. Quelles sont vos conclusions par rapport à la validité du modèle de régression?</p>
+<p><strong>c)</strong> Identifier une transformation pour ces données afin d’utiliser adéquatement les méthodes de régression. Ajuster ce nouveau modèle et tester la validité de la régression.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution complète">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-35-contents" aria-controls="callout-35" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Astuce</span>Solution complète
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-35" class="callout-35-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a)</strong> La figure <a href="#fig-simple-bact" class="quarto-xref"><span>2.13</span></a> montre le nuage de points du nombre de bactéries en fonction du temps d’exposition en minutes. Le graphique montre qu’une ligne droite pourrait être un modèle raisonnable, mais un meilleur modèle pourrait capter la courbe. En fait, le graphique montre que, lorsque la nourriture en canne est exposée à une température de <span class="math inline">\(300^{o}\)</span> F pour une longue période, il n’y a pas de bactérie restante. Cela suggère qu’un modèle qui capture le comportement asymptotique du nombre de bactéries quand le nombre de minutes d’exposition augmente serait meilleur. Un modèle linéaire continuerait de faire diminuer le nombre de bactéries, menant éventuellement à des valeurs négatives (ce qui n’a pas de sens dans le contexte).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-simple-bact" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simple-bact-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="simple_files/figure-html/fig-simple-bact-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simple-bact-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.13: Nuage de points du nombre de bactéries en fonction du temps d’exposition en minutes
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>b)</strong> On ajuste un modèle linéaire simple avec les données en R. Le sommaire du modèle est le suivant :</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(bact <span class="sc">~</span> min) </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit1) </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = bact ~ min)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-17.323  -9.890  -7.323   2.463  45.282 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   142.20      11.26  12.627 1.81e-07 ***
+min           -12.48       1.53  -8.155 9.94e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 18.3 on 10 degrees of freedom
+Multiple R-squared:  0.8693,    Adjusted R-squared:  0.8562 
+F-statistic: 66.51 on 1 and 10 DF,  p-value: 9.944e-06</code></pre>
+</div>
+</div>
+<p>Le modèle ajusté est <span class="math display">\[
+\hat{y}=142.20-12.48x,
+\]</span> où le modèle est estimé avec les BLUE. Le tableau d’analyse de variance est obtenu avec R :</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit1) </span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: bact
+          Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+min        1 22268.8 22268.8  66.512 9.944e-06 ***
+Residuals 10  3348.1   334.8                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Pour tester la significativité du modèle de régression, on utilise la statistique F. Elle prend un valeur de 66.512 et a 1 et 10 degrés de liberté, ce qui mène à un seuil observé de <span class="math display">\[
+P[F_{(1,10)}&gt;66.512]=9.944\times10^{-6} .
+\]</span> Comme le seuil observé est plus petit que 1 %, le modèle de régression linéaire simple est globalement significatif.</p>
+<p>La valeur du <span class="math inline">\(R^2\)</span> est 0.8693. Cela est un coefficient de détermination élevé, ce qui signifie qu’environ 87 % de la variation dans le nombre de bactéries dans la nourriture en cannes est expliquée par les minutes d’exposition à plus de <span class="math inline">\(300^{o}\)</span>F. Ce modèle semble bien performé.</p>
+<p>Le diagramme quantile-quantile des résidus studentiszés est présenté à la figure <a href="#fig-simple-bact2" class="quarto-xref"><span>2.14</span></a>. La ligne représente le moment où les quantiles empiriques sont égaux aux quantiles normaux standards. Le postulat de normalité est sérieusement violé parce que les points ne font clairement pas une ligne droite. Cela signifie qu’il y a de nombreux problèmes dans le modèle, incluant le fait que les tests d’hypothèse ne seront pas vrais.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-simple-bact2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simple-bact2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="simple_files/figure-html/fig-simple-bact2-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simple-bact2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.14: Diagramme quantile-quantile pour la régression linéaire simple.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-simple-bact3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simple-bact3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="simple_files/figure-html/fig-simple-bact3-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simple-bact3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.15: Résidus en fonction des valeurs ajustées pour le modèle de régression linéaire simple.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>La figure <a href="#fig-simple-bact3" class="quarto-xref"><span>2.15</span></a> montre le nuage de points des résidus studentisés en fonction des valeurs ajustées. Le nuage de points suggère une courbe, ce qui est un indicateur de non-linéarité. Cela rejoint les commentaires précédents.</p>
+<p>Finalement, le modèle n’est pas adéquat et la variable réponse doit être transformée.</p>
+<p><strong>c)</strong> On utilise la méthode Box-Cox pour déterminer la transformation optimale. La figure suivante montre le graphique de la log-vraisemblance en fonction de <span class="math inline">\(\lambda\)</span> pour deux différents intervalles :</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxcox</span>(bact<span class="sc">~</span>min, <span class="at">lambda =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="at">len =</span> <span class="dv">20</span>), <span class="at">plotit =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxcox</span>(bact<span class="sc">~</span>min, <span class="at">lambda =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="at">len =</span> <span class="dv">20</span>), <span class="at">plotit =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'MASS' was built under R version 4.5.3</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-simple-bact4-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simple-bact4-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="simple_files/figure-html/fig-simple-bact4-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simple-bact4-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.16: Log-vraisemblance en fonction du paramètre pour la méthode Box-Cox
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div id="fig-simple-bact4-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simple-bact4-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="simple_files/figure-html/fig-simple-bact4-2.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simple-bact4-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.17: Log-vraisemblance en fonction du paramètre pour la méthode Box-Cox
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Le maximum est autour de 0.1 et 0, inclus dans l’intervalle de confiance à 95 % pour <span class="math inline">\(\lambda\)</span>. Ainsi, il est préférable d’utilise 0 comme une transformation commune (logarithmique). Posons <span class="math inline">\(y^{*}=\ln(y)\)</span>. Le modèle de régression linéaire simple est ajusté aux données transformées. On obtient :</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>logbact <span class="ot">&lt;-</span> <span class="fu">log</span>(bact)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(logbact<span class="sc">~</span>min)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = logbact ~ min)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.184303 -0.083994  0.001453  0.072825  0.206246 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  5.33878    0.07409   72.05 6.47e-15 ***
+min         -0.23617    0.01007  -23.46 4.49e-10 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.1204 on 10 degrees of freedom
+Multiple R-squared:  0.9822,    Adjusted R-squared:  0.9804 
+F-statistic: 550.3 on 1 and 10 DF,  p-value: 4.489e-10</code></pre>
+</div>
+</div>
+<p>Le modèle ajusté est <span class="math display">\[
+\hat{y}^{*}=5.33878-0.23617x,
+\]</span> où les paramètres du modèle sont estimés avec les BLUE. La figure <a href="#fig-simple-bact5" class="quarto-xref"><span>2.18</span></a> est un nuage de points de la variable réponse transformée en fonction de la variable explicative. La relation est beaucoup plus linéaire.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-simple-bact5" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simple-bact5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="simple_files/figure-html/fig-simple-bact5-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simple-bact5-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.18: Nuage de points du logarithme du nombre de bactéries en fonction de temps d’exposition.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Le tableau d’analyse de variance est obtenu avec</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit2)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: logbact
+          Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+min        1 7.9761  7.9761  550.33 4.489e-10 ***
+Residuals 10 0.1449  0.0145                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>La statistique F pour la validité globale de la régression est 550.33 et il y a 1 et 10 degrés de liberté. Le seuil observé est donc</p>
+<p><span class="math display">\[
+P[F_{(1,10)}&gt;550.33]= 4.489\times10^{-10}.
+\]</span> Comme le seuil observé est beaucoup plus petit que 1 %, il y a assez de preuves pour rejeter l’hypothèse nulle selon laquelle <span class="math inline">\(\beta_{1}=0\)</span> au niveau 1%. Le modèle est siginificatif globalement.</p>
+<p>La valeur de <span class="math inline">\(R^2\)</span> est très élevée à 0.9822. Cela signifie que 98 % de la variance dans le logarithme du nombre de bactéries est expliquée par le temps d’exposition à la haute température. Le modèle semble bien performer contrairement à avant.</p>
+<p>Le diagramme quantile-quantile des résidus standardizés est à la figure <a href="#fig-simple-bact6" class="quarto-xref"><span>2.19</span></a>. Les points sont bien alignés avec les quantiles normaux et le postulat de normalité semble approprié.</p>
+<p>La figure <a href="#fig-simple-bact7" class="quarto-xref"><span>2.20</span></a> montre un nuage de points des résidus studentizés en fonction des valeurs ajustées. Les points sont contenus dans des bandes horizontales et semblent uniformément distribués.</p>
+<p>Finalement, le modèle est adéquat et la transformation de la variable réponse a réglé les problèmes.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-simple-bact6" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simple-bact6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="simple_files/figure-html/fig-simple-bact6-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simple-bact6-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.19: Diagramme quantile-quantile pour le logarithme du nombre de bactéries
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-simple-bact7" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-simple-bact7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="simple_files/figure-html/fig-simple-bact7-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-simple-bact7-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.20: Résidus en fonction des valeurs ajustées pour le logarithme du nombre de bactéries
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copié");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copié");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../index.html" class="pagination-link" aria-label="Introduction">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../chapitres/multiple.html" class="pagination-link" aria-label="Régression linéaire multiple">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Régression linéaire multiple</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
