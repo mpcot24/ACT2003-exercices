@@ -26,9 +26,9 @@ pred.pi <- predict(fit, newdata = data.frame(poids = 1350, cylindree = 1.8),
 
 ::: {.callout-note collapse="true" title="Éléments de réponse"}
 
-**a)** $R^2 = `r format(signif(R2, 4), dec = ",")`$ et $F = `r format(signif(f, 4), dec = ",")`$
+**b)** $R^2 = `r format(signif(R2, 4), dec = ",")`$ et $F = `r format(signif(f, 4), dec = ",")`$
 
-**b)** $`r format(signif(pred.pi[1], 4), dec = ",")` \pm `r format(signif(diff(pred.pi[c(1, 3)]), 3), dec = ",")`$
+**c)** $`r format(signif(pred.pi[1], 4), dec = ",")` \pm `r format(signif(diff(pred.pi[c(1, 3)]), 3), dec = ",")`$
 :::
 
 ::: {.callout-tip collapse="true" title="Solution complète"}

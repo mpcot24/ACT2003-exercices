@@ -56,13 +56,24 @@ $$
 \begin{aligned} \SST &= \sum_{i=1}^n Y_i^2 - n \bar{Y}^2 \\ &= 1194 - 11 (9,273)^2 \\ &= 248,18 \\ \SSR &= \hat{\beta}_1^2 \left( \sum_{i=1}^n x_i^2 - n \bar{x}^2 \right) \\ &= (1,436)^2 (110 - 11 (0)) \\ &= 226,95 \end{aligned}
 $$ et $\SSE = \SST - \SSR = 21,23$. Le tableau d'analyse de variance est donc le suivant : 
 
-\begin{center} 
-\begin{tabular}{lrrrc} \toprule 
-Source & \multicolumn{1}{c}{SS} & \multicolumn{1}{c}{d.l.} & \multicolumn{1}{c}{MS} & Ratio F \\ \midrule Régression & 226,95 &   1  & 226,95 & 96,21 \\ 
-Erreur     &  21,23 &   9  &   2,36 &  \\ \midrule 
-Total      & 248,18 &  10  &        & \\ \bottomrule 
-\end{tabular} 
-\end{center} 
+```{r}
+#| echo: false
+
+
+anova_tab <- data.frame(
+  Source = c("Régression", "Erreur", "Total"),
+  SS = c("226,95", "21,23", "248,18"),
+  `d.l.` = c("1", "9", "10"),
+  MS = c("226,95", "2,36", ""),
+  `Ratio F` = c("96,21", "", "")
+)
+
+kable(
+  anova_tab,
+  align = c("l", "r", "r", "r", "c")
+)
+
+```
 
 Or, puisque $t = \sqrt{F} = 9,809 > t_{\alpha/2}(n-2) = t_{0,025}(9) = 2,26$, on rejette l'hypothèse $H_0: \beta_1 = 0$ soit, autrement dit, la pente est significativement différente de zéro.
 

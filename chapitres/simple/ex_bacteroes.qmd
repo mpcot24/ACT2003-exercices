@@ -98,7 +98,7 @@ La figure [-@fig-simple-bact3] montre le nuage de points des résidus studentis�
 Finalement, le modèle n'est pas adéquat et la variable réponse doit être transformée.
 
 
-**c)** On utilise la méthode Box-Cox pour déterminer la transformation optimale. La figure [-@fig-simple-bact4] montre le graphique de la log-vraisemblance en fonction de $\lambda$ pour deux différents intervalles :
+**c)** On utilise la méthode Box-Cox pour déterminer la transformation optimale. La figure suivante montre le graphique de la log-vraisemblance en fonction de $\lambda$ pour deux différents intervalles :
 
 ```{r}
 #| eval: false

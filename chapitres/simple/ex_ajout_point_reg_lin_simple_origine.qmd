@@ -82,7 +82,7 @@ $$
     Interprétation : en ajoutant un point bien spécifique à n'importe
     quel ensemble de données, on peut s'assurer que la pente de la
     droite de régression sera la même que celle d'un modèle passant
-    par l'origine. Voir la figure [-@fig-ajout-point] pour
+    par l'origine. Voir les figures suivantes pour
     une illustration du phénomène.
     
 ```{r}

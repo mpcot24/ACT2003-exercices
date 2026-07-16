@@ -13,7 +13,7 @@ On note $\bar{Y}_F$ la moyenne des durées de vie des femmes et $\bar{Y}_H$ la m
 
 **a)** Montrer que l'estimateur des moindres carrés $\hat{\beta}_1$ (lié à la variable explicative $x$) est égal à $\bar{Y}_F-\bar{Y}_H$. 
 
-*Indice* : On peut exprimer $\bar{Y*}$ en termes de $\bar{Y}_F$ et $\bar{Y}_H$.
+*Indice* : On peut exprimer $\bar{Y}$ en termes de $\bar{Y}_F$ et $\bar{Y}_H$.
 
 **b)** Ce résultat permet-il d'interpréter le coefficient relié à une variable catégorique binaire? Expliquer.
 

@@ -1,7 +1,7 @@
 ## Petit jeu de données pour une régression linéaire simple {#sec-simple-10points_reglinsimple}
 
 Considérer les données suivantes et le modèle de régression
-  linéaire $Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$:
+  linéaire $Y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$ :
 
 ```{r}
 #| echo: false 

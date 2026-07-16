@@ -27,9 +27,9 @@ ss <- anova(fit)[[2]]
 
 **a)**  $\hat{\beta}_0 = `r round(b[1], 4)`$ et $\hat{\beta}_1 = `r round(b[2], 4)`$
 
-**b)** $R^2 = `r round(summary(fit)$r.squared, 4)`$
+**d)** $R^2 = `r round(summary(fit)$r.squared, 4)`$
 
-**c)**  $\SSR = `r round(ss[1], 2)`$ $\SSE = `r round(ss[2], 2)`$ et $\SST = `r round(sum(ss), 2)`$
+**e)**  $\SSR = `r round(ss[1], 2)`$ $\SSE = `r round(ss[2], 2)`$ et $\SST = `r round(sum(ss), 2)`$
 :::
 
 ::: {.callout-tip collapse="true" title="Solution complète"}

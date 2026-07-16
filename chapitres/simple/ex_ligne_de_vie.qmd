@@ -6,7 +6,7 @@ Y a-t-il une relation entre l'espérance de vie et la longueur de la
   dévoilent les 50 observations contenues dans le fichier
   `lifeline.dat`. À la lumière de ces données, y a-t-il, selon
   vous, une relation entre la «ligne de vie» et l'espérance de vie?
-  Vous pouvez utiliser l'information partielle suivante:
+  Vous pouvez utiliser l'information partielle suivante :
 
 $$
 \begin{aligned}

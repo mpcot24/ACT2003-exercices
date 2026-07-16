@@ -37,9 +37,9 @@ pred.pi <- predict(fit, newdata = data.frame(poids = 1350), interval = "predicti
 ::: {.callout-note collapse="true" title="Éléments de réponse"}
 \stepcounter{enumi}
 
-**a)** $R^2 = `r round(R2, 4)`$ et $F = `r round(f, 4)`$
+**b)** $R^2 = `r round(R2, 4)`$ et $F = `r round(f, 4)`$
 
-**b)** $`r round(pred.pi[1], 4)`  \pm `r round(diff(pred.pi[c(1, 3)]), 3)`$
+**c)** $`r round(pred.pi[1], 4)`  \pm `r round(diff(pred.pi[c(1, 3)]), 3)`$
 :::
 
 ::: {.callout-tip collapse="true" title="Solution complète"}

@@ -51,11 +51,11 @@ pred <- round(pred, 2)
 ::: {.callout-note collapse="true" title="Éléments de réponse"}
 \stepcounter{enumi}
 
-**a)** 
+**b)** 
 
 $\text{mpg} = `r format(b[1], dec = ",")` `r format(b[2], dec = ",")` \text{ age} `r format(b[3], dec = ",")` \text{ sexe}$
 
-**b)** 
+**c)** 
 
 $`r format(pred[1], dec = ",")` \pm `r format(diff(pred[c(1, 3)]), dec = ",")` \text{ mpg}$
 :::
